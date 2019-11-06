@@ -7,6 +7,17 @@
     "build": "webpack --mode production",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{ts,tsx,js,jsx}": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
   "keywords": [],
   "author": "Nina Weber <n.weber@marathon-berlin.de>",
   "license": "MIT",
@@ -19,9 +30,18 @@
     "@babel/preset-typescript": "^7.7.0",
     "@types/react": "^16.9.11",
     "@types/react-dom": "^16.9.3",
+    "@typescript-eslint/eslint-plugin": "^2.6.1",
+    "@typescript-eslint/parser": "^2.6.1",
     "babel-loader": "^8.0.6",
     "css-loader": "^3.2.0",
+    "eslint": "^6.6.0",
+    "eslint-config-prettier": "^6.5.0",
+    "eslint-plugin-prettier": "^3.1.1",
+    "eslint-plugin-react": "^7.16.0",
     "html-webpack-plugin": "^3.2.0",
+    "husky": "^3.0.9",
+    "lint-staged": "^9.4.2",
+    "prettier": "^1.18.2",
     "style-loader": "^1.0.0",
     "typescript": "^3.7.2",
     "webpack": "^4.41.2",
