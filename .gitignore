@@ -15,3 +15,7 @@ npm-debug.log*
 # TSC generated files
 src/**/*.js
 src/**/*.jsx
+
+# intellij
+.idea/
+webapp.iml
