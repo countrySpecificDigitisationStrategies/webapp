@@ -1,10 +1,9 @@
 import React from 'react';
 import '../styles/home.css';
 import Fab from '@material-ui/core/Fab';
-import Login from './Login';
-const Link = require('react-router-dom').Link;
+import { Link } from 'react-router-dom';
 
-export default function Home() {
+export default function Home(): JSX.Element {
     return (
         <div className="homePage">
             <div>

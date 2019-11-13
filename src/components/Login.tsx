@@ -1,24 +1,30 @@
 import React from 'react';
 import '../styles/login.css';
 import { TextField } from '@material-ui/core';
-import { AppBar, Toolbar, IconButton, Typography, Fab, MenuList, MenuItem } from '@material-ui/core/';
+import {
+    AppBar,
+    Toolbar,
+    IconButton,
+    Typography,
+    // Fab
+} from '@material-ui/core/';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 
-export default function Login() {
-    let passwordRef = '';
-    let userNameRef = '';
+export default function Login(): JSX.Element {
+    // let passwordRef = '';
+    // let userNameRef = '';
 
-    const handleSubmit = event => {
-        event.preventDefault();
-        if (passwordRef.value == undefined || passwordRef.value === '') {
-            alert('To login you need to input your password');
-        } else {
-            alert('Your have logged in as : ' + userNameRef.value);
-            console.log('Given password is: ' + passwordRef.value);
-        }
-    };
+    // const handleSubmit = (event: Event): void => {
+    //     event.preventDefault();
+    //     if (passwordRef.value == undefined || passwordRef.value === '') {
+    //         alert('To login you need to input your password');
+    //     } else {
+    //         alert('Your have logged in as : ' + userNameRef.value);
+    //         console.log('Given password is: ' + passwordRef.value);
+    //     }
+    // };
 
     return (
         <div className="loginPage">
@@ -57,7 +63,7 @@ export default function Login() {
             <div className="loginForm">
                 <form>
                     <TextField
-                        inputRef={input => (userNameRef = input)}
+                        inputRef={(input): void => (userNameRef = input)}
                         id="username"
                         className="username"
                         label="Username"
@@ -67,7 +73,7 @@ export default function Login() {
                     <br />
 
                     <TextField
-                        inputRef={input => (passwordRef = input)}
+                        inputRef={(input): void => (passwordRef = input)}
                         id="password"
                         className="password"
                         label="Password"
@@ -76,10 +82,10 @@ export default function Login() {
                     />
                     <br />
 
-                    <Fab
-                        type="submit"
-                        variant="extended"
-                        size="large"
+                    {/* <Fab
+                        type='submit'
+                        variant='extended'
+                        size='large'
                         style={{
                             borderRadius: 35,
                             backgroundColor: '#F2994A',
@@ -90,7 +96,7 @@ export default function Login() {
                         onClick={handleSubmit}
                     >
                         LOGIN
-                    </Fab>
+                    </Fab> */}
                 </form>
             </div>
         </div>

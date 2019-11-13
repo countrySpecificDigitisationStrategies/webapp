@@ -1,18 +1,17 @@
 
 .homeImage{
-    position: absolute; 
-     width: 100%;
-     height: auto;
-     top:0%;
-     left:0%;
-
+    position: absolute;
+    width: 100%;
+    height: auto;
+    top:0%;
+    left:0%;
 }
 
 
 .homeHeader {
-    position: absolute; 
-    top: 30%; 
-    left: 57%; 
+    position: absolute;
+    top: 30%;
+    left: 57%;
     font-family: Roboto;
     font-style: normal;
     font-weight: 500;
@@ -21,14 +20,12 @@
     text-align: center;
     letter-spacing: 0.75px;
     color: #000000;
-
-   
 }
 
 .homeParagraph {
-    position: absolute; 
-    top: 37%; 
-    left: 58%; 
+    position: absolute;
+    top: 37%;
+    left: 58%;
     font-family: Roboto;
     font-style: normal;
     font-weight: 500;
@@ -40,8 +37,8 @@
 }
 
 .joinButton{
-    position: absolute; 
-    top: 43%; 
+    position: absolute;
+    top: 43%;
     left: 72%;
 }
 
