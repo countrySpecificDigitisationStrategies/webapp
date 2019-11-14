@@ -1,9 +1,9 @@
-import React from 'react';
+import React from 'react'
 
 export default function SignUp(): JSX.Element {
-    return (
-        <div>
-            <h1>Hello World!</h1>
-        </div>
-    );
+  return (
+    <div>
+      <h1>Hello World!</h1>
+    </div>
+  )
 }
