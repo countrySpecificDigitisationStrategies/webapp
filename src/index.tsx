@@ -1,32 +1,27 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './components/App';
-import Home from './components/Home';
-import Login from './components/Login';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { BrowserRouter, Route } from 'react-router-dom'
+import { Provider } from 'react-redux'
+import { createStore } from 'redux'
+import { MuiThemeProvider } from '@material-ui/core'
 
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import rootReducer from './store/reducers';
+import { Home, Login, SignUp } from './pages'
+import rootReducer from './store/reducers'
+import theme from './theme'
+import './styles/index.styl'
 
-const BrowserRouter = require('react-router-dom').BrowserRouter;
-const Route = require('react-router-dom').Route;
-
-const reduxDevTools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
-const store = createStore(rootReducer, reduxDevTools);
+const reduxDevTools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+const store = createStore(rootReducer, reduxDevTools)
 const provider = (
+  <MuiThemeProvider theme={theme}>
     <Provider store={store}>
-        <App />
+      <BrowserRouter>
+        <Route exact path="/" component={Home} />
+        <Route path="/login" component={Login} />
+        <Route path="/signup" component={SignUp} />
+      </BrowserRouter>
     </Provider>
-);
+  </MuiThemeProvider>
+)
 
-const routing = (
-    <BrowserRouter>
-        <div>
-            <Route exact path="/" component={App} />
-            <Route path="/home" component={Home} />
-            <Route path="/login" component={Login} />
-        </div>
-    </BrowserRouter>
-);
-
-ReactDOM.render(routing, document.getElementById('app'));
+ReactDOM.render(provider, document.getElementById('app'))
