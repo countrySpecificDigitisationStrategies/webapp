@@ -4,7 +4,7 @@ import { NavBar } from '../components'
 export default function Login(): JSX.Element {
   return (
     <>
-      <NavBar></NavBar>
+      <NavBar />
       <h1>Login!</h1>
     </>
   )
