@@ -14,7 +14,7 @@ import theme from './theme'
 import './styles/index.styl'
 
 import { NavBar } from './components'
-import { Home, Login, RegistrationForm } from './pages'
+import { Home, LoginForm, RegistrationForm } from './pages'
 
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)))
 
@@ -24,8 +24,8 @@ const provider = (
       <BrowserRouter>
         <NavBar />
         <Route exact path="/" component={Home} />
-        <Route path="/login" component={Login} />
-        <Route path="/signup" component={RegistrationForm} />
+        <Route path="/login" component={LoginForm} />
+        <Route path="/register" component={RegistrationForm} />
       </BrowserRouter>
     </Provider>
   </MuiThemeProvider>

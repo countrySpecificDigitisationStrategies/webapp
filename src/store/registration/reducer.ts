@@ -1,11 +1,4 @@
-import {
-  // LOGIN_REQUEST,
-  // LOGIN_SUCCESS,
-  // LOGIN_ERROR,
-  REGISTRATION_REQUEST,
-  REGISTRATION_SUCCESS,
-  REGISTRATION_ERROR,
-} from './actions'
+import { REGISTRATION_REQUEST, REGISTRATION_SUCCESS, REGISTRATION_ERROR } from './actions'
 
 const initialState = {
   isLoading: false,
@@ -13,7 +6,7 @@ const initialState = {
   error: null,
 }
 
-export const accountReducer = (state: object = initialState, action: string): object => {
+export const registration = (state: object = initialState, action: string): object => {
   switch (action.type) {
     case REGISTRATION_REQUEST:
       return {

@@ -2,17 +2,17 @@ import React, { useState } from 'react'
 import { TextField, Button, Typography, CircularProgress } from '@material-ui/core'
 
 import { connect } from 'react-redux'
-import { UserData } from '../store/types'
-import { registrationRequest } from '../store/registration/actions'
+import { UserCredentials, UserData } from '../store/types'
+import { loginRequest } from '../store/authentication/actions'
 
-type RegistrationFormProps = {
+type LoginFormProps = {
   loading: boolean
   error: object
-  success: object
+  success: UserData
   requestRegistration: (UserData) => void
 }
 
-const RegistrationForm = ({ loading, error, success, requestRegistration }: RegistrationFormProps): JSX.Element => {
+const LoginForm = ({ loading, error, success, requestLogin }: RegistrationFormProps): JSX.Element => {
   if (loading) {
     return <CircularProgress />
   }
@@ -32,7 +32,6 @@ const RegistrationForm = ({ loading, error, success, requestRegistration }: Regi
     )
   }
 
-  const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
@@ -43,8 +42,7 @@ const RegistrationForm = ({ loading, error, success, requestRegistration }: Regi
   const handleSubmit = (e: Event): void => {
     e.preventDefault()
     console.log('submit', name, email, password)
-    requestRegistration({
-      name,
+    requestLogin({
       email,
       password,
     })
@@ -53,17 +51,16 @@ const RegistrationForm = ({ loading, error, success, requestRegistration }: Regi
   return (
     <div className="form__container">
       <form>
-        <TextField label="Username" value={name} onChange={handleChange.bind(this, setName)} />
         <TextField label="E-Mail" type="email" value={email} onChange={handleChange.bind(this, setEmail)} />
         <TextField
           label="Password"
           type="password"
-          autoComplete="new-password"
+          autoComplete="current-password"
           value={password}
           onChange={handleChange.bind(this, setPassword)}
         />
         <Button type="submit" onClick={handleSubmit}>
-          Sign Up
+          Login
         </Button>
       </form>
     </div>
@@ -71,15 +68,15 @@ const RegistrationForm = ({ loading, error, success, requestRegistration }: Regi
 }
 
 const mapStateToProps = (state: object): StoreDisplayProps => ({
-  loading: state.registration.isLoading,
-  error: state.registration.error,
-  success: state.registration.isSuccess,
+  loading: state.authentication.isLoading,
+  error: state.authentication.error,
+  success: state.authentication.token,
 })
 
 const mapDispatchToProps = (dispatch): StoreDisplayProps => {
   return {
-    requestRegistration: (userData: UserData): void => {
-      dispatch(registrationRequest(userData))
+    requestLogin: (credentials: UserCredentials): void => {
+      dispatch(loginRequest(credentials))
     },
   }
 }
@@ -87,4 +84,4 @@ const mapDispatchToProps = (dispatch): StoreDisplayProps => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(RegistrationForm)
+)(LoginForm)

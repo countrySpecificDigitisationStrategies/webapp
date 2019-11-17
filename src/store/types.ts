@@ -6,3 +6,5 @@ export interface UserCredentials {
 export interface UserData extends UserCredentials {
   username: string
 }
+
+export type AuthToken = string

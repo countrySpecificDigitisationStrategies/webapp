@@ -18,7 +18,7 @@ export default function NavBar(): JSX.Element {
         <Button component={Link} to="/login" color="inherit">
           Login
         </Button>
-        <Button component={Link} to="/signup" color="secondary" variant="outlined">
+        <Button component={Link} to="/register" color="secondary" variant="outlined">
           Sign Up
         </Button>
       </Toolbar>
