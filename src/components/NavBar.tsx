@@ -1,9 +1,16 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 import { AppBar, Toolbar, Typography, Button, IconButton } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu'
+import { logout } from '../store/authentication/actions'
 
-export default function NavBar(): JSX.Element {
+type NavBarProps = {
+  isLoggedIn: boolean
+  logout: () => void
+}
+
+function NavBar({ isLoggedIn, logout }: NavBarProps): JSX.Element {
   return (
     <AppBar className="NavBar" position="static" color="primary">
       <Toolbar>
@@ -15,13 +22,38 @@ export default function NavBar(): JSX.Element {
           Digitisation Strategies
         </Typography>
 
-        <Button component={Link} to="/login" color="inherit">
-          Login
-        </Button>
-        <Button component={Link} to="/register" color="secondary" variant="outlined">
-          Sign Up
-        </Button>
+        {isLoggedIn ? (
+          <Button onClick={logout} color="inherit">
+            Logout
+          </Button>
+        ) : (
+          <>
+            <Button component={Link} to="/login" color="inherit">
+              Login
+            </Button>
+            <Button component={Link} to="/register" color="secondary" variant="outlined">
+              Register
+            </Button>
+          </>
+        )}
       </Toolbar>
     </AppBar>
   )
 }
+
+const mapStateToProps = (state: object): NavBarProps => ({
+  isLoggedIn: state.authentication.token !== null,
+})
+
+const mapDispatchToProps = (dispatch): NavBarProps => {
+  return {
+    logout: (): void => {
+      dispatch(logout())
+    },
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(NavBar)

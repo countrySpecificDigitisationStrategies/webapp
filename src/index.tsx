@@ -3,10 +3,7 @@ import ReactDOM from 'react-dom'
 import { BrowserRouter, Route } from 'react-router-dom'
 
 import { Provider } from 'react-redux'
-import { createStore, applyMiddleware } from 'redux'
-import { composeWithDevTools } from 'redux-devtools-extension'
-import thunk from 'redux-thunk'
-import rootReducer from './store/reducers'
+import store from './store'
 
 import { MuiThemeProvider } from '@material-ui/core'
 
@@ -15,8 +12,6 @@ import './styles/index.styl'
 
 import { NavBar } from './components'
 import { Home, LoginForm, RegistrationForm } from './pages'
-
-const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)))
 
 const provider = (
   <MuiThemeProvider theme={theme}>

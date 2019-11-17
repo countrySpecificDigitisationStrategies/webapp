@@ -1,4 +1,4 @@
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_ERROR } from './actions'
+import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_ERROR, LOGIN_CLEAR } from './actions'
 
 const initialState = {
   isLoading: false,
@@ -26,6 +26,12 @@ export const authentication = (state: object = initialState, action: string): ob
         isLoading: false,
         token: null,
         error: action.error,
+      }
+    case LOGIN_CLEAR:
+      return {
+        isLoading: false,
+        token: null,
+        error: null,
       }
     default:
       return state

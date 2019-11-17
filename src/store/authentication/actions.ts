@@ -4,6 +4,7 @@ import { ApiError, Endpoint, post } from '../api'
 export const LOGIN_REQUEST = 'LOGIN_REQUEST'
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 export const LOGIN_ERROR = 'LOGIN_ERROR'
+export const LOGIN_CLEAR = 'LOGIN_CLEAR'
 
 interface LoginRequest {
   type: typeof LOGIN_REQUEST
@@ -34,4 +35,7 @@ export const loginSuccess = ({ token }: { token: AuthToken }): LoginSuccess => (
 export const loginError = (error: ApiError): LoginError => ({
   type: LOGIN_ERROR,
   error,
+})
+export const logout = () => ({
+  type: LOGIN_CLEAR, //TODO: send logout to api to invalidate token (/users/logout)
 })
