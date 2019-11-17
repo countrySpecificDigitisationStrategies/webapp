@@ -6,7 +6,7 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended',
   ],
-  plugins: ["prettier"],
+  plugins: ['prettier'],
   parserOptions:  {
     ecmaVersion:  2018,
     sourceType:  'module',
@@ -23,6 +23,13 @@ module.exports = {
     },
   },
   rules: {
-    'react/self-closing-comp': 'warn'
+    'react/self-closing-comp': 'warn',
+    '@typescript-eslint/explicit-function-return-type': 'off',
+    '@typescript-eslint/no-use-before-define': 'off',
+    '@typescript-eslint/member-delimiter-style': ['error', {
+      multiline: {
+        delimiter: 'none',
+      },
+    }]
   }
 };
