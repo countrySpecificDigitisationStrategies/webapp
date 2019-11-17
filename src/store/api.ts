@@ -1,5 +1,9 @@
+import { AuthToken } from './types'
+
 const baseUrl = 'http://206.189.251.20:8000/api/'
 const version = 'v1/'
+
+const AUTH_TOKEN_STORAGE_KEY = 'token'
 
 export enum Endpoint {
   register = 'auth/register',
@@ -58,15 +62,35 @@ const fetchFromApi = async (url, method: HttpMethod, data?: object): Promise => 
 }
 
 const getFetchOptions = (method: HttpMethod, data?: object): object => {
-  let fetchOptions = { method }
+  let fetchOptions = {
+    method,
+    headers: {},
+  }
+
+  const authToken = getAuthToken()
+  if (authToken) {
+    fetchOptions.headers = {
+      ...fetchOptions.headers,
+      Authorization: authToken,
+    }
+  }
+
   if (data) {
     fetchOptions = {
       ...fetchOptions,
       headers: {
+        ...fetchOptions.headers,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(data),
     }
   }
+
   return fetchOptions
 }
+
+export const setAuthToken = (token: AuthToken): void => {
+  window.localStorage.setItem(AUTH_TOKEN_STORAGE_KEY, token)
+}
+
+const getAuthToken = (): AuthToken => window.localStorage.getItem(AUTH_TOKEN_STORAGE_KEY)
