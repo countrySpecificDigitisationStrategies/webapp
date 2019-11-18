@@ -1,4 +1,4 @@
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_ERROR, LOGIN_CLEAR } from './actions'
+import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_ERROR, LOGOUT_REQUEST, LOGOUT_ERROR, LOGOUT_SUCCESS } from './actions'
 
 const initialState = {
   isLoading: false,
@@ -9,6 +9,7 @@ const initialState = {
 export const authentication = (state: object = initialState, action: string): object => {
   switch (action.type) {
     case LOGIN_REQUEST:
+    case LOGOUT_REQUEST:
       return {
         ...state,
         isLoading: true,
@@ -17,21 +18,27 @@ export const authentication = (state: object = initialState, action: string): ob
       return {
         ...state,
         isLoading: false,
-        token: action.token,
+        isLoggedIn: true,
         error: null,
       }
     case LOGIN_ERROR:
       return {
         ...state,
         isLoading: false,
-        token: null,
         error: action.error,
       }
-    case LOGIN_CLEAR:
+    case LOGOUT_SUCCESS:
       return {
+        ...state,
         isLoading: false,
-        token: null,
+        isLoggedIn: false,
         error: null,
+      }
+    case LOGOUT_ERROR:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.error,
       }
     default:
       return state

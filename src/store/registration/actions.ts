@@ -1,5 +1,6 @@
 import { UserData } from '../types'
 import { ApiError, Endpoint, post } from '../api'
+import { registerRequestAction } from '../middleware'
 
 export const REGISTRATION_REQUEST = 'REGISTRATION_REQUEST'
 export const REGISTRATION_SUCCESS = 'REGISTRATION_SUCCESS'
@@ -17,15 +18,20 @@ interface RegistrationError {
   payload: Error
 }
 
-/** SIGN-UP ACTIONS **/
-export const registrationRequest = (userCredentials): RegistrationRequest => async dispatch => {
-  try {
-    const response = await post(Endpoint.register, userCredentials)
-    dispatch(registrationSuccess(response))
-  } catch (e) {
-    dispatch(registrationError(e))
-  }
-}
+/** Registration Actions */
+export const registrationRequest = (() => {
+  const type = REGISTRATION_REQUEST
+  registerRequestAction({
+    type,
+    request: action => post(Endpoint.register, action.user),
+    onSuccess: (data, dispatch) => dispatch(registrationSuccess()),
+    onError: (err, dispatch) => dispatch(registrationError(err)),
+  })
+  return (user: UserData): RegistrationRequest => ({
+    type,
+    user,
+  })
+})()
 
 const registrationSuccess = (): RegistrationSuccess => ({
   type: REGISTRATION_SUCCESS,

@@ -1,10 +1,28 @@
-import { LOGIN_SUCCESS } from './authentication/actions'
-import { setAuthToken } from './api'
+import { Action, Dispatch } from 'redux'
 
-export const saveAuthToken = store => next => action => {
-  if (action.type === LOGIN_SUCCESS) {
-    setAuthToken(action.token)
-  }
+interface RequestAction<T> {
+  type: T
+  request: (action: Action<T>) => Promise<object>
+  onSuccess: (data: object, dispatch: Dispatch) => void
+  onError: (error: object, dispatch: Dispatch) => void
+}
 
-  return next(action)
+const registeredActions: Array<RequestAction> = []
+
+/** Register Actions, that should be able to trigger an asynchronous request */
+export const registerRequestAction = (action: RequestAction) => {
+  registeredActions.push(action)
+}
+
+/** Use requestHandler as Middleware to start an asynchronous request, when a registered action was dispatched */
+export const requestHandler = ({ dispatch }) => next => currentAction => {
+  registeredActions.forEach(registeredAction => {
+    if (registeredAction.type === currentAction.type) {
+      registeredAction
+        .request(currentAction)
+        .then(data => registeredAction.onSuccess(data, dispatch))
+        .catch(err => registeredAction.onError(err, dispatch))
+    }
+  })
+  next(currentAction)
 }

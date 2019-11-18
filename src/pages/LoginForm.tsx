@@ -3,7 +3,7 @@ import { TextField, Button, Typography, CircularProgress } from '@material-ui/co
 
 import { connect } from 'react-redux'
 import { UserCredentials, UserData } from '../store/types'
-import { loginRequest } from '../store/authentication/actions'
+import { login } from '../store/authentication/actions'
 
 type LoginFormProps = {
   loading: boolean
@@ -12,7 +12,7 @@ type LoginFormProps = {
   requestRegistration: (UserData) => void
 }
 
-const LoginForm = ({ loading, error, success, requestLogin }: RegistrationFormProps): JSX.Element => {
+const LoginForm = ({ loading, error, success, requestLogin }: LoginFormProps): JSX.Element => {
   if (loading) {
     return <CircularProgress />
   }
@@ -67,16 +67,16 @@ const LoginForm = ({ loading, error, success, requestLogin }: RegistrationFormPr
   )
 }
 
-const mapStateToProps = (state: object): StoreDisplayProps => ({
+const mapStateToProps = (state: object): LoginFormProps => ({
   loading: state.authentication.isLoading,
   error: state.authentication.error,
-  success: state.authentication.token,
+  success: state.authentication.isLoggedIn,
 })
 
-const mapDispatchToProps = (dispatch): StoreDisplayProps => {
+const mapDispatchToProps = (dispatch): LoginFormProps => {
   return {
     requestLogin: (credentials: UserCredentials): void => {
-      dispatch(loginRequest(credentials))
+      dispatch(login(credentials))
     },
   }
 }

@@ -1,9 +1,8 @@
 import { createStore, applyMiddleware } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
-import thunk from 'redux-thunk'
 import rootReducer from './reducers'
-import { saveAuthToken } from './middleware'
+import { requestHandler } from './middleware'
 
-const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(saveAuthToken, thunk)))
+const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(requestHandler)))
 
 export default store

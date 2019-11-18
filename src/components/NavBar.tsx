@@ -42,7 +42,7 @@ function NavBar({ isLoggedIn, logout }: NavBarProps): JSX.Element {
 }
 
 const mapStateToProps = (state: object): NavBarProps => ({
-  isLoggedIn: state.authentication.token !== null,
+  isLoggedIn: state.authentication.isLoggedIn,
 })
 
 const mapDispatchToProps = (dispatch): NavBarProps => {

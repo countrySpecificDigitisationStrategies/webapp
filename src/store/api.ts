@@ -8,6 +8,7 @@ const AUTH_TOKEN_STORAGE_KEY = 'token'
 export enum Endpoint {
   register = 'auth/register',
   login = 'auth/login',
+  logout = 'auth/logout',
 }
 
 enum HttpMethod {
@@ -91,6 +92,10 @@ const getFetchOptions = (method: HttpMethod, data?: object): object => {
 
 export const setAuthToken = (token: AuthToken): void => {
   window.localStorage.setItem(AUTH_TOKEN_STORAGE_KEY, token)
+}
+
+export const removeAuthToken = (): void => {
+  window.localStorage.removeItem(AUTH_TOKEN_STORAGE_KEY)
 }
 
 const getAuthToken = (): AuthToken => window.localStorage.getItem(AUTH_TOKEN_STORAGE_KEY)
