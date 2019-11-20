@@ -1,16 +1,14 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { connect } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { AppBar, Toolbar, Typography, Button, IconButton } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu'
 import { logout } from '../store/authentication/actions'
 
-type NavBarProps = {
-  isLoggedIn: boolean
-  logout: () => void
-}
+const NavBar = (): JSX.Element => {
+  const dispatch = useDispatch()
+  const isLoggedIn = useSelector(state => state.authentication.isLoggedIn)
 
-function NavBar({ isLoggedIn, logout }: NavBarProps): JSX.Element {
   return (
     <AppBar className="NavBar" position="static" color="primary">
       <Toolbar>
@@ -23,7 +21,7 @@ function NavBar({ isLoggedIn, logout }: NavBarProps): JSX.Element {
         </Typography>
 
         {isLoggedIn ? (
-          <Button onClick={logout} color="inherit">
+          <Button onClick={() => dispatch(logout)} color="inherit">
             Logout
           </Button>
         ) : (
@@ -41,19 +39,4 @@ function NavBar({ isLoggedIn, logout }: NavBarProps): JSX.Element {
   )
 }
 
-const mapStateToProps = (state: object): NavBarProps => ({
-  isLoggedIn: state.authentication.isLoggedIn,
-})
-
-const mapDispatchToProps = (dispatch): NavBarProps => {
-  return {
-    logout: (): void => {
-      dispatch(logout())
-    },
-  }
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(NavBar)
+export default NavBar
