@@ -9,7 +9,8 @@ These instructions will get you a copy of the project up and running on your loc
 ### Installing
 
 After downloading this project you will need to run `npm install` once, to install all project dependencies.
-Then you can simply run `npm start` to start a development server locally, which will serve the web app on localhost:8080. 
+Then you will need to add the URL of the API to use in a `.env` file at the root level of the project (see accompanying `.env.dist` for the required format).
+Finally you can simply run `npm start` to start a development server locally, which will serve the web app on `localhost:8080`. 
 
 ### Update dependencies
 To check for dependency updates you are able to run `npm run upgrade-interactive`. 

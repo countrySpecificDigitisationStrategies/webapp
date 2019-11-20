@@ -1,5 +1,5 @@
 import Home from './Home'
-import Login from './Login'
-import SignUp from './SignUp'
+import LoginForm from './LoginForm'
+import RegistrationForm from './RegistrationForm'
 
-export { Home, Login, SignUp }
+export { Home, LoginForm, RegistrationForm }

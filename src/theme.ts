@@ -1,4 +1,5 @@
 import { createMuiTheme } from '@material-ui/core'
+const defaultTheme = createMuiTheme()
 export default createMuiTheme({
   palette: {
     primary: {
@@ -12,6 +13,20 @@ export default createMuiTheme({
       main: '#ffe0b2',
       dark: '#cdae82',
       contrastText: '#000',
+    },
+  },
+  overrides: {
+    MuiTextField: {
+      root: {
+        marginTop: defaultTheme.spacing(1),
+        marginBottom: defaultTheme.spacing(1),
+      },
+    },
+    MuiButton: {
+      root: {
+        marginTop: defaultTheme.spacing(2),
+        marginBottom: defaultTheme.spacing(2),
+      },
     },
   },
 })

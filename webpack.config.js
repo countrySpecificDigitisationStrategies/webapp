@@ -1,6 +1,8 @@
+/*eslint-env node*/
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const Dotenv = require('dotenv-webpack')
 
-module.exports = {
+module.exports = () => ({
   entry: './src/index.tsx',
 
   module: {
@@ -40,5 +42,9 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/index.html',
     }),
+
+    new Dotenv({
+      systemvars: true,
+    }),
   ],
-}
+})

@@ -1,24 +1,26 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter, Route } from 'react-router-dom'
+
 import { Provider } from 'react-redux'
-import { createStore } from 'redux'
+import store from './store'
+
 import { MuiThemeProvider } from '@material-ui/core'
 
-import { Home, Login, SignUp } from './pages'
-import rootReducer from './store/reducers'
 import theme from './theme'
 import './styles/index.styl'
 
-const reduxDevTools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-const store = createStore(rootReducer, reduxDevTools)
+import { NavBar } from './components'
+import { Home, LoginForm, RegistrationForm } from './pages'
+
 const provider = (
   <MuiThemeProvider theme={theme}>
     <Provider store={store}>
       <BrowserRouter>
+        <NavBar />
         <Route exact path="/" component={Home} />
-        <Route path="/login" component={Login} />
-        <Route path="/signup" component={SignUp} />
+        <Route path="/login" component={LoginForm} />
+        <Route path="/register" component={RegistrationForm} />
       </BrowserRouter>
     </Provider>
   </MuiThemeProvider>
