@@ -1,18 +1,19 @@
 import React, { useState } from 'react'
 import { TextField, Button, Typography, CircularProgress } from '@material-ui/core'
 
-import { connect } from 'react-redux'
-import { UserData } from '../store/types'
+import { useDispatch, useSelector } from 'react-redux'
 import { registrationRequest } from '../store/registration/actions'
 
-type RegistrationFormProps = {
-  loading: boolean
-  error: object
-  success: object
-  requestRegistration: (UserData) => void
-}
+const RegistrationForm = (): JSX.Element => {
+  const dispatch = useDispatch()
+  const loading = useSelector(state => state.registration.isLoading)
+  const error = useSelector(state => state.registration.error)
+  const success = useSelector(state => state.registration.isSuccess)
 
-const RegistrationForm = ({ loading, error, success, requestRegistration }: RegistrationFormProps): JSX.Element => {
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
   if (loading) {
     return <CircularProgress />
   }
@@ -32,22 +33,19 @@ const RegistrationForm = ({ loading, error, success, requestRegistration }: Regi
     )
   }
 
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-
   const handleChange = (setNewValueFn: Function, e: Event): void => {
     setNewValueFn(e.target.value)
   }
 
   const handleSubmit = (e: Event): void => {
     e.preventDefault()
-    console.log('submit', name, email, password)
-    requestRegistration({
-      name,
-      email,
-      password,
-    })
+    dispatch(
+      registrationRequest({
+        name,
+        email,
+        password,
+      })
+    )
   }
 
   return (
@@ -70,21 +68,4 @@ const RegistrationForm = ({ loading, error, success, requestRegistration }: Regi
   )
 }
 
-const mapStateToProps = (state: object): StoreDisplayProps => ({
-  loading: state.registration.isLoading,
-  error: state.registration.error,
-  success: state.registration.isSuccess,
-})
-
-const mapDispatchToProps = (dispatch): StoreDisplayProps => {
-  return {
-    requestRegistration: (userData: UserData): void => {
-      dispatch(registrationRequest(userData))
-    },
-  }
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(RegistrationForm)
+export default RegistrationForm

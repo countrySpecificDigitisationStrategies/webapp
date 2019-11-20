@@ -1,18 +1,18 @@
 import React, { useState } from 'react'
 import { TextField, Button, Typography, CircularProgress } from '@material-ui/core'
 
-import { connect } from 'react-redux'
-import { UserCredentials, UserData } from '../store/types'
+import { useDispatch, useSelector } from 'react-redux'
 import { login } from '../store/authentication/actions'
 
-type LoginFormProps = {
-  loading: boolean
-  error: object
-  success: UserData
-  requestRegistration: (UserData) => void
-}
+const LoginForm = (): JSX.Element => {
+  const dispatch = useDispatch()
+  const loading = useSelector(state => state.authentication.isLoading)
+  const error = useSelector(state => state.authentication.error)
+  const success = useSelector(state => state.authentication.isLoggedIn)
 
-const LoginForm = ({ loading, error, success, requestLogin }: LoginFormProps): JSX.Element => {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
   if (loading) {
     return <CircularProgress />
   }
@@ -32,20 +32,13 @@ const LoginForm = ({ loading, error, success, requestLogin }: LoginFormProps): J
     )
   }
 
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-
   const handleChange = (setNewValueFn: Function, e: Event): void => {
     setNewValueFn(e.target.value)
   }
 
   const handleSubmit = (e: Event): void => {
     e.preventDefault()
-    console.log('submit', name, email, password)
-    requestLogin({
-      email,
-      password,
-    })
+    dispatch(login({ email, password }))
   }
 
   return (
@@ -67,21 +60,4 @@ const LoginForm = ({ loading, error, success, requestLogin }: LoginFormProps): J
   )
 }
 
-const mapStateToProps = (state: object): LoginFormProps => ({
-  loading: state.authentication.isLoading,
-  error: state.authentication.error,
-  success: state.authentication.isLoggedIn,
-})
-
-const mapDispatchToProps = (dispatch): LoginFormProps => {
-  return {
-    requestLogin: (credentials: UserCredentials): void => {
-      dispatch(login(credentials))
-    },
-  }
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(LoginForm)
+export default LoginForm
