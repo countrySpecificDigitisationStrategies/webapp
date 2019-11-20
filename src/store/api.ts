@@ -1,6 +1,7 @@
 import { AuthToken } from './types'
 
-const baseUrl = 'http://206.189.251.20:8000/api/'
+// eslint-disable-next-line no-undef
+const baseUrl = process.env.API_URL
 const version = 'v1/'
 
 const AUTH_TOKEN_STORAGE_KEY = 'token'
