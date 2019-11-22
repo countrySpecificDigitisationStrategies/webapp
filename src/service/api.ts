@@ -1,12 +1,10 @@
-import { AuthToken } from './types'
+import { getAuthToken } from './authentication'
+import { ApiError } from './error'
 
 // eslint-disable-next-line no-undef
 const baseUrl = process.env.API_URL
-const version = 'v1/'
 
-const AUTH_TOKEN_STORAGE_KEY = 'token'
-
-export enum Endpoint {
+export enum Endpoints {
   register = 'auth/register',
   login = 'auth/login',
   logout = 'auth/logout',
@@ -19,32 +17,25 @@ enum HttpMethod {
   DELETE = 'DELETE',
 }
 
-export class ApiError extends Error {
-  constructor({ code, name, detail }) {
-    super(detail)
-    this.detail = detail //Human readable error message
-    this.name = name //HTTP Error Response
-    this.code = code //HTTP Error Code
-  }
-}
+type ApiResponse = object | ApiError
 
-export const get = async (endpoint: Endpoint, id?: number): Promise => {
+export const get = async (endpoint: Endpoint, id?: number): Promise<ApiResponse> => {
   return fetchFromApi(buildUrl(endpoint, id), HttpMethod.GET)
 }
 
-export const post = async (endpoint: Endpoint, data: object): Promise => {
+export const post = async (endpoint: Endpoint, data: object): Promise<ApiResponse> => {
   return fetchFromApi(buildUrl(endpoint), HttpMethod.POST, data)
 }
 
 const buildUrl = (endpoint: string, id?: number) => {
-  const url = baseUrl + version + endpoint
+  const url = baseUrl + endpoint
   if (id) {
     return url + '/' + id
   }
   return url
 }
 
-const fetchFromApi = async (url, method: HttpMethod, data?: object): Promise => {
+const fetchFromApi = async (url, method: HttpMethod, data?: object): Promise<ApiResponse> => {
   const response = await fetch(url, getFetchOptions(method, data))
   let content
   try {
@@ -90,13 +81,3 @@ const getFetchOptions = (method: HttpMethod, data?: object): object => {
 
   return fetchOptions
 }
-
-export const setAuthToken = (token: AuthToken): void => {
-  window.localStorage.setItem(AUTH_TOKEN_STORAGE_KEY, token)
-}
-
-export const removeAuthToken = (): void => {
-  window.localStorage.removeItem(AUTH_TOKEN_STORAGE_KEY)
-}
-
-const getAuthToken = (): AuthToken => window.localStorage.getItem(AUTH_TOKEN_STORAGE_KEY)

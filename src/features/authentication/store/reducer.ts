@@ -1,12 +1,21 @@
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_ERROR, LOGOUT_REQUEST, LOGOUT_ERROR, LOGOUT_SUCCESS } from './actions'
+import { AuthState } from './types'
+import {
+  LOGIN_REQUEST,
+  LOGIN_SUCCESS,
+  LOGIN_ERROR,
+  LOGOUT_REQUEST,
+  LOGOUT_ERROR,
+  LOGOUT_SUCCESS,
+  AuthActionTypes,
+} from './actions'
 
-const initialState = {
+const initialState: AuthState = {
   isLoading: false,
-  token: null,
+  isLoggedIn: false,
   error: null,
 }
 
-export const authentication = (state: object = initialState, action: string): object => {
+export const authentication = (state: AuthState = initialState, action: AuthActionTypes): AuthState => {
   switch (action.type) {
     case LOGIN_REQUEST:
     case LOGOUT_REQUEST:

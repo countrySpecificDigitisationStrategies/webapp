@@ -2,13 +2,13 @@ import React, { useState } from 'react'
 import { TextField, Button, Typography, CircularProgress } from '@material-ui/core'
 
 import { useDispatch, useSelector } from 'react-redux'
-import { registrationRequest } from '../store/registration/actions'
+import { getError, isLoading, isSuccess, register } from '../store'
 
 const RegistrationForm = (): JSX.Element => {
   const dispatch = useDispatch()
-  const loading = useSelector(state => state.registration.isLoading)
-  const error = useSelector(state => state.registration.error)
-  const success = useSelector(state => state.registration.isSuccess)
+  const loading = useSelector(isLoading)
+  const error = useSelector(getError)
+  const success = useSelector(isSuccess)
 
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -40,7 +40,7 @@ const RegistrationForm = (): JSX.Element => {
   const handleSubmit = (e: Event): void => {
     e.preventDefault()
     dispatch(
-      registrationRequest({
+      register({
         name,
         email,
         password,

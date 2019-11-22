@@ -2,13 +2,14 @@ import React, { useState } from 'react'
 import { TextField, Button, Typography, CircularProgress } from '@material-ui/core'
 
 import { useDispatch, useSelector } from 'react-redux'
-import { login } from '../store/authentication/actions'
+import { login } from '../store'
+import { getError, isLoading, isLoggedIn } from '../store/selectors'
 
 const LoginForm = (): JSX.Element => {
   const dispatch = useDispatch()
-  const loading = useSelector(state => state.authentication.isLoading)
-  const error = useSelector(state => state.authentication.error)
-  const success = useSelector(state => state.authentication.isLoggedIn)
+  const loading = useSelector(isLoading)
+  const error = useSelector(getError)
+  const success = useSelector(isLoggedIn)
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
