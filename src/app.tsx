@@ -2,14 +2,14 @@ import React from 'react'
 import { BrowserRouter, Route } from 'react-router-dom'
 
 import { Provider } from 'react-redux'
-import { store } from './store'
+import { store } from 'store'
 
 import { MuiThemeProvider } from '@material-ui/core'
-import theme from './theme'
-import './styles/app.styl'
+import theme from 'theme'
+import 'styles/app.styl'
 
-import { Home, Login, Register } from './pages'
-import { NavBar } from './shared/components'
+import { Home, Login, Register } from 'pages'
+import { NavBar } from 'shared/components'
 
 const App = () => {
   return (

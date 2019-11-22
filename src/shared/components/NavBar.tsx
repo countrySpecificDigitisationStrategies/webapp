@@ -1,9 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { AppBar, Toolbar, Typography, Button, IconButton } from '@material-ui/core'
+import { AppBar, Button, IconButton, Toolbar, Typography } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu'
-import { useLoginStatus } from '../hooks'
-import { LogoutButton } from '../../features/authentication'
+import { useLoginStatus } from 'shared/hooks'
+import { LogoutButton } from 'features/authentication'
 
 const NavBar = (): JSX.Element => {
   const isLoggedIn = useLoginStatus()

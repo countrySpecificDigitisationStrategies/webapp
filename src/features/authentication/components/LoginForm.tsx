@@ -2,8 +2,7 @@ import React, { useState } from 'react'
 import { TextField, Button, Typography, CircularProgress } from '@material-ui/core'
 
 import { useDispatch, useSelector } from 'react-redux'
-import { login } from '../store'
-import { getError, isLoading, isLoggedIn } from '../store/selectors'
+import { login, getError, isLoading, isLoggedIn } from '../store'
 
 const LoginForm = (): JSX.Element => {
   const dispatch = useDispatch()

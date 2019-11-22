@@ -1,6 +1,6 @@
 import { UserData } from './types'
-import { ApiError, Endpoints, post } from '../../../service'
-import { registerRequestAction } from '../../../store/middleware'
+import { ApiError, Endpoints, post } from 'service'
+import { registerRequestAction } from 'store/middleware'
 
 export const REGISTRATION_REQUEST = 'REGISTRATION_REQUEST'
 export const REGISTRATION_SUCCESS = 'REGISTRATION_SUCCESS'
@@ -10,9 +10,11 @@ interface RegistrationRequest {
   type: typeof REGISTRATION_REQUEST
   payload: UserData
 }
+
 interface RegistrationSuccess {
   type: typeof REGISTRATION_SUCCESS
 }
+
 interface RegistrationError {
   type: typeof REGISTRATION_ERROR
   payload: Error

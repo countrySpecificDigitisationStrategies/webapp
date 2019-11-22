@@ -1,5 +1,6 @@
-import { Endpoints, post, get } from './api'
-import { ApiError } from './error'
-import { setAuthToken, removeAuthToken, AuthToken } from './authentication'
+export { Endpoints, post, get } from './api'
+export { ApiError } from './error'
+export { setAuthToken, removeAuthToken } from './authentication'
 
-export { Endpoints, post, get, ApiError, setAuthToken, removeAuthToken, AuthToken }
+import { AuthToken as _AuthToken } from './authentication'
+export type AuthToken = _AuthToken

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { TextField, Button, Typography, CircularProgress } from '@material-ui/core'
+import { Button, CircularProgress, TextField, Typography } from '@material-ui/core'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { getError, isLoading, isSuccess, register } from '../store'

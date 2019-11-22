@@ -1,6 +1,6 @@
-import { AuthToken, UserCredentials } from './types'
-import { registerRequestAction } from '../../../store/middleware'
-import { ApiError, Endpoints, post, setAuthToken } from '../../../service'
+import { UserCredentials } from './types'
+import { registerRequestAction } from 'store/middleware'
+import { ApiError, Endpoints, post, setAuthToken, AuthToken } from 'service'
 
 /** Login */
 export const LOGIN_REQUEST = 'LOGIN_REQUEST'
