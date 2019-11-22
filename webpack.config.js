@@ -1,4 +1,7 @@
 /*eslint-env node*/
+/*eslint-disable @typescript-eslint/no-var-requires*/
+
+const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const Dotenv = require('dotenv-webpack')
 
@@ -25,6 +28,7 @@ module.exports = () => ({
 
   resolve: {
     extensions: ['.ts', '.tsx', '.js'],
+    modules: [path.resolve(__dirname, './src'), path.resolve(__dirname, './node_modules')],
   },
 
   output: {
@@ -38,9 +42,12 @@ module.exports = () => ({
     historyApiFallback: true,
   },
 
+  devtool: 'source-map',
+
   plugins: [
     new HtmlWebpackPlugin({
       template: './src/index.html',
+      filename: './index.html',
     }),
 
     new Dotenv({

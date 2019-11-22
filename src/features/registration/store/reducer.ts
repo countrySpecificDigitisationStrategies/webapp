@@ -1,12 +1,16 @@
-import { REGISTRATION_REQUEST, REGISTRATION_SUCCESS, REGISTRATION_ERROR } from './actions'
+import { REGISTRATION_REQUEST, REGISTRATION_SUCCESS, REGISTRATION_ERROR, RegistrationAction } from './actions'
+import { RegistrationState } from './types'
 
-const initialState = {
+const initialState: RegistrationState = {
   isLoading: false,
   isSuccess: false,
   error: null,
 }
 
-export const registration = (state: object = initialState, action: string): object => {
+export const registration = (
+  state: RegistrationState = initialState,
+  action: RegistrationAction
+): RegistrationState => {
   switch (action.type) {
     case REGISTRATION_REQUEST:
       return {

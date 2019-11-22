@@ -1,13 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
-import { AppBar, Toolbar, Typography, Button, IconButton } from '@material-ui/core'
+import { AppBar, Button, IconButton, Toolbar, Typography } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu'
-import { logout } from '../store/authentication/actions'
+import { useLoginStatus } from 'shared/hooks'
+import { LogoutButton } from 'features/authentication'
 
 const NavBar = (): JSX.Element => {
-  const dispatch = useDispatch()
-  const isLoggedIn = useSelector(state => state.authentication.isLoggedIn)
+  const isLoggedIn = useLoginStatus()
 
   return (
     <AppBar className="NavBar" position="static" color="primary">
@@ -21,9 +20,7 @@ const NavBar = (): JSX.Element => {
         </Typography>
 
         {isLoggedIn ? (
-          <Button onClick={() => dispatch(logout)} color="inherit">
-            Logout
-          </Button>
+          <LogoutButton />
         ) : (
           <>
             <Button component={Link} to="/login" color="inherit">

@@ -1,15 +1,16 @@
 import React, { useState } from 'react'
-import { TextField, Button, Typography, CircularProgress } from '@material-ui/core'
+import { Button, CircularProgress, TextField, Typography } from '@material-ui/core'
 
 import { useDispatch, useSelector } from 'react-redux'
-import { login } from '../store/authentication/actions'
+import { getError, isLoading, isSuccess, register } from '../store'
 
-const LoginForm = (): JSX.Element => {
+const RegistrationForm = (): JSX.Element => {
   const dispatch = useDispatch()
-  const loading = useSelector(state => state.authentication.isLoading)
-  const error = useSelector(state => state.authentication.error)
-  const success = useSelector(state => state.authentication.isLoggedIn)
+  const loading = useSelector(isLoading)
+  const error = useSelector(getError)
+  const success = useSelector(isSuccess)
 
+  const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
@@ -38,26 +39,33 @@ const LoginForm = (): JSX.Element => {
 
   const handleSubmit = (e: Event): void => {
     e.preventDefault()
-    dispatch(login({ email, password }))
+    dispatch(
+      register({
+        name,
+        email,
+        password,
+      })
+    )
   }
 
   return (
     <div className="form__container">
       <form>
+        <TextField label="Username" value={name} onChange={handleChange.bind(this, setName)} />
         <TextField label="E-Mail" type="email" value={email} onChange={handleChange.bind(this, setEmail)} />
         <TextField
           label="Password"
           type="password"
-          autoComplete="current-password"
+          autoComplete="new-password"
           value={password}
           onChange={handleChange.bind(this, setPassword)}
         />
         <Button type="submit" onClick={handleSubmit}>
-          Login
+          Sign Up
         </Button>
       </form>
     </div>
   )
 }
 
-export default LoginForm
+export default RegistrationForm
