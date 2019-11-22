@@ -2,9 +2,9 @@ import { ApiError, Endpoints, post, removeAuthToken } from 'service'
 import { registerRequestAction } from 'store/middleware'
 
 /** Logout */
-export const LOGOUT_REQUEST = 'LOGOUT_REQUEST'
-export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS'
-export const LOGOUT_ERROR = 'LOGOUT_ERROR'
+export const LOGOUT_REQUEST = 'auth/logout/request'
+export const LOGOUT_SUCCESS = 'auth/logout/success'
+export const LOGOUT_ERROR = 'auth/logout/error'
 
 interface LogoutRequest {
   type: typeof LOGOUT_REQUEST

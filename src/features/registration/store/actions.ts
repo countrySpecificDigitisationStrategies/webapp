@@ -2,9 +2,9 @@ import { UserData } from './types'
 import { ApiError, Endpoints, post } from 'service'
 import { registerRequestAction } from 'store/middleware'
 
-export const REGISTRATION_REQUEST = 'REGISTRATION_REQUEST'
-export const REGISTRATION_SUCCESS = 'REGISTRATION_SUCCESS'
-export const REGISTRATION_ERROR = 'REGISTRATION_ERROR'
+export const REGISTRATION_REQUEST = 'registration/request'
+export const REGISTRATION_SUCCESS = 'registration/success'
+export const REGISTRATION_ERROR = 'registration/error'
 
 interface RegistrationRequest {
   type: typeof REGISTRATION_REQUEST

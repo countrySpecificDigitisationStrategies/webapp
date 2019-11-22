@@ -3,9 +3,9 @@ import { registerRequestAction } from 'store/middleware'
 import { ApiError, Endpoints, post, setAuthToken, AuthToken } from 'service'
 
 /** Login */
-export const LOGIN_REQUEST = 'LOGIN_REQUEST'
-export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
-export const LOGIN_ERROR = 'LOGIN_ERROR'
+export const LOGIN_REQUEST = 'auth/login/request'
+export const LOGIN_SUCCESS = 'auth/login/success'
+export const LOGIN_ERROR = 'auth/login/error'
 
 interface LoginRequest {
   type: typeof LOGIN_REQUEST
