@@ -8,7 +8,7 @@ import { MuiThemeProvider } from '@material-ui/core'
 import theme from 'theme'
 import 'styles/app.styl'
 
-import { Home, Login, Register } from 'pages'
+import { Home, Login, Register, Strategies } from 'pages'
 import { NavBar } from 'shared/components'
 
 const App = () => {
@@ -20,6 +20,7 @@ const App = () => {
           <Route exact path="/" component={Home} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
+          <Route path="/strategies" component={Strategies} />
         </BrowserRouter>
       </Provider>
     </MuiThemeProvider>

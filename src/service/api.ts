@@ -8,6 +8,7 @@ export enum Endpoints {
   register = 'auth/register',
   login = 'auth/login',
   logout = 'auth/logout',
+  strategies = 'strategies',
 }
 
 enum HttpMethod {
