@@ -1,5 +1,6 @@
 import React from 'react'
 import { Strategy } from 'features/strategies/store'
+import { Link } from 'react-router-dom'
 import { Button, Card, CardActions, CardContent, CardMedia, Typography } from '@material-ui/core'
 
 interface StrategyCardProps {
@@ -27,7 +28,9 @@ const StrategyCard = ({ strategy }: StrategyCardProps) => (
       </Typography>
     </CardContent>
     <CardActions>
-      <Button size="small">View Strategy</Button>
+      <Button size="small" component={Link} to={`/strategies/${strategy.id}`}>
+        View Strategy
+      </Button>
     </CardActions>
   </Card>
 )

@@ -15,9 +15,13 @@ const StrategyGrid = (): JSX.Element => {
   if (!strategies) return <div>No Strategies could be found.</div>
 
   return (
-    <Grid container direction="row" justify="center" alignItems="flex-start">
+    <Grid container direction="row" justify="flex-start" alignItems="flex-start" spacing={2}>
       {Object.keys(strategies).map(id => {
-        return <StrategyCard key={id} strategy={strategies[id]} />
+        return (
+          <Grid item key={id}>
+            <StrategyCard strategy={strategies[id]} />
+          </Grid>
+        )
       })}
     </Grid>
   )

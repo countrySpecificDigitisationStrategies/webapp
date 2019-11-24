@@ -30,11 +30,5 @@ export default createMuiTheme({
         marginBottom: defaultTheme.spacing(1),
       },
     },
-    MuiButton: {
-      root: {
-        marginTop: defaultTheme.spacing(2),
-        marginBottom: defaultTheme.spacing(2),
-      },
-    },
   },
 })
