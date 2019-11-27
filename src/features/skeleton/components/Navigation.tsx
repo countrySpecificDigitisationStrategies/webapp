@@ -40,6 +40,7 @@ import { navigationStyles } from '../../../styles/components/skeleton/navigation
 
 interface NavItem {
   key: string
+  isSubItem?: boolean
   route: string
   icon: JSX.Element
   text: string
@@ -71,18 +72,21 @@ const strategiesNavItems: NavItem[] = [
   },
   {
     key: 'education',
+    isSubItem: true,
     route: APP_ROUTES.education,
     icon: <School />,
     text: 'Education',
   },
   {
     key: 'infrastructure',
+    isSubItem: true,
     route: APP_ROUTES.infrastructure,
     icon: <AccountTree />,
     text: 'Infrastructure',
   },
   {
     key: 'management',
+    isSubItem: true,
     route: APP_ROUTES.management,
     icon: <SupervisorAccount />,
     text: 'Management',
