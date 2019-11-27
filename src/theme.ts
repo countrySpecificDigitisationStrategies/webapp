@@ -19,9 +19,6 @@ export default createMuiTheme({
     h3: {
       marginBottom: defaultTheme.spacing(2),
     },
-    body1: {
-      marginBottom: defaultTheme.spacing(3),
-    },
   },
   overrides: {
     MuiTextField: {

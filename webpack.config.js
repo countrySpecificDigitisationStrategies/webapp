@@ -23,6 +23,18 @@ module.exports = () => ({
         test: /\.styl$/,
         use: ['style-loader', 'css-loader', 'stylus-loader'],
       },
+      {
+        test: /\.(gif|png|jpe?g|svg)$/i,
+        use: [
+          'file-loader',
+          {
+            loader: 'image-webpack-loader',
+            options: {
+              disable: true,
+            },
+          },
+        ],
+      },
     ],
   },
 
