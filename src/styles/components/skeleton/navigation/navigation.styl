@@ -3,3 +3,24 @@
   &__logo
     padding-left 16px
     cursor pointer
+
+nav-sub-item-line(w, h, l, t='50%')
+  content ''
+  width w
+  height h
+  background-color rgba(0,0,0,.12)
+  position absolute
+  top t
+  left l
+
+.navSubItem
+  padding-left 52px !important
+
+  &::before
+    nav-sub-item-line(7px, 1px, 29px)
+
+  &::after
+    nav-sub-item-line(1px, 100%, 28px)
+
+  &:last-child::after
+    nav-sub-item-line(1px, 50%, 28px, 0)

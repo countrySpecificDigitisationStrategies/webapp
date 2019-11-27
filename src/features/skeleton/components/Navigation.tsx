@@ -65,10 +65,10 @@ const analysisNavItems: NavItem[] = [
 ]
 const strategiesNavItems: NavItem[] = [
   {
-    key: 'strategies',
+    key: 'strategy',
     route: APP_ROUTES.strategies,
     icon: <Timeline />,
-    text: 'Strategies',
+    text: 'Strategy',
   },
   {
     key: 'education',
@@ -122,7 +122,13 @@ const Navigation = (): JSX.Element => {
 
   const createNavList = (navItems: NavItem[]): JSX.Element => {
     return navItems.map((item: NavItem) => (
-      <ListItem button component={Link} to={item.route} key={item.key} onClick={handleNavigation}>
+      <ListItem
+        button
+        className={clsx({ navSubItem: item.isSubItem && isOpen })}
+        component={Link}
+        to={item.route}
+        key={item.key}
+        onClick={handleNavigation}>
         <ListItemIcon>{item.icon}</ListItemIcon>
         <ListItemText primary={item.text} />
       </ListItem>
