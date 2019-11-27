@@ -1,20 +1,17 @@
-import { combineReducers } from 'redux';
-import { SAMPLE_ACTION } from './actions';
+import { combineReducers } from 'redux'
 
-const sampleReducer = (state: object = {}, action: string): object => {
-    switch (action.type) {
-        case SAMPLE_ACTION:
-            return {
-                ...state,
-                text: (state.text || '') + action.text,
-            };
-        default:
-            return state;
-    }
-};
+import { registration } from 'features/registration/store/reducer'
+import { authentication } from 'features/authentication/store/reducer'
+import { skeleton } from '../features/skeleton/store/reducer'
+import { strategies } from 'features/strategies/store/reducer'
 
-const rootReducer = combineReducers({
-    sampleReducer,
-});
+const reducers = {
+  authentication,
+  registration,
+  skeleton,
+  strategies,
+}
 
-export default rootReducer;
+const rootReducer = combineReducers(reducers)
+
+export default rootReducer
