@@ -1,3 +1,4 @@
+import { isAuthTokenValid } from 'service/authentication'
 import { AuthState } from './types'
 import {
   LOGIN_REQUEST,
@@ -11,7 +12,7 @@ import {
 
 const initialState: AuthState = {
   isLoading: false,
-  isLoggedIn: false,
+  isLoggedIn: isAuthTokenValid(),
   error: null,
 }
 

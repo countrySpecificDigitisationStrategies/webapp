@@ -10,3 +10,5 @@ export const removeAuthToken = (): void => {
 }
 
 export const getAuthToken = (): AuthToken => window.localStorage.getItem(AUTH_TOKEN_STORAGE_KEY)
+
+export const isAuthTokenValid = (): boolean => getAuthToken() !== null

@@ -1,4 +1,4 @@
-import { ApiError, Endpoints, post, removeAuthToken } from 'service'
+import { ApiError, Endpoints, get, removeAuthToken } from 'service'
 import { registerRequestAction } from 'store/middleware'
 
 /** Logout */
@@ -24,7 +24,7 @@ export const logout = (() => {
   const type = LOGOUT_REQUEST
   registerRequestAction({
     type,
-    request: () => post(Endpoints.logout),
+    request: () => get(Endpoints.logout),
     onSuccess: (data, dispatch) => {
       removeAuthToken()
       dispatch(logoutSuccess())
