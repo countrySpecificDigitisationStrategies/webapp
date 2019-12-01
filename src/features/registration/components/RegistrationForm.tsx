@@ -1,18 +1,15 @@
-import React, { useState } from 'react'
-import { Button, CircularProgress, TextField, Typography } from '@material-ui/core'
+import React from 'react'
+import { CircularProgress, TextField, Typography } from '@material-ui/core'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { getError, isLoading, isSuccess, register } from '../store'
+import { Form, InputValues } from 'shared/components'
 
 const RegistrationForm = (): JSX.Element => {
   const dispatch = useDispatch()
   const loading = useSelector(isLoading)
   const error = useSelector(getError)
   const success = useSelector(isSuccess)
-
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
 
   if (loading) {
     return <CircularProgress />
@@ -33,38 +30,16 @@ const RegistrationForm = (): JSX.Element => {
     )
   }
 
-  const handleChange = (setNewValueFn: Function, e: Event): void => {
-    setNewValueFn(e.target.value)
-  }
-
-  const handleSubmit = (e: Event): void => {
-    e.preventDefault()
-    dispatch(
-      register({
-        name,
-        email,
-        password,
-      })
-    )
+  const handleSubmit = (values: InputValues): void => {
+    dispatch(register(values))
   }
 
   return (
-    <div className="form__container">
-      <form>
-        <TextField label="Username" value={name} onChange={handleChange.bind(this, setName)} />
-        <TextField label="E-Mail" type="email" value={email} onChange={handleChange.bind(this, setEmail)} />
-        <TextField
-          label="Password"
-          type="password"
-          autoComplete="new-password"
-          value={password}
-          onChange={handleChange.bind(this, setPassword)}
-        />
-        <Button type="submit" onClick={handleSubmit}>
-          Sign Up
-        </Button>
-      </form>
-    </div>
+    <Form onSubmit={handleSubmit} submitButtonText="Sign up">
+      <TextField label="Username" name="name" />
+      <TextField label="E-Mail" type="email" name="email" />
+      <TextField label="Password" type="password" autoComplete="new-password" name="password" />
+    </Form>
   )
 }
 
