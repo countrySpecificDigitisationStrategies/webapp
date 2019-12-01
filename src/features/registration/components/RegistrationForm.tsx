@@ -1,19 +1,15 @@
 import React from 'react'
-import { CircularProgress, TextField, Typography } from '@material-ui/core'
+import { TextField, Typography } from '@material-ui/core'
 
 import { useDispatch, useSelector } from 'react-redux'
-import { getError, isLoading, isSuccess, register } from '../store'
+import { getError, isSuccess, register } from '../store'
 import { Form, InputValues } from 'shared/components'
 
 const RegistrationForm = (): JSX.Element => {
   const dispatch = useDispatch()
-  const loading = useSelector(isLoading)
   const error = useSelector(getError)
   const success = useSelector(isSuccess)
 
-  if (loading) {
-    return <CircularProgress />
-  }
   if (error) {
     return (
       <div>

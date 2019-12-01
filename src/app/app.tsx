@@ -1,16 +1,14 @@
 import { CssBaseline, MuiThemeProvider } from '@material-ui/core'
 import React from 'react'
 import { Provider } from 'react-redux'
-import { BrowserRouter, Route } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom'
 
 import { store } from './store'
 
 import theme from 'theme'
 
-import { Home, Login, Register, Strategies, Strategy } from 'pages'
-import APP_ROUTES from './routes'
 import { appStyles } from './app.classes'
-import { ToolBar, Navigation } from './layout'
+import { ToolBar, Navigation, Content } from './layout'
 
 const App = () => {
   const classes = appStyles()
@@ -25,11 +23,7 @@ const App = () => {
             <Navigation />
             <main className={classes.content}>
               <div className={classes.toolbar} />
-              <Route exact path={APP_ROUTES.home} component={Home} />
-              <Route exact path={APP_ROUTES.login} component={Login} />
-              <Route exact path={APP_ROUTES.register} component={Register} />
-              <Route exact path={APP_ROUTES.strategies} component={Strategies} />
-              <Route exact path={APP_ROUTES.strategy} component={Strategy} />
+              <Content />
             </main>
           </div>
         </BrowserRouter>

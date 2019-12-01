@@ -1,19 +1,15 @@
 import React from 'react'
-import { TextField, Typography, CircularProgress } from '@material-ui/core'
+import { TextField, Typography } from '@material-ui/core'
 
 import { useDispatch, useSelector } from 'react-redux'
-import { login, getError, isLoading, isLoggedIn } from '../store'
+import { login, getError, isLoggedIn } from '../store'
 import { Form, InputValues } from 'shared/components'
 
 const LoginForm = (): JSX.Element => {
   const dispatch = useDispatch()
-  const loading = useSelector(isLoading)
   const error = useSelector(getError)
   const success = useSelector(isLoggedIn)
 
-  if (loading) {
-    return <CircularProgress />
-  }
   if (error) {
     return (
       <div>

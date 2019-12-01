@@ -2,7 +2,6 @@ import { REGISTRATION_REQUEST, REGISTRATION_SUCCESS, REGISTRATION_ERROR, Registr
 import { RegistrationState } from './types'
 
 const initialState: RegistrationState = {
-  isLoading: false,
   isSuccess: false,
   error: null,
 }
@@ -15,19 +14,16 @@ export const registration = (
     case REGISTRATION_REQUEST:
       return {
         ...state,
-        isLoading: true,
       }
     case REGISTRATION_SUCCESS:
       return {
         ...state,
-        isLoading: false,
         isSuccess: true,
         error: null,
       }
     case REGISTRATION_ERROR:
       return {
         ...state,
-        isLoading: false,
         isSuccess: false,
         error: action.payload,
       }

@@ -1,7 +1,6 @@
 import { ApiError } from 'app/service'
 
 export interface AuthState {
-  isLoading: boolean
   isLoggedIn: boolean
   error?: ApiError
 }

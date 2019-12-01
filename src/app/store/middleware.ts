@@ -1,4 +1,5 @@
 import { Action, Dispatch } from 'redux'
+import { hideLoading, showLoading } from 'features/ui/store'
 
 interface RequestAction<T> {
   type: T
@@ -18,10 +19,12 @@ export const registerRequestAction = (action: RequestAction) => {
 export const requestHandler = ({ dispatch }) => next => currentAction => {
   registeredActions.forEach(registeredAction => {
     if (registeredAction.type === currentAction.type) {
+      dispatch(showLoading())
       registeredAction
         .request(currentAction)
         .then(data => registeredAction.onSuccess(data, dispatch))
         .catch(err => registeredAction.onError(err, dispatch))
+        .finally(() => dispatch(hideLoading()))
     }
   })
   next(currentAction)
