@@ -1,6 +1,6 @@
 import { Strategy } from './types'
-import { ApiError, Endpoints, get } from 'service'
-import { registerRequestAction } from 'store/middleware'
+import { ApiError, Endpoints, get } from 'app/service'
+import { registerRequestAction } from 'app/store/middleware'
 
 export const STRATEGIES_REQUEST = 'strategies/request'
 export const STRATEGIES_SUCCESS = 'strategies/success'

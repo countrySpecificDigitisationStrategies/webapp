@@ -1,15 +1,15 @@
-export const OPEN_NAV_BAR = 'skeleton/navbar/open'
-export const CLOSE_NAV_BAR = 'skeleton/navbar/close'
+export const OPEN_NAV_BAR = 'ui/navbar/open'
+export const CLOSE_NAV_BAR = 'ui/navbar/close'
 
 interface OpenNavBar {
   type: typeof OPEN_NAV_BAR
 }
 
 interface CloseNavBar {
-  type: typeof OPEN_NAV_BAR
+  type: typeof CLOSE_NAV_BAR
 }
 
-export type SkeletonAction = OpenNavBar | CloseNavBar
+export type NavBarActions = OpenNavBar | CloseNavBar
 
 export const closeNavBar = (): CloseNavBar => ({
   type: CLOSE_NAV_BAR,

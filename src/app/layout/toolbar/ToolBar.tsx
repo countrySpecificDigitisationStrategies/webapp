@@ -17,11 +17,11 @@ import {
 import { AccountCircle, Lock } from '@material-ui/icons'
 import MenuIcon from '@material-ui/icons/Menu'
 
-import { logout } from '../../authentication'
-import { useLoginStatus } from '../../../shared/hooks'
-import APP_ROUTES from '../../../shared/routes'
-import { isNavBarOpen, openNavBar } from '../store'
-import { toolBarStyles } from '../../../styles/components/skeleton/toolBar/toolBar.classes'
+import { logout } from 'features/authentication'
+import { useLoginStatus } from 'shared/hooks'
+import APP_ROUTES from 'app/routes'
+import { isNavBarOpen, openNavBar } from 'features/ui/store'
+import { toolBarStyles } from './toolBar.classes'
 
 const ToolBar = (): JSX.Element => {
   const classes = toolBarStyles()

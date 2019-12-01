@@ -1,5 +1,5 @@
-import { getAuthToken } from './authentication'
-import { ApiError } from './error'
+import { getAuthToken } from 'app/service/authentication'
+import { ApiError } from 'app/service/error'
 
 // eslint-disable-next-line no-undef
 const baseUrl = process.env.API_URL

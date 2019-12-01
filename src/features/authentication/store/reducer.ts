@@ -1,4 +1,4 @@
-import { isAuthTokenValid } from 'service/authentication'
+import { isAuthTokenValid } from 'app/service/authentication'
 import { AuthState } from './types'
 import {
   LOGIN_REQUEST,

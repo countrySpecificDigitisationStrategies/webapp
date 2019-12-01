@@ -1,6 +1,6 @@
 import { UserData } from './types'
-import { ApiError, Endpoints, post } from 'service'
-import { registerRequestAction } from 'store/middleware'
+import { ApiError, Endpoints, post } from 'app/service'
+import { registerRequestAction } from 'app/store/middleware'
 
 export const REGISTRATION_REQUEST = 'registration/request'
 export const REGISTRATION_SUCCESS = 'registration/success'

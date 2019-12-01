@@ -1,5 +1,5 @@
-import { ApiError, Endpoints, get, removeAuthToken } from 'service'
-import { registerRequestAction } from 'store/middleware'
+import { ApiError, Endpoints, get, removeAuthToken } from 'app/service'
+import { registerRequestAction } from 'app/store/middleware'
 
 /** Logout */
 export const LOGOUT_REQUEST = 'auth/logout/request'

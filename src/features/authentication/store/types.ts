@@ -1,4 +1,4 @@
-import { ApiError } from 'service'
+import { ApiError } from 'app/service'
 
 export interface AuthState {
   isLoading: boolean

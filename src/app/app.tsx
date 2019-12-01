@@ -3,15 +3,14 @@ import React from 'react'
 import { Provider } from 'react-redux'
 import { BrowserRouter, Route } from 'react-router-dom'
 
-import { store } from 'store'
+import { store } from './store'
 
 import theme from 'theme'
-import 'styles/app.styl'
 
 import { Home, Login, Register, Strategies, Strategy } from 'pages'
-import { Navigation, ToolBar } from './features/skeleton'
-import APP_ROUTES from './shared/routes'
-import { appStyles } from './styles/app.classes'
+import APP_ROUTES from './routes'
+import { appStyles } from './app.classes'
+import { ToolBar, Navigation } from './layout'
 
 const App = () => {
   const classes = appStyles()

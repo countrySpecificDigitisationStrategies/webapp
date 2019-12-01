@@ -31,12 +31,12 @@ import {
   Timeline,
 } from '@material-ui/icons'
 
-import { logout } from '../../authentication/store'
-import ziikLogo from '../../../assets/ziik.jpg'
-import { useLoginStatus } from '../../../shared/hooks'
-import APP_ROUTES from '../../../shared/routes'
-import { closeNavBar, isNavBarOpen } from '../store'
-import { navigationStyles } from '../../../styles/components/skeleton/navigation/navigation.classes'
+import { logout } from 'features/authentication'
+import ziikLogo from 'assets/ziik.jpg'
+import { useLoginStatus } from 'shared/hooks'
+import APP_ROUTES from 'app/routes'
+import { closeNavBar, isNavBarOpen } from 'features/ui/store'
+import { navigationStyles } from './navigation.classes'
 
 interface NavItem {
   key: string
