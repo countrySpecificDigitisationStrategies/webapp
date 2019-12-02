@@ -4,7 +4,7 @@ import APP_ROUTES from 'app/routes'
 import { Route } from 'react-router-dom'
 
 import { Home, Login, Register, Strategies, Strategy } from 'pages'
-import { withLoadingOverlay } from 'shared/hocs'
+import { withErrorNotification, withLoadingOverlay } from 'shared/hocs'
 
 const Content = (): JSXElement => (
   <>
@@ -16,4 +16,4 @@ const Content = (): JSXElement => (
   </>
 )
 
-export default withLoadingOverlay(Content)
+export default withLoadingOverlay(withErrorNotification(Content))

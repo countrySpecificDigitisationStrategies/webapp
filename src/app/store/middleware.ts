@@ -1,11 +1,12 @@
 import { Action, Dispatch } from 'redux'
-import { hideLoading, showLoading } from 'features/ui/store'
+import { hideLoading, showError, showLoading } from 'features/ui/store'
+import { ApiError } from 'app/service'
 
 interface RequestAction<T> {
   type: T
   request: (action: Action<T>) => Promise<object>
   onSuccess: (data: object, dispatch: Dispatch) => void
-  onError: (error: object, dispatch: Dispatch) => void
+  onError?: (error: object, dispatch: Dispatch) => void
 }
 
 const registeredActions: Array<RequestAction> = []
@@ -23,9 +24,21 @@ export const requestHandler = ({ dispatch }) => next => currentAction => {
       registeredAction
         .request(currentAction)
         .then(data => registeredAction.onSuccess(data, dispatch))
-        .catch(err => registeredAction.onError(err, dispatch))
+        .catch(handleError(dispatch, registeredAction.onError))
         .finally(() => dispatch(hideLoading()))
     }
   })
   next(currentAction)
+}
+
+const handleError = (dispatch: Dispatch, registeredErrorHandler: RequestAction.onError) => (error: ApiError) => {
+  dispatch(
+    showError({
+      title: error.name,
+      message: error.detail,
+    })
+  )
+  if (registeredErrorHandler) {
+    registeredErrorHandler(error, dispatch)
+  }
 }

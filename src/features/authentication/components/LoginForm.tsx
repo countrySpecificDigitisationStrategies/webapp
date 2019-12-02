@@ -1,29 +1,16 @@
 import React from 'react'
-import { TextField, Typography } from '@material-ui/core'
+import { TextField } from '@material-ui/core'
 
 import { useDispatch, useSelector } from 'react-redux'
-import { login, getError, isLoggedIn } from '../store'
-import { Form, InputValues } from 'shared/components'
+import { login, isLoggedIn } from '../store'
+import { Form, InputValues, Notification, NotificationType } from 'shared/components'
 
 const LoginForm = (): JSX.Element => {
   const dispatch = useDispatch()
-  const error = useSelector(getError)
   const success = useSelector(isLoggedIn)
 
-  if (error) {
-    return (
-      <div>
-        <Typography>ERROR:</Typography>
-        <Typography>{error.detail}</Typography>
-      </div>
-    )
-  }
   if (success) {
-    return (
-      <div>
-        <Typography>SUCCESS!</Typography>
-      </div>
-    )
+    return <Notification type={NotificationType.success} message="Success!" />
   }
 
   const handleSubmit = (values: InputValues): void => {

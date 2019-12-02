@@ -1,9 +1,8 @@
-import { REGISTRATION_REQUEST, REGISTRATION_SUCCESS, REGISTRATION_ERROR, RegistrationAction } from './actions'
+import { REGISTRATION_REQUEST, REGISTRATION_SUCCESS, RegistrationAction } from './actions'
 import { RegistrationState } from './types'
 
 const initialState: RegistrationState = {
   isSuccess: false,
-  error: null,
 }
 
 export const registration = (
@@ -14,18 +13,12 @@ export const registration = (
     case REGISTRATION_REQUEST:
       return {
         ...state,
+        isSuccess: false,
       }
     case REGISTRATION_SUCCESS:
       return {
         ...state,
         isSuccess: true,
-        error: null,
-      }
-    case REGISTRATION_ERROR:
-      return {
-        ...state,
-        isSuccess: false,
-        error: action.payload,
       }
     default:
       return state

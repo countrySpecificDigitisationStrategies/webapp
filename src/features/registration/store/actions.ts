@@ -1,10 +1,9 @@
 import { UserData } from './types'
-import { ApiError, Endpoints, post } from 'app/service'
+import { Endpoints, post } from 'app/service'
 import { registerRequestAction } from 'app/store/middleware'
 
 export const REGISTRATION_REQUEST = 'registration/request'
 export const REGISTRATION_SUCCESS = 'registration/success'
-export const REGISTRATION_ERROR = 'registration/error'
 
 interface RegistrationRequest {
   type: typeof REGISTRATION_REQUEST
@@ -15,12 +14,7 @@ interface RegistrationSuccess {
   type: typeof REGISTRATION_SUCCESS
 }
 
-interface RegistrationError {
-  type: typeof REGISTRATION_ERROR
-  payload: Error
-}
-
-export type RegistrationAction = RegistrationRequest | RegistrationSuccess | RegistrationError
+export type RegistrationAction = RegistrationRequest | RegistrationSuccess
 
 /** Registration Actions */
 export const register = (() => {
@@ -29,7 +23,6 @@ export const register = (() => {
     type,
     request: action => post(Endpoints.register, action.user),
     onSuccess: (data, dispatch) => dispatch(registrationSuccess()),
-    onError: (err, dispatch) => dispatch(registrationError(err)),
   })
   return (user: UserData): RegistrationRequest => ({
     type,
@@ -39,8 +32,4 @@ export const register = (() => {
 
 const registrationSuccess = (): RegistrationSuccess => ({
   type: REGISTRATION_SUCCESS,
-})
-const registrationError = (error: ApiError): RegistrationError => ({
-  type: REGISTRATION_ERROR,
-  payload: error,
 })
