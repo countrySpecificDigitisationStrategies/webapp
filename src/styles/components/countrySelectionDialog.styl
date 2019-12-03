@@ -1,0 +1,12 @@
+.country-selection__item
+  cursor pointer
+  transition background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms
+  &__flag
+    padding-right 16px
+    filter grayscale() opacity(50%) !important
+  &--selected .country-selection__item__flag
+    filter none !important
+  &:hover
+    background-color rgba(0,0,0,.08)
+  &:hover:not(.country-selection__item--selected) .country-selection__item__flag
+    filter grayscale() opacity(80%) !important

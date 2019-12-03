@@ -22,7 +22,6 @@ import {
   Chat,
   ChevronLeft,
   ExitToApp,
-  Flag,
   Home,
   Lock,
   LockOpen,
@@ -37,6 +36,9 @@ import { useLoginStatus } from 'shared/hooks'
 import { APP_ROUTES } from 'app/routes'
 import { closeNavBar, isNavBarOpen } from 'features/ui/store'
 import { navigationStyles } from './navigation.classes'
+import { CountrySelectionDialog } from 'features/countrySelection/components/CountrySelectionDialog'
+import { selectedCountry } from 'features/countrySelection/store/selectors'
+import { selectCountry } from 'features/countrySelection/store/actions'
 
 interface NavItem {
   key: string
@@ -107,6 +109,8 @@ const Navigation = (): JSX.Element => {
   const dispatch = useDispatch()
   const isOpen = useSelector(isNavBarOpen)
   const isLoggedIn = useLoginStatus()
+  const country = useSelector(selectedCountry)
+  const [openCountrySelection, setOpenCountrySelection] = React.useState(false)
 
   const theme = useTheme()
   const isBigView = useMediaQuery(theme.breakpoints.up('sm'))
@@ -117,6 +121,18 @@ const Navigation = (): JSX.Element => {
   const handleNavigation = () => {
     if (!isBigView) {
       handleDrawerClose()
+    }
+  }
+
+  const handleClickCountrySelection = () => {
+    setOpenCountrySelection(true)
+  }
+
+  const handleCloseCountrySelection = (newCountry?: string) => {
+    setOpenCountrySelection(false)
+
+    if (newCountry !== undefined) {
+      dispatch(selectCountry(newCountry))
     }
   }
 
@@ -153,12 +169,32 @@ const Navigation = (): JSX.Element => {
       <List>{createNavList(homeNavItems)}</List>
       <Divider />
       <List>
-        <ListItem button>
-          <ListItemIcon>
-            <Flag />
-          </ListItemIcon>
-          <ListItemText primary="Country" />
-        </ListItem>
+        {country === null ? (
+          <ListItem button onClick={handleClickCountrySelection}>
+            <img
+              className="navigation__flag"
+              src="https://image.flaticon.com/icons/svg/197/197591.svg" //TODO change URL to icon url from server
+              alt={'united nations flag'}
+              height="24px"
+            />
+            <ListItemText primary="Country" />
+          </ListItem>
+        ) : (
+          <ListItem button onClick={handleClickCountrySelection}>
+            <img
+              className="navigation__flag"
+              src={country.flagCircleURL}
+              alt={'Flag of ' + country.name}
+              height="24px"
+            />
+            <ListItemText primary={country.name} />
+          </ListItem>
+        )}
+        <CountrySelectionDialog
+          initialSelected={country}
+          open={openCountrySelection}
+          onClose={handleCloseCountrySelection}
+        />
       </List>
       <Divider />
       <List>{createNavList(analysisNavItems)}</List>
