@@ -1,11 +1,10 @@
 import { UserCredentials } from './types'
-import { registerRequestAction } from 'store/middleware'
-import { ApiError, Endpoints, post, setAuthToken, AuthToken } from 'service'
+import { registerRequestAction } from 'app/store/middleware'
+import { Endpoints, post, setAuthToken, AuthToken } from 'app/service'
 
 /** Login */
 export const LOGIN_REQUEST = 'auth/login/request'
 export const LOGIN_SUCCESS = 'auth/login/success'
-export const LOGIN_ERROR = 'auth/login/error'
 
 interface LoginRequest {
   type: typeof LOGIN_REQUEST
@@ -14,12 +13,8 @@ interface LoginRequest {
 interface LoginSuccess {
   type: typeof LOGIN_SUCCESS
 }
-interface LoginError {
-  type: typeof LOGIN_ERROR
-  error: ApiError
-}
 
-export type LoginActionTypes = LoginRequest | LoginSuccess | LoginError
+export type LoginActionTypes = LoginRequest | LoginSuccess
 
 /** Login Actions */
 export const login = (() => {
@@ -31,7 +26,6 @@ export const login = (() => {
       setAuthToken(token)
       dispatch(loginSuccess())
     },
-    onError: (err, dispatch) => dispatch(loginError(err)),
   })
   return (credentials: UserCredentials): LoginRequest => ({
     type,
@@ -41,8 +35,4 @@ export const login = (() => {
 
 const loginSuccess = (): LoginSuccess => ({
   type: LOGIN_SUCCESS,
-})
-const loginError = (error: ApiError): LoginError => ({
-  type: LOGIN_ERROR,
-  error,
 })
