@@ -9,6 +9,8 @@ export enum Endpoints {
   login = 'auth/login',
   logout = 'users/logout',
   strategies = 'strategies',
+  blocks = 'building-blocks',
+  situations = 'building-blocks', //TODO: should be changed to /situations when api delivers them
 }
 
 enum HttpMethod {

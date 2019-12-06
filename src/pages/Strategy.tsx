@@ -3,13 +3,8 @@ import { useParams } from 'react-router-dom'
 import { StrategyDetail } from 'features/strategies'
 
 const Strategy = () => {
-  const { id } = useParams()
-  return (
-    <div className="strategy-detail-page">
-      <StrategyDetail id={id} />
-      {/*<BlockSelector strategyId={id} />*/}
-    </div>
-  )
+  const { strategyId } = useParams()
+  return <StrategyDetail id={strategyId} />
 }
 
 export default Strategy

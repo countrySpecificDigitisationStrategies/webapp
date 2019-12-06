@@ -1,5 +1,6 @@
 export interface StrategiesState {
-  data: { [key: Strategy.id]: Strategy } | null
+  strategies: { [key: Strategy.id]: Strategy } | null
+  blocks: { [key: Block.id]: Block } | null
 }
 
 export interface Strategy {
@@ -7,8 +8,17 @@ export interface Strategy {
   user: number
   title: string
   description: string
-  measures: Array<number>
+  measures: Array<number> //Todo: should be blocks
   is_published: boolean
+  created: Date
+  updated: Date
+}
+
+export interface Block {
+  id: number
+  pillar: number
+  title: string
+  description: string
   created: Date
   updated: Date
 }

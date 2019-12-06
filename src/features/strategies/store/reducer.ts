@@ -1,19 +1,28 @@
-import { STRATEGIES_ADD, StrategiesAction } from './actions'
+import { STRATEGIES_ADD, StrategyActionTypes } from './actions'
 import { StrategiesState } from './types'
 import { toIndexedObject } from 'shared/utils'
+import { BLOCKS_ADD } from 'features/strategies/store/actions.blocks'
 
 const initialState: StrategiesState = {
-  data: null,
+  strategies: null,
 }
 
-export const strategies = (state: StrategiesState = initialState, action: StrategiesAction): StrategiesState => {
+export const strategies = (state: StrategiesState = initialState, action: StrategyActionTypes): StrategiesState => {
   switch (action.type) {
     case STRATEGIES_ADD:
       return {
         ...state,
-        data: {
-          ...state.data,
+        strategies: {
+          ...state.strategies,
           ...toIndexedObject(action.strategies, 'id'),
+        },
+      }
+    case BLOCKS_ADD:
+      return {
+        ...state,
+        blocks: {
+          ...state.blocks,
+          ...toIndexedObject(action.blocks, 'id'),
         },
       }
     default:
