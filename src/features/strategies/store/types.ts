@@ -1,14 +1,5 @@
-export enum loadingState {
-  none = 'NONE',
-  pending = 'PENDING',
-  done = 'DONE',
-  failed = 'FAILED',
-}
-
 export interface StrategiesState {
-  loading: loadingState
-  error?: object
-  data: { [key: Strategy.id]: Strategy }
+  data: { [key: Strategy.id]: Strategy } | null
 }
 
 export interface Strategy {

@@ -7,6 +7,7 @@ const Strategy = () => {
   return (
     <div className="strategy-detail-page">
       <StrategyDetail id={id} />
+      {/*<BlockSelector strategyId={id} />*/}
     </div>
   )
 }

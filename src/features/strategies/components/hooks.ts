@@ -1,14 +1,18 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { getLoadingState, loadAll, loadingState } from '../store'
+import { areStrategiesLoaded, loadAll } from '../store'
 import { useEffect } from 'react'
 
+//TODO: this is very ugly --> loading management should be handled globally by middleware & possibly another reducer
+let requestPending = false
+
 export const useStrategyData = () => {
-  const currentLoadingState = useSelector(getLoadingState)
+  const alreadyLoaded = useSelector(areStrategiesLoaded)
   const dispatch = useDispatch()
 
   useEffect(() => {
-    if (currentLoadingState === loadingState.none) {
+    if (!alreadyLoaded && !requestPending) {
+      requestPending = true
       dispatch(loadAll())
     }
-  }, [currentLoadingState])
+  }, [])
 }

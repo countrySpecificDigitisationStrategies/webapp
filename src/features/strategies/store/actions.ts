@@ -1,26 +1,20 @@
 import { Strategy } from './types'
-import { ApiError, Endpoints, get } from 'app/service'
+import { Endpoints, get } from 'app/service'
 import { registerRequestAction } from 'app/store/middleware'
 
 export const STRATEGIES_REQUEST = 'strategies/request'
-export const STRATEGIES_SUCCESS = 'strategies/success'
-export const STRATEGIES_ERROR = 'strategies/error'
+export const STRATEGIES_ADD = 'strategies/add'
 
 interface StrategiesRequest {
   type: typeof STRATEGIES_REQUEST
 }
 
-interface StrategiesSuccess {
-  type: typeof STRATEGIES_SUCCESS
+interface StrategiesAdd {
+  type: typeof STRATEGIES_ADD
   strategies: Strategy[]
 }
 
-interface StrategiesError {
-  type: typeof STRATEGIES_ERROR
-  error: Error
-}
-
-export type StrategiesAction = StrategiesRequest | StrategiesSuccess | StrategiesError
+export type StrategiesAction = StrategiesRequest | StrategiesAdd
 
 /** Strategies Actions */
 export const loadAll = (() => {
@@ -28,20 +22,14 @@ export const loadAll = (() => {
   registerRequestAction({
     type,
     request: () => get(Endpoints.strategies),
-    onSuccess: (strategies: Strategy[], dispatch) => dispatch(strategiesSuccess(strategies)),
-    onError: (err: ApiError, dispatch) => dispatch(strategiesError(err)),
+    onSuccess: (strategies: Strategy[], dispatch) => dispatch(addStrategies(strategies)),
   })
   return (): StrategiesRequest => ({
     type,
   })
 })()
 
-const strategiesSuccess = (strategies: Strategy[]): StrategiesSuccess => ({
-  type: STRATEGIES_SUCCESS,
+const addStrategies = (strategies: Strategy[]): StrategiesSuccess => ({
+  type: STRATEGIES_ADD,
   strategies,
-})
-
-const strategiesError = (error: ApiError): StrategiesError => ({
-  type: STRATEGIES_ERROR,
-  error,
 })
