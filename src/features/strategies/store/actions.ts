@@ -1,33 +1,24 @@
 import { Strategy } from './types'
 import { Endpoints, get } from 'app/service'
-import { registerRequestAction } from 'app/store/middleware'
+import { createRequest } from 'features/requests/store'
 
-export const STRATEGIES_REQUEST = 'strategies/request'
+export const STRATEGIES_REQUEST_ID = 'strategies'
 export const STRATEGIES_ADD = 'strategies/add'
-
-interface StrategiesRequest {
-  type: typeof STRATEGIES_REQUEST
-}
 
 interface StrategiesAdd {
   type: typeof STRATEGIES_ADD
   strategies: Strategy[]
 }
 
-export type StrategiesAction = StrategiesRequest | StrategiesAdd
+export type StrategiesAction = StrategiesAdd
 
 /** Strategies Actions */
-export const loadAll = (() => {
-  const type = STRATEGIES_REQUEST
-  registerRequestAction({
-    type,
+export const loadAll = () =>
+  createRequest({
+    id: STRATEGIES_REQUEST_ID,
     request: () => get(Endpoints.strategies),
-    onSuccess: (strategies: Strategy[], dispatch) => dispatch(addStrategies(strategies)),
+    onSuccess: addStrategies,
   })
-  return (): StrategiesRequest => ({
-    type,
-  })
-})()
 
 const addStrategies = (strategies: Strategy[]): StrategiesSuccess => ({
   type: STRATEGIES_ADD,
