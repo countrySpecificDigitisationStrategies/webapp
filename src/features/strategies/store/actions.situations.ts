@@ -21,5 +21,15 @@ export const loadSituations = () =>
 
 const addSituations = (situations: Situation[]): SituationsSuccess => ({
   type: SITUATIONS_ADD,
-  situations,
+  // situations,
+  situations: mockSituationData(situations),
 })
+
+//TODO: should be removed once api delivers real relation data
+const mockSituationData = situations =>
+  situations.map(situation => ({
+    ...situation,
+    title: situation.title.replace('BuildingBlock', 'Situation'),
+    description: situation.description.replace('BuildingBlock', 'Situation'),
+    goals: [1, 2, 3, 4],
+  }))

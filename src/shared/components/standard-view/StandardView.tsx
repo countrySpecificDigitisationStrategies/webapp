@@ -32,7 +32,7 @@ const StandardView = ({ title, description, renderAdditionalInfo, nextLevel }: D
   const nextLevelFragment = nextLevel ? (
     <div className={`${className}__next-level`}>
       <Typography variant="h5" className="strategy-detail__subheading">
-        Building Blocks
+        {nextLevel.title}
       </Typography>
       {nextLevel.render()}
     </div>

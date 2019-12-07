@@ -21,5 +21,13 @@ export const loadBlocks = () =>
 
 const addBlocks = (blocks: Block[]): BlocksSuccess => ({
   type: BLOCKS_ADD,
-  blocks,
+  // blocks,
+  blocks: mockBlockData(blocks),
 })
+
+//TODO: should be removed once api delivers real relation data
+const mockBlockData = blocks =>
+  blocks.map(block => ({
+    ...block,
+    situations: [1, 2, 3, 4],
+  }))

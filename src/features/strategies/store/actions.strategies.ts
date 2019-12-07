@@ -23,11 +23,11 @@ export const loadStrategies = () =>
 const addStrategies = (strategies: Strategy[]): StrategiesSuccess => ({
   type: STRATEGIES_ADD,
   // strategies,
-  strategies: mockBlockRelation(strategies),
+  strategies: mockStrategyData(strategies),
 })
 
 //TODO: should be removed once api delivers real relation data
-const mockBlockRelation = strategies =>
+const mockStrategyData = strategies =>
   strategies.map(strategy => ({
     ...strategy,
     blocks: [1, 2, 3, 4],

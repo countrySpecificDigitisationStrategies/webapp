@@ -1,17 +1,34 @@
-import { BLOCKS_REQUEST_ID, STRATEGIES_REQUEST_ID } from 'features/strategies/store/actions'
+import {
+  BLOCKS_REQUEST_ID,
+  GOALS_REQUEST_ID,
+  MEASURES_REQUEST_ID,
+  STRATEGIES_REQUEST_ID,
+} from 'features/strategies/store/actions'
 import { doesRequestExist } from 'features/requests/store'
 import { SITUATIONS_REQUEST_ID } from 'features/strategies/store/actions.situations'
 
 const slice = 'strategies'
 
-export const getStrategies = state => state[slice].strategies
-export const getStrategy = id => state => (getStrategies(state) ? getStrategies(state)[id] : null)
-export const areStrategiesLoaded = state => doesRequestExist(STRATEGIES_REQUEST_ID)(state)
+const getAll = <T>(key: string) => <T>(state): T[] | null | undefined => state[slice][key]
+const getOne = <T>(getAll: <T>(string) => object, id) => (state): T | null => (getAll(state) ? getAll(state)[id] : null)
+const isLoaded = (requestId: string) => (state): boolean => doesRequestExist(requestId)(state)
 
-export const getBlocks = state => state[slice].blocks
-export const getBlock = id => state => (getBlocks(state) ? getBlocks(state)[id] : null)
-export const areBlocksLoaded = state => doesRequestExist(BLOCKS_REQUEST_ID)(state)
+export const getStrategies = getAll('strategies')
+export const getStrategy = id => getOne(getStrategies, id)
+export const areStrategiesLoaded = isLoaded(STRATEGIES_REQUEST_ID)
 
-export const getSituations = state => state[slice].blocks
-export const getSituation = id => state => (getSituations(state) ? getSituations(state)[id] : null)
-export const areSituationsLoaded = state => doesRequestExist(SITUATIONS_REQUEST_ID)(state)
+export const getBlocks = getAll('blocks')
+export const getBlock = id => getOne(getBlocks, id)
+export const areBlocksLoaded = isLoaded(BLOCKS_REQUEST_ID)
+
+export const getSituations = getAll('situations')
+export const getSituation = id => getOne(getSituations, id)
+export const areSituationsLoaded = isLoaded(SITUATIONS_REQUEST_ID)
+
+export const getGoals = getAll('goals')
+export const getGoal = id => getOne(getGoals, id)
+export const areGoalsLoaded = isLoaded(GOALS_REQUEST_ID)
+
+export const getMeasures = getAll('measures')
+export const getMeasure = id => getOne(getMeasures, id)
+export const areMeasuresLoaded = isLoaded(MEASURES_REQUEST_ID)
