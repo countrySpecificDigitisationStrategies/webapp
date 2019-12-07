@@ -20,7 +20,7 @@ export const login = (credentials: UserCredentials) =>
     onSuccess: loginSuccess,
   })
 
-const loginSuccess = (token: AuthToken): LoginSuccess => ({
+const loginSuccess = ({ token }: { token: AuthToken }): LoginSuccess => ({
   type: LOGIN_SUCCESS,
   token,
 })
