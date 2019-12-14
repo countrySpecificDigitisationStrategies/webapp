@@ -23,6 +23,7 @@ import {
   ChevronLeft,
   ExitToApp,
   Home,
+  Language,
   Lock,
   LockOpen,
   School,
@@ -166,17 +167,12 @@ const Navigation = (): JSX.Element => {
         </IconButton>
       </div>
       <Divider />
-      <List>{createNavList(homeNavItems)}</List>
-      <Divider />
       <List>
         {country === null ? (
           <ListItem button onClick={handleClickCountrySelection}>
-            <img
-              className="navigation__flag"
-              src="https://image.flaticon.com/icons/svg/197/197591.svg" //TODO change URL to icon url from server
-              alt={'united nations flag'}
-              height="24px"
-            />
+            <ListItemIcon>
+              <Language />
+            </ListItemIcon>
             <ListItemText primary="Country" />
           </ListItem>
         ) : (
@@ -196,6 +192,8 @@ const Navigation = (): JSX.Element => {
           onClose={handleCloseCountrySelection}
         />
       </List>
+      <Divider />
+      <List>{createNavList(homeNavItems)}</List>
       <Divider />
       <List>{createNavList(analysisNavItems)}</List>
       <Divider />
