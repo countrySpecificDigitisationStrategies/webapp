@@ -10,3 +10,13 @@
     background-color rgba(0,0,0,.08)
   &:hover:not(.country-selection__item--selected) .country-selection__item__flag
     filter grayscale() opacity(80%) !important
+
+.country-selection__no-country
+  &__flag
+    filter grayscale() opacity(50%) !important
+  &--selected .country-selection__no-country__flag
+    filter none !important
+  &:hover
+    background-color rgba(0,0,0,.08)
+  &:hover:not(.country-selection__no-country--selected) .country-selection__no-country__flag
+    filter grayscale() opacity(80%) !important

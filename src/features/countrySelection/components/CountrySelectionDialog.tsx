@@ -2,6 +2,7 @@ import clsx from 'clsx'
 import React from 'react'
 import {
   Button,
+  Container,
   createStyles,
   Dialog,
   DialogActions,
@@ -9,12 +10,16 @@ import {
   DialogTitle,
   List,
   ListItem,
+  ListItemIcon,
   ListItemText,
   makeStyles,
+  Theme,
+  useTheme,
 } from '@material-ui/core'
 
 import { getCountries } from '../../../service/countries'
 import { Country } from '../store/types'
+import { Language } from '@material-ui/icons'
 
 export interface CountrySelectionDialogProps {
   initialSelected?: Country
@@ -22,7 +27,7 @@ export interface CountrySelectionDialogProps {
   onClose: (selectedCountry?: Country) => void
 }
 
-const useStyles = makeStyles(() =>
+const usePaperStyles = makeStyles(() =>
   createStyles({
     paper: {
       width: '80%',
@@ -31,9 +36,37 @@ const useStyles = makeStyles(() =>
   })
 )
 
+const useNoCountryFlagStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      width: '32px',
+      minWidth: '32px',
+      height: '22px',
+      background: theme.palette.primary.main,
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginLeft: '0 !important',
+      fontSize: '16px',
+      color: '#fff',
+    },
+  })
+)
+
+const useNoCountryFlagIconStyles = makeStyles(() =>
+  createStyles({
+    root: {
+      minWidth: '48px',
+    },
+  })
+)
+
 export function CountrySelectionDialog(props: CountrySelectionDialogProps) {
   const { initialSelected, open, onClose } = props
-  const classes = useStyles()
+  const theme = useTheme()
+  const paperClasses = usePaperStyles()
+  const noCountryFlagClasses = useNoCountryFlagStyles(theme)
+  const useNoCountryFlagIconClasses = useNoCountryFlagIconStyles()
 
   const countries = getCountries()
   countries.sort((a: Country, b: Country): number => {
@@ -64,14 +97,15 @@ export function CountrySelectionDialog(props: CountrySelectionDialogProps) {
     const noCountryOption: JSX.Element = (
       <ListItem
         button
-        className={clsx('country-selection__item', { 'country-selection__item--selected': selected === null })}
+        className={clsx('country-selection__no-country', {
+          'country-selection__no-country--selected': selected === null,
+        })}
         onClick={handleSelect(null)}>
-        <img
-          className="country-selection__item__flag"
-          src="https://image.flaticon.com/icons/svg/555/555633.svg" //TODO change URL to icon url from server
-          alt={'united nations flag'}
-          height="32px"
-        />
+        <ListItemIcon classes={useNoCountryFlagIconClasses}>
+          <Container disableGutters classes={noCountryFlagClasses} className="country-selection__no-country__flag">
+            <Language fontSize="inherit" color="inherit" />
+          </Container>
+        </ListItemIcon>
         <ListItemText primary="No Country" />
       </ListItem>
     )
@@ -100,7 +134,7 @@ export function CountrySelectionDialog(props: CountrySelectionDialogProps) {
   }
 
   return (
-    <Dialog open={open} onClose={handleCancel} classes={classes} maxWidth="xs" keepMounted>
+    <Dialog open={open} onClose={handleCancel} classes={paperClasses} maxWidth="xs" keepMounted>
       <DialogTitle>Select a Country</DialogTitle>
       <DialogContent dividers>
         <List>{createCountryOptions(countries, selected)}</List>
