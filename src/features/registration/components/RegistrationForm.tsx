@@ -19,9 +19,17 @@ const RegistrationForm = (): JSX.Element => {
 
   return (
     <Form onSubmit={handleSubmit} submitButtonText="Sign up">
-      <TextField label="Username" name="name" />
+      <TextField label="First name" name="firstname" />
+      <TextField label="Last name" name="lastName" />
       <TextField label="E-Mail" type="email" name="email" />
-      <TextField label="Password" type="password" autoComplete="new-password" name="password" />
+      <TextField
+        label="Password"
+        type="password"
+        autoComplete="new-password"
+        name="password"
+        helperText="It should be at least 8 characters long"
+      />
+      <TextField label="Retype Password" type="password" name="password-repeat" helperText="Repeat password" />
     </Form>
   )
 }
