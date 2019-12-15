@@ -1,4 +1,4 @@
-import { CssBaseline, MuiThemeProvider } from '@material-ui/core'
+import { CssBaseline, MuiThemeProvider, StylesProvider } from '@material-ui/core'
 import React from 'react'
 import { Provider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
@@ -14,21 +14,23 @@ const App = () => {
   const classes = appStyles()
 
   return (
-    <MuiThemeProvider theme={theme}>
-      <CssBaseline />
-      <Provider store={store}>
-        <BrowserRouter>
-          <div className="app-wrapper">
-            <ToolBar />
-            <Navigation />
-            <main className={classes.content}>
-              <div className={classes.toolbar} />
-              <Content />
-            </main>
-          </div>
-        </BrowserRouter>
-      </Provider>
-    </MuiThemeProvider>
+    <StylesProvider injectFirst>
+      <MuiThemeProvider theme={theme}>
+        <CssBaseline />
+        <Provider store={store}>
+          <BrowserRouter>
+            <div className="app-wrapper">
+              <ToolBar />
+              <Navigation />
+              <main className={classes.content}>
+                <div className={classes.toolbar} />
+                <Content />
+              </main>
+            </div>
+          </BrowserRouter>
+        </Provider>
+      </MuiThemeProvider>
+    </StylesProvider>
   )
 }
 

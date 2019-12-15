@@ -15,7 +15,7 @@ export const BlockCard = ({ block }: BlockCardProps) => {
       overline="Building Block"
       description={block.description}
       link={{
-        to: `${history.location.pathname}/block/${block.id}`,
+        to: `${history.location.pathname}/${block.id}`,
         title: 'View Block',
       }}
     />
