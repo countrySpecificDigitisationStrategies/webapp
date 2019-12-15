@@ -1,48 +1,26 @@
 import { UserCredentials } from './types'
-import { registerRequestAction } from 'store/middleware'
-import { ApiError, Endpoints, post, setAuthToken, AuthToken } from 'service'
+import { Endpoints, post, AuthToken } from 'app/service'
+import { createRequest } from 'features/requests/store'
 
 /** Login */
-export const LOGIN_REQUEST = 'auth/login/request'
+export const LOGIN_REQUEST_ID = 'login'
 export const LOGIN_SUCCESS = 'auth/login/success'
-export const LOGIN_ERROR = 'auth/login/error'
 
-interface LoginRequest {
-  type: typeof LOGIN_REQUEST
-  payload: UserCredentials
-}
 interface LoginSuccess {
   type: typeof LOGIN_SUCCESS
 }
-interface LoginError {
-  type: typeof LOGIN_ERROR
-  error: ApiError
-}
 
-export type LoginActionTypes = LoginRequest | LoginSuccess | LoginError
+export type LoginActionTypes = LoginRequest | LoginSuccess
 
 /** Login Actions */
-export const login = (() => {
-  const type = LOGIN_REQUEST
-  registerRequestAction({
-    type,
-    request: action => post(Endpoints.login, action.credentials),
-    onSuccess: ({ token }: { token: AuthToken }, dispatch) => {
-      setAuthToken(token)
-      dispatch(loginSuccess())
-    },
-    onError: (err, dispatch) => dispatch(loginError(err)),
+export const login = (credentials: UserCredentials) =>
+  createRequest({
+    id: LOGIN_REQUEST_ID,
+    request: () => post(Endpoints.login, credentials),
+    onSuccess: loginSuccess,
   })
-  return (credentials: UserCredentials): LoginRequest => ({
-    type,
-    credentials,
-  })
-})()
 
-const loginSuccess = (): LoginSuccess => ({
+const loginSuccess = ({ token }: { token: AuthToken }): LoginSuccess => ({
   type: LOGIN_SUCCESS,
-})
-const loginError = (error: ApiError): LoginError => ({
-  type: LOGIN_ERROR,
-  error,
+  token,
 })
