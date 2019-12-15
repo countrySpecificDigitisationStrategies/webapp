@@ -1,34 +1,23 @@
-import { Endpoints, get, removeAuthToken } from 'app/service'
-import { registerRequestAction } from 'app/store/middleware'
+import { Endpoints, get } from 'app/service'
+import { createRequest } from 'features/requests/store'
 
 /** Logout */
-export const LOGOUT_REQUEST = 'auth/logout/request'
+export const LOGOUT_REQUEST_ID = 'logout'
 export const LOGOUT_SUCCESS = 'auth/logout/success'
 
-interface LogoutRequest {
-  type: typeof LOGOUT_REQUEST
-}
 interface LogoutSuccess {
   type: typeof LOGOUT_SUCCESS
 }
 
-export type LogoutActionTypes = LogoutRequest | LogoutSuccess
+export type LogoutActionTypes = LogoutSuccess
 
 /** Logout Actions */
-export const logout = (() => {
-  const type = LOGOUT_REQUEST
-  registerRequestAction({
-    type,
+export const logout = () =>
+  createRequest({
+    id: LOGOUT_REQUEST_ID,
     request: () => get(Endpoints.logout),
-    onSuccess: (data, dispatch) => {
-      removeAuthToken()
-      dispatch(logoutSuccess())
-    },
+    onSuccess: logoutSuccess,
   })
-  return (): LogoutRequest => ({
-    type,
-  })
-})()
 
 const logoutSuccess = (): LogoutSuccess => ({
   type: LOGOUT_SUCCESS,
