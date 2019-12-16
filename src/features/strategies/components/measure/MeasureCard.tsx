@@ -15,7 +15,7 @@ export const MeasureCard = ({ measure }: MeasureCardProps) => {
       overline="Measure"
       description={measure.description}
       link={{
-        to: `${history.location.pathname}/measure/${measure.id}`,
+        to: `${history.location.pathname}/${measure.id}`,
         title: 'View Measure',
       }}
     />

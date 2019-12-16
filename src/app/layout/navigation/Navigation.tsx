@@ -34,7 +34,7 @@ import {
 import { logout } from 'features/authentication'
 import ziikLogo from 'assets/ziik.jpg'
 import { useLoginStatus } from 'shared/hooks'
-import APP_ROUTES from 'app/routes'
+import { APP_ROUTES } from 'app/routes'
 import { closeNavBar, isNavBarOpen } from 'features/ui/store'
 import { navigationStyles } from './navigation.classes'
 

@@ -15,7 +15,7 @@ export const GoalCard = ({ goal }: GoalCardProps) => {
       overline="Goal"
       description={goal.description}
       link={{
-        to: `${history.location.pathname}/goal/${goal.id}`,
+        to: `${history.location.pathname}/${goal.id}`,
         title: 'View Goal',
       }}
     />
