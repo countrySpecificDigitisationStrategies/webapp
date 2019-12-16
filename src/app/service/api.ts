@@ -8,6 +8,8 @@ export enum Endpoints {
   register = 'auth/register',
   login = 'auth/login',
   logout = 'users/logout',
+  // user = 'users/me',
+  countries = 'countries',
   strategies = 'strategies',
   blocks = 'building-blocks',
   situations = 'building-blocks', //TODO: should be changed to /situations when api delivers them

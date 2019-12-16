@@ -17,9 +17,11 @@ import {
   useTheme,
 } from '@material-ui/core'
 
-import { getCountries } from '../../../service/countries'
 import { Country } from '../store/types'
 import { Language } from '@material-ui/icons'
+import { useCountries } from './hooks'
+import { useSelector } from 'react-redux'
+import { getCountries } from '../store/selectors'
 
 export interface CountrySelectionDialogProps {
   initialSelected?: Country
@@ -68,7 +70,9 @@ export function CountrySelectionDialog(props: CountrySelectionDialogProps) {
   const noCountryFlagClasses = useNoCountryFlagStyles(theme)
   const useNoCountryFlagIconClasses = useNoCountryFlagIconStyles()
 
-  const countries = getCountries()
+  useCountries()
+
+  const countries = useSelector(getCountries)
   countries.sort((a: Country, b: Country): number => {
     const countryA = a.name.toUpperCase()
     const countryB = b.name.toUpperCase()
