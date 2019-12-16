@@ -1,4 +1,4 @@
-import { Country } from '../features/countrySelection/store/types'
+import { Country } from 'features/countrySelection/store/types'
 
 const mockSelectedCountry: Country = {
   id: 'south-africa',
@@ -52,6 +52,6 @@ const mockCountries: Country[] = [
   },
 ]
 
-export const getSelectedCountry = (): Country | null => null
+// export const getSelectedCountry = (): Country | null => null
 
-export const getCountries = (): Country[] => mockCountries
+// export const getCountries = (): Country[] => mockCountries

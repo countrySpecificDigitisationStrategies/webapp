@@ -1,14 +1,18 @@
 import { CountriesState } from './types'
-import { getCountries, getSelectedCountry } from '../../../service/countries'
-import { CountriesAction, COUNTRY_SELECT } from './actions'
+import { COUNTRIES_ADD, CountriesAction, COUNTRY_SELECT } from './actions'
 
 const initialState: CountriesState = {
-  selected: getSelectedCountry(),
-  countries: getCountries(),
+  selected: null, // getSelectedCountry(),
+  countries: [], // getCountries(),
 }
 
 export const countries = (state: CountriesState = initialState, action: CountriesAction): CountriesState => {
   switch (action.type) {
+    case COUNTRIES_ADD:
+      return {
+        ...state,
+        countries: action.countries,
+      }
     case COUNTRY_SELECT:
       return {
         ...state,
