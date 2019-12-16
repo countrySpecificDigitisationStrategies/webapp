@@ -1,5 +1,5 @@
 import { UserData } from './types'
-import { Endpoints, post } from 'app/service'
+import { Endpoint, post } from 'app/service'
 import { createRequest } from 'features/requests/store'
 
 export const REGISTRATION_REQUEST_ID = 'registration'
@@ -15,7 +15,7 @@ export type RegistrationAction = RegistrationRequest | RegistrationSuccess
 export const register = (user: UserData) =>
   createRequest({
     id: REGISTRATION_REQUEST_ID,
-    request: () => post(Endpoints.register, user),
+    request: () => post(Endpoint.register, user),
     onSuccess: registrationSuccess,
   })
 

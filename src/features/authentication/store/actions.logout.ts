@@ -1,4 +1,4 @@
-import { Endpoints, get } from 'app/service'
+import { Endpoint, get } from 'app/service'
 import { createRequest } from 'features/requests/store'
 
 /** Logout */
@@ -15,7 +15,7 @@ export type LogoutActionTypes = LogoutSuccess
 export const logout = () =>
   createRequest({
     id: LOGOUT_REQUEST_ID,
-    request: () => get(Endpoints.logout),
+    request: () => get(Endpoint.logout),
     onSuccess: logoutSuccess,
   })
 

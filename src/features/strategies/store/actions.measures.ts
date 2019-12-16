@@ -1,5 +1,5 @@
 import { Measure } from './types'
-import { Endpoints, get } from 'app/service'
+import { Endpoint, get } from 'app/service'
 import { createRequest } from 'features/requests/store'
 
 export const MEASURES_REQUEST_ID = 'measures'
@@ -15,7 +15,7 @@ export type MeasureActions = MeasuresAdd
 export const loadMeasures = () =>
   createRequest({
     id: MEASURES_REQUEST_ID,
-    request: () => get(Endpoints.measures),
+    request: () => get(Endpoint.measures),
     onSuccess: addMeasures,
   })
 
