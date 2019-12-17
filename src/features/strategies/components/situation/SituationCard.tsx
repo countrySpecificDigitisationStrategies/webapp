@@ -15,7 +15,7 @@ export const SituationCard = ({ situation }: SituationCardProps) => {
       overline="Situation"
       description={situation.description}
       link={{
-        to: `${history.location.pathname}/situation/${situation.id}`,
+        to: `${history.location.pathname}/${situation.id}`,
         title: 'View Situation',
       }}
     />
