@@ -1,7 +1,6 @@
-import { Country } from './types'
+import { Country, CountryResponseItem } from './types'
 import { createRequest } from '../../requests/store'
 import { Endpoints, get } from '../../../app/service'
-import { countries } from './reducer'
 
 export const COUNTRIES_REQUEST_ID = 'countries'
 // export const SELECTED_COUNTRY_REQUEST_ID = 'selected/country'
@@ -26,12 +25,21 @@ export const loadCountries = () =>
     id: COUNTRIES_REQUEST_ID,
     request: () => get(Endpoints.countries),
     onSuccess: addCountries,
+    onError: () => console.log('Error'),
   })
 
-const addCountries = (countries: Country[]): AddCountries => ({
-  type: COUNTRIES_ADD,
-  countries,
-})
+const addCountries = (response: CountryResponseItem[]): AddCountries => {
+  const countries: Country[] = response.map(item => ({
+    id: item.id,
+    name: item.name,
+    flagCircleURL: item.flag_circle,
+    flagRectangleURL: item.flag_rectangle,
+  }))
+  return {
+    type: COUNTRIES_ADD,
+    countries,
+  }
+}
 
 // export const loadSelectedCountry = () =>
 //   createRequest({

@@ -5,6 +5,13 @@ export interface Country {
   flagCircleURL: string
 }
 
+export interface CountryResponseItem {
+  id: string
+  flag_circle: string
+  flag_rectangle: string
+  name: string
+}
+
 export interface CountriesState {
   selected?: Country
   countries: Country[]
