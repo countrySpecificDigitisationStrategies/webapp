@@ -72,20 +72,22 @@ export function CountrySelectionDialog(props: CountrySelectionDialogProps) {
 
   useCountries()
 
-  const countries = useSelector(getCountries)
-  countries.sort((a: Country, b: Country): number => {
-    const countryA = a.name.toUpperCase()
-    const countryB = b.name.toUpperCase()
-    if (countryA < countryB) return -1
-    if (countryA > countryB) return 1
-    return 0
-  })
+  const countries: Country[] | null | undefined = useSelector(getCountries)
+  if (countries) {
+    countries.sort((a, b): number => {
+      const countryA = a.name.toUpperCase()
+      const countryB = b.name.toUpperCase()
+      if (countryA < countryB) return -1
+      if (countryA > countryB) return 1
+      return 0
+    })
+  }
 
   const [selected, setSelected] = React.useState(initialSelected)
 
-  const handleSelect = (newSelected?: Country): void => (event: Event) => {
-    event.preventDefault()
-    setSelected(newSelected)
+  const handleSelect = (newSelected: Country | null) => (event: unknown): void => {
+    ;(event as MouseEvent).preventDefault()
+    setSelected(newSelected ? newSelected : undefined)
   }
 
   const handleOk = () => {
@@ -97,7 +99,7 @@ export function CountrySelectionDialog(props: CountrySelectionDialogProps) {
     onClose()
   }
 
-  const createCountryOptions = (countries: Country[], selected?: Country): JSX.Element => {
+  const createCountryOptions = (countries: Country[] | null | undefined, selected?: Country): JSX.Element => {
     const noCountryOption: JSX.Element = (
       <ListItem
         button
@@ -116,23 +118,25 @@ export function CountrySelectionDialog(props: CountrySelectionDialogProps) {
     return (
       <>
         {noCountryOption}
-        {countries.map((country: Country) => (
-          <ListItem
-            key={'country' + country.id}
-            button
-            className={clsx('country-selection__item', {
-              'country-selection__item--selected': selected ? country.id === selected.id : false,
-            })}
-            onClick={handleSelect(country)}>
-            <img
-              className="country-selection__item__flag"
-              src={country.flagRectangleURL}
-              alt={'Flag of ' + country.name}
-              height="32px"
-            />
-            <ListItemText primary={country.name} />
-          </ListItem>
-        ))}
+        {countries
+          ? countries.map((country: Country) => (
+              <ListItem
+                key={'country' + country.id}
+                button
+                className={clsx('country-selection__item', {
+                  'country-selection__item--selected': selected ? country.id === selected.id : false,
+                })}
+                onClick={handleSelect(country)}>
+                <img
+                  className="country-selection__item__flag"
+                  src={country.flagRectangleURL}
+                  alt={'Flag of ' + country.name}
+                  height="32px"
+                />
+                <ListItemText primary={country.name} />
+              </ListItem>
+            ))
+          : null}
       </>
     )
   }
