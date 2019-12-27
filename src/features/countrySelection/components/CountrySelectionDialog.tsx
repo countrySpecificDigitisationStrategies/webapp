@@ -24,9 +24,9 @@ import { useSelector } from 'react-redux'
 import { getCountries } from '../store/selectors'
 
 export interface CountrySelectionDialogProps {
-  initialSelected?: Country
+  initialSelected: Country | null
   open: boolean
-  onClose: (selectedCountry?: Country) => void
+  onClose: (selectedCountry?: Country | null) => void
 }
 
 const usePaperStyles = makeStyles(() =>
@@ -87,7 +87,7 @@ export function CountrySelectionDialog(props: CountrySelectionDialogProps) {
 
   const handleSelect = (newSelected: Country | null) => (event: unknown): void => {
     ;(event as MouseEvent).preventDefault()
-    setSelected(newSelected ? newSelected : undefined)
+    setSelected(newSelected ? newSelected : null)
   }
 
   const handleOk = () => {
@@ -99,7 +99,7 @@ export function CountrySelectionDialog(props: CountrySelectionDialogProps) {
     onClose()
   }
 
-  const createCountryOptions = (countries: Country[] | null | undefined, selected?: Country): JSX.Element => {
+  const createCountryOptions = (countries: Country[] | null | undefined, selected: Country | null): JSX.Element => {
     const noCountryOption: JSX.Element = (
       <ListItem
         button
