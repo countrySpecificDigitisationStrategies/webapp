@@ -1,15 +1,9 @@
 import { doesRequestExist } from '../../requests/store'
-import { COUNTRIES_REQUEST_ID, SELECTED_COUNTRY_REQUEST_ID } from './actions'
+import { COUNTRIES_REQUEST_ID } from './actions'
 import { Country } from './types'
+import { ApplicationState } from '../../../app/store/reducers'
 
-export const selectedCountry = state => state.countries.selected
+export const selectedCountry = (state: ApplicationState) => state.countries.selected
 
-const slice = 'countries'
-
-const getAll = (key: string) => (state): Country[] | null | undefined => state[slice][key]
-const isLoaded = (requestId: string) => (state): boolean => doesRequestExist(requestId)(state)
-
-export const getCountries = getAll('countries')
-export const areCountriesLoaded = isLoaded(COUNTRIES_REQUEST_ID)
-
-// export const isSelectedCountryLoaded = isLoaded(SELECTED_COUNTRY_REQUEST_ID)
+export const getCountries = (state: ApplicationState): Country[] | null | undefined => state.countries.countries
+export const areCountriesLoaded = (state: ApplicationState): boolean => doesRequestExist(COUNTRIES_REQUEST_ID)(state)

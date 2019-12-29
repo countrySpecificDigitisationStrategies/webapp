@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
-import { areCountriesLoaded, isSelectedCountryLoaded } from '../store/selectors'
+import { areCountriesLoaded } from '../store/selectors'
 import { loadCountries } from '../store/actions'
 
 const loadIfNotLoaded = (selector, requestActionCreator) => {

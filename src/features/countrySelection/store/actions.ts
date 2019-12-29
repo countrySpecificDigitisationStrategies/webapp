@@ -10,7 +10,7 @@ export const COUNTRY_SELECT = 'countries/select'
 
 interface SelectCountry {
   type: typeof COUNTRY_SELECT
-  newCountry?: Country
+  newCountry: Country | null
 }
 
 interface AddCountries {
@@ -25,7 +25,7 @@ export const loadCountries = () =>
     id: COUNTRIES_REQUEST_ID,
     request: () => get(Endpoints.countries),
     onSuccess: addCountries,
-    onError: () => console.log('Error'),
+    onError: () => console.log('Error on loadCountries'),
   })
 
 const addCountries = (response: CountryResponseItem[]): AddCountries => {
@@ -34,6 +34,7 @@ const addCountries = (response: CountryResponseItem[]): AddCountries => {
     name: item.name,
     flagCircleURL: item.flag_circle,
     flagRectangleURL: item.flag_rectangle,
+    isDevelopingCountry: item.is_developing_country,
   }))
   return {
     type: COUNTRIES_ADD,
@@ -56,7 +57,7 @@ const addCountries = (response: CountryResponseItem[]): AddCountries => {
 //
 // const addSelectedCountry = () =>
 
-export const selectCountry = (newCountry?: Country): SelectCountry => ({
+export const selectCountry = (newCountry: Country | null): SelectCountry => ({
   type: COUNTRY_SELECT,
   newCountry: newCountry,
 })
