@@ -1,4 +1,4 @@
-export { Endpoints, post, get } from 'app/service/api'
+export { Endpoint, post, get } from 'app/service/api'
 export { ApiError } from 'app/service/error'
 export { setAuthToken, removeAuthToken } from 'app/service/authentication'
 

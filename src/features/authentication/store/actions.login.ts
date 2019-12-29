@@ -1,5 +1,5 @@
 import { UserCredentials } from './types'
-import { Endpoints, post, AuthToken } from 'app/service'
+import { Endpoint, post, AuthToken } from 'app/service'
 import { createRequest } from 'features/requests/store'
 
 /** Login */
@@ -16,7 +16,7 @@ export type LoginActionTypes = LoginRequest | LoginSuccess
 export const login = (credentials: UserCredentials) =>
   createRequest({
     id: LOGIN_REQUEST_ID,
-    request: () => post(Endpoints.login, credentials),
+    request: () => post(Endpoint.login, credentials),
     onSuccess: loginSuccess,
   })
 
