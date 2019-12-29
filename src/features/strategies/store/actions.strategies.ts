@@ -1,5 +1,5 @@
 import { Strategy } from './types'
-import { Endpoints, get } from 'app/service'
+import { Endpoint, get } from 'app/service'
 import { createRequest } from 'features/requests/store'
 
 export const STRATEGIES_REQUEST_ID = 'strategies'
@@ -16,7 +16,7 @@ export type StrategyActions = StrategiesAdd
 export const loadStrategies = () =>
   createRequest({
     id: STRATEGIES_REQUEST_ID,
-    request: () => get(Endpoints.strategies),
+    request: () => get(Endpoint.strategies),
     onSuccess: addStrategies,
   })
 

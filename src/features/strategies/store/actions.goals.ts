@@ -1,5 +1,5 @@
 import { Goal } from './types'
-import { Endpoints, get } from 'app/service'
+import { Endpoint, get } from 'app/service'
 import { createRequest } from 'features/requests/store'
 
 export const GOALS_REQUEST_ID = 'goals'
@@ -15,7 +15,7 @@ export type GoalActions = GoalsAdd
 export const loadGoals = () =>
   createRequest({
     id: GOALS_REQUEST_ID,
-    request: () => get(Endpoints.goals),
+    request: () => get(Endpoint.goals),
     onSuccess: addGoals,
   })
 

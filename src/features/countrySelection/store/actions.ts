@@ -1,6 +1,6 @@
 import { Country, CountryResponseItem } from './types'
 import { createRequest } from '../../requests/store'
-import { Endpoints, get } from '../../../app/service'
+import { Endpoint, get } from '../../../app/service'
 
 export const COUNTRIES_REQUEST_ID = 'countries'
 // export const SELECTED_COUNTRY_REQUEST_ID = 'selected/country'
@@ -10,7 +10,7 @@ export const COUNTRY_SELECT = 'countries/select'
 
 interface SelectCountry {
   type: typeof COUNTRY_SELECT
-  newCountry?: Country
+  newCountry: Country | null
 }
 
 interface AddCountries {
@@ -23,9 +23,9 @@ export type CountriesAction = SelectCountry | AddCountries
 export const loadCountries = () =>
   createRequest({
     id: COUNTRIES_REQUEST_ID,
-    request: () => get(Endpoints.countries),
+    request: () => get(Endpoint.countries),
     onSuccess: addCountries,
-    onError: () => console.log('Error'),
+    onError: () => console.log('Error on loadCountries'),
   })
 
 const addCountries = (response: CountryResponseItem[]): AddCountries => {
@@ -34,6 +34,7 @@ const addCountries = (response: CountryResponseItem[]): AddCountries => {
     name: item.name,
     flagCircleURL: item.flag_circle,
     flagRectangleURL: item.flag_rectangle,
+    isDevelopingCountry: item.is_developing_country,
   }))
   return {
     type: COUNTRIES_ADD,
@@ -44,10 +45,10 @@ const addCountries = (response: CountryResponseItem[]): AddCountries => {
 // export const loadSelectedCountry = () =>
 //   createRequest({
 //     id: USER_INFO_REQUEST_ID,
-//     request: () => get(Endpoints.user),
+//     request: () => get(Endpoint.user),
 //     onSuccess: createRequest({
 //       id: SELECTED_COUNTRY_REQUEST_ID,
-//       request: () => get(Endpoints.countries, ),
+//       request: () => get(Endpoint.countries, ),
 //       onSuccess: addSelectedCountry,
 //     }),
 //   })
@@ -56,7 +57,7 @@ const addCountries = (response: CountryResponseItem[]): AddCountries => {
 //
 // const addSelectedCountry = () =>
 
-export const selectCountry = (newCountry?: Country): SelectCountry => ({
+export const selectCountry = (newCountry: Country | null): SelectCountry => ({
   type: COUNTRY_SELECT,
   newCountry: newCountry,
 })

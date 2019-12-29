@@ -1,5 +1,5 @@
 import { Block } from './types'
-import { Endpoints, get } from 'app/service'
+import { Endpoint, get } from 'app/service'
 import { createRequest } from 'features/requests/store'
 
 export const BLOCKS_REQUEST_ID = 'blocks'
@@ -15,7 +15,7 @@ export type BlockActions = BlocksAdd
 export const loadBlocks = () =>
   createRequest({
     id: BLOCKS_REQUEST_ID,
-    request: () => get(Endpoints.blocks),
+    request: () => get(Endpoint.blocks),
     onSuccess: addBlocks,
   })
 

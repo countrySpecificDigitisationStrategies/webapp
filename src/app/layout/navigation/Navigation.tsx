@@ -40,6 +40,7 @@ import { navigationStyles } from './navigation.classes'
 import { CountrySelectionDialog } from 'features/countrySelection/components/CountrySelectionDialog'
 import { selectedCountry } from 'features/countrySelection/store/selectors'
 import { selectCountry } from 'features/countrySelection/store/actions'
+import { Country } from 'features/countrySelection/store/types'
 
 interface NavItem {
   key: string
@@ -66,35 +67,37 @@ const analysisNavItems: NavItem[] = [
     text: 'Analysis',
   },
 ]
-const strategiesNavItems: NavItem[] = [
-  {
-    key: 'strategy',
-    route: APP_ROUTES.strategies,
-    icon: <Timeline />,
-    text: 'Strategy',
-  },
-  {
-    key: 'education',
-    isSubItem: true,
-    route: APP_ROUTES.education,
-    icon: <School />,
-    text: 'Education',
-  },
-  {
-    key: 'infrastructure',
-    isSubItem: true,
-    route: APP_ROUTES.infrastructure,
-    icon: <AccountTree />,
-    text: 'Infrastructure',
-  },
-  {
-    key: 'management',
-    isSubItem: true,
-    route: APP_ROUTES.management,
-    icon: <SupervisorAccount />,
-    text: 'Management',
-  },
-]
+const createStrategyNavItems = (selectedCountry: Country | null): NavItem[] => {
+  return [
+    {
+      key: 'strategy',
+      route: selectedCountry !== null ? `${APP_ROUTES.strategies}/${selectedCountry.id}` : APP_ROUTES.strategies,
+      icon: <Timeline />,
+      text: selectedCountry !== null ? 'Strategy' : 'Strategies',
+    },
+    {
+      key: 'education',
+      isSubItem: true,
+      route: APP_ROUTES.education,
+      icon: <School />,
+      text: 'Education',
+    },
+    {
+      key: 'infrastructure',
+      isSubItem: true,
+      route: APP_ROUTES.infrastructure,
+      icon: <AccountTree />,
+      text: 'Infrastructure',
+    },
+    {
+      key: 'management',
+      isSubItem: true,
+      route: APP_ROUTES.management,
+      icon: <SupervisorAccount />,
+      text: 'Management',
+    },
+  ]
+}
 const discussionNavItems: NavItem[] = [
   {
     key: 'discussions',
@@ -129,7 +132,7 @@ const Navigation = (): JSX.Element => {
     setOpenCountrySelection(true)
   }
 
-  const handleCloseCountrySelection = (newCountry?: string) => {
+  const handleCloseCountrySelection = (newCountry?: Country | null) => {
     setOpenCountrySelection(false)
 
     if (newCountry !== undefined) {
@@ -137,7 +140,7 @@ const Navigation = (): JSX.Element => {
     }
   }
 
-  const createNavList = (navItems: NavItem[]): JSX.Element => {
+  const createNavList = (navItems: NavItem[]): JSX.Element[] => {
     return navItems.map((item: NavItem) => (
       <ListItem
         button
@@ -197,7 +200,7 @@ const Navigation = (): JSX.Element => {
       <Divider />
       <List>{createNavList(analysisNavItems)}</List>
       <Divider />
-      <List>{createNavList(strategiesNavItems)}</List>
+      <List>{createNavList(createStrategyNavItems(country))}</List>
       <Divider />
       <List>{createNavList(discussionNavItems)}</List>
       <Divider />

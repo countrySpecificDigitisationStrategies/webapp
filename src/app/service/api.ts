@@ -4,7 +4,7 @@ import { ApiError } from 'app/service/error'
 // eslint-disable-next-line no-undef
 const baseUrl = process.env.API_URL
 
-export enum Endpoints {
+export enum Endpoint {
   register = 'auth/register',
   login = 'auth/login',
   logout = 'users/logout',

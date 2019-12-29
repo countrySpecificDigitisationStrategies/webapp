@@ -1,4 +1,4 @@
-import { Action, ActionCreator } from 'redux'
+import { Action } from 'redux'
 import { requestId } from 'features/requests/store/types'
 
 export const REQUEST_START = 'request/start'
