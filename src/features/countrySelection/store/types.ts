@@ -4,6 +4,7 @@ export interface Country {
   flagRectangleURL: string
   flagCircleURL: string
   isDevelopingCountry: boolean
+  strategyId: string
 }
 
 export interface CountryResponseItem {
@@ -12,6 +13,7 @@ export interface CountryResponseItem {
   flag_rectangle: string
   name: string
   is_developing_country: boolean
+  strategy: string
 }
 
 export interface CountriesState {

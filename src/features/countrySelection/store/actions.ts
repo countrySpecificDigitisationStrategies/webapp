@@ -35,6 +35,7 @@ const addCountries = (response: CountryResponseItem[]): AddCountries => {
     flagCircleURL: item.flag_circle,
     flagRectangleURL: item.flag_rectangle,
     isDevelopingCountry: item.is_developing_country,
+    strategyId: item.strategy,
   }))
   return {
     type: COUNTRIES_ADD,

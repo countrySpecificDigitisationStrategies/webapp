@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { generatePath, Link, useHistory } from 'react-router-dom'
 
 import {
   Divider,
@@ -56,19 +56,28 @@ const createNavItems = (selectedCountry: Country | null): NavItem[] => {
     },
     {
       key: 'analysis',
-      route: APP_ROUTES.analysis,
+      route:
+        selectedCountry !== null
+          ? generatePath(APP_ROUTES.analysis, { countryId: selectedCountry.id })
+          : APP_ROUTES.analyses,
       icon: <Assessment />,
       text: 'Analysis',
     },
     {
       key: 'strategy',
-      route: selectedCountry !== null ? `${APP_ROUTES.strategies}/${selectedCountry.id}` : APP_ROUTES.strategies,
+      route:
+        selectedCountry !== null
+          ? generatePath(APP_ROUTES.strategy, { strategyId: selectedCountry.strategyId })
+          : APP_ROUTES.strategies,
       icon: <Timeline />,
       text: selectedCountry !== null ? 'Strategy' : 'Strategies',
     },
     {
       key: 'discussions',
-      route: APP_ROUTES.discussion,
+      route:
+        selectedCountry !== null
+          ? generatePath(APP_ROUTES.discussion, { countryId: selectedCountry.id })
+          : APP_ROUTES.discussions,
       icon: <Chat />,
       text: 'Discussions',
     },
@@ -84,6 +93,8 @@ const Navigation = (): JSX.Element => {
   const country = useSelector(selectedCountry)
   const [openCountrySelection, setOpenCountrySelection] = React.useState(false)
 
+  const history = useHistory()
+
   const theme = useTheme()
   const isBigView = useMediaQuery(theme.breakpoints.up('sm'))
 
@@ -95,16 +106,26 @@ const Navigation = (): JSX.Element => {
       handleDrawerClose()
     }
   }
-
   const handleClickCountrySelection = () => {
     setOpenCountrySelection(true)
   }
 
   const handleCloseCountrySelection = (newCountry?: Country | null) => {
     setOpenCountrySelection(false)
-
-    if (newCountry !== undefined) {
+    if (newCountry !== undefined && newCountry !== country) {
       dispatch(selectCountry(newCountry))
+
+      const pathTopCategory = `/${window.location.pathname.split('/')[1]}`
+      if (pathTopCategory === '') return
+      if (newCountry === null) {
+        history.push(pathTopCategory)
+      } else {
+        if (pathTopCategory === '/analyses' || pathTopCategory === '/discussions') {
+          history.push(`${pathTopCategory}/countries/${newCountry.id}`)
+        } else {
+          history.push(`${pathTopCategory}/${newCountry.strategyId}`)
+        }
+      }
     }
   }
 
