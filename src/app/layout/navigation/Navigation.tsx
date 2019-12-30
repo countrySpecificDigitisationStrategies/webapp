@@ -17,7 +17,6 @@ import {
 } from '@material-ui/core'
 import {
   AccountCircle,
-  AccountTree,
   Assessment,
   Chat,
   ChevronLeft,
@@ -26,8 +25,6 @@ import {
   Language,
   Lock,
   LockOpen,
-  School,
-  SupervisorAccount,
   Timeline,
 } from '@material-ui/icons'
 
@@ -44,31 +41,25 @@ import { Country } from 'features/countrySelection/store/types'
 
 interface NavItem {
   key: string
-  isSubItem?: boolean
   route: string
   icon: JSX.Element
   text: string
 }
 
-const homeNavItems: NavItem[] = [
-  {
-    key: 'home',
-    route: APP_ROUTES.home,
-    icon: <Home />,
-    text: 'Home',
-  },
-]
-
-const analysisNavItems: NavItem[] = [
-  {
-    key: 'analysis',
-    route: APP_ROUTES.analysis,
-    icon: <Assessment />,
-    text: 'Analysis',
-  },
-]
-const createStrategyNavItems = (selectedCountry: Country | null): NavItem[] => {
+const createNavItems = (selectedCountry: Country | null): NavItem[] => {
   return [
+    {
+      key: 'home',
+      route: APP_ROUTES.home,
+      icon: <Home />,
+      text: 'Home',
+    },
+    {
+      key: 'analysis',
+      route: APP_ROUTES.analysis,
+      icon: <Assessment />,
+      text: 'Analysis',
+    },
     {
       key: 'strategy',
       route: selectedCountry !== null ? `${APP_ROUTES.strategies}/${selectedCountry.id}` : APP_ROUTES.strategies,
@@ -76,36 +67,13 @@ const createStrategyNavItems = (selectedCountry: Country | null): NavItem[] => {
       text: selectedCountry !== null ? 'Strategy' : 'Strategies',
     },
     {
-      key: 'education',
-      isSubItem: true,
-      route: APP_ROUTES.education,
-      icon: <School />,
-      text: 'Education',
-    },
-    {
-      key: 'infrastructure',
-      isSubItem: true,
-      route: APP_ROUTES.infrastructure,
-      icon: <AccountTree />,
-      text: 'Infrastructure',
-    },
-    {
-      key: 'management',
-      isSubItem: true,
-      route: APP_ROUTES.management,
-      icon: <SupervisorAccount />,
-      text: 'Management',
+      key: 'discussions',
+      route: APP_ROUTES.discussion,
+      icon: <Chat />,
+      text: 'Discussions',
     },
   ]
 }
-const discussionNavItems: NavItem[] = [
-  {
-    key: 'discussions',
-    route: APP_ROUTES.discussion,
-    icon: <Chat />,
-    text: 'Discussions',
-  },
-]
 
 const Navigation = (): JSX.Element => {
   const classes = navigationStyles()
@@ -142,16 +110,15 @@ const Navigation = (): JSX.Element => {
 
   const createNavList = (navItems: NavItem[]): JSX.Element[] => {
     return navItems.map((item: NavItem) => (
-      <ListItem
-        button
-        className={clsx({ navSubItem: item.isSubItem && isOpen })}
-        component={Link}
-        to={item.route}
-        key={item.key}
-        onClick={handleNavigation}>
-        <ListItemIcon>{item.icon}</ListItemIcon>
-        <ListItemText primary={item.text} />
-      </ListItem>
+      <React.Fragment key={item.key}>
+        <List>
+          <ListItem button component={Link} to={item.route} onClick={handleNavigation}>
+            <ListItemIcon>{item.icon}</ListItemIcon>
+            <ListItemText primary={item.text} />
+          </ListItem>
+        </List>
+        <Divider />
+      </React.Fragment>
     ))
   }
 
@@ -196,14 +163,8 @@ const Navigation = (): JSX.Element => {
         />
       </List>
       <Divider />
-      <List>{createNavList(homeNavItems)}</List>
-      <Divider />
-      <List>{createNavList(analysisNavItems)}</List>
-      <Divider />
-      <List>{createNavList(createStrategyNavItems(country))}</List>
-      <Divider />
-      <List>{createNavList(discussionNavItems)}</List>
-      <Divider />
+      {createNavList(createNavItems(country))}
+
       {isLoggedIn ? (
         <Hidden smUp>
           <List>
