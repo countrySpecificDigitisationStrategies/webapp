@@ -3,7 +3,7 @@ import { Grid } from '@material-ui/core'
 
 export interface OptionsGridProps {
   dataset: { [id: string]: object }
-  render: (id: string, data: object) => JSXElement
+  render: (id: string, data: object) => JSX.Element
 }
 
 export const OptionsGrid = ({ dataset, render }: OptionsGridProps) => (

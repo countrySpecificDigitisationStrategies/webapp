@@ -5,7 +5,7 @@ import { routes } from 'app/routes'
 import Breadcrumbs from 'app/layout/content/Breadcrumbs'
 import { withErrorNotification, withLoadingOverlay } from 'shared/hocs'
 
-const Content = (): JSXElement => (
+const Content = (): JSX.Element => (
   <>
     <Breadcrumbs />
     {renderRoutes(routes)}
