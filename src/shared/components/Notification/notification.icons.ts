@@ -6,7 +6,7 @@ import {
   Warning as WarningIcon,
 } from '@material-ui/icons'
 
-export const icons: { [type: NotificationType]: JSXElement } = {
+export const icons: { [type: NotificationType]: JSX.Element } = {
   [NotificationType.success]: CheckCircleIcon,
   [NotificationType.warning]: WarningIcon,
   [NotificationType.error]: ErrorIcon,

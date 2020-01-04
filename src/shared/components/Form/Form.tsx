@@ -3,7 +3,7 @@ import React from 'react'
 import { Button } from '@material-ui/core'
 
 export interface FormProps {
-  children: JSXElement[]
+  children: JSX.Element[]
   onSubmit: (InputValues) => void
   submitButtonText: string
 }

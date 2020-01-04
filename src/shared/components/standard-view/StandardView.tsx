@@ -4,10 +4,10 @@ import { Typography } from '@material-ui/core'
 interface DetailViewProps {
   title?: string
   description?: string
-  renderAdditionalInfo?: () => JSXElement
+  renderAdditionalInfo?: () => JSX.Element
   nextLevel?: {
     title: string
-    render: () => JSXElement
+    render: () => JSX.Element
   }
 }
 
