@@ -10,7 +10,7 @@ export const AnalysisCard = ({ analysis }: AnalysisCardProps) => (
   <OptionsCard
     title={analysis.title}
     overline={analysis.text}
-    image="https://flagpedia.net/data/flags/normal/af.png"
+    image={analysis.country.flag_rectangle}
     description={analysis.text}
     link={{
       to: `/analyses/${analysis.id}`,
