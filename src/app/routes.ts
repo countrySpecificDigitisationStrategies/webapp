@@ -1,5 +1,5 @@
 import { RouteConfig } from 'react-router-config'
-import { Block, Goal, Home, Login, Measure, Register, Situation, Strategies, Strategy } from 'pages'
+import { Analyses, Block, Goal, Home, Login, Measure, Register, Situation, Strategies, Strategy } from 'pages'
 import {
   StrategyBreadcrumb,
   BlockBreadcrumb,
@@ -12,7 +12,7 @@ export const APP_ROUTES = {
   home: '/',
   login: '/login',
   register: '/register',
-  analysis: '/analysis',
+  analyses: '/analyses',
   strategies: '/strategies',
   strategy: '/strategies/:strategyId',
   block: '/strategies/:strategyId/:blockId',
@@ -44,6 +44,11 @@ export const routes: RouteConfig[] = [
   {
     path: APP_ROUTES.strategies,
     component: Strategies,
+    exact: true,
+  },
+  {
+    path: APP_ROUTES.analyses,
+    component: Analyses,
     exact: true,
   },
   {

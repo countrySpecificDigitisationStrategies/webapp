@@ -56,10 +56,10 @@ const homeNavItems: NavItem[] = [
 
 const analysisNavItems: NavItem[] = [
   {
-    key: 'analysis',
-    route: APP_ROUTES.analysis,
+    key: 'analyses',
+    route: APP_ROUTES.analyses,
     icon: <Assessment />,
-    text: 'Analysis',
+    text: 'Analyses',
   },
 ]
 const strategiesNavItems: NavItem[] = [
