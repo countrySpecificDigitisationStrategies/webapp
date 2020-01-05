@@ -13,6 +13,7 @@ export enum Endpoint {
   situations = 'building-blocks', //TODO: should be changed to /situations when api delivers them
   goals = 'building-blocks', //TODO: should be changed to /goals when api delivers them
   measures = 'building-blocks', //TODO: should be changed to /measures when api delivers them
+  discussionTree = 'discussion/tree',
 }
 
 enum HttpMethod {
@@ -22,7 +23,7 @@ enum HttpMethod {
   DELETE = 'DELETE',
 }
 
-type ApiResponse = object | ApiError
+export type ApiResponse = object | ApiError
 
 export const get = async (endpoint: Endpoint, id?: number): Promise<ApiResponse> => {
   return fetchFromApi(buildUrl(endpoint, id), HttpMethod.GET)

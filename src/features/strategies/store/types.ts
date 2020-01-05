@@ -21,7 +21,7 @@ export interface Strategy {
 export interface Block {
   id: number
   pillar: number
-  situations: Array<number> //Todo: this is currently only mocked data
+  situations: Array<Situations> //Todo: this is currently only mocked data
   title: string
   description: string
   created: Date
@@ -30,7 +30,7 @@ export interface Block {
 
 export interface Situations {
   id: number
-  goals: Array<number> //Todo: this is currently only mocked data
+  goals: Array<Goals> //Todo: this is currently only mocked data
   title: string
   description: string
   created: Date
@@ -39,7 +39,7 @@ export interface Situations {
 
 export interface Goals {
   id: number
-  measures: Array<number> //Todo: this is currently only mocked data
+  measures: Array<Measures> //Todo: this is currently only mocked data
   title: string
   description: string
   created: Date

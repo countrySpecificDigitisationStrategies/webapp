@@ -8,5 +8,7 @@ import Block from './Block'
 import Situation from './Situation'
 import Goal from './Goal'
 import Measure from './Measure'
+import Discussions from './Discussions'
+import Discussion from './Discussion'
 
-export { Home, Login, Register, Strategies, Strategy, Block, Situation, Goal, Measure }
+export { Home, Login, Register, Strategies, Strategy, Block, Situation, Goal, Measure, Discussions, Discussion }
