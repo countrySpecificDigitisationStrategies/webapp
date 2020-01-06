@@ -1,5 +1,5 @@
 import React from 'react'
-import { Thread } from 'features/discussions/types'
+import { Thread } from 'features/discussions/store/types'
 
 interface ThreadPreviewProps {
   thread: Thread

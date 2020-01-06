@@ -1,7 +1,7 @@
 import React from 'react'
 import { Typography } from '@material-ui/core'
 
-import { ThreadList } from 'features/discussions/ThreadList'
+import { ThreadList } from 'features/discussions/components/ThreadList'
 
 export const DiscussionDetail = () => {
   return (

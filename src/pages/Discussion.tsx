@@ -1,5 +1,5 @@
 import React from 'react'
-import { DiscussionDetail, DiscussionTree } from 'features/discussions'
+import { DiscussionDetail, DiscussionTree } from 'features/discussions/components'
 
 const Discussion = () => {
   return (

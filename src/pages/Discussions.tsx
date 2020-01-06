@@ -1,7 +1,6 @@
 import React from 'react'
 import { Typography } from '@material-ui/core'
-
-import { DiscussionForumsGrid } from 'features/discussions'
+import { DiscussionForumsGrid } from 'features/discussions/components'
 
 const Discussions = () => {
   return (

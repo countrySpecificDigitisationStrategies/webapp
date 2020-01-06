@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 import { Endpoint, get } from 'app/service'
-import { DiscussionCard } from 'features/discussions'
+import { DiscussionCard } from 'features/discussions/components'
 import { Grid } from '@material-ui/core'
 import { Strategy } from 'features/strategies'
 
