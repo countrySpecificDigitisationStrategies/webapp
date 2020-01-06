@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 import { Endpoint, get } from 'app/service'
 import { DiscussionCard } from 'features/discussions'
 import { Grid } from '@material-ui/core'
-import { Discussions } from 'pages'
 import { Strategy } from 'features/strategies'
 
 export const DiscussionForumsGrid = () => {

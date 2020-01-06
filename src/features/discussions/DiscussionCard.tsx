@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Button, Card, CardActionArea, CardMedia, CardContent, Typography } from '@material-ui/core'
+import { Button, Card, CardContent, Typography } from '@material-ui/core'
 import { Strategy } from 'features/strategies'
 
 export interface DiscussionCardProps {

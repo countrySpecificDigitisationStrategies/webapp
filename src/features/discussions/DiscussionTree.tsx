@@ -50,18 +50,19 @@ export const DiscussionTree = () => {
     })
 
   return (
-    <div>
-      <TreeView defaultCollapseIcon={<ExpandMoreIcon />} defaultExpandIcon={<ChevronRightIcon />}>
-        {buildingBlocks.map((buildingBlock: Block, index: number) => {
-          const nodeId = `${index}`
+    <TreeView
+      className="DiscussionTree"
+      defaultCollapseIcon={<ExpandMoreIcon />}
+      defaultExpandIcon={<ChevronRightIcon />}>
+      {buildingBlocks.map((buildingBlock: Block, index: number) => {
+        const nodeId = `${index}`
 
-          return (
-            <TreeItem key={index} nodeId={nodeId} label={buildingBlock.title}>
-              {renderTreeSituations(nodeId, buildingBlock.situations)}
-            </TreeItem>
-          )
-        })}
-      </TreeView>
-    </div>
+        return (
+          <TreeItem key={index} nodeId={nodeId} label={buildingBlock.title}>
+            {renderTreeSituations(nodeId, buildingBlock.situations)}
+          </TreeItem>
+        )
+      })}
+    </TreeView>
   )
 }
