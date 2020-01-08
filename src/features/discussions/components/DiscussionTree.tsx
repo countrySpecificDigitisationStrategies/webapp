@@ -3,25 +3,33 @@ import { TreeView, TreeItem } from '@material-ui/lab'
 import ChevronRightIcon from '@material-ui/icons/ChevronRight'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import { get, Endpoint } from 'app/service'
-import { Block, Situations, Goals, Measures } from 'features/strategies/store'
+import {
+  BuildingBlockModel,
+  createDiscussionTreeFromResponse,
+  DiscussionTreeModel,
+  DiscussionTreeResponse,
+  GoalModel,
+  SituationModel,
+  StrategyMeasureModel,
+} from '../discussionTree'
 
 export const DiscussionTree = () => {
-  const [discussionTree, setDiscussionTree] = useState()
+  const [discussionTree, setDiscussionTree] = useState<DiscussionTreeModel>()
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await get(Endpoint.discussionTree)
-      setDiscussionTree(result)
+      const response = (await get(Endpoint.discussionTree)) as DiscussionTreeResponse
+      setDiscussionTree(createDiscussionTreeFromResponse(response))
     }
     fetchData()
   }, [])
 
   if (!discussionTree) return <div>No discussions found</div>
 
-  const buildingBlocks: Block[] = discussionTree.building_blocks
+  const buildingBlocks: BuildingBlockModel[] = discussionTree.buildingBlocks
 
-  const renderTreeSituations = (parentNodeId: string, situations: Situations[]) =>
-    situations.map((situation: Situations, index: number) => {
+  const renderTreeSituations = (parentNodeId: string, situations: SituationModel[]) =>
+    situations.map((situation: SituationModel, index: number) => {
       const nodeId = `${parentNodeId}.${index}`
 
       return (
@@ -31,22 +39,22 @@ export const DiscussionTree = () => {
       )
     })
 
-  const renderTreeGoals = (parentNodeId: string, goals: Goals[]) =>
-    goals.map((goal: Goals, index: number) => {
+  const renderTreeGoals = (parentNodeId: string, goals: GoalModel[]) =>
+    goals.map((goal: GoalModel, index: number) => {
       const nodeId = `${parentNodeId}.${index}`
 
       return (
         <TreeItem key={index} nodeId={nodeId} label={goal.title}>
-          {renderTreeStrategyMeasures(nodeId, goal.strategy_measures)}
+          {renderTreeStrategyMeasures(nodeId, goal.strategyMeasures)}
         </TreeItem>
       )
     })
 
-  const renderTreeStrategyMeasures = (parentNodeId: string, strategyMeasures: Measures[]) =>
-    strategyMeasures.map((strategyMeasure: Measures, index: number) => {
+  const renderTreeStrategyMeasures = (parentNodeId: string, strategyMeasures: StrategyMeasureModel[]) =>
+    strategyMeasures.map((strategyMeasure: StrategyMeasureModel, index: number) => {
       const nodeId = `${parentNodeId}.${index}`
 
-      return <TreeItem key={index} nodeId={nodeId} label={strategyMeasure.title} />
+      return <TreeItem key={index} nodeId={nodeId} label={`Change to title: ${strategyMeasure.description}`} />
     })
 
   return (
@@ -54,7 +62,7 @@ export const DiscussionTree = () => {
       className="DiscussionTree"
       defaultCollapseIcon={<ExpandMoreIcon />}
       defaultExpandIcon={<ChevronRightIcon />}>
-      {buildingBlocks.map((buildingBlock: Block, index: number) => {
+      {buildingBlocks.map((buildingBlock: BuildingBlockModel, index: number) => {
         const nodeId = `${index}`
 
         return (
