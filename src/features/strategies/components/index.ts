@@ -17,6 +17,7 @@ import { GoalBreadcrumb } from './goal/GoalBreadcrumb'
 import MeasureGrid from './measure/MeasureGrid'
 import MeasureDetail from './measure/MeasureDetail'
 import { MeasureBreadcrumb } from './measure/MeasureBreadcrumb'
+import { AnalysisBreadcrumb } from './analysis/AnalysisBreadcrumb'
 
 import { useStrategyData, useBlockData, useSituationData, useGoalData, useMeasureData } from './hooks'
 
@@ -41,4 +42,5 @@ export {
   useSituationData,
   useGoalData,
   useMeasureData,
+  AnalysisBreadcrumb,
 }
