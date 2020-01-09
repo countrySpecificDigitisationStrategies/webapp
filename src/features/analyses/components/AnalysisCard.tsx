@@ -1,5 +1,5 @@
 import React from 'react'
-import { Analysis } from 'features/analysis/store'
+import { Analysis } from 'features/analyses/store'
 import { OptionsCard } from 'shared/components/options/OptionsCard'
 
 export interface AnalysisCardProps {
@@ -13,7 +13,7 @@ export const AnalysisCard = ({ analysis }: AnalysisCardProps) => (
     image="https://flagpedia.net/data/flags/normal/af.png"
     description={analysis.text}
     link={{
-      to: `/analysis/${analysis.id}`,
+      to: `/analyses/${analysis.id}`,
       title: 'View Analysis',
     }}
   />
