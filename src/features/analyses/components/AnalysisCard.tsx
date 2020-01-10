@@ -13,7 +13,7 @@ export const AnalysisCard = ({ analysis }: AnalysisCardProps) => (
     image="https://flagpedia.net/data/flags/normal/af.png"
     description={analysis.text}
     link={{
-      to: `/analysis/${analysis.id}`,
+      to: `/analyses/${analysis.id}`,
       title: 'View Analysis',
     }}
   />
