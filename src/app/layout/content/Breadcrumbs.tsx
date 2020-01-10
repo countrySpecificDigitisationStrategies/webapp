@@ -18,4 +18,8 @@ const Breadcrumbs = ({ breadcrumbs }: InjectedProps) => (
   </MuiBreadcrumbs>
 )
 
+// Typings of HOC sem to be wrong
+// --> BreadcrumbsRoute should extend RouteConfig and make breadcrumbs optional
+// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+// @ts-ignore
 export default withBreadcrumbs(routes)(Breadcrumbs)

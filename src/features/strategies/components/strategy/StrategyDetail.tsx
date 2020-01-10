@@ -7,7 +7,7 @@ import BlockGrid from 'features/strategies/components/block/BlockGrid'
 import StandardView from 'shared/components/standard-view/StandardView'
 
 interface StrategyDetailProps {
-  id: Strategy.id
+  id: Strategy['id']
 }
 
 const StrategyDetail = ({ id }: StrategyDetailProps) => {

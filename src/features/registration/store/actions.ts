@@ -9,7 +9,7 @@ interface RegistrationSuccess {
   type: typeof REGISTRATION_SUCCESS
 }
 
-export type RegistrationAction = RegistrationRequest | RegistrationSuccess
+export type RegistrationAction = RegistrationSuccess
 
 /** Registration Actions */
 export const register = (user: UserData) =>

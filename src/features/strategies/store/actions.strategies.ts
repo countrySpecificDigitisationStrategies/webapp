@@ -14,20 +14,20 @@ export type StrategyActions = StrategiesAdd
 
 /** Strategies Actions */
 export const loadStrategies = () =>
-  createRequest({
+  createRequest<Strategy[]>({
     id: STRATEGIES_REQUEST_ID,
     request: () => get(Endpoint.strategies),
     onSuccess: addStrategies,
   })
 
-const addStrategies = (strategies: Strategy[]): StrategiesSuccess => ({
+const addStrategies = (strategies: Strategy[]): StrategiesAdd => ({
   type: STRATEGIES_ADD,
   // strategies,
   strategies: mockStrategyData(strategies),
 })
 
 //TODO: should be removed once api delivers real relation data
-const mockStrategyData = strategies =>
+const mockStrategyData = (strategies: Strategy[]) =>
   strategies.map(strategy => ({
     ...strategy,
     blocks: [1, 2, 3, 4],

@@ -19,14 +19,14 @@ export const loadSituations = () =>
     onSuccess: addSituations,
   })
 
-const addSituations = (situations: Situation[]): SituationsSuccess => ({
+const addSituations = (situations: Situation[]): SituationsAdd => ({
   type: SITUATIONS_ADD,
   // situations,
   situations: mockSituationData(situations),
 })
 
 //TODO: should be removed once api delivers real relation data
-const mockSituationData = situations =>
+const mockSituationData = (situations: Situation[]) =>
   situations.map(situation => ({
     ...situation,
     title: situation.title.replace('BuildingBlock', 'Situation'),

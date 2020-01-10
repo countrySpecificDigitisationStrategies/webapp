@@ -7,5 +7,6 @@ export enum loadingState {
 export type requestId = string
 
 export interface RequestState {
-  [requestId: requestId]: loadingState
+  /** @type {Object.<requestId, loadingState>} */
+  [requestId: string]: loadingState
 }

@@ -4,7 +4,7 @@ import { StrategyDetail } from 'features/strategies'
 
 const Strategy = () => {
   const { strategyId } = useParams()
-  return <StrategyDetail id={strategyId} />
+  return strategyId ? <StrategyDetail id={+strategyId} /> : null
 }
 
 export default Strategy

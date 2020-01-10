@@ -5,7 +5,7 @@ import { useMeasureData } from 'features/strategies/components/hooks'
 import StandardView from 'shared/components/standard-view/StandardView'
 
 interface MeasureDetailProps {
-  id: Measure.id
+  id: Measure['id']
 }
 
 const MeasureDetail = ({ id }: MeasureDetailProps) => {

@@ -9,7 +9,6 @@ export interface StrategyCardProps {
 export const StrategyCard = ({ strategy }: StrategyCardProps) => (
   <OptionsCard
     title={strategy.title}
-    overline={strategy.overline}
     image="https://flagpedia.net/data/flags/normal/af.png"
     description={strategy.description}
     link={{
