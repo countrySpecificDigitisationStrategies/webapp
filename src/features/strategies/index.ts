@@ -10,6 +10,5 @@ export {
   SituationBreadcrumb,
   GoalBreadcrumb,
   MeasureBreadcrumb,
-  AnalysisBreadcrumb,
 } from './components'
 export * from './store'

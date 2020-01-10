@@ -1,8 +1,8 @@
 import React from 'react'
-import { AnalysisDetailCard } from '../features/strategies/components/analysis/AnalysisDetailCard'
+import { AnalysisDetail } from 'features/analyses'
 
 const Analysis = () => {
-  return <AnalysisDetailCard />
+  return <AnalysisDetail />
 }
 
 export default Analysis
