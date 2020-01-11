@@ -6,7 +6,8 @@ const initialState: AnalysesState = {
   analyses: null,
 }
 
-const addToAnalysesState = (...args) => addToState<AnalysesState>(...args)
+const addToAnalysesState = (state: AnalysesState, key: keyof AnalysesState, object: object) =>
+  addToState<AnalysesState>(state, key, object)
 
 export const analyses = (state: AnalysesState = initialState, action: AnalysesActionTypes): AnalysesState => {
   switch (action.type) {

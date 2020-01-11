@@ -19,7 +19,7 @@ export const loadAnalyses = () =>
     onSuccess: addAnalyses,
   })
 
-const addAnalyses = (analyses: Analysis[]): AnalysesSuccess => ({
+const addAnalyses = (analyses: Analysis[]): AnalysesAdd => ({
   type: ANALYSES_ADD,
   analyses: analyses,
 })

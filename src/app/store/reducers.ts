@@ -10,11 +10,13 @@ import { RegistrationState } from 'features/registration/store'
 import { UiState } from 'features/ui/store'
 import { StrategiesState } from 'features/strategies/store'
 import { RequestState } from 'features/requests/store'
+import { AnalysesState } from 'features/analyses'
 
 export interface ApplicationState {
   authentication: AuthState
   registration: RegistrationState
   ui: UiState
+  analyses: AnalysesState
   strategies: StrategiesState
   requests: RequestState
 }

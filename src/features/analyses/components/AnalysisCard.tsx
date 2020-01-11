@@ -9,9 +9,8 @@ export interface AnalysisCardProps {
 export const AnalysisCard = ({ analysis }: AnalysisCardProps) => (
   <OptionsCard
     title={analysis.title}
-    overline={analysis.text}
+    overline={analysis.country.name}
     image={analysis.country.flag_rectangle}
-    description={analysis.text}
     link={{
       to: `/analyses/${analysis.id}`,
       title: 'View Analysis',

@@ -4,7 +4,7 @@ import { AnalysisDetail } from 'features/analyses'
 
 const Analysis = () => {
   const { analysesId } = useParams()
-  return <AnalysisDetail id={analysesId}/>
+  return analysesId ? <AnalysisDetail id={+analysesId} /> : null
 }
 
 export default Analysis
