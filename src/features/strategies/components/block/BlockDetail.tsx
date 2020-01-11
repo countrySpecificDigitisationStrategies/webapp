@@ -6,7 +6,7 @@ import StandardView from 'shared/components/standard-view/StandardView'
 import { SituationGrid } from 'features/strategies/components/index'
 
 interface BlockDetailProps {
-  id: Block.id
+  id: Block['id']
 }
 
 const BlockDetail = ({ id }: BlockDetailProps) => {

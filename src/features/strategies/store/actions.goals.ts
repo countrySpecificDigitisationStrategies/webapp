@@ -19,14 +19,14 @@ export const loadGoals = () =>
     onSuccess: addGoals,
   })
 
-const addGoals = (goals: Goal[]): GoalsSuccess => ({
+const addGoals = (goals: Goal[]): GoalsAdd => ({
   type: GOALS_ADD,
   // situations,
   goals: mockGoalData(goals),
 })
 
 //TODO: should be removed once api delivers real relation data
-const mockGoalData = goals =>
+const mockGoalData = (goals: Goal[]) =>
   goals.map(goal => ({
     ...goal,
     title: goal.title.replace('BuildingBlock', 'Goal'),

@@ -6,18 +6,18 @@ import { OptionsGrid } from 'shared/components/options/OptionsGrid'
 import { MeasureCard } from './MeasureCard'
 
 export interface MeasureGridProps {
-  ids: Measure.id[]
+  ids: Measure['id'][]
 }
 
 const MeasureGrid = ({ ids }: MeasureGridProps): JSX.Element => {
   useMeasureData()
-  const measures: StrategiesState.measures = useSelector(getMeasures)
+  const measures: StrategiesState['measures'] = useSelector(getMeasures)
   if (!measures) return <div>No Measures could be found.</div>
   return (
-    <OptionsGrid
+    <OptionsGrid<Measure>
       dataset={measures}
       filter={measure => ids.includes(measure.id)}
-      render={(id, measure) => <MeasureCard measure={measure} />}
+      render={(_id, measure) => <MeasureCard measure={measure} />}
     />
   )
 }

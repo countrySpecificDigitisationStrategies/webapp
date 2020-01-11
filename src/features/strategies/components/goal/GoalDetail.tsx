@@ -5,7 +5,7 @@ import { useGoalData, MeasureGrid } from 'features/strategies/components'
 import StandardView from 'shared/components/standard-view/StandardView'
 
 interface GoalDetailProps {
-  id: Goal.id
+  id: Goal['id']
 }
 
 const GoalDetail = ({ id }: GoalDetailProps) => {

@@ -19,14 +19,14 @@ export const loadMeasures = () =>
     onSuccess: addMeasures,
   })
 
-const addMeasures = (measures: Measure[]): MeasuresSuccess => ({
+const addMeasures = (measures: Measure[]): MeasuresAdd => ({
   type: MEASURES_ADD,
   // measures,
   measures: mockMeasureData(measures),
 })
 
 //TODO: should be removed once api delivers real relation data
-const mockMeasureData = measures =>
+const mockMeasureData = (measures: Measure[]) =>
   measures.map(measure => ({
     ...measure,
     title: measure.title.replace('BuildingBlock', 'Measure'),

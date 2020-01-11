@@ -1,9 +1,9 @@
 export interface StrategiesState {
-  strategies: { [key: Strategy.id]: Strategy } | null
-  blocks: { [key: Block.id]: Block } | null
-  situations: { [key: Situations.id]: Situations } | null
-  goals: { [key: Goals.id]: Goals } | null
-  measures: { [key: Measures.id]: Measures } | null
+  strategies: { [id in Strategy['id']]: Strategy } | null
+  blocks: { [id in Block['id']]: Block } | null
+  situations: { [id in Situation['id']]: Situation } | null
+  goals: { [id in Goal['id']]: Goal } | null
+  measures: { [id in Measure['id']]: Measure } | null
 }
 
 export interface Strategy {
@@ -28,7 +28,7 @@ export interface Block {
   updated: Date
 }
 
-export interface Situations {
+export interface Situation {
   id: number
   goals: Array<number> //Todo: this is currently only mocked data
   title: string
@@ -37,7 +37,7 @@ export interface Situations {
   updated: Date
 }
 
-export interface Goals {
+export interface Goal {
   id: number
   measures: Array<number> //Todo: this is currently only mocked data
   title: string
@@ -46,10 +46,12 @@ export interface Goals {
   updated: Date
 }
 
-export interface Measures {
+export interface Measure {
   id: number
   title: string
   description: string
   created: Date
   updated: Date
 }
+
+export type StrategyEntity = Strategy | Block | Situation | Goal | Measure
