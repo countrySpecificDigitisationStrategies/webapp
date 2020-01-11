@@ -41,7 +41,7 @@ const buildUrl = (endpoint: string, id?: number) => {
   return url
 }
 
-const fetchFromApi = async (url, method: HttpMethod, data?: object): Promise<ApiResponse> => {
+const fetchFromApi = async (url: string, method: HttpMethod, data?: object): Promise<ApiResponse> => {
   const response = await fetch(url, getFetchOptions(method, data))
   let content
   try {
@@ -60,8 +60,8 @@ const fetchFromApi = async (url, method: HttpMethod, data?: object): Promise<Api
   return content
 }
 
-const getFetchOptions = (method: HttpMethod, data?: object): object => {
-  let fetchOptions = {
+const getFetchOptions = (method: HttpMethod, data?: object): RequestInit => {
+  let fetchOptions: RequestInit = {
     method,
     headers: {},
   }

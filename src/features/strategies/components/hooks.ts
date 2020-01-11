@@ -12,9 +12,15 @@ import {
   loadMeasures,
   loadSituations,
   loadStrategies,
+  StrategyEntity,
 } from '../store'
+import { ApplicationState } from 'app/store/reducers'
+import { RequestStart } from 'features/requests/store'
 
-const loadIfNotLoaded = (selector, requestActionCreator) => {
+const loadIfNotLoaded = <T extends StrategyEntity[]>(
+  selector: (state: ApplicationState) => boolean,
+  requestActionCreator: () => RequestStart<T>
+) => {
   const alreadyLoaded = useSelector(selector)
   const dispatch = useDispatch()
 

@@ -4,7 +4,7 @@ import { GoalDetail } from 'features/strategies/components'
 
 const Goal = () => {
   const { goalId } = useParams()
-  return <GoalDetail id={goalId} />
+  return goalId ? <GoalDetail id={+goalId} /> : null
 }
 
 export default Goal

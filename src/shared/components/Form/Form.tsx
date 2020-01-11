@@ -2,19 +2,25 @@ import { useState } from 'react'
 import React from 'react'
 import { Button } from '@material-ui/core'
 
-export interface FormProps {
+export interface FormProps<T extends InputValues = InputValues> {
   children: JSX.Element[]
-  onSubmit: (InputValues) => void
+  onSubmit: (values: T) => void
   submitButtonText: string
 }
 
+type InputTypes = string | number | boolean
+
 export interface InputValues {
-  [inputName: string]: string
+  [inputName: string]: InputTypes
 }
 
-export const Form = ({ children, onSubmit, submitButtonText = 'Submit' }: FormProps) => {
-  const [values, setValues] = useState({})
-  const setValue = (name, value) => setValues({ ...values, [name]: value })
+export const Form = <InputValueType extends InputValues = InputValues>({
+  children,
+  onSubmit,
+  submitButtonText = 'Submit',
+}: FormProps<InputValueType>) => {
+  const [values, setValues] = useState({} as InputValueType)
+  const setValue = (name: string, value: InputTypes) => setValues({ ...values, [name]: value })
 
   return (
     <div className="form__container">
@@ -23,7 +29,7 @@ export const Form = ({ children, onSubmit, submitButtonText = 'Submit' }: FormPr
           const name = child.props.name
           if (name) {
             return React.cloneElement(child, {
-              onChange: e => {
+              onChange: (e: React.ChangeEvent<HTMLSelectElement>) => {
                 setValue(name, e.target.value)
               },
             })

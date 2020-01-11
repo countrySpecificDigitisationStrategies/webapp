@@ -4,7 +4,7 @@ import { SituationDetail } from 'features/strategies/components'
 
 const Situation = () => {
   const { situationId } = useParams()
-  return <SituationDetail id={situationId} />
+  return situationId ? <SituationDetail id={+situationId} /> : null
 }
 
 export default Situation

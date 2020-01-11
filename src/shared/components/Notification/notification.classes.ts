@@ -2,7 +2,9 @@ import { makeStyles, Theme } from '@material-ui/core'
 import { amber, green } from '@material-ui/core/colors'
 import { NotificationType } from 'shared/components/Notification/Notification'
 
-const getColors = (theme: Theme): { [type: NotificationType]: string } => ({
+type ColorMap<T> = { [type in NotificationType]: T }
+
+const getColors = (theme: Theme): ColorMap<string> => ({
   [NotificationType.success]: green[600],
   [NotificationType.warning]: amber[700],
   [NotificationType.error]: theme.palette.error.dark,
@@ -11,11 +13,16 @@ const getColors = (theme: Theme): { [type: NotificationType]: string } => ({
 
 export const notificationStyles = makeStyles((theme: Theme) => {
   const colors = getColors(theme)
-  return {
-    ...Object.keys(colors).reduce((acc, type) => {
+  const notificationClasses = (Object.keys(colors) as NotificationType[]).reduce<ColorMap<object>>(
+    (acc, type: NotificationType) => {
       acc[type] = { backgroundColor: colors[type] }
       return acc
-    }, {}),
+    },
+    {} as ColorMap<object>
+  )
+
+  return {
+    ...(notificationClasses as { [notificationType: string]: object }),
     typeIcon: {
       opacity: 0.9,
       marginRight: theme.spacing(1),

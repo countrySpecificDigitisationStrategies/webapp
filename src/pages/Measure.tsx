@@ -4,7 +4,7 @@ import { MeasureDetail } from 'features/strategies/components'
 
 const Measure = () => {
   const { measureId } = useParams()
-  return <MeasureDetail id={measureId} />
+  return measureId ? <MeasureDetail id={+measureId} /> : null
 }
 
 export default Measure

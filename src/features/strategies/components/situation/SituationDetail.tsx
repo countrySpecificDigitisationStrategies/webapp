@@ -6,7 +6,7 @@ import StandardView from 'shared/components/standard-view/StandardView'
 import GoalGrid from 'features/strategies/components/goal/GoalGrid'
 
 interface SituationDetailProps {
-  id: Situation.id
+  id: Situation['id']
 }
 
 const SituationDetail = ({ id }: SituationDetailProps) => {
@@ -14,7 +14,7 @@ const SituationDetail = ({ id }: SituationDetailProps) => {
   const situation = useSelector(getSituation(id))
   if (!situation) return <div>Could not find Situation with id {id}</div>
 
-  const renderGoalGrid = () => <GoalGrid ids={situation.blocks} />
+  const renderGoalGrid = () => <GoalGrid ids={situation.goals} />
 
   //TODO: presents mocked data
   return (

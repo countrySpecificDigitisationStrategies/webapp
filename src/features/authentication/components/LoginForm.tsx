@@ -5,6 +5,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { login, isLoggedIn } from '../store'
 import { Form, InputValues, Notification, NotificationType } from 'shared/components'
 
+interface LoginFormValues extends InputValues {
+  email: string
+  password: string
+}
+
 const LoginForm = (): JSX.Element => {
   const dispatch = useDispatch()
   const success = useSelector(isLoggedIn)
@@ -13,12 +18,12 @@ const LoginForm = (): JSX.Element => {
     return <Notification type={NotificationType.success} message="Success!" />
   }
 
-  const handleSubmit = (values: InputValues): void => {
+  const handleSubmit = (values: LoginFormValues): void => {
     dispatch(login(values))
   }
 
   return (
-    <Form onSubmit={handleSubmit} submitButtonText="Login">
+    <Form<LoginFormValues> onSubmit={handleSubmit} submitButtonText="Login">
       <TextField label="E-Mail" type="email" name="email" />
       <TextField label="Password" type="password" autoComplete="current-password" name="password" />
     </Form>

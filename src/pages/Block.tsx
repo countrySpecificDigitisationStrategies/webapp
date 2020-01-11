@@ -4,7 +4,7 @@ import { BlockDetail } from 'features/strategies/components'
 
 const Block = () => {
   const { blockId } = useParams()
-  return <BlockDetail id={blockId} />
+  return blockId ? <BlockDetail id={+blockId} /> : null
 }
 
 export default Block
