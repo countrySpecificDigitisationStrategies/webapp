@@ -14,8 +14,8 @@ export const getRequestType = (type: Action['type']): RequestType | null => {
   return null
 }
 
-type SuccessResponse = object
-type ErrorResponse = { name: string; detail: string }
+export type SuccessResponse = object
+export type ErrorResponse = { name: string; detail: string }
 type SuccessActionCreator<T = SuccessResponse> = (payload: T) => Action
 type ErrorActionCreator<T = ErrorResponse> = (error: T) => Action
 
