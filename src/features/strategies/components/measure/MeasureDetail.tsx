@@ -13,7 +13,7 @@ const MeasureDetail = ({ id }: MeasureDetailProps) => {
   const measure = useSelector(getMeasure(id))
   if (!measure) return <div>Could not find Measure with id {id}</div>
 
-  //TODO: presents mocked data
+  //TODO: Add StrategyMeasure-Relation-Data
   return <StandardView title={measure.title} description={measure.description} />
 }
 

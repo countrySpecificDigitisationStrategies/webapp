@@ -1,9 +1,8 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { getBlock, Block } from 'features/strategies/store'
-import { useBlockData } from 'features/strategies/components/hooks'
+import { CategoryGrid, useBlockData } from 'features/strategies/components'
 import { StandardView } from 'shared/components'
-import { SituationGrid } from 'features/strategies/components/index'
 
 interface BlockDetailProps {
   id: Block['id']
@@ -14,14 +13,14 @@ const BlockDetail = ({ id }: BlockDetailProps) => {
   const block = useSelector(getBlock(id))
   if (!block) return <div>Could not find Block with id {id}</div>
 
-  const renderSituationGrid = () => <SituationGrid ids={block.situations} />
+  const renderCategoryGrid = () => <CategoryGrid ids={block.categories} />
   return (
     <StandardView
       title={block.title}
       description={block.description}
       nextLevel={{
-        title: 'Situations',
-        render: renderSituationGrid,
+        title: 'Categories',
+        render: renderCategoryGrid,
       }}
     />
   )

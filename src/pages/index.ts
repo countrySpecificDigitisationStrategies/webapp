@@ -6,8 +6,8 @@ import Strategies from './Strategies'
 import Strategy from './Strategy'
 import Block from './Block'
 import Situation from './Situation'
-import Goal from './Goal'
+import Category from './Category'
 import Measure from './Measure'
 import Analysis from './Analysis'
 
-export { Home, Login, Register, Strategies, Strategy, Block, Situation, Goal, Measure, Analysis }
+export { Home, Login, Register, Strategies, Strategy, Block, Situation, Category, Measure, Analysis }

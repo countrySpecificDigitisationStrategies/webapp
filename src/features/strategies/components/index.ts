@@ -10,16 +10,16 @@ import SituationGrid from './situation/SituationGrid'
 import SituationDetail from './situation/SituationDetail'
 import { SituationBreadcrumb } from './situation/SituationBreadcrumb'
 
-import GoalGrid from './goal/GoalGrid'
-import GoalDetail from './goal/GoalDetail'
-import { GoalBreadcrumb } from './goal/GoalBreadcrumb'
+import CategoryGrid from './category/CategoryGrid'
+import CategoryDetail from './category/CategoryDetail'
+import { CategoryBreadcrumb } from './category/CategoryBreadcrumb'
 
 import MeasureGrid from './measure/MeasureGrid'
 import MeasureDetail from './measure/MeasureDetail'
 import { MeasureBreadcrumb } from './measure/MeasureBreadcrumb'
 import { AnalysisBreadcrumb } from './analysis/AnalysisBreadcrumb'
 
-import { useStrategyData, useBlockData, useSituationData, useGoalData, useMeasureData } from './hooks'
+import { useStrategyData, useBlockData, useSituationData, useCategoryData, useMeasureData } from './hooks'
 
 export {
   StrategyBreadcrumb,
@@ -31,16 +31,16 @@ export {
   SituationBreadcrumb,
   SituationDetail,
   SituationGrid,
-  GoalBreadcrumb,
-  GoalDetail,
-  GoalGrid,
+  CategoryBreadcrumb,
+  CategoryDetail,
+  CategoryGrid,
   MeasureBreadcrumb,
   MeasureDetail,
   MeasureGrid,
   useStrategyData,
   useBlockData,
   useSituationData,
-  useGoalData,
+  useCategoryData,
   useMeasureData,
   AnalysisBreadcrumb,
 }

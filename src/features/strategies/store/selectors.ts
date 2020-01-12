@@ -1,6 +1,6 @@
 import {
   BLOCKS_REQUEST_ID,
-  GOALS_REQUEST_ID,
+  CATEGORIES_REQUEST_ID,
   MEASURES_REQUEST_ID,
   SITUATIONS_REQUEST_ID,
   STRATEGIES_REQUEST_ID,
@@ -10,7 +10,7 @@ import { doesRequestExist } from 'features/requests/store'
 import {
   Strategy,
   Block,
-  Goal,
+  Category,
   Measure,
   Situation,
   StrategiesState,
@@ -50,9 +50,9 @@ export const getSituations = getAll<Situation>('situations')
 export const getSituation = (id: Situation['id']) => getOne<Situation>(getSituations, id)
 export const areSituationsLoaded = isLoaded(SITUATIONS_REQUEST_ID)
 
-export const getGoals = getAll<Goal>('goals')
-export const getGoal = (id: Goal['id']) => getOne<Goal>(getGoals, id)
-export const areGoalsLoaded = isLoaded(GOALS_REQUEST_ID)
+export const getCategories = getAll<Category>('categories')
+export const getCategory = (id: Category['id']) => getOne<Category>(getCategories, id)
+export const areCategoriesLoaded = isLoaded(CATEGORIES_REQUEST_ID)
 
 export const getMeasures = getAll<Measure>('measures')
 export const getMeasure = (id: Measure['id']) => getOne<Measure>(getMeasures, id)

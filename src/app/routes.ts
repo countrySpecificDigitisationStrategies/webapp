@@ -1,9 +1,9 @@
 import { RouteConfig } from 'react-router-config'
-import { Block, Goal, Home, Login, Measure, Register, Situation, Strategies, Strategy, Analysis } from 'pages'
+import { Block, Category, Home, Login, Measure, Register, Situation, Strategies, Strategy, Analysis } from 'pages'
 import {
   StrategyBreadcrumb,
   BlockBreadcrumb,
-  GoalBreadcrumb,
+  CategoryBreadcrumb,
   MeasureBreadcrumb,
   SituationBreadcrumb,
   AnalysisBreadcrumb,
@@ -12,8 +12,8 @@ import {
 export const APP_ROUTE_PARAMS: { [key: string]: string } = {
   strategyId: 'strategyId',
   blockId: 'blockId',
+  categoryId: 'categoryId',
   situationId: 'situationId',
-  goalId: 'goalId',
   measureId: 'measureId',
 }
 const p = APP_ROUTE_PARAMS
@@ -26,9 +26,9 @@ export const APP_ROUTES = {
   strategies: '/strategies',
   strategy: `/strategies/:${p.strategyId}`,
   block: `/strategies/:${p.strategyId}/:${p.blockId}`,
-  situation: `/strategies/:${p.strategyId}/:${p.blockId}/:${p.situationId}`,
-  goal: `/strategies/:${p.strategyId}/:${p.blockId}/:${p.situationId}/:${p.goalId}`,
-  measure: `/strategies/:${p.strategyId}/:${p.blockId}/:${p.situationId}/:${p.goalId}/:${p.measureId}`,
+  category: `/strategies/:${p.strategyId}/:${p.blockId}/:${p.categoryId}`,
+  situation: `/strategies/:${p.strategyId}/:${p.blockId}/:${p.categoryId}/:${p.situationId}`,
+  measure: `/strategies/:${p.strategyId}/:${p.blockId}/:${p.categoryId}/:${p.situationId}/:${p.measureId}`,
   education: '/education',
   infrastructure: '/infrastructure',
   management: '/management',
@@ -69,16 +69,16 @@ export const routes: RouteConfig[] = [
     breadcrumb: BlockBreadcrumb,
   },
   {
+    path: APP_ROUTES.category,
+    component: Category,
+    exact: true,
+    breadcrumb: CategoryBreadcrumb,
+  },
+  {
     path: APP_ROUTES.situation,
     component: Situation,
     exact: true,
     breadcrumb: SituationBreadcrumb,
-  },
-  {
-    path: APP_ROUTES.goal,
-    component: Goal,
-    exact: true,
-    breadcrumb: GoalBreadcrumb,
   },
   {
     path: APP_ROUTES.measure,

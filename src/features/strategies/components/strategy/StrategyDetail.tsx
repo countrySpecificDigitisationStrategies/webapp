@@ -2,8 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { Button, Typography } from '@material-ui/core'
 import { getStrategy, Strategy } from 'features/strategies/store'
-import { useStrategyData } from 'features/strategies/components/hooks'
-import BlockGrid from 'features/strategies/components/block/BlockGrid'
+import { BlockGrid, useStrategyData } from 'features/strategies/components'
 import { StandardView } from 'shared/components'
 
 interface StrategyDetailProps {

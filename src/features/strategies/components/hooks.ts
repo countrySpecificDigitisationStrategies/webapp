@@ -3,12 +3,12 @@ import { useEffect } from 'react'
 
 import {
   areBlocksLoaded,
-  areGoalsLoaded,
+  areCategoriesLoaded,
   areMeasuresLoaded,
   areSituationsLoaded,
   areStrategiesLoaded,
   loadBlocks,
-  loadGoals,
+  loadCategories,
   loadMeasures,
   loadSituations,
   loadStrategies,
@@ -34,5 +34,5 @@ const loadIfNotLoaded = <T extends StrategyEntity[]>(
 export const useStrategyData = () => loadIfNotLoaded(areStrategiesLoaded, loadStrategies)
 export const useBlockData = () => loadIfNotLoaded(areBlocksLoaded, loadBlocks)
 export const useSituationData = () => loadIfNotLoaded(areSituationsLoaded, loadSituations)
-export const useGoalData = () => loadIfNotLoaded(areGoalsLoaded, loadGoals)
+export const useCategoryData = () => loadIfNotLoaded(areCategoriesLoaded, loadCategories)
 export const useMeasureData = () => loadIfNotLoaded(areMeasuresLoaded, loadMeasures)
