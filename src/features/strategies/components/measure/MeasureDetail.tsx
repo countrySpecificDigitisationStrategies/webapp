@@ -1,5 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
+import { Typography } from '@material-ui/core'
+
 import { getMeasure, getStrategy, getStrategyMeasureByRelated, Measure, Strategy } from 'features/strategies/store'
 import { useMeasureData, useStrategyData, useStrategyMeasureData } from 'features/strategies/components'
 import { StandardView } from 'shared/components'
@@ -25,17 +27,19 @@ const MeasureDetail = ({ measureId, strategyId }: MeasureDetailProps) => {
       </div>
     )
 
-  const strategyMeasureFragment = () => <p>{strategyMeasure.description}</p>
+  const strategyMeasureFragment = () => (
+    <>
+      <Typography variant="h5">Notes on this Strategy</Typography>
+      <Typography variant="body1">{strategyMeasure.description}</Typography>
+    </>
+  )
 
   return (
     <>
       <StandardView
         title={measure.title}
         description={measure.description}
-        nextLevel={{
-          title: 'Notes on this Strategy',
-          render: strategyMeasureFragment,
-        }}
+        renderAdditionalInfo={strategyMeasureFragment}
       />
     </>
   )
