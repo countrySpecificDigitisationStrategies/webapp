@@ -28,7 +28,7 @@ const StrategyDetail = ({ id }: StrategyDetailProps) => {
   const renderBlockGrid = () => <BlockGrid ids={strategy.blocks} />
   return (
     <StandardView
-      title={strategy.title}
+      title={strategy.country.name}
       description={strategy.description}
       renderAdditionalInfo={() => analysisFragment}
       nextLevel={{
