@@ -7,11 +7,13 @@ import {
   areMeasuresLoaded,
   areSituationsLoaded,
   areStrategiesLoaded,
+  areStrategyMeasuresLoaded,
   loadBlocks,
   loadCategories,
   loadMeasures,
   loadSituations,
   loadStrategies,
+  loadStrategyMeasures,
   StrategyEntity,
 } from '../store'
 import { ApplicationState } from 'app/store/reducers'
@@ -36,3 +38,4 @@ export const useBlockData = () => loadIfNotLoaded(areBlocksLoaded, loadBlocks)
 export const useSituationData = () => loadIfNotLoaded(areSituationsLoaded, loadSituations)
 export const useCategoryData = () => loadIfNotLoaded(areCategoriesLoaded, loadCategories)
 export const useMeasureData = () => loadIfNotLoaded(areMeasuresLoaded, loadMeasures)
+export const useStrategyMeasureData = () => loadIfNotLoaded(areStrategyMeasuresLoaded, loadStrategyMeasures)

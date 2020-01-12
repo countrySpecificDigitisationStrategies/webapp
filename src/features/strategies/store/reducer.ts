@@ -1,11 +1,12 @@
-import { Block, Category, Measure, Situation, StrategiesState, Strategy } from './types'
-import { toIndexedObject, addToState } from 'shared/utils'
+import { Block, Category, Measure, Situation, StrategiesState, Strategy, StrategyMeasure } from './types'
+import { addToState, toIndexedObject } from 'shared/utils'
 import {
   BLOCKS_ADD,
   CATEGORIES_ADD,
   MEASURES_ADD,
   SITUATIONS_ADD,
   STRATEGIES_ADD,
+  STRATEGY_MEASURES_ADD,
   StrategyActionTypes,
 } from './actions'
 
@@ -33,6 +34,12 @@ export const strategies = (state: StrategiesState = initialState, action: Strate
       return addToStrategiesState(state, 'categories', toIndexedObject<Category>(action.categories, 'id'))
     case MEASURES_ADD:
       return addToStrategiesState(state, 'measures', toIndexedObject<Measure>(action.measures, 'id'))
+    case STRATEGY_MEASURES_ADD:
+      return addToStrategiesState(
+        state,
+        'strategyMeasures',
+        toIndexedObject<StrategyMeasure>(action.strategyMeasures, 'id')
+      )
     default:
       return state
   }

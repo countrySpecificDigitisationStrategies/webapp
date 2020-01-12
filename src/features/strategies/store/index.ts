@@ -1,4 +1,11 @@
-export { loadStrategies, loadBlocks, loadSituations, loadCategories, loadMeasures } from './actions'
+export {
+  loadStrategies,
+  loadBlocks,
+  loadSituations,
+  loadCategories,
+  loadMeasures,
+  loadStrategyMeasures,
+} from './actions'
 export {
   getStrategies,
   getStrategy,
@@ -15,5 +22,7 @@ export {
   getMeasures,
   getMeasure,
   areMeasuresLoaded,
+  getStrategyMeasureByRelated,
+  areStrategyMeasuresLoaded,
 } from './selectors'
 export { StrategiesState, Strategy, Block, Situation, Category, Measure, StrategyEntity } from './types'

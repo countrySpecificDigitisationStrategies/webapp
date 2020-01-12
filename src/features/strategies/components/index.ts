@@ -17,9 +17,17 @@ import { CategoryBreadcrumb } from './category/CategoryBreadcrumb'
 import MeasureGrid from './measure/MeasureGrid'
 import MeasureDetail from './measure/MeasureDetail'
 import { MeasureBreadcrumb } from './measure/MeasureBreadcrumb'
+
 import { AnalysisBreadcrumb } from './analysis/AnalysisBreadcrumb'
 
-import { useStrategyData, useBlockData, useSituationData, useCategoryData, useMeasureData } from './hooks'
+import {
+  useStrategyData,
+  useBlockData,
+  useSituationData,
+  useCategoryData,
+  useMeasureData,
+  useStrategyMeasureData,
+} from './hooks'
 
 export {
   StrategyBreadcrumb,
@@ -42,5 +50,6 @@ export {
   useSituationData,
   useCategoryData,
   useMeasureData,
+  useStrategyMeasureData,
   AnalysisBreadcrumb,
 }
