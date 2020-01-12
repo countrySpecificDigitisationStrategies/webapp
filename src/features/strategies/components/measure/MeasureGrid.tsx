@@ -2,7 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { useMeasureData } from 'features/strategies/components/hooks'
 import { getMeasures, StrategiesState, Measure } from 'features/strategies/store'
-import { OptionsGrid } from 'shared/components/options/OptionsGrid'
+import { OptionsGrid } from 'shared/components'
 import { MeasureCard } from './MeasureCard'
 
 export interface MeasureGridProps {

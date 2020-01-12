@@ -15,11 +15,11 @@ import {
   StrategyEntity,
 } from '../store'
 import { ApplicationState } from 'app/store/reducers'
-import { RequestStart } from 'features/requests/store'
+import { CreateRequestReturnType } from 'features/requests/store'
 
 const loadIfNotLoaded = <T extends StrategyEntity[]>(
   selector: (state: ApplicationState) => boolean,
-  requestActionCreator: () => RequestStart<T>
+  requestActionCreator: () => CreateRequestReturnType<T>
 ) => {
   const alreadyLoaded = useSelector(selector)
   const dispatch = useDispatch()

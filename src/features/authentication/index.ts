@@ -1,4 +1,4 @@
 import LoginForm from './components/LoginForm'
-export * from './store'
+export { isLoggedIn, authHandler, logout } from './store'
 
 export { LoginForm }

@@ -2,7 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { getMeasure, Measure } from 'features/strategies/store'
 import { useMeasureData } from 'features/strategies/components/hooks'
-import StandardView from 'shared/components/standard-view/StandardView'
+import { StandardView } from 'shared/components'
 
 interface MeasureDetailProps {
   id: Measure['id']

@@ -1,8 +1,8 @@
-export * from './actions.strategies'
-export * from './actions.blocks'
-export * from './actions.situations'
-export * from './actions.goals'
-export * from './actions.measures'
+export { STRATEGIES_REQUEST_ID, STRATEGIES_ADD, loadStrategies } from './actions.strategies'
+export { BLOCKS_REQUEST_ID, BLOCKS_ADD, loadBlocks } from './actions.blocks'
+export { SITUATIONS_REQUEST_ID, SITUATIONS_ADD, loadSituations } from './actions.situations'
+export { GOALS_REQUEST_ID, GOALS_ADD, loadGoals } from './actions.goals'
+export { MEASURES_REQUEST_ID, MEASURES_ADD, loadMeasures } from './actions.measures'
 
 import { StrategyActions } from './actions.strategies'
 import { BlockActions } from './actions.blocks'

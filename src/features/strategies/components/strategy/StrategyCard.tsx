@@ -1,6 +1,6 @@
 import React from 'react'
 import { Strategy } from 'features/strategies/store'
-import { OptionsCard } from 'shared/components/options/OptionsCard'
+import { OptionsCard } from 'shared/components'
 
 export interface StrategyCardProps {
   strategy: Strategy

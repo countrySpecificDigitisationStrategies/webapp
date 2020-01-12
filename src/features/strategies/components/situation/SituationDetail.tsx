@@ -2,7 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { getSituation, Situation } from 'features/strategies/store'
 import { useSituationData } from 'features/strategies/components/hooks'
-import StandardView from 'shared/components/standard-view/StandardView'
+import { StandardView } from 'shared/components'
 import GoalGrid from 'features/strategies/components/goal/GoalGrid'
 
 interface SituationDetailProps {

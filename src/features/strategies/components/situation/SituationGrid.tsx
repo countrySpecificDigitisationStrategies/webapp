@@ -2,7 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { useSituationData } from 'features/strategies/components/hooks'
 import { getSituations, Situation } from 'features/strategies/store'
-import { OptionsGrid } from 'shared/components/options/OptionsGrid'
+import { OptionsGrid } from 'shared/components'
 import { SituationCard } from './SituationCard'
 
 export interface SituationGridProps {

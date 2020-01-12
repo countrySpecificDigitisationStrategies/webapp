@@ -4,7 +4,7 @@ import { Button, Typography } from '@material-ui/core'
 import { getStrategy, Strategy } from 'features/strategies/store'
 import { useStrategyData } from 'features/strategies/components/hooks'
 import BlockGrid from 'features/strategies/components/block/BlockGrid'
-import StandardView from 'shared/components/standard-view/StandardView'
+import { StandardView } from 'shared/components'
 
 interface StrategyDetailProps {
   id: Strategy['id']

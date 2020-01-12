@@ -1,6 +1,6 @@
 import React from 'react'
 import { Goal } from 'features/strategies/store'
-import { OptionsCard } from 'shared/components/options/OptionsCard'
+import { OptionsCard } from 'shared/components'
 import { useHistory } from 'react-router'
 
 export interface GoalCardProps {

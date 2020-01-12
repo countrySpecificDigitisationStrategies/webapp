@@ -2,7 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { useGoalData } from 'features/strategies/components/hooks'
 import { getGoals, Goal } from 'features/strategies/store'
-import { OptionsGrid } from 'shared/components/options/OptionsGrid'
+import { OptionsGrid } from 'shared/components'
 import { GoalCard } from './GoalCard'
 
 export interface GoalGridProps {

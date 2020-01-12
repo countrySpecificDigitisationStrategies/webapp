@@ -2,7 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { getBlock, Block } from 'features/strategies/store'
 import { useBlockData } from 'features/strategies/components/hooks'
-import StandardView from 'shared/components/standard-view/StandardView'
+import { StandardView } from 'shared/components'
 import { SituationGrid } from 'features/strategies/components/index'
 
 interface BlockDetailProps {
