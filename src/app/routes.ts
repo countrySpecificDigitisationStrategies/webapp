@@ -9,17 +9,26 @@ import {
   AnalysisBreadcrumb,
 } from 'features/strategies'
 
+export const APP_ROUTE_PARAMS: { [key: string]: string } = {
+  strategyId: 'strategyId',
+  blockId: 'blockId',
+  situationId: 'situationId',
+  goalId: 'goalId',
+  measureId: 'measureId',
+}
+const p = APP_ROUTE_PARAMS
+
 export const APP_ROUTES = {
   home: '/',
   login: '/login',
   register: '/register',
   analysis: '/analysis',
   strategies: '/strategies',
-  strategy: '/strategies/:strategyId',
-  block: '/strategies/:strategyId/:blockId',
-  situation: '/strategies/:strategyId/:blockId/:situationId',
-  goal: '/strategies/:strategyId/:blockId/:situationId/:goalId',
-  measure: '/strategies/:strategyId/:blockId/:situationId/:goalId/:measureId',
+  strategy: `/strategies/:${p.strategyId}`,
+  block: `/strategies/:${p.strategyId}/:${p.blockId}`,
+  situation: `/strategies/:${p.strategyId}/:${p.blockId}/:${p.situationId}`,
+  goal: `/strategies/:${p.strategyId}/:${p.blockId}/:${p.situationId}/:${p.goalId}`,
+  measure: `/strategies/:${p.strategyId}/:${p.blockId}/:${p.situationId}/:${p.goalId}/:${p.measureId}`,
   education: '/education',
   infrastructure: '/infrastructure',
   management: '/management',
