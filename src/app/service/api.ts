@@ -1,3 +1,4 @@
+import camelize from 'camelize'
 import { getAuthToken } from 'app/service/authentication'
 import { ApiError } from 'app/service/error'
 
@@ -57,7 +58,7 @@ const fetchFromApi = async (url: string, method: HttpMethod, data?: object): Pro
     throw new ApiError({ code, name, detail })
   }
 
-  return content
+  return camelize(content)
 }
 
 const getFetchOptions = (method: HttpMethod, data?: object): RequestInit => {

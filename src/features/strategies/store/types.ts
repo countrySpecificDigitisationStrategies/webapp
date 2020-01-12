@@ -18,34 +18,34 @@ export interface Strategy {
   situations: Situation['id'][]
   measures: Measure['id'][]
   strategyMeasures: StrategyMeasure['id'][]
-  is_published: boolean
+  isPublished: boolean
   created: Date
   updated: Date
 }
 
 //TODO: should be defined elsewhere
-interface User {
+export interface User {
   id: number
   email: string
-  country: Country
+  country: Country | null
   firstName: string
   lastName: string
-  current_country: Country
-  is_admin: boolean
-  is_representative: boolean
-  is_moderator: boolean
+  currentCountry: Country | null
+  isAdmin: boolean
+  isRepresentative: boolean
+  isModerator: boolean
   created: Date
   updated: Date
 }
 
 //TODO: should be defined elsewhere
-interface Country {
+export interface Country {
   id: number
   name: string
   flag: string
-  flag_circle: string
-  flag_rectangle: string
-  is_developing_country: boolean
+  flagCircle: string
+  flagRectangle: string
+  isDevelopingCountry: boolean
   strategy: number
   created: Date
   updated: Date
