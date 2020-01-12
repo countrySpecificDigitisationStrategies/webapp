@@ -1,12 +1,12 @@
 import React from 'react'
-import { Typography } from '@material-ui/core'
 
 import { ThreadList } from 'features/discussions/components/ThreadList'
+import { DiscussionDetailHeader } from './DiscussionDetailHeader'
 
 export const DiscussionDetail = () => {
   return (
     <div className="DiscussionDetail">
-      <Typography variant="h3">DiscussionDetail</Typography>
+      <DiscussionDetailHeader />
 
       <ThreadList />
     </div>

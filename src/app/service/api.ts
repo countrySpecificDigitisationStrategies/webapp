@@ -10,10 +10,10 @@ export enum Endpoint {
   logout = 'users/logout',
   strategies = 'strategies',
   blocks = 'building-blocks',
-  situations = 'building-blocks', //TODO: should be changed to /situations when api delivers them
-  goals = 'building-blocks', //TODO: should be changed to /goals when api delivers them
+  situationCategories = 'situation-categories',
+  situations = 'situations',
   measures = 'building-blocks', //TODO: should be changed to /measures when api delivers them
-  discussionTree = 'discussion/tree',
+  strategyMeasures = 'strategy-measures',
 }
 
 enum HttpMethod {
@@ -25,18 +25,18 @@ enum HttpMethod {
 
 export type ApiResponse = object | ApiError
 
-export const get = async (endpoint: Endpoint, id?: number): Promise<ApiResponse> => {
-  return fetchFromApi(buildUrl(endpoint, id), HttpMethod.GET)
+export const get = async (endpoint: Endpoint, post?: number | string): Promise<ApiResponse> => {
+  return fetchFromApi(buildUrl(endpoint, post), HttpMethod.GET)
 }
 
 export const post = async (endpoint: Endpoint, data: object): Promise<ApiResponse> => {
   return fetchFromApi(buildUrl(endpoint), HttpMethod.POST, data)
 }
 
-const buildUrl = (endpoint: string, id?: number) => {
+const buildUrl = (endpoint: Endpoint, post?: number | string) => {
   const url = baseUrl + endpoint
-  if (id) {
-    return url + '/' + id
+  if (post && post !== '') {
+    return url + '/' + post
   }
   return url
 }

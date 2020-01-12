@@ -1,37 +1,38 @@
 import React from 'react'
+import { Card, CardActionArea, CardContent, CardMedia, makeStyles, Typography } from '@material-ui/core'
+import { StrategyModel } from '../models/strategy.discussion.model'
 import { Link } from 'react-router-dom'
-import { Button, Card, CardContent, Typography } from '@material-ui/core'
-import { Strategy } from 'features/strategies'
+
+const useStyles = makeStyles({
+  card: {
+    maxWidth: 345,
+  },
+  media: {
+    height: 140,
+  },
+})
 
 export interface DiscussionCardProps {
-  strategy: Strategy
+  strategy: StrategyModel
 }
 
 export const DiscussionCard = ({ strategy }: DiscussionCardProps) => {
-  const { id, title, description } = strategy
-  const link = {
-    to: `/discussions/countries/${id}`, // TODO change to country id
-    title: 'View Discussion',
-  }
-  const className = 'DiscussionCard'
+  const { id, title, country } = strategy
+  const classes = useStyles()
 
   return (
-    <Card className={className}>
-      <CardContent>
-        <Typography variant="h5" component="h2">
-          {title}
-        </Typography>
-      </CardContent>
-
-      <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p">
-          {description}
-        </Typography>
-      </CardContent>
-
-      <Button size="small" component={Link} to={link.to}>
-        {link.title}
-      </Button>
+    <Card className={classes.card}>
+      <CardActionArea component={Link} to={`/discussions/${id}`}>
+        <CardMedia className={classes.media} image={country.flag} title={`Flag of ${country.name}`} />
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="h2">
+            {country.name}
+          </Typography>
+          <Typography variant="body2" color="textSecondary" component="p">
+            {title}
+          </Typography>
+        </CardContent>
+      </CardActionArea>
     </Card>
   )
 }

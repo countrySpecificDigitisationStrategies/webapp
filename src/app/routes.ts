@@ -36,7 +36,9 @@ export const APP_ROUTES = {
   infrastructure: '/infrastructure',
   management: '/management',
   discussions: '/discussions',
-  discussion: '/discussions/countries/:countryId',
+  discussion: '/discussions/:strategyId',
+  newThread: 'discussions/:strategyId/threads/new',
+  thread: 'discussions/:strategyId/threads/:threadId',
   account: '/account',
 }
 

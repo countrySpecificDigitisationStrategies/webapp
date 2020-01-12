@@ -3,30 +3,23 @@ import { TreeView, TreeItem } from '@material-ui/lab'
 import ChevronRightIcon from '@material-ui/icons/ChevronRight'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import { get, Endpoint } from 'app/service'
-import {
-  BuildingBlockModel,
-  createDiscussionTreeFromResponse,
-  DiscussionTreeModel,
-  DiscussionTreeResponse,
-  GoalModel,
-  SituationModel,
-  StrategyMeasureModel,
-} from '../discussionTree'
+import { mapResponseToTree, TreeModel, TreeResponse } from '../models/tree.discussion.model'
 
 export const DiscussionTree = () => {
-  const [discussionTree, setDiscussionTree] = useState<DiscussionTreeModel>()
+  const [tree, setTree] = useState<TreeModel>()
+  const strategyId = 1 //TODO parse id from url
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = (await get(Endpoint.discussionTree)) as DiscussionTreeResponse
-      setDiscussionTree(createDiscussionTreeFromResponse(response))
+      const response = (await get(Endpoint.strategies, `${strategyId}/discussion-tree`)) as TreeResponse
+      setTree(mapResponseToTree(response))
     }
     fetchData()
   }, [])
 
-  if (!discussionTree) return <div>No discussions found</div>
+  if (!tree) return <div>No discussions found</div>
 
-  const buildingBlocks: BuildingBlockModel[] = discussionTree.buildingBlocks
+  const buildingBlocks: BuildingBlockModel[] = tree.buildingBlocks
 
   const renderTreeSituations = (parentNodeId: string, situations: SituationModel[]) =>
     situations.map((situation: SituationModel, index: number) => {
