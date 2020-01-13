@@ -10,5 +10,4 @@ export {
   SituationBreadcrumb,
   CategoryBreadcrumb,
   MeasureBreadcrumb,
-  AnalysisBreadcrumb,
 } from './components'

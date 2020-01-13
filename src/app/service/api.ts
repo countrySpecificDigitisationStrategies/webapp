@@ -9,6 +9,7 @@ export enum Endpoint {
   register = 'auth/register',
   login = 'auth/login',
   logout = 'users/logout',
+  analyses = 'analyses',
   strategies = 'strategies',
   blocks = 'building-blocks',
   categories = 'situation-categories',

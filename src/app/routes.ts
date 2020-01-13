@@ -1,13 +1,25 @@
 import { RouteConfig } from 'react-router-config'
-import { Block, Category, Home, Login, Measure, Register, Situation, Strategies, Strategy, Analysis } from 'pages'
+import {
+  Analyses,
+  Analysis,
+  Block,
+  Category,
+  Home,
+  Login,
+  Measure,
+  Register,
+  Situation,
+  Strategies,
+  Strategy,
+} from 'pages'
 import {
   StrategyBreadcrumb,
   BlockBreadcrumb,
   CategoryBreadcrumb,
   MeasureBreadcrumb,
   SituationBreadcrumb,
-  AnalysisBreadcrumb,
 } from 'features/strategies'
+import { AnalysisBreadcrumb } from 'features/analyses'
 
 export const APP_ROUTE_PARAMS: { [key: string]: string } = {
   strategyId: 'strategyId',
@@ -22,7 +34,8 @@ export const APP_ROUTES = {
   home: '/',
   login: '/login',
   register: '/register',
-  analysis: '/analysis',
+  analyses: '/analyses',
+  analysis: '/analyses/:analysesId',
   strategies: '/strategies',
   strategy: `/strategies/:${p.strategyId}`,
   block: `/strategies/:${p.strategyId}/:${p.blockId}`,
@@ -54,6 +67,11 @@ export const routes: RouteConfig[] = [
   {
     path: APP_ROUTES.strategies,
     component: Strategies,
+    exact: true,
+  },
+  {
+    path: APP_ROUTES.analyses,
+    component: Analyses,
     exact: true,
   },
   {
