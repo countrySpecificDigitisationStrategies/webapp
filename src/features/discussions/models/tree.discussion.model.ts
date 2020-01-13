@@ -13,19 +13,42 @@ export const mapResponseToTree = (response: TreeResponse): TreeModel => {
                 id: situation.id,
                 title: situation.title,
                 strategyMeasures: situation.strategy_measures.map(
-                  (strategyMeasure: TreeStrategyMeasureResponse): TreeStrategyMeasureModel => ({
-                    id: strategyMeasure.id,
-                    title: strategyMeasure.measure.title,
-                    threadCount: strategyMeasure.thread_count,
-                  })
+                  (strategyMeasure: TreeStrategyMeasureResponse): TreeStrategyMeasureModel => {
+                    return {
+                      id: strategyMeasure.id,
+                      title: strategyMeasure.measure.title,
+                      threadCount: strategyMeasure.thread_count,
+                    }
+                  }
                 ),
+                threadCount: calculateSituationThreadCount(situation),
               })
             ),
+            threadCount: calculateSituationCategoryThreadCount(situationCategory),
           })
         ),
+        threadCount: calculateBuildingBlockThreadCount(buildingBlock),
       })
     ),
   }
+}
+
+const calculateBuildingBlockThreadCount = (buildingBlock: TreeBuildingBlockResponse): number => {
+  const sumUpSituationCategoryThread = (sum: number, situationCategory: TreeSituationCategoryResponse): number =>
+    sum + calculateSituationCategoryThreadCount(situationCategory)
+  return buildingBlock.situation_categories.reduce(sumUpSituationCategoryThread, 0)
+}
+
+const calculateSituationCategoryThreadCount = (situationCategory: TreeSituationCategoryResponse): number => {
+  const sumUpSituationThreads = (sum: number, situation: TreeSituationResponse): number =>
+    sum + calculateSituationThreadCount(situation)
+  return situationCategory.situations.reduce(sumUpSituationThreads, 0)
+}
+
+const calculateSituationThreadCount = (situation: TreeSituationResponse): number => {
+  const sumUpStrategyMeasureThreads = (sum: number, strategyMeasure: TreeStrategyMeasureResponse): number =>
+    sum + strategyMeasure.thread_count
+  return situation.strategy_measures.reduce(sumUpStrategyMeasureThreads, 0)
 }
 
 export interface TreeResponse {
@@ -42,10 +65,11 @@ interface TreeBuildingBlockResponse {
   situation_categories: TreeSituationCategoryResponse[]
 }
 
-interface TreeBuildingBlockModel {
+export interface TreeBuildingBlockModel {
   id: number
   title: string
   situationCategories: TreeSituationCategoryModel[]
+  threadCount: number
 }
 
 interface TreeSituationCategoryResponse {
@@ -54,10 +78,11 @@ interface TreeSituationCategoryResponse {
   situations: TreeSituationResponse[]
 }
 
-interface TreeSituationCategoryModel {
+export interface TreeSituationCategoryModel {
   id: number
   title: string
   situations: TreeSituationModel[]
+  threadCount: number
 }
 
 interface TreeSituationResponse {
@@ -66,10 +91,11 @@ interface TreeSituationResponse {
   strategy_measures: TreeStrategyMeasureResponse[]
 }
 
-interface TreeSituationModel {
+export interface TreeSituationModel {
   id: number
   title: string
   strategyMeasures: TreeStrategyMeasureModel[]
+  threadCount: number
 }
 
 interface TreeStrategyMeasureResponse {
@@ -82,7 +108,7 @@ interface TreeMeasureResponse {
   title: string
 }
 
-interface TreeStrategyMeasureModel {
+export interface TreeStrategyMeasureModel {
   id: number
   title: string
   threadCount: number
