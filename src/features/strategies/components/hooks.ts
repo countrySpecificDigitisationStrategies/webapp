@@ -14,12 +14,12 @@ import {
   loadSituations,
   loadStrategies,
   loadStrategyMeasures,
-  StrategyEntity,
+  StrategyEntityResponse,
 } from '../store'
 import { ApplicationState } from 'app/store/reducers'
 import { CreateRequestReturnType } from 'features/requests/store'
 
-const loadIfNotLoaded = <T extends StrategyEntity[]>(
+const loadIfNotLoaded = <T extends StrategyEntityResponse[]>(
   selector: (state: ApplicationState) => boolean,
   requestActionCreator: () => CreateRequestReturnType<T>
 ) => {

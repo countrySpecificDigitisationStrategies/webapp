@@ -94,3 +94,11 @@ export interface StrategyMeasureResponse {
   created: string
   updated: string
 }
+
+export type StrategyEntityResponse =
+  | StrategyResponse
+  | BlockResponse
+  | CategoryResponse
+  | SituationResponse
+  | MeasureResponse
+  | StrategyMeasureResponse
