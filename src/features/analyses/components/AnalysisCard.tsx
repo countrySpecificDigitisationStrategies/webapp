@@ -10,7 +10,7 @@ export const AnalysisCard = ({ analysis }: AnalysisCardProps) => (
   <OptionsCard
     title={analysis.title}
     overline={analysis.country.name}
-    image={analysis.country.flag_rectangle}
+    image={analysis.country.flagRectangle}
     link={{
       to: `/analyses/${analysis.id}`,
       title: 'View Analysis',
