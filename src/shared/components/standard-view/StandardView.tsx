@@ -11,7 +11,7 @@ interface DetailViewProps {
   }
 }
 
-const StandardView = ({ title, description, renderAdditionalInfo, nextLevel }: DetailViewProps) => {
+export const StandardView = ({ title, description, renderAdditionalInfo, nextLevel }: DetailViewProps) => {
   const className = 'detail-view'
   const titleFragment = title ? (
     <Typography variant="h3" className={`${className}__heading`}>
@@ -47,4 +47,3 @@ const StandardView = ({ title, description, renderAdditionalInfo, nextLevel }: D
     </div>
   )
 }
-export default StandardView

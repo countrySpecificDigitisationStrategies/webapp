@@ -1,9 +1,8 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { getSituation, Situation } from 'features/strategies/store'
-import { useSituationData } from 'features/strategies/components/hooks'
-import StandardView from 'shared/components/standard-view/StandardView'
-import GoalGrid from 'features/strategies/components/goal/GoalGrid'
+import { MeasureGrid, useSituationData } from 'features/strategies/components'
+import { StandardView } from 'shared/components'
 
 interface SituationDetailProps {
   id: Situation['id']
@@ -14,16 +13,14 @@ const SituationDetail = ({ id }: SituationDetailProps) => {
   const situation = useSelector(getSituation(id))
   if (!situation) return <div>Could not find Situation with id {id}</div>
 
-  const renderGoalGrid = () => <GoalGrid ids={situation.goals} />
-
-  //TODO: presents mocked data
+  const renderMeasureGrid = () => <MeasureGrid ids={situation.measures} />
   return (
     <StandardView
       title={situation.title}
       description={situation.description}
       nextLevel={{
-        title: 'Goals',
-        render: renderGoalGrid,
+        title: 'Measures',
+        render: renderMeasureGrid,
       }}
     />
   )

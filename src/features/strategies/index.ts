@@ -3,12 +3,11 @@ export {
   StrategyDetail,
   BlockDetail,
   SituationDetail,
-  GoalDetail,
+  CategoryDetail,
   MeasureDetail,
   StrategyBreadcrumb,
   BlockBreadcrumb,
   SituationBreadcrumb,
-  GoalBreadcrumb,
+  CategoryBreadcrumb,
   MeasureBreadcrumb,
 } from './components'
-export * from './store'

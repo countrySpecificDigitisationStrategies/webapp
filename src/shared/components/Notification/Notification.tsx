@@ -2,9 +2,9 @@ import React from 'react'
 
 import { IconButton, SnackbarContent } from '@material-ui/core'
 import { Close as CloseIcon } from '@material-ui/icons'
-import { notificationStyles } from 'shared/components/Notification/notification.classes'
-import { icons } from 'shared/components/Notification/notification.icons'
-import { NotificationType } from 'shared/components/Notification/notification.types'
+import { notificationStyles } from './notification.classes'
+import { icons } from './notification.icons'
+import { NotificationType } from './notification.types'
 
 export interface NotificationProps {
   type: NotificationType

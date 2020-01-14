@@ -12,5 +12,5 @@ export interface Analysis {
 // This just exists so TS doesn't complain about missing fields on country
 export interface Country {
   name: string
-  flag_rectangle: string
+  flagRectangle: string
 }

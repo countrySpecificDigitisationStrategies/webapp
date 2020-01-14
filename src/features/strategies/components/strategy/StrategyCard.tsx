@@ -1,6 +1,6 @@
 import React from 'react'
 import { Strategy } from 'features/strategies/store'
-import { OptionsCard } from 'shared/components/options/OptionsCard'
+import { OptionsCard } from 'shared/components'
 
 export interface StrategyCardProps {
   strategy: Strategy
@@ -8,8 +8,8 @@ export interface StrategyCardProps {
 
 export const StrategyCard = ({ strategy }: StrategyCardProps) => (
   <OptionsCard
-    title={strategy.title}
-    image="https://flagpedia.net/data/flags/normal/af.png"
+    title={strategy.country.name}
+    image={strategy.country.flagRectangle}
     description={strategy.description}
     link={{
       to: `/strategies/${strategy.id}`,

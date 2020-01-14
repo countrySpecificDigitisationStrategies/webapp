@@ -1,20 +1,22 @@
 import {
   BLOCKS_REQUEST_ID,
-  GOALS_REQUEST_ID,
+  CATEGORIES_REQUEST_ID,
   MEASURES_REQUEST_ID,
   SITUATIONS_REQUEST_ID,
   STRATEGIES_REQUEST_ID,
+  STRATEGY_MEASURES_REQUEST_ID,
 } from 'features/strategies/store/actions'
 import { doesRequestExist } from 'features/requests/store'
 
 import {
-  Strategy,
   Block,
-  Goal,
+  Category,
   Measure,
   Situation,
   StrategiesState,
+  Strategy,
   StrategyEntity,
+  StrategyMeasure,
 } from 'features/strategies/store/types'
 import { ApplicationState } from 'app/store/reducers'
 
@@ -50,10 +52,20 @@ export const getSituations = getAll<Situation>('situations')
 export const getSituation = (id: Situation['id']) => getOne<Situation>(getSituations, id)
 export const areSituationsLoaded = isLoaded(SITUATIONS_REQUEST_ID)
 
-export const getGoals = getAll<Goal>('goals')
-export const getGoal = (id: Goal['id']) => getOne<Goal>(getGoals, id)
-export const areGoalsLoaded = isLoaded(GOALS_REQUEST_ID)
+export const getCategories = getAll<Category>('categories')
+export const getCategory = (id: Category['id']) => getOne<Category>(getCategories, id)
+export const areCategoriesLoaded = isLoaded(CATEGORIES_REQUEST_ID)
 
 export const getMeasures = getAll<Measure>('measures')
 export const getMeasure = (id: Measure['id']) => getOne<Measure>(getMeasures, id)
 export const areMeasuresLoaded = isLoaded(MEASURES_REQUEST_ID)
+
+export const getStrategyMeasures = getAll<StrategyMeasure>('strategyMeasures')
+export const getStrategyMeasure = (id: StrategyMeasure['id']) => getOne<StrategyMeasure>(getStrategyMeasures, id)
+export const getStrategyMeasureByRelated = (strategyId: Strategy['id'], measureId: Measure['id']) => (
+  state: ApplicationState
+) => {
+  const all = getStrategyMeasures(state) || []
+  return Object.values(all).find(e => e.measure === measureId && e.strategy === strategyId)
+}
+export const areStrategyMeasuresLoaded = isLoaded(STRATEGY_MEASURES_REQUEST_ID)

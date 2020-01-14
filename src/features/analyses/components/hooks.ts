@@ -3,11 +3,11 @@ import { useEffect } from 'react'
 
 import { areAnalysesLoaded, loadAnalyses, Analysis } from '../store'
 import { ApplicationState } from 'app/store/reducers'
-import { RequestStart } from 'features/requests/store'
+import { CreateRequestReturnType } from 'features/requests/store'
 
 const loadIfNotLoaded = <T extends Analysis[]>(
   selector: (state: ApplicationState) => boolean,
-  requestActionCreator: () => RequestStart<T>
+  requestActionCreator: () => CreateRequestReturnType<T>
 ) => {
   const alreadyLoaded = useSelector(selector)
   const dispatch = useDispatch()

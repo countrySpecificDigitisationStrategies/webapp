@@ -1,6 +1,6 @@
 import React from 'react'
 import { StrategyGrid } from 'features/strategies'
-import StandardView from 'shared/components/standard-view/StandardView'
+import { StandardView } from 'shared/components'
 
 const Strategies = () => {
   const LoremIpsum =

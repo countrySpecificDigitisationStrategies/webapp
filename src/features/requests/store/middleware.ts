@@ -9,7 +9,7 @@ import {
   RequestStart,
   RequestSuccess,
   RequestError,
-} from 'features/requests/store'
+} from './actions'
 import { showError } from 'features/ui/store'
 import { ApiError } from 'app/service'
 

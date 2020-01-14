@@ -14,8 +14,8 @@ export const getRequestType = (type: Action['type']): RequestType | null => {
   return null
 }
 
-type SuccessResponse = object
-type ErrorResponse = { name: string; detail: string }
+export type SuccessResponse = object
+export type ErrorResponse = { name: string; detail: string }
 type SuccessActionCreator<T = SuccessResponse> = (payload: T) => Action
 type ErrorActionCreator<T = ErrorResponse> = (error: T) => Action
 
@@ -43,6 +43,7 @@ export interface RequestError<T = ErrorResponse> {
 
 export type RequestAction = RequestStart | RequestSuccess | RequestError
 
+export type CreateRequestReturnType<S = SuccessResponse, E = ErrorResponse> = RequestStart<S, E>
 export const createRequest = <S = SuccessResponse, E = ErrorResponse>({
   id,
   request,
@@ -53,7 +54,7 @@ export const createRequest = <S = SuccessResponse, E = ErrorResponse>({
   request: RequestStart['request']
   onSuccess: RequestStart<S, E>['onSuccess']
   onError?: RequestStart<S, E>['onError']
-}): RequestStart<S, E> => ({
+}): CreateRequestReturnType<S, E> => ({
   type: `${id}/${REQUEST_START}`,
   id,
   request,
