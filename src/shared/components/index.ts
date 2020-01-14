@@ -6,6 +6,7 @@ export { OptionsCard } from './options/OptionsCard'
 export { OptionsGrid } from './options/OptionsGrid'
 export { StandardView } from './standard-view/StandardView'
 export { StepperView } from './stepper-view/StepperView'
+export { TableView } from './table-view/TableView'
 
 import { InputValues as _InputValues } from './Form/Form'
 export type InputValues = _InputValues

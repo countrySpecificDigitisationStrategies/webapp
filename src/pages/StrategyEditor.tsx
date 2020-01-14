@@ -1,11 +1,29 @@
 import React from 'react'
 import { EditorForm } from 'features/strategy-editor'
-import { StepperView } from 'shared/components'
+import { StepperView, TableView } from 'shared/components'
+import { NavigateNext } from '@material-ui/icons'
 
-const renderBlocksTable = () => <>Select Blocks</>
-const renderCategoryTable = () => <>Select Category</>
-const renderSituationTable = () => <>Select Situation</>
-const renderMeasureTable = () => <>Select Measure</>
+const getColumnConfig = (childsName: string) => ({ title: 'Title', numberOfChildren: `# Of ${childsName}`, next: '' })
+
+const getMockData = (entityName: string) =>
+  'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').map(letter => ({
+    title: `${entityName} ${letter}`,
+    numberOfChildren: '' + Math.ceil(Math.random() * 100),
+  }))
+
+const getActionConfig = () => [
+  { label: () => 'Show', onClick: () => console.log('show') },
+  { icon: NavigateNext, onClick: () => console.log('next') },
+]
+
+const getTableView = (entityName: string, childName: string) => (
+  <TableView columns={getColumnConfig(childName)} data={getMockData(entityName)} actions={getActionConfig()} />
+)
+
+const renderBlocksTable = () => getTableView('Block', 'Categories')
+const renderCategoryTable = () => getTableView('Category', 'Situations')
+const renderSituationTable = () => getTableView('Situation', 'Measures')
+const renderMeasureTable = () => getTableView('Measure', 'Fooo')
 
 const StrategyEditor = () => (
   <StepperView
