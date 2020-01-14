@@ -1,9 +1,12 @@
 import React from 'react'
+import { APP_ROUTES } from 'app/routes'
+import { Link } from 'react-router-dom'
 
 export default function Home(): JSX.Element {
   return (
     <>
       <h1>Digitization strategies for developing countries</h1>
+      <Link to={APP_ROUTES.editor.create}>Add Strategy</Link>
       <p>
         Many developing countries struggle with setting the correct priorities when it comes to developing strategies
         for the deployment of IT. However, as digital systems now permeate all walks of life, expanding and improving

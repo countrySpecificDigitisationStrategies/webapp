@@ -29,8 +29,8 @@ export const Form = <InputValueType extends InputValues = InputValues>({
           const name = child.props.name
           if (name) {
             return React.cloneElement(child, {
-              onChange: (e: React.ChangeEvent<HTMLSelectElement>) => {
-                setValue(name, e.target.value)
+              onChange: (e: React.ChangeEvent<HTMLSelectElement>, value?: InputTypes) => {
+                setValue(name, value !== undefined ? value : e.target.value)
               },
             })
           }

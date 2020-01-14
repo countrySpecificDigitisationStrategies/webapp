@@ -23,10 +23,12 @@ const LoginForm = (): JSX.Element => {
   }
 
   return (
-    <Form<LoginFormValues> onSubmit={handleSubmit} submitButtonText="Login">
-      <TextField label="E-Mail" type="email" name="email" />
-      <TextField label="Password" type="password" autoComplete="current-password" name="password" />
-    </Form>
+    <div className="login-form">
+      <Form<LoginFormValues> onSubmit={handleSubmit} submitButtonText="Login">
+        <TextField label="E-Mail" type="email" name="email" />
+        <TextField label="Password" type="password" autoComplete="current-password" name="password" />
+      </Form>
+    </div>
   )
 }
 

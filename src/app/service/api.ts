@@ -35,6 +35,10 @@ export const post = async (endpoint: Endpoint, data: object): Promise<ApiRespons
   return fetchFromApi(buildUrl(endpoint), HttpMethod.POST, data)
 }
 
+export const put = async (endpoint: Endpoint, id: number, data: object): Promise<ApiResponse> => {
+  return fetchFromApi(buildUrl(endpoint, id), HttpMethod.PUT, data)
+}
+
 const buildUrl = (endpoint: string, id?: number) => {
   const url = baseUrl + endpoint
   if (id) {
