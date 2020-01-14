@@ -9,7 +9,7 @@ export interface StrategyCardProps {
 export const StrategyCard = ({ strategy }: StrategyCardProps) => (
   <OptionsCard
     title={strategy.country.name}
-    image={strategy.country.flag}
+    image={strategy.country.flagRectangle}
     description={strategy.description}
     link={{
       to: `/strategies/${strategy.id}`,
