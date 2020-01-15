@@ -14,7 +14,7 @@ export const mapResponseToPreviewThreads = (response: PreviewThreadResponse[]): 
   )
 }
 
-interface PreviewThreadResponse {
+export interface PreviewThreadResponse {
   id: number
   title: string
   description: string
@@ -23,7 +23,7 @@ interface PreviewThreadResponse {
   created: string
 }
 
-interface PreviewThreadModel {
+export interface PreviewThreadModel {
   id: number
   title: string
   description: string

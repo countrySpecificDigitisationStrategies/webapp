@@ -14,6 +14,7 @@ export enum Endpoint {
   situations = 'situations',
   measures = 'building-blocks', //TODO: should be changed to /measures when api delivers them
   strategyMeasures = 'strategy-measures',
+  threads = 'threads',
 }
 
 enum HttpMethod {

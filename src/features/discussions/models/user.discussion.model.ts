@@ -5,7 +5,7 @@ export const mapResponseToUser = (response: UserResponse): UserModel => {
     id: response.id,
     firstName: response.firstname,
     lastName: response.lastname,
-    countryFlag: response.country.flag_rectangle,
+    countryFlag: response.country?.flag_rectangle,
     isAdmin: response.is_admin,
     isRepresentative: response.is_representative,
     isModerator: response.is_moderator,
@@ -26,7 +26,7 @@ export interface UserModel {
   id: number
   firstName: string
   lastName: string
-  countryFlag: string
+  countryFlag: string | null
   isAdmin: boolean
   isRepresentative: boolean
   isModerator: boolean
