@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation, useParams } from 'react-router'
 import { Card, createStyles, makeStyles } from '@material-ui/core'
-import { StrategyHeaderContent } from './StrategyHeaderContent'
-import { BuildingBlockHeaderContent } from './BuildingBlockHeaderContent'
-import { SituationCategoryHeaderContent } from './SituationCategoryHeaderContent'
-import { SituationHeaderContent } from './SituationHeaderContent'
-import { StrategyMeasureHeaderContent } from './StrategyMeasureHeaderContent'
+import { StrategyDetail } from './StrategyDetail'
+import { BuildingBlockDetail } from './BuildingBlockDetail'
+import { SituationCategoryDetail } from './SituationCategoryDetail'
+import { SituationDetail } from './SituationDetail'
+import { StrategyMeasureDetail } from './StrategyMeasureDetail'
 
 enum DiscussionDetailHeaderView {
   Strategy,
@@ -18,7 +18,7 @@ enum DiscussionDetailHeaderView {
 const useStyles = makeStyles(
   createStyles({
     root: {
-      height: '193px',
+      minHeight: '193px',
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'space-between',
@@ -26,7 +26,7 @@ const useStyles = makeStyles(
   })
 )
 
-export const DiscussionDetailHeader = (): JSX.Element => {
+export const DetailHeader = (): JSX.Element => {
   const classes = useStyles()
   const location = useLocation()
   const { strategyId } = useParams()
@@ -63,15 +63,15 @@ export const DiscussionDetailHeader = (): JSX.Element => {
   const createHeaderContent = () => {
     switch (displayedView) {
       case DiscussionDetailHeaderView.Strategy:
-        return <StrategyHeaderContent id={contentId} />
+        return <StrategyDetail id={contentId} />
       case DiscussionDetailHeaderView.BuildingBlock:
-        return <BuildingBlockHeaderContent id={contentId} />
+        return <BuildingBlockDetail id={contentId} />
       case DiscussionDetailHeaderView.SituationCategory:
-        return <SituationCategoryHeaderContent id={contentId} />
+        return <SituationCategoryDetail id={contentId} />
       case DiscussionDetailHeaderView.Situation:
-        return <SituationHeaderContent id={contentId} />
+        return <SituationDetail id={contentId} />
       default:
-        return <StrategyMeasureHeaderContent id={contentId} />
+        return <StrategyMeasureDetail id={contentId} />
     }
   }
 

@@ -31,7 +31,9 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingTop: 0,
     },
     paragraph: {
-      marginBottom: 0,
+      '&:last-of-type': {
+        marginBottom: 0,
+      },
     },
   })
 )
@@ -39,11 +41,18 @@ const useStyles = makeStyles((theme: Theme) =>
 interface HeaderContentProps {
   title?: string
   description?: string
-  titleGoal?: string
-  descriptionGoal?: string
+  goalTitle?: string
+  goalDescription?: string
+  strategyMeasureDescription?: string
 }
 
-export const HeaderContent = ({ title, description, titleGoal, descriptionGoal }: HeaderContentProps): JSX.Element => {
+export const HeaderContent = ({
+  title,
+  description,
+  goalTitle,
+  goalDescription,
+  strategyMeasureDescription,
+}: HeaderContentProps): JSX.Element => {
   const classes = useStyles()
   const [expanded, setExpanded] = React.useState(false)
 
@@ -67,6 +76,25 @@ export const HeaderContent = ({ title, description, titleGoal, descriptionGoal }
                 : description
               : ''}
           </Typography>
+          {goalTitle && goalDescription ? (
+            <>
+              <Typography variant="h5" component="h2">
+                {goalTitle}
+              </Typography>
+              <Typography paragraph className={classes.paragraph}>
+                {goalDescription.length > 180 && !expanded
+                  ? `${goalDescription.substring(0, 180)}...`
+                  : goalDescription}
+              </Typography>
+            </>
+          ) : null}
+          {strategyMeasureDescription ? (
+            <Typography paragraph className={classes.paragraph}>
+              {strategyMeasureDescription.length > 180 && !expanded
+                ? `${strategyMeasureDescription.substring(0, 180)}...`
+                : strategyMeasureDescription}
+            </Typography>
+          ) : null}
         </CardContent>
       </Collapse>
       <CardActions disableSpacing className={classes.actions}>

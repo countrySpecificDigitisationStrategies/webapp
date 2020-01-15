@@ -1,12 +1,12 @@
 import React from 'react'
 
 import { ThreadList } from 'features/discussions/components/ThreadList'
-import { DiscussionDetailHeader } from './DiscussionDetailHeader'
+import { DetailHeader } from './detailHeader/DetailHeader'
 
 export const DiscussionDetail = () => {
   return (
     <div className="DiscussionDetail">
-      <DiscussionDetailHeader />
+      <DetailHeader />
 
       <ThreadList />
     </div>
