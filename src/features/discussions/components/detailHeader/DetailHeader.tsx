@@ -19,6 +19,7 @@ const useStyles = makeStyles(
   createStyles({
     root: {
       minHeight: '193px',
+      marginBottom: '24px',
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'space-between',
