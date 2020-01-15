@@ -1,21 +1,44 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { ButtonGroup, Button } from '@material-ui/core'
-import { ThreadPreview } from '.'
+import { ThreadPreview } from 'features/discussions/components'
+import { get, Endpoint } from 'app/service'
+import {
+  PreviewThreadResponse,
+  mapResponseToPreviewThreads,
+  PreviewThreadModel,
+} from 'features/discussions/models/thread.discussion.model'
 
 export const ThreadList = () => {
   const className = 'ThreadList'
-  const [activeFilter, setActiveFilter] = useState(0)
+  const [activeFilter, setActiveFilter] = useState()
 
   const filters = [
-    { id: 1, title: 'Newest' }, // TODO add sort function
-    { id: 2, title: 'Latest Activity' }, // TODO add sort function
+    { id: 1, title: 'Latest' },
+    { id: 2, title: 'Oldest' },
   ]
 
-  const mockThreads = [
-    { id: 1, title: 'Thread title', description: 'Thread description', user: 1, commentCount: 10 },
-    { id: 2, title: 'Thread title', description: 'Thread description', user: 1, commentCount: 10 },
-    { id: 3, title: 'Thread title', description: 'Thread description', user: 1, commentCount: 10 },
-  ]
+  const [previewThreads, setPreviewThreads] = useState()
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = (await get(Endpoint.threads)) as PreviewThreadResponse[]
+      setPreviewThreads(mapResponseToPreviewThreads(response))
+    }
+    fetchData()
+  }, [])
+
+  if (!previewThreads) return <div>No threads found</div>
+
+  let sortedThreads = previewThreads
+  if (activeFilter === 1) {
+    sortedThreads = previewThreads.sort((a: PreviewThreadModel, b: PreviewThreadModel) => {
+      return b.created.getTime() - a.created.getTime()
+    })
+  } else if (activeFilter === 2) {
+    sortedThreads = previewThreads.sort((a: PreviewThreadModel, b: PreviewThreadModel) => {
+      return a.created.getTime() - b.created.getTime()
+    })
+  }
 
   return (
     <div className={`${className}`}>
@@ -31,8 +54,8 @@ export const ThreadList = () => {
         })}
       </ButtonGroup>
 
-      {mockThreads.map((thread, index) => (
-        <ThreadPreview key={index} thread={thread} />
+      {sortedThreads.map((thread: PreviewThreadModel, index: number) => (
+        <ThreadPreview key={index} itemClassName={`${className}-item`} thread={thread} />
       ))}
     </div>
   )
