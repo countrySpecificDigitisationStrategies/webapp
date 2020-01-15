@@ -4,8 +4,10 @@ import { SituationDetail } from 'features/strategies/components'
 import { APP_ROUTE_PARAMS } from 'app/routes'
 
 const Situation = () => {
-  const { [APP_ROUTE_PARAMS.situationId]: situationId } = useParams<typeof APP_ROUTE_PARAMS>()
-  return situationId ? <SituationDetail id={+situationId} /> : null
+  const params = useParams<typeof APP_ROUTE_PARAMS>()
+  const { [APP_ROUTE_PARAMS.strategyId]: strategyId, [APP_ROUTE_PARAMS.situationId]: situationId } = params
+
+  return situationId ? <SituationDetail strategyId={+strategyId} situationId={+situationId} /> : null
 }
 
 export default Situation
