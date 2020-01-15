@@ -4,9 +4,10 @@ import {
   Error as ErrorIcon,
   Info as InfoIcon,
   Warning as WarningIcon,
+  SvgIconComponent,
 } from '@material-ui/icons'
 
-export const icons: { [type: NotificationType]: JSXElement } = {
+export const icons: { [type in keyof typeof NotificationType]: SvgIconComponent } = {
   [NotificationType.success]: CheckCircleIcon,
   [NotificationType.warning]: WarningIcon,
   [NotificationType.error]: ErrorIcon,

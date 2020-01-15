@@ -15,11 +15,6 @@ export default createMuiTheme({
       contrastText: '#000',
     },
   },
-  typography: {
-    h3: {
-      marginBottom: defaultTheme.spacing(2),
-    },
-  },
   overrides: {
     MuiTextField: {
       root: {

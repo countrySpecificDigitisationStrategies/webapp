@@ -19,7 +19,7 @@ import MenuIcon from '@material-ui/icons/Menu'
 
 import { logout } from 'features/authentication'
 import { useLoginStatus } from 'shared/hooks'
-import APP_ROUTES from 'app/routes'
+import { APP_ROUTES } from 'app/routes'
 import { isNavBarOpen, openNavBar } from 'features/ui/store'
 import { toolBarStyles } from './toolBar.classes'
 

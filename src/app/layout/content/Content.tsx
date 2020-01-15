@@ -1,18 +1,14 @@
 import React from 'react'
+import { renderRoutes } from 'react-router-config'
 
-import APP_ROUTES from 'app/routes'
-import { Route } from 'react-router-dom'
-
-import { Home, Login, Register, Strategies, Strategy } from 'pages'
+import { routes } from 'app/routes'
+import Breadcrumbs from 'app/layout/content/Breadcrumbs'
 import { withErrorNotification, withLoadingOverlay } from 'shared/hocs'
 
-const Content = (): JSXElement => (
+const Content = (): JSX.Element => (
   <>
-    <Route exact path={APP_ROUTES.home} component={Home} />
-    <Route exact path={APP_ROUTES.login} component={Login} />
-    <Route exact path={APP_ROUTES.register} component={Register} />
-    <Route exact path={APP_ROUTES.strategies} component={Strategies} />
-    <Route exact path={APP_ROUTES.strategy} component={Strategy} />
+    <Breadcrumbs />
+    {renderRoutes(routes)}
   </>
 )
 

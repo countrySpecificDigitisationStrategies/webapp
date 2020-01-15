@@ -1,14 +1,41 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { getLoadingState, loadAll, loadingState } from '../store'
 import { useEffect } from 'react'
 
-export const useStrategyData = () => {
-  const currentLoadingState = useSelector(getLoadingState)
+import {
+  areBlocksLoaded,
+  areCategoriesLoaded,
+  areMeasuresLoaded,
+  areSituationsLoaded,
+  areStrategiesLoaded,
+  areStrategyMeasuresLoaded,
+  loadBlocks,
+  loadCategories,
+  loadMeasures,
+  loadSituations,
+  loadStrategies,
+  loadStrategyMeasures,
+  StrategyEntityResponse,
+} from '../store'
+import { ApplicationState } from 'app/store/reducers'
+import { CreateRequestReturnType } from 'features/requests/store'
+
+const loadIfNotLoaded = <T extends StrategyEntityResponse[]>(
+  selector: (state: ApplicationState) => boolean,
+  requestActionCreator: () => CreateRequestReturnType<T>
+) => {
+  const alreadyLoaded = useSelector(selector)
   const dispatch = useDispatch()
 
   useEffect(() => {
-    if (currentLoadingState === loadingState.none) {
-      dispatch(loadAll())
+    if (!alreadyLoaded) {
+      dispatch(requestActionCreator())
     }
-  }, [currentLoadingState])
+  }, [])
 }
+
+export const useStrategyData = () => loadIfNotLoaded(areStrategiesLoaded, loadStrategies)
+export const useBlockData = () => loadIfNotLoaded(areBlocksLoaded, loadBlocks)
+export const useSituationData = () => loadIfNotLoaded(areSituationsLoaded, loadSituations)
+export const useCategoryData = () => loadIfNotLoaded(areCategoriesLoaded, loadCategories)
+export const useMeasureData = () => loadIfNotLoaded(areMeasuresLoaded, loadMeasures)
+export const useStrategyMeasureData = () => loadIfNotLoaded(areStrategyMeasuresLoaded, loadStrategyMeasures)

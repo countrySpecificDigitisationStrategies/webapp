@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Home(): JSXElement {
+export default function Home(): JSX.Element {
   return (
     <>
       <h1>Space for awesome stuff...</h1>

@@ -1,14 +1,21 @@
+import camelize from 'camelize'
 import { getAuthToken } from 'app/service/authentication'
 import { ApiError } from 'app/service/error'
 
 // eslint-disable-next-line no-undef
 const baseUrl = process.env.API_URL
 
-export enum Endpoints {
+export enum Endpoint {
   register = 'auth/register',
   login = 'auth/login',
   logout = 'users/logout',
+  analyses = 'analyses',
   strategies = 'strategies',
+  blocks = 'building-blocks',
+  categories = 'situation-categories',
+  situations = 'situations',
+  measures = 'measures',
+  strategyMeasures = 'strategy-measures',
 }
 
 enum HttpMethod {
@@ -36,7 +43,7 @@ const buildUrl = (endpoint: string, id?: number) => {
   return url
 }
 
-const fetchFromApi = async (url, method: HttpMethod, data?: object): Promise<ApiResponse> => {
+const fetchFromApi = async (url: string, method: HttpMethod, data?: object): Promise<ApiResponse> => {
   const response = await fetch(url, getFetchOptions(method, data))
   let content
   try {
@@ -52,11 +59,11 @@ const fetchFromApi = async (url, method: HttpMethod, data?: object): Promise<Api
     throw new ApiError({ code, name, detail })
   }
 
-  return content
+  return camelize(content)
 }
 
-const getFetchOptions = (method: HttpMethod, data?: object): object => {
-  let fetchOptions = {
+const getFetchOptions = (method: HttpMethod, data?: object): RequestInit => {
+  let fetchOptions: RequestInit = {
     method,
     headers: {},
   }

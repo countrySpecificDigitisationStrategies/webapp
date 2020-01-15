@@ -1,9 +1,7 @@
-export * from './actions.navbar'
-export * from './actions.error'
-export * from './actions.loading'
+export { CLOSE_NAV_BAR, OPEN_NAV_BAR, closeNavBar, openNavBar } from './actions.navbar'
+export { HIDE_ERROR, SHOW_ERROR, showError, hideError } from './actions.error'
 
 import { NavBarActions } from './actions.navbar'
 import { ErrorActions } from './actions.error'
-import { LoadingAction } from './actions.loading'
 
-export type UiActionTypes = NavBarActions | ErrorActions | LoadingAction
+export type UiActionTypes = NavBarActions | ErrorActions

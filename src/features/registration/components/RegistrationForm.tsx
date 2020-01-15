@@ -6,6 +6,12 @@ import { isSuccess, register } from '../store'
 import { Form, InputValues, Notification, NotificationType } from 'shared/components'
 import { Checkbox, FormControlLabel } from '@material-ui/core'
 
+interface FormValues extends InputValues {
+  name: string
+  email: string
+  password: string
+}
+
 const RegistrationForm = (): JSX.Element => {
   const dispatch = useDispatch()
   const success = useSelector(isSuccess)
