@@ -20,7 +20,13 @@ export const DiscussionForumsGrid = () => {
   if (strategies.length == 0) return <div>No strategies published.</div>
 
   return (
-    <Grid container direction="row" justify="flex-start" alignItems="flex-start" spacing={2}>
+    <Grid
+      className="DiscussionForumGrid"
+      container
+      direction="row"
+      justify="flex-start"
+      alignItems="flex-start"
+      spacing={2}>
       {strategies.map((strategy: StrategyModel) => (
         <DiscussionCard key={strategy.id} strategy={strategy} />
       ))}
