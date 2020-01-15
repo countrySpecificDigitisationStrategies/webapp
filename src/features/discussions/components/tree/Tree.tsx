@@ -1,9 +1,7 @@
 import React, { ChangeEvent, useEffect, useState } from 'react'
-import { TreeItem, TreeView } from '@material-ui/lab'
-import { TreeItemProps } from '@material-ui/lab/TreeItem'
+import { TreeView } from '@material-ui/lab'
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 import ArrowRightIcon from '@material-ui/icons/ArrowRight'
-import { Endpoint, get } from 'app/service'
 import {
   mapResponseToTree,
   TreeBuildingBlockModel,
@@ -12,124 +10,32 @@ import {
   TreeSituationCategoryModel,
   TreeSituationModel,
   TreeStrategyMeasureModel,
-} from '../models/tree.discussion.model'
+} from './tree.model'
 import { useHistory, useLocation, useParams } from 'react-router'
-import { createStyles, makeStyles, Theme, Typography } from '@material-ui/core'
-
-declare module 'csstype' {
-  interface Properties {
-    '--tree-view-color'?: string
-    '--tree-view-bg-color'?: string
-  }
-}
-
-type StyledTreeItemProps = TreeItemProps & {
-  bgColor?: string
-  color?: string
-  labelInfo?: string
-  labelText: string
-}
-
-const useTreeItemStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      color: theme.palette.text.secondary,
-      '&:focus > $content': {
-        backgroundColor: `var(--tree-view-bg-color, ${theme.palette.grey[400]})`,
-        color: 'var(--tree-view-color)',
-      },
-    },
-    content: {
-      color: theme.palette.text.secondary,
-      borderTopRightRadius: theme.spacing(2),
-      borderBottomRightRadius: theme.spacing(2),
-      paddingRight: theme.spacing(1),
-      fontWeight: theme.typography.fontWeightMedium,
-      '$expanded > &': {
-        fontWeight: theme.typography.fontWeightRegular,
-      },
-    },
-    group: {
-      marginLeft: 0,
-      '& $content': {
-        paddingLeft: theme.spacing(2),
-      },
-      '& $group': {
-        '& $content': {
-          paddingLeft: theme.spacing(4),
-        },
-      },
-    },
-    expanded: {},
-    label: {
-      fontWeight: 'inherit',
-      color: 'inherit',
-    },
-    labelRoot: {
-      display: 'flex',
-      alignItems: 'center',
-      padding: theme.spacing(0.5, 0),
-    },
-    labelText: {
-      fontWeight: 'inherit',
-      flexGrow: 1,
-    },
-  })
-)
-
-function StyledTreeItem(props: StyledTreeItemProps) {
-  const classes = useTreeItemStyles()
-  const { labelText, labelInfo, color, bgColor, ...other } = props
-
-  return (
-    <TreeItem
-      label={
-        <div className={classes.labelRoot}>
-          <Typography variant="body2" className={classes.labelText}>
-            {labelText}
-          </Typography>
-          <Typography variant="caption" color="inherit">
-            {labelInfo}
-          </Typography>
-        </div>
-      }
-      style={{
-        '--tree-view-color': color,
-        '--tree-view-bg-color': bgColor,
-      }}
-      classes={{
-        root: classes.root,
-        content: classes.content,
-        expanded: classes.expanded,
-        group: classes.group,
-        label: classes.label,
-      }}
-      {...other}
-    />
-  )
-}
+import { createStyles, makeStyles } from '@material-ui/core'
+import clsx from 'clsx'
+import { Endpoint, get } from 'app/service'
+import { StyledTreeItem } from './StyledTreeItem'
 
 const useStyles = makeStyles(
   createStyles({
     root: {
-      height: 264,
-      flexGrow: 1,
-      maxWidth: 400,
+      minWidth: '350px',
     },
   })
 )
 
-export const DiscussionTree = () => {
+export const Tree = () => {
   const classes = useStyles()
 
   const { strategyId } = useParams()
   const history = useHistory()
   const location = useLocation()
 
-  const getInitialExpandedNodes = () => {
+  const getExpandedNodes = () => {
     const expandedNodes: string[] = []
-    let hash = location.hash.replace('#', '')
-    let numberOfExpandedNodes = hash.split('-').filter(hashId => hashId !== '').length
+    let hash = location.hash.replace(/#|-*$/, '')
+    let numberOfExpandedNodes = hash.split('-').length
     if (numberOfExpandedNodes > 0) {
       if (numberOfExpandedNodes === 4) {
         hash = hash.substring(0, hash.lastIndexOf('-'))
@@ -143,7 +49,21 @@ export const DiscussionTree = () => {
     return expandedNodes
   }
 
-  const [expanded, setExpanded] = useState<string[]>(getInitialExpandedNodes())
+  const [expanded, setExpanded] = useState<string[]>(getExpandedNodes())
+
+  useEffect(() => {
+    setExpanded(getExpandedNodes())
+  }, [location])
+
+  const getHighlightedNode = () => {
+    return location.hash.replace(/#|-*$/, '')
+  }
+
+  const [highlightedNode, setHighlightedNode] = useState<string>(getHighlightedNode())
+
+  useEffect(() => {
+    setHighlightedNode(getHighlightedNode())
+  }, [location])
 
   const handleChange = (_: ChangeEvent<{}>, nodes: string[]) => {
     if (nodes.length === expanded.length) return
@@ -192,7 +112,8 @@ export const DiscussionTree = () => {
           key={index}
           nodeId={nodeId}
           labelText={situationCategory.title}
-          labelInfo={'' + situationCategory.threadCount}>
+          labelInfo={'' + situationCategory.threadCount}
+          className={clsx({ 'tree-node--highlight': nodeId === highlightedNode })}>
           {renderTreeSituations(nodeId, situationCategory.situations)}
         </StyledTreeItem>
       )
@@ -203,7 +124,12 @@ export const DiscussionTree = () => {
       const nodeId = `${parentNodeId}-${situation.id}`
 
       return (
-        <StyledTreeItem key={index} nodeId={nodeId} labelText={situation.title} labelInfo={'' + situation.threadCount}>
+        <StyledTreeItem
+          key={index}
+          nodeId={nodeId}
+          labelText={situation.title}
+          labelInfo={'' + situation.threadCount}
+          className={clsx({ 'tree-node--highlight': nodeId === highlightedNode })}>
           {renderTreeStrategyMeasures(nodeId, situation.strategyMeasures)}
         </StyledTreeItem>
       )
@@ -217,9 +143,10 @@ export const DiscussionTree = () => {
         <StyledTreeItem
           key={index}
           nodeId={nodeId}
-          labelText={'' + strategyMeasure.id} /*TODO change to title when endpoint is fixed*/
+          labelText={strategyMeasure.title}
           labelInfo={'' + strategyMeasure.threadCount}
           onClick={handleClickOnStrategyMeasure(nodeId)}
+          className={clsx({ 'tree-node--highlight': nodeId === highlightedNode })}
         />
       )
     })
@@ -227,9 +154,6 @@ export const DiscussionTree = () => {
   return (
     <TreeView
       className={classes.root}
-      // className="DiscussionTree"
-      // defaultCollapseIcon={<ExpandMoreIcon />}
-      // defaultExpandIcon={<ChevronRightIcon />}
       defaultCollapseIcon={<ArrowDropDownIcon />}
       defaultExpandIcon={<ArrowRightIcon />}
       defaultEndIcon={<div style={{ width: 24 }} />}
@@ -243,7 +167,8 @@ export const DiscussionTree = () => {
             key={index}
             nodeId={nodeId}
             labelText={buildingBlock.title}
-            labelInfo={'' + buildingBlock.threadCount}>
+            labelInfo={'' + buildingBlock.threadCount}
+            className={clsx({ 'tree-node--highlight': nodeId === highlightedNode })}>
             {renderTreeSituationCategories(nodeId, buildingBlock.situationCategories)}
           </StyledTreeItem>
         )

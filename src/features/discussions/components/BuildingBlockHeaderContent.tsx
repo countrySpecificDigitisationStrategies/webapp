@@ -17,6 +17,7 @@ import {
   BuildingBlockResponse,
   mapResponseToBuildingBlock,
 } from '../models/buildingBlock.discussion.model'
+import { HeaderContent } from './detailHeader/HeaderContent.dumb'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -29,6 +30,15 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     expandOpen: {
       transform: 'rotate(180deg)',
+    },
+    content: {
+      paddingBottom: '0 !important',
+    },
+    actions: {
+      paddingTop: 0,
+    },
+    paragraph: {
+      marginBottom: 0,
     },
   })
 )
@@ -53,33 +63,39 @@ export const BuildingBlockHeaderContent = ({ id }: BuildingBlockHeaderContentPro
       setBuildingBlock(mapResponseToBuildingBlock(response))
     }
     fetchData()
-  }, [])
+  }, [id])
 
-  if (!buildingBlock) return <CardContent>No Data</CardContent>
+  return <HeaderContent title={buildingBlock.title} />
 
-  return (
-    <>
-      <CardContent>
-        <Typography variant="h3" component="h1">
-          {buildingBlock.title}
-        </Typography>
-      </CardContent>
-      <CardActions disableSpacing>
-        <IconButton
-          className={clsx(classes.expand, {
-            [classes.expandOpen]: expanded,
-          })}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more">
-          <ExpandMore />
-        </IconButton>
-      </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
-          <Typography paragraph>{buildingBlock.description}</Typography>
-        </CardContent>
-      </Collapse>
-    </>
-  )
+  // return (
+  // <>
+  //   <CardContent>
+  //     <Typography variant="h4" component="h1">
+  //       {buildingBlock ? buildingBlock.title : ''}
+  //     </Typography>
+  //   </CardContent>
+  //   <Collapse in={expanded} timeout="auto" collapsedHeight={'64px'}>
+  //     <CardContent className={classes.content}>
+  //       <Typography paragraph className={classes.paragraph}>
+  //         {buildingBlock
+  //           ? buildingBlock.description.length > 180 && !expanded
+  //             ? `${buildingBlock.description.substring(0, 180)}...`
+  //             : buildingBlock.description
+  //           : ''}
+  //       </Typography>
+  //     </CardContent>
+  //   </Collapse>
+  //   <CardActions disableSpacing className={classes.actions}>
+  //     <IconButton
+  //       className={clsx(classes.expand, {
+  //         [classes.expandOpen]: expanded,
+  //       })}
+  //       onClick={handleExpandClick}
+  //       aria-expanded={expanded}
+  //       aria-label="show more">
+  //       <ExpandMore />
+  //     </IconButton>
+  //   </CardActions>
+  // </>
+  // )
 }

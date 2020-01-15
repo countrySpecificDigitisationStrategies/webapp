@@ -53,7 +53,7 @@ export const SituationCategoryHeaderContent = ({ id }: SituationCategoryHeaderCo
       setSituationCategory(mapResponseToSituationCategory(response))
     }
     fetchData()
-  }, [])
+  }, [id])
 
   if (!situationCategory) return <CardContent>No Data</CardContent>
 

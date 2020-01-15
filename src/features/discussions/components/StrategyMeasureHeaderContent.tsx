@@ -53,7 +53,7 @@ export const StrategyMeasureHeaderContent = ({ id }: StrategyMeasureHeaderConten
       setStrategyMeasure(mapResponseToStrategyMeasure(response))
     }
     fetchData()
-  }, [])
+  }, [id])
 
   if (!strategyMeasure) return <CardContent>No Data</CardContent>
 

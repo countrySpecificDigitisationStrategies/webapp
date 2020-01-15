@@ -1,10 +1,10 @@
 import React from 'react'
-import { DiscussionDetail, DiscussionTree } from 'features/discussions/components'
+import { DiscussionDetail, Tree } from 'features/discussions/components'
 
 const Discussion = () => {
   return (
     <div className="DiscussionContainer">
-      <DiscussionTree />
+      <Tree />
       <DiscussionDetail />
     </div>
   )

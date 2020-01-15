@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import {
   CardActions,
   CardContent,
@@ -10,9 +10,7 @@ import {
   Typography,
 } from '@material-ui/core'
 import { ExpandMore } from '@material-ui/icons'
-import { Endpoint, get } from '../../../app/service'
 import clsx from 'clsx'
-import { mapResponseToSituation, SituationModel, SituationResponse } from '../models/situation.discussion.model'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -26,14 +24,26 @@ const useStyles = makeStyles((theme: Theme) =>
     expandOpen: {
       transform: 'rotate(180deg)',
     },
+    content: {
+      paddingBottom: '0 !important',
+    },
+    actions: {
+      paddingTop: 0,
+    },
+    paragraph: {
+      marginBottom: 0,
+    },
   })
 )
 
-interface SituationHeaderContentProps {
-  id: number
+interface HeaderContentProps {
+  title?: string
+  description?: string
+  titleGoal?: string
+  descriptionGoal?: string
 }
 
-export const SituationHeaderContent = ({ id }: SituationHeaderContentProps): JSX.Element => {
+export const HeaderContent = ({ title, description, titleGoal, descriptionGoal }: HeaderContentProps): JSX.Element => {
   const classes = useStyles()
   const [expanded, setExpanded] = React.useState(false)
 
@@ -41,26 +51,25 @@ export const SituationHeaderContent = ({ id }: SituationHeaderContentProps): JSX
     setExpanded(!expanded)
   }
 
-  const [situation, setSituation] = useState<SituationModel>()
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = (await get(Endpoint.situations, `${id}`)) as SituationResponse
-      setSituation(mapResponseToSituation(response))
-    }
-    fetchData()
-  }, [id])
-
-  if (!situation) return <CardContent>No Data</CardContent>
-
   return (
     <>
       <CardContent>
-        <Typography variant="h3" component="h1">
-          {situation.title}
+        <Typography variant="h4" component="h1">
+          {title ? title : ''}
         </Typography>
       </CardContent>
-      <CardActions disableSpacing>
+      <Collapse in={expanded} timeout="auto" collapsedHeight={'64px'}>
+        <CardContent className={classes.content}>
+          <Typography paragraph className={classes.paragraph}>
+            {description
+              ? description.length > 180 && !expanded
+                ? `${description.substring(0, 180)}...`
+                : description
+              : ''}
+          </Typography>
+        </CardContent>
+      </Collapse>
+      <CardActions disableSpacing className={classes.actions}>
         <IconButton
           className={clsx(classes.expand, {
             [classes.expandOpen]: expanded,
@@ -71,11 +80,6 @@ export const SituationHeaderContent = ({ id }: SituationHeaderContentProps): JSX
           <ExpandMore />
         </IconButton>
       </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
-          <Typography paragraph>{situation.description}</Typography>
-        </CardContent>
-      </Collapse>
     </>
   )
 }

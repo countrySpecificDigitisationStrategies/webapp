@@ -49,7 +49,7 @@ export const StrategyHeaderContent = ({ id }: StrategyHeaderContentProps): JSX.E
       setStrategy(mapResponseToStrategy(response))
     }
     fetchData()
-  }, [])
+  }, [id])
 
   if (!strategy) return <CardContent>No Data</CardContent>
 
@@ -60,6 +60,15 @@ export const StrategyHeaderContent = ({ id }: StrategyHeaderContentProps): JSX.E
           {strategy.title}
         </Typography>
       </CardContent>
+      <Collapse in={expanded} timeout="auto" collapsedHeight={'40px'}>
+        <CardContent>
+          <Typography paragraph variant={'subtitle1'}>
+            {strategy.description.length > 60 && !expanded
+              ? `${strategy.description.substring(0, 60)}...`
+              : strategy.description}
+          </Typography>
+        </CardContent>
+      </Collapse>
       <CardActions disableSpacing>
         <IconButton
           className={clsx(classes.expand, {
@@ -71,11 +80,6 @@ export const StrategyHeaderContent = ({ id }: StrategyHeaderContentProps): JSX.E
           <ExpandMore />
         </IconButton>
       </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
-          <Typography paragraph>{strategy.description}</Typography>
-        </CardContent>
-      </Collapse>
     </>
   )
 }
