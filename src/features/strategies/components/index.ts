@@ -16,7 +16,10 @@ import { CategoryBreadcrumb } from './category/CategoryBreadcrumb'
 
 import MeasureGrid from './measure/MeasureGrid'
 import MeasureDetail from './measure/MeasureDetail'
+import StrategyMeasureDetail from './measure/StrategyMeasureDetail'
 import { MeasureBreadcrumb } from './measure/MeasureBreadcrumb'
+
+import { EntityTree } from './entity-tree/EntityTree'
 
 import {
   useStrategyData,
@@ -43,6 +46,8 @@ export {
   MeasureBreadcrumb,
   MeasureDetail,
   MeasureGrid,
+  StrategyMeasureDetail,
+  EntityTree,
   useStrategyData,
   useBlockData,
   useSituationData,

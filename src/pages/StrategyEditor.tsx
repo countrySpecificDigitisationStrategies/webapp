@@ -1,37 +1,30 @@
 import React from 'react'
-import { EditorForm } from 'features/strategy-editor'
+import { EditorForm, MeasureSelector } from 'features/strategy-editor'
 import { StepperView } from 'shared/components'
 
-const renderBlocksTable = () => <>Select Blocks</>
-const renderCategoryTable = () => <>Select Category</>
-const renderSituationTable = () => <>Select Situation</>
-const renderMeasureTable = () => <>Select Measure</>
+const StrategyEditor = () => {
+  const renderEditorForm = () => <EditorForm />
+  const renderMeasureSelectView = () => <MeasureSelector />
+  const renderReviewStrategyView = () => <>Review the Strategy</>
 
-const StrategyEditor = () => (
-  <StepperView
-    steps={[
-      {
-        label: 'General Information',
-        render: EditorForm,
-      },
-      {
-        label: 'Select Block',
-        render: renderBlocksTable,
-      },
-      {
-        label: 'Select Category',
-        render: renderCategoryTable,
-      },
-      {
-        label: 'Select Situation',
-        render: renderSituationTable,
-      },
-      {
-        label: 'Select Measure',
-        render: renderMeasureTable,
-      },
-    ]}
-  />
-)
+  return (
+    <StepperView
+      steps={[
+        {
+          label: 'General Information',
+          render: renderEditorForm,
+        },
+        {
+          label: 'Select Measures',
+          render: renderMeasureSelectView,
+        },
+        {
+          label: 'Review Strategy',
+          render: renderReviewStrategyView,
+        },
+      ]}
+    />
+  )
+}
 
 export default StrategyEditor
