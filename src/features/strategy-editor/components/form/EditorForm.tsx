@@ -15,12 +15,12 @@ interface EditorFormValues extends InputValues {
 export const EditorForm = (): JSX.Element => {
   const dispatch = useDispatch()
 
-  const handleSubmit = (values: EditorFormValues) => {
+  const handleChange = (values: EditorFormValues) => {
     dispatch(setFields(values))
   }
 
   return (
-    <Form<EditorFormValues> onSubmit={handleSubmit} submitButtonText="Save">
+    <Form<EditorFormValues> onChange={handleChange} submitButtonText="Next">
       <TextField label="Title" name="title" />
       <TextField label="Description" name="description" multiline rows={10} />
       <Checkbox name="isPublished" label="Publicly available" />

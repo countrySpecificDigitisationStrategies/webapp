@@ -1,10 +1,11 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import React from 'react'
 import { Button } from '@material-ui/core'
 
 export interface FormProps<T extends InputValues = InputValues> {
   children: JSX.Element[]
-  onSubmit: (values: T) => void
+  onSubmit?: (values: T) => void
+  onChange?: (values: T) => void
   submitButtonText: string
 }
 
@@ -17,10 +18,15 @@ export interface InputValues {
 export const Form = <InputValueType extends InputValues = InputValues>({
   children,
   onSubmit,
+  onChange,
   submitButtonText = 'Submit',
 }: FormProps<InputValueType>) => {
   const [values, setValues] = useState({} as InputValueType)
   const setValue = (name: string, value: InputTypes) => setValues({ ...values, [name]: value })
+
+  useEffect(() => {
+    onChange?.(values)
+  }, [values])
 
   return (
     <div className="form__container">
@@ -36,14 +42,16 @@ export const Form = <InputValueType extends InputValues = InputValues>({
           }
           return child
         })}
-        <Button
-          type="submit"
-          onClick={e => {
-            e.preventDefault()
-            onSubmit(values)
-          }}>
-          {submitButtonText}
-        </Button>
+        {onSubmit && (
+          <Button
+            type="submit"
+            onClick={e => {
+              e.preventDefault()
+              onSubmit(values)
+            }}>
+            {submitButtonText}
+          </Button>
+        )}
       </form>
     </div>
   )
