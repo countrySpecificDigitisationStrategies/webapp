@@ -6,7 +6,7 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended',
   ],
-  plugins: ['prettier'],
+  plugins: ['prettier', 'tsc'],
   parserOptions:  {
     ecmaVersion:  2018,
     sourceType:  'module',
@@ -30,6 +30,9 @@ module.exports = {
       multiline: {
         delimiter: 'none',
       },
+    }],
+    "tsc/config": [1, {
+      configFile: "tsconfig.json"
     }]
   }
 };
