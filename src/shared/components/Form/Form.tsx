@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import React from 'react'
 import { Button } from '@material-ui/core'
+import { useDebounce } from 'shared/hooks'
 
 export interface FormProps<T extends InputValues = InputValues> {
   children: JSX.Element[]
@@ -24,9 +25,10 @@ export const Form = <InputValueType extends InputValues = InputValues>({
   const [values, setValues] = useState({} as InputValueType)
   const setValue = (name: string, value: InputTypes) => setValues({ ...values, [name]: value })
 
+  const debouncedValue = useDebounce<InputValues>(values, 300)
   useEffect(() => {
     onChange?.(values)
-  }, [values])
+  }, [debouncedValue])
 
   return (
     <div className="form__container">
