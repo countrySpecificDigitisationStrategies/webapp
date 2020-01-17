@@ -1,18 +1,11 @@
 import React from 'react'
-import { makeStyles } from '@material-ui/core'
 import { TreeView, TreeItem } from '@material-ui/lab'
 import { ExpandMore as ExpandMoreIcon, ChevronRight as ChevronRightIcon } from '@material-ui/icons'
 
-const useStyles = makeStyles({
-  root: {
-    flexGrow: 1,
-    maxWidth: 400,
-  },
-})
-
-interface TreeProps<T extends string | number> extends React.HTMLAttributes<HTMLDivElement> {
+interface TreeProps<T extends string | number> {
   data: TreeItemProps<T>[]
   onNodeClick: (id: TreeItemProps<T>['id'], type?: TreeItemProps<T>['type']) => void
+  className?: React.HTMLAttributes<HTMLDivElement>['className']
 }
 
 export interface TreeItemProps<T extends string | number> {
@@ -22,8 +15,7 @@ export interface TreeItemProps<T extends string | number> {
   children?: TreeItemProps<T>[]
 }
 
-export const Tree = <T extends string | number>({ data = [], onNodeClick }: TreeProps<T>) => {
-  const classes = useStyles()
+export const Tree = <T extends string | number>({ data = [], onNodeClick, className }: TreeProps<T>) => {
   const [expanded, setExpanded] = React.useState<string[]>([])
 
   const handleChange = (_event: React.ChangeEvent<{}>, nodes: string[]) => {
@@ -41,7 +33,7 @@ export const Tree = <T extends string | number>({ data = [], onNodeClick }: Tree
 
   return (
     <TreeView
-      className={classes.root}
+      className={className}
       defaultCollapseIcon={<ExpandMoreIcon />}
       defaultExpandIcon={<ChevronRightIcon />}
       expanded={expanded}

@@ -6,24 +6,27 @@ import { StandardView } from 'shared/components'
 
 interface CategoryDetailProps {
   id: Category['id']
+  renderNextLevel?: boolean
 }
 
-const CategoryDetail = ({ id }: CategoryDetailProps) => {
+const CategoryDetail = ({ id, renderNextLevel = true }: CategoryDetailProps) => {
   useCategoryData()
   const category = useSelector(getCategory(id))
   if (!category) return <div>Could not find Category with id {id}</div>
 
   const renderSituationGrid = () => <SituationGrid ids={category.situations} />
-  return (
-    <StandardView
-      title={category.title}
-      description={category.description}
-      nextLevel={{
+  const viewProps = {
+    title: category.title,
+    description: category.description,
+    ...(renderNextLevel && {
+      nextLevel: {
         title: 'Situations',
         render: renderSituationGrid,
-      }}
-    />
-  )
+      },
+    }),
+  }
+
+  return <StandardView {...viewProps} />
 }
 
 export default CategoryDetail

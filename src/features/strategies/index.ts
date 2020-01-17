@@ -12,6 +12,10 @@ export {
   CategoryBreadcrumb,
   MeasureBreadcrumb,
   EntityTree,
+  BlockSummary,
+  CategorySummary,
+  SituationSummary,
+  MeasureSummary,
 } from './components'
 
 import { Strategy as _Strategy, Measure as _Measure, StrategyMeasure as _StrategyMeasure } from './store'

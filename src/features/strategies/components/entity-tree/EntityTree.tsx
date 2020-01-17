@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 
+import './entity-tree.styl'
+
 import { Tree, TreeItemProps } from 'shared/components'
 import { useBlockData, useCategoryData, useMeasureData, useSituationData } from 'features/strategies/components/hooks'
-import { BlockDetail, CategoryDetail, MeasureDetail, SituationDetail } from 'features/strategies/components'
+import { BlockSummary, CategorySummary, MeasureSummary, SituationSummary } from 'features/strategies/components'
 import { getBlocks, getCategories, getMeasures, getSituations } from 'features/strategies/store'
 
 interface EntityTreeProps {
@@ -67,13 +69,13 @@ export const EntityTree = ({ render }: EntityTreeProps) => {
   const renderEmbeddedDetailView = (node?: SelectedNode | null) => {
     switch (node?.type) {
       case EntityType.Block:
-        return <BlockDetail id={+node.id} />
+        return <BlockSummary id={+node.id} />
       case EntityType.Category:
-        return <CategoryDetail id={+node.id} />
+        return <CategorySummary id={+node.id} />
       case EntityType.Situation:
-        return <SituationDetail id={+node.id} />
+        return <SituationSummary id={+node.id} />
       case EntityType.Measure:
-        return <MeasureDetail id={+node.id} />
+        return <MeasureSummary id={+node.id} />
       default:
         return <></>
     }
