@@ -52,19 +52,17 @@ export const StepperView = ({ steps }: StepperViewProps) => {
         ))}
       </Stepper>
       <div>
-        <div>
-          <Paper elevation={0}>{steps[activeStep].render()}</Paper>
-          <div className={classes.controls}>
-            <Button disabled={isFirstStep} onClick={handleBack} className={classes.button}>
-              Back
-            </Button>
-            <Button disabled={isLastStep} color="primary" onClick={handleNext} className={classes.button}>
-              Next
-            </Button>
-            <Button color="primary" onClick={toggleCompleted}>
-              {completed[activeStep] ? 'Set incomplete' : 'Mark as completed'}
-            </Button>
-          </div>
+        <Paper elevation={0}>{steps[activeStep].render()}</Paper>
+        <div className={classes.controls}>
+          <Button disabled={isFirstStep} onClick={handleBack} className={classes.button}>
+            Back
+          </Button>
+          <Button disabled={isLastStep} color="primary" onClick={handleNext} className={classes.button}>
+            Next
+          </Button>
+          <Button color="primary" onClick={toggleCompleted}>
+            {completed[activeStep] ? 'Set incomplete' : 'Mark as completed'}
+          </Button>
         </div>
       </div>
     </div>
