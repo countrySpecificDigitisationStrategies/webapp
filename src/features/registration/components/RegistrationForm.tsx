@@ -6,7 +6,7 @@ import { isSuccess, register } from '../store'
 import { Form, InputValues, Notification, NotificationType } from 'shared/components'
 import { Checkbox, FormControlLabel } from '@material-ui/core'
 
-interface FormValues extends InputValues {
+interface RegistrationFormValues extends InputValues {
   name: string
   email: string
   password: string
@@ -32,7 +32,7 @@ const RegistrationForm = (): JSX.Element => {
     return <Notification type={NotificationType.success} message="Success!" />
   }
 
-  const handleSubmit = (values: InputValues): void => {
+  const handleSubmit = (values: RegistrationFormValues): void => {
     if (retypePassword && values.password.length >= 8) {
       dispatch(register(values))
     }
@@ -60,7 +60,7 @@ const RegistrationForm = (): JSX.Element => {
   }
 
   return (
-    <Form onSubmit={handleSubmit} submitButtonText="Sign up">
+    <Form<RegistrationFormValues> onSubmit={handleSubmit} submitButtonText="Sign up">
       <TextField label="First name" name="firstName" />
       <TextField label="Last name" name="lastName" />
       <TextField label="E-Mail" type="email" name="email" helperText={emailHelperText} error={emailField} />
