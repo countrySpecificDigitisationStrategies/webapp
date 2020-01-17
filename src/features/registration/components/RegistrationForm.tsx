@@ -22,7 +22,7 @@ const RegistrationForm = (): JSX.Element => {
   const [retypePasswordHelperText, setRetypePasswordHelperText] = useState('Repeat password')
   const [emailHelperText, setEmailHelperText] = useState('')
 
-  const [termsAndPolicies, setTermsAndPolicies] = React.useState({ checkedA: true })
+  const [termsAndPolicies, setTermsAndPolicies] = useState({ checkedA: true })
 
   const handleChange = name => event => {
     setTermsAndPolicies({ ...termsAndPolicies, [name]: event.target.checked })
