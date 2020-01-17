@@ -4,8 +4,10 @@ import { BlockDetail } from 'features/strategies/components'
 import { APP_ROUTE_PARAMS } from 'app/routes'
 
 const Block = () => {
-  const { [APP_ROUTE_PARAMS.blockId]: blockId } = useParams<typeof APP_ROUTE_PARAMS>()
-  return blockId ? <BlockDetail id={+blockId} /> : null
+  const params = useParams<typeof APP_ROUTE_PARAMS>()
+  const { [APP_ROUTE_PARAMS.strategyId]: strategyId, [APP_ROUTE_PARAMS.blockId]: blockId } = params
+
+  return blockId ? <BlockDetail strategyId={+strategyId} blockId={+blockId} /> : null
 }
 
 export default Block
