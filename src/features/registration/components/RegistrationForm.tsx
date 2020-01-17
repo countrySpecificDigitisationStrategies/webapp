@@ -15,35 +15,55 @@ interface FormValues extends InputValues {
 const RegistrationForm = (): JSX.Element => {
   const dispatch = useDispatch()
   const success = useSelector(isSuccess)
-  const [areRegistrationFieldsFalse, setAreRegistrationFieldsFalse] = useState(false)
+  const [retypePassword, setRetypePassword] = useState(false)
   const [passwordField, setPasswordField] = useState(false)
-  const [passwordHelperText, setPasswordHelperText] = useState('Password should be at least 8 characters long')
+  const [emailField, setEmailField] = useState(false)
+  const [passwordHelperText, setPasswordHelperText] = useState('Password should have at least 8 characters')
   const [retypePasswordHelperText, setRetypePasswordHelperText] = useState('Repeat password')
+  const [emailHelperText, setEmailHelperText] = useState('')
+
+  const [termsAndPolicies, setTermsAndPolicies] = React.useState({ checkedA: true })
+
+  const handleChange = name => event => {
+    setTermsAndPolicies({ ...termsAndPolicies, [name]: event.target.checked })
+  }
 
   if (success) {
     return <Notification type={NotificationType.success} message="Success!" />
   }
 
   const handleSubmit = (values: InputValues): void => {
-    if (areRegistrationFieldsFalse && values.password.length >= 8) {
+    if (retypePassword && values.password.length >= 8) {
       dispatch(register(values))
     }
-    if (!areRegistrationFieldsFalse) {
-      setAreRegistrationFieldsFalse(true)
+    if (values.password.length >= 8 && !retypePassword) {
+      setRetypePassword(true)
       setRetypePasswordHelperText('Passwords muss match!')
+    } else {
+      setRetypePassword(false)
+      setRetypePasswordHelperText('')
     }
     if (values.password.length < 8) {
       setPasswordField(true)
       setPasswordHelperText('Your password has less than 8 characters')
+    } else {
+      setPasswordField(false)
+      setPasswordHelperText('')
+    }
+    if (!values.email.includes('@')) {
+      setEmailField(true)
+      setEmailHelperText('Please use a valid email address')
+    } else {
+      setEmailField(false)
+      setEmailHelperText('')
     }
   }
 
   return (
     <Form onSubmit={handleSubmit} submitButtonText="Sign up">
-      <TextField label="Username" name="userName" />
       <TextField label="First name" name="firstName" />
       <TextField label="Last name" name="lastName" />
-      <TextField label="E-Mail" type="email" name="email" />
+      <TextField label="E-Mail" type="email" name="email" helperText={emailHelperText} error={emailField} />
       {/* INSERT COUNTRY SELECTION HERE
       <TextField select label="Please select a country of origin"  name="country" />*/}
       <TextField
@@ -59,11 +79,27 @@ const RegistrationForm = (): JSX.Element => {
         type="password"
         name="passwordRepeat"
         helperText={retypePasswordHelperText}
-        error={areRegistrationFieldsFalse}
+        error={retypePassword}
       />
       <FormControlLabel
-        control={<Checkbox value="checkedA" name="termsAndPolicies" />}
+        control={
+          <Checkbox
+            value="checkedA"
+            checked={termsAndPolicies.checkedA}
+            onChange={handleChange('checkedA')}
+            name="termsAndPolicies"
+          />
+        }
         label="I agree to terms of service and privacy policy."
+      />
+
+      <TextField
+        helperText={'Please agree to terms of service and privacy policy'}
+        error={!termsAndPolicies.checkedA}
+        style={{ marginTop: '-33px' }}
+        InputProps={{
+          disableUnderline: true,
+        }}
       />
     </Form>
   )
