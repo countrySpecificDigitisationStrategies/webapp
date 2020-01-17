@@ -1,20 +1,32 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { getBlock, Block } from 'features/strategies/store'
-import { CategoryGrid, useBlockData } from 'features/strategies/components'
+import { getBlock, Block, Strategy, getStrategy } from 'features/strategies/store'
+import { CategoryGrid, useBlockData, useStrategyData } from 'features/strategies/components'
 import { StandardView } from 'shared/components'
 
 interface BlockDetailProps {
-  id: Block['id']
+  blockId: Block['id']
+  strategyId: Strategy['id']
   renderNextLevel?: boolean
 }
 
-const BlockDetail = ({ id, renderNextLevel = true }: BlockDetailProps) => {
+const BlockDetail = ({ blockId, strategyId, renderNextLevel = true }: BlockDetailProps) => {
   useBlockData()
-  const block = useSelector(getBlock(id))
-  if (!block) return <div>Could not find Block with id {id}</div>
+  useStrategyData()
 
-  const renderCategoryGrid = () => <CategoryGrid ids={block.categories} />
+  const block = useSelector(getBlock(blockId))
+  const strategy = useSelector(getStrategy(strategyId))
+
+  if (!(block && strategy))
+    return (
+      <div>
+        Could not find Block with id {blockId} on Strategy with id {strategyId}
+      </div>
+    )
+
+  const categoryIds = block.categories.filter(category => strategy.categories.includes(category))
+  const renderCategoryGrid = () => <CategoryGrid ids={categoryIds} />
+
   const viewProps = {
     title: block.title,
     description: block.description,

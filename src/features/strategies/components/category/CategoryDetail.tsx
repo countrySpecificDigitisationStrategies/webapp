@@ -1,20 +1,32 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { getCategory, Category } from 'features/strategies/store'
-import { useCategoryData, SituationGrid } from 'features/strategies/components'
+import { getCategory, Category, Strategy, getStrategy } from 'features/strategies/store'
+import { useCategoryData, SituationGrid, useStrategyData } from 'features/strategies/components'
 import { StandardView } from 'shared/components'
 
 interface CategoryDetailProps {
-  id: Category['id']
+  categoryId: Category['id']
+  strategyId: Strategy['id']
   renderNextLevel?: boolean
 }
 
-const CategoryDetail = ({ id, renderNextLevel = true }: CategoryDetailProps) => {
+const CategoryDetail = ({ categoryId, strategyId, renderNextLevel = true }: CategoryDetailProps) => {
   useCategoryData()
-  const category = useSelector(getCategory(id))
-  if (!category) return <div>Could not find Category with id {id}</div>
+  useStrategyData()
 
-  const renderSituationGrid = () => <SituationGrid ids={category.situations} />
+  const category = useSelector(getCategory(categoryId))
+  const strategy = useSelector(getStrategy(strategyId))
+
+  if (!(category && strategy))
+    return (
+      <div>
+        Could not find Category with id {categoryId} on Strategy with id {strategyId}
+      </div>
+    )
+
+  const situationIds = category.situations.filter(situation => strategy.situations.includes(situation))
+  const renderSituationGrid = () => <SituationGrid ids={situationIds} />
+
   const viewProps = {
     title: category.title,
     description: category.description,
