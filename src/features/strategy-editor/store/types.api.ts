@@ -1,4 +1,4 @@
-import { MeasureResponse, StrategyMeasureResponse, StrategyResponse } from 'features/strategies/store/types.api'
+import { StrategyMeasureResponse, StrategyResponse } from 'features/strategies/store/types.api'
 
 export interface StrategyEditRequest {
   // country: CountryResponse['id']
@@ -9,7 +9,7 @@ export interface StrategyEditRequest {
 }
 
 export interface StrategyMeasureEditRequest {
-  // id: StrategyResponse['id']
-  measure: MeasureResponse['id']
+  id?: StrategyMeasureResponse['id']
+  measure: StrategyMeasureResponse['measure']
   description: StrategyMeasureResponse['description']
 }

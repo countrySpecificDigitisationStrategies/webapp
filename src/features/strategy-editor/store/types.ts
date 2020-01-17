@@ -1,8 +1,8 @@
-import { Measure, Strategy, StrategyMeasure } from 'features/strategies'
+import { Strategy, StrategyMeasure } from 'features/strategies'
 
 export type StrategyEditorState = {
   fields: { [name in keyof StrategyDraftFields]?: StrategyDraftFields[name] }
-  measures: StrategyMeasureDraft[]
+  measures: { [measureId in StrategyMeasureDraft['measure']]: StrategyMeasureDraft }
 }
 
 export interface StrategyDraft {
@@ -15,8 +15,8 @@ export interface StrategyDraft {
 }
 
 export interface StrategyMeasureDraft {
-  // id: Strategy['id']
-  measure: Measure['id']
+  id?: StrategyMeasure['id']
+  measure: StrategyMeasure['measure']
   description: StrategyMeasure['description']
 }
 

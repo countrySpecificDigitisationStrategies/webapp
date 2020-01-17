@@ -2,20 +2,22 @@ import React from 'react'
 import { TreeView, TreeItem } from '@material-ui/lab'
 import { ExpandMore as ExpandMoreIcon, ChevronRight as ChevronRightIcon } from '@material-ui/icons'
 
-interface TreeProps<T extends string | number> {
+export type TreeItemType = string | number
+
+interface TreeProps<T extends TreeItemType = TreeItemType> {
   data: TreeItemProps<T>[]
   onNodeClick: (id: TreeItemProps<T>['id'], type?: TreeItemProps<T>['type']) => void
   className?: React.HTMLAttributes<HTMLDivElement>['className']
 }
 
-export interface TreeItemProps<T extends string | number> {
+export interface TreeItemProps<T extends TreeItemType = TreeItemType> {
   type?: T
   id: string | number
   title: string
   children?: TreeItemProps<T>[]
 }
 
-export const Tree = <T extends string | number>({ data = [], onNodeClick, className }: TreeProps<T>) => {
+export const Tree = <T extends TreeItemType = TreeItemType>({ data = [], onNodeClick, className }: TreeProps<T>) => {
   const [expanded, setExpanded] = React.useState<string[]>([])
 
   const handleChange = (_event: React.ChangeEvent<{}>, nodes: string[]) => {

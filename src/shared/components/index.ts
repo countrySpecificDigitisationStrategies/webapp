@@ -12,5 +12,5 @@ export { Tree } from './tree/Tree'
 import { InputValues as _InputValues } from './Form/Form'
 export type InputValues = _InputValues
 
-import { TreeItemProps as _TreeItemProps } from './tree/Tree'
-export type TreeItemProps = _TreeItemProps
+import { TreeItemProps as _TreeItemProps, TreeItemType } from './tree/Tree'
+export type TreeItemProps<T extends TreeItemType = TreeItemType> = _TreeItemProps<T>

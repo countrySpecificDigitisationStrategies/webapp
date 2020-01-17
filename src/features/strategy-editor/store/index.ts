@@ -1,2 +1,4 @@
 export { editor as editorReducer } from './reducer'
-export { StrategyEditorState } from './types'
+export { StrategyEditorState, StrategyMeasureDraft } from './types'
+export { addMeasure } from './actions'
+export { getMeasureDraft } from './selectors'

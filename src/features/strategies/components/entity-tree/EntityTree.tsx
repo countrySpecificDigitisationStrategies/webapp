@@ -8,11 +8,13 @@ import { useBlockData, useCategoryData, useMeasureData, useSituationData } from 
 import { BlockSummary, CategorySummary, MeasureSummary, SituationSummary } from 'features/strategies/components'
 import { getBlocks, getCategories, getMeasures, getSituations } from 'features/strategies/store'
 
+export type RenderNodeContentFn = (node: SelectedNode | null) => JSX.Element | null
+
 interface EntityTreeProps {
-  render: (node?: SelectedNode | null) => JSX.Element
+  render: RenderNodeContentFn
 }
 
-enum EntityType {
+export enum NodeType {
   Block = 'block',
   Category = 'category',
   Situation = 'situation',
@@ -20,7 +22,7 @@ enum EntityType {
 }
 
 export interface SelectedNode {
-  type?: EntityType
+  type?: NodeType
   id: string | number
 }
 
@@ -37,28 +39,28 @@ export const EntityTree = ({ render }: EntityTreeProps) => {
   const situations = useSelector(getSituations) || {}
   const measures = useSelector(getMeasures) || {}
 
-  const [selectedNode, setSelectedNode] = useState<SelectedNode | null>()
+  const [selectedNode, setSelectedNode] = useState<SelectedNode | null>(null)
 
   const data = Object.values(blocks).map(block => ({
-    type: EntityType.Block,
+    type: NodeType.Block,
     id: block.id,
     title: block.title,
     children: Object.values(categories)
       .filter(category => category.block === block.id)
       .map(category => ({
-        type: EntityType.Category,
+        type: NodeType.Category,
         id: category.id,
         title: category.title,
         children: Object.values(situations)
           .filter(situation => situation.category === category.id)
           .map(situation => ({
-            type: EntityType.Situation,
+            type: NodeType.Situation,
             id: situation.id,
             title: situation.title,
             children: Object.values(measures)
               .filter(measure => measure.situation === situation.id)
               .map(measure => ({
-                type: EntityType.Measure,
+                type: NodeType.Measure,
                 id: measure.id,
                 title: measure.title,
               })),
@@ -66,28 +68,28 @@ export const EntityTree = ({ render }: EntityTreeProps) => {
       })),
   }))
 
-  const renderEmbeddedDetailView = (node?: SelectedNode | null) => {
+  const renderEmbeddedDetailView = (node: SelectedNode | null) => {
     switch (node?.type) {
-      case EntityType.Block:
+      case NodeType.Block:
         return <BlockSummary id={+node.id} />
-      case EntityType.Category:
+      case NodeType.Category:
         return <CategorySummary id={+node.id} />
-      case EntityType.Situation:
+      case NodeType.Situation:
         return <SituationSummary id={+node.id} />
-      case EntityType.Measure:
+      case NodeType.Measure:
         return <MeasureSummary id={+node.id} />
       default:
         return <></>
     }
   }
 
-  const handleNodeClick = (id: TreeItemProps['id'], type: TreeItemProps['idPrefix']) => {
+  const handleNodeClick = (id: TreeItemProps<NodeType>['id'], type: TreeItemProps<NodeType>['type']) => {
     setSelectedNode({ type, id })
   }
 
   return (
     <div className={cssClass}>
-      <Tree<EntityType> className={`${cssClass}__tree-panel`} data={data} onNodeClick={handleNodeClick} />
+      <Tree<NodeType> className={`${cssClass}__tree-panel`} data={data} onNodeClick={handleNodeClick} />
       <div className={`${cssClass}__node-info`}>
         <div className={`${cssClass}__detail-view`}>{renderEmbeddedDetailView(selectedNode)}</div>
         <div className={`${cssClass}__additional-info`}>{render?.(selectedNode)}</div>

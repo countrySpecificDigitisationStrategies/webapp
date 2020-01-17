@@ -1,4 +1,4 @@
-import { StrategyEditorState } from './types'
+import { StrategyEditorState, StrategyMeasureDraft } from './types'
 import { addToState } from 'shared/utils'
 import {
   STRATEGY_EDITOR_CLEAR,
@@ -10,7 +10,7 @@ import {
 
 const initialState: StrategyEditorState = {
   fields: {},
-  measures: [],
+  measures: {},
 }
 
 export const editor = (
@@ -23,16 +23,30 @@ export const editor = (
     case STRATEGY_EDITOR_SET_FIELDS:
       return addToState(state, 'fields', action.payload)
     case STRATEGY_EDITOR_ADD_MEASURE:
-      return {
-        ...state,
-        measures: [...state.measures, action.payload],
-      }
+      return addMeasure(state, action.payload)
     case STRATEGY_EDITOR_REMOVE_MEASURE:
-      return {
-        ...state,
-        measures: state.measures.filter(i => i.measure !== action.payload),
-      }
+      return removeMeasure(state, action.payload)
     default:
       return state
+  }
+}
+
+const addMeasure = (state: StrategyEditorState, draft: StrategyMeasureDraft): StrategyEditorState => ({
+  ...state,
+  measures: {
+    ...state.measures,
+    [draft.measure]: {
+      ...state.measures[draft.measure],
+      ...draft,
+    },
+  },
+})
+
+const removeMeasure = (state: StrategyEditorState, id: StrategyMeasureDraft['measure']): StrategyEditorState => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { [id]: removedMeasure, ...measures } = state.measures
+  return {
+    ...state,
+    measures,
   }
 }

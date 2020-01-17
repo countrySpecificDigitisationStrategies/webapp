@@ -11,12 +11,16 @@ export {
   SituationBreadcrumb,
   CategoryBreadcrumb,
   MeasureBreadcrumb,
-  EntityTree,
   BlockSummary,
   CategorySummary,
   SituationSummary,
   MeasureSummary,
+  EntityTree,
+  NodeType,
 } from './components'
+
+import { RenderNodeContentFn as _RenderNodeContentFn } from './components'
+export type RenderNodeContentFn = _RenderNodeContentFn
 
 import { Strategy as _Strategy, Measure as _Measure, StrategyMeasure as _StrategyMeasure } from './store'
 export type Strategy = _Strategy

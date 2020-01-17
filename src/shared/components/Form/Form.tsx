@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react'
 import React from 'react'
-import { Button } from '@material-ui/core'
+import { Button, ButtonProps } from '@material-ui/core'
 import { useDebounce } from 'shared/hooks'
 
 export interface FormProps<T extends InputValues = InputValues> {
-  children: JSX.Element[]
+  children: JSX.Element[] | JSX.Element
   onSubmit?: (values: T) => void
   onChange?: (values: T) => void
-  submitButtonText: string
+  submitButtonText?: string
+  submitButtonAttributes?: ButtonProps
 }
 
 type InputTypes = string | number | boolean
@@ -21,6 +22,7 @@ export const Form = <InputValueType extends InputValues = InputValues>({
   onSubmit,
   onChange,
   submitButtonText = 'Submit',
+  submitButtonAttributes = {},
 }: FormProps<InputValueType>) => {
   const [values, setValues] = useState({} as InputValueType)
   const setValue = (name: string, value: InputTypes) => setValues({ ...values, [name]: value })
@@ -46,6 +48,7 @@ export const Form = <InputValueType extends InputValues = InputValues>({
         })}
         {onSubmit && (
           <Button
+            {...submitButtonAttributes}
             type="submit"
             onClick={e => {
               e.preventDefault()
