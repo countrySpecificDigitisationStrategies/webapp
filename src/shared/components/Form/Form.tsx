@@ -7,6 +7,7 @@ export interface FormProps<T extends InputValues = InputValues> {
   children: JSX.Element[] | JSX.Element
   onSubmit?: (values: T) => void
   onChange?: (values: T) => void
+  onChangeDebounce?: number
   submitButtonText?: string
   submitButtonAttributes?: ButtonProps
 }
@@ -21,13 +22,14 @@ export const Form = <InputValueType extends InputValues = InputValues>({
   children,
   onSubmit,
   onChange,
+  onChangeDebounce = 300,
   submitButtonText = 'Submit',
   submitButtonAttributes = {},
 }: FormProps<InputValueType>) => {
   const [values, setValues] = useState({} as InputValueType)
   const setValue = (name: string, value: InputTypes) => setValues({ ...values, [name]: value })
 
-  const debouncedValue = useDebounce<InputValues>(values, 300)
+  const debouncedValue = useDebounce<InputValues>(values, onChangeDebounce)
   useEffect(() => {
     onChange?.(values)
   }, [debouncedValue])
