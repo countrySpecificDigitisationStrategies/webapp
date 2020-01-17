@@ -1,4 +1,5 @@
 import camelize from 'camelize'
+import decamelize from 'snakecase-keys'
 import { getAuthToken } from 'app/service/authentication'
 import { ApiError } from 'app/service/error'
 
@@ -87,7 +88,7 @@ const getFetchOptions = (method: HttpMethod, data?: object): RequestInit => {
         ...fetchOptions.headers,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(decamelize(data)),
     }
   }
 

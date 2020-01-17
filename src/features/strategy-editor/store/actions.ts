@@ -53,7 +53,7 @@ export const removeMeasure = (id: StrategyMeasureDraft['measure']): StrategyEdit
 
 export const submitStrategy = ({ id, ...strategy }: StrategyDraft) => {
   const data = transformRequestData(strategy)
-  createRequest({
+  return createRequest({
     id: STRATEGY_EDITOR_REQUEST_ID,
     request: () => (id ? put(Endpoint.strategies, id, data) : post(Endpoint.strategies, data)),
     onSuccess: () => showError({ title: 'SUCCESS', message: 'Successfully submitted Strategy' }),
@@ -62,4 +62,5 @@ export const submitStrategy = ({ id, ...strategy }: StrategyDraft) => {
 
 const transformRequestData = (strategy: StrategyDraft): StrategyEditRequest => ({
   ...strategy,
+  strategyMeasures: Object.values(strategy.strategyMeasures),
 })

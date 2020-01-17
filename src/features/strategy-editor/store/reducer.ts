@@ -9,7 +9,11 @@ import {
 } from './actions'
 
 const initialState: StrategyEditorState = {
-  fields: {},
+  fields: {
+    title: '',
+    description: '',
+    isPublished: false,
+  },
   measures: {},
 }
 

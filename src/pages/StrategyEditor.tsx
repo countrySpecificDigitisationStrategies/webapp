@@ -1,11 +1,11 @@
 import React from 'react'
-import { StrategyForm, MeasureSelector } from 'features/strategy-editor'
+import { StrategyForm, MeasureSelector, DraftReview } from 'features/strategy-editor'
 import { StepperView } from 'shared/components'
 
 const StrategyEditor = () => {
   const renderEditorForm = () => <StrategyForm />
   const renderMeasureSelectView = () => <MeasureSelector />
-  const renderReviewStrategyView = () => <>Review the Strategy</>
+  const renderReviewStrategyView = () => <DraftReview />
 
   return (
     <StepperView

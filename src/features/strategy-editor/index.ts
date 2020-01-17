@@ -1,3 +1,2 @@
-export { StrategyForm } from './components'
-export { MeasureSelector } from './components'
+export { StrategyForm, MeasureSelector, DraftReview } from './components'
 export { editorReducer, StrategyEditorState } from './store'
