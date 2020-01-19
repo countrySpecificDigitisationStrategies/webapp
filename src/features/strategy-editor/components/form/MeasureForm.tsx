@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Button, TextField } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { Form, InputValues } from 'shared/components'
+import { Form, Fields } from 'shared/components'
 import { Measure } from 'features/strategies'
 
 import { StrategyMeasureDraft, addMeasure, removeMeasure, getMeasureDraft } from '../../store/'
@@ -12,7 +12,7 @@ interface MeasureFormProps {
   id: Measure['id']
 }
 
-interface MeasureFormValues extends InputValues {
+interface MeasureFormValues extends Fields {
   description: StrategyMeasureDraft['description']
 }
 
@@ -62,6 +62,7 @@ export const MeasureForm = ({ id }: MeasureFormProps): JSX.Element => {
       </div>
       {measureDraft && (
         <Form<MeasureFormValues>
+          key={id} // force re-render for every measure
           onChangeDebounce={100}
           onChange={handleChange}
           onSubmit={handleSubmit}
@@ -70,6 +71,9 @@ export const MeasureForm = ({ id }: MeasureFormProps): JSX.Element => {
             disabled: !dirty,
             variant: 'contained',
             color: 'primary',
+          }}
+          initialValues={{
+            description: measureDraft.description,
           }}>
           <TextField label="Description" name="description" multiline rows={10} />
         </Form>

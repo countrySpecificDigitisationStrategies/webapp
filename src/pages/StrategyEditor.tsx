@@ -1,8 +1,14 @@
 import React from 'react'
-import { StrategyForm, MeasureSelector, DraftReview } from 'features/strategy-editor'
+import { useParams } from 'react-router'
+
+import { APP_ROUTE_PARAMS } from 'app/routes'
+import { StrategyForm, MeasureSelector, DraftReview, useSetInitialStrategyEditorValues } from 'features/strategy-editor'
 import { StepperView } from 'shared/components'
 
 const StrategyEditor = () => {
+  const { [APP_ROUTE_PARAMS.strategyId]: strategyId } = useParams<typeof APP_ROUTE_PARAMS>()
+  useSetInitialStrategyEditorValues(+strategyId)
+
   const renderEditorForm = () => <StrategyForm />
   const renderMeasureSelectView = () => <MeasureSelector />
   const renderReviewStrategyView = () => <DraftReview />

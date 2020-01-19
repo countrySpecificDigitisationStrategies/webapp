@@ -6,16 +6,11 @@ import {
   FormControlLabelProps,
 } from '@material-ui/core'
 
-interface CheckboxProps {
+interface CheckboxProps extends MuiCheckboxProps {
   label?: FormControlLabelProps['label']
   value?: MuiCheckboxProps['checked']
-  name?: MuiCheckboxProps['name']
-  onChange?: MuiCheckboxProps['onChange']
 }
 
-export const Checkbox = ({ label, value, name, onChange }: CheckboxProps) => (
-  <FormControlLabel
-    control={<MuiCheckbox name={name} color="primary" checked={value} onChange={onChange} />}
-    label={label}
-  />
+export const Checkbox = ({ label, value, checked, ...props }: CheckboxProps) => (
+  <FormControlLabel control={<MuiCheckbox color="primary" checked={value || checked} {...props} />} label={label} />
 )

@@ -1,10 +1,11 @@
 import { StrategyEditorState, StrategyMeasureDraft } from './types'
 import { addToState } from 'shared/utils'
 import {
-  STRATEGY_EDITOR_CLEAR,
-  STRATEGY_EDITOR_SET_FIELDS,
   STRATEGY_EDITOR_ADD_MEASURE,
+  STRATEGY_EDITOR_CLEAR,
   STRATEGY_EDITOR_REMOVE_MEASURE,
+  STRATEGY_EDITOR_SET_FIELDS,
+  STRATEGY_EDITOR_SET_MEASURES,
   StrategyEditorActions,
 } from './actions'
 
@@ -26,6 +27,8 @@ export const editor = (
       return initialState
     case STRATEGY_EDITOR_SET_FIELDS:
       return addToState(state, 'fields', action.payload)
+    case STRATEGY_EDITOR_SET_MEASURES:
+      return setMeasure(state, action.payload)
     case STRATEGY_EDITOR_ADD_MEASURE:
       return addMeasure(state, action.payload)
     case STRATEGY_EDITOR_REMOVE_MEASURE:
@@ -33,6 +36,11 @@ export const editor = (
     default:
       return state
   }
+}
+
+const setMeasure = (state: StrategyEditorState, drafts: StrategyMeasureDraft[]): StrategyEditorState => {
+  const stateWithoutMeasures = { ...state, measures: {} }
+  return drafts.reduce((newState, draft) => addMeasure(newState, draft), stateWithoutMeasures)
 }
 
 const addMeasure = (state: StrategyEditorState, draft: StrategyMeasureDraft): StrategyEditorState => ({

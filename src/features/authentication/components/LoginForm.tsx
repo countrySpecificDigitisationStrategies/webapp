@@ -3,9 +3,9 @@ import { TextField } from '@material-ui/core'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { login, isLoggedIn } from '../store'
-import { Form, InputValues, Notification, NotificationType } from 'shared/components'
+import { Form, Fields, Notification, NotificationType } from 'shared/components'
 
-interface LoginFormValues extends InputValues {
+interface LoginFormValues extends Fields {
   email: string
   password: string
 }

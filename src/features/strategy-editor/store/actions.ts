@@ -8,6 +8,7 @@ import { StrategyEditRequest } from './types.api'
 export const STRATEGY_EDITOR_REQUEST_ID = 'strategy-editor'
 export const STRATEGY_EDITOR_CLEAR = 'strategy-editor/clear'
 export const STRATEGY_EDITOR_SET_FIELDS = 'strategy-editor/fields/set'
+export const STRATEGY_EDITOR_SET_MEASURES = 'strategy-editor/measures/set'
 export const STRATEGY_EDITOR_ADD_MEASURE = 'strategy-editor/measure/add'
 export const STRATEGY_EDITOR_REMOVE_MEASURE = 'strategy-editor/measure/remove'
 
@@ -18,6 +19,11 @@ interface StrategyEditorClear {
 interface StrategyEditorSetFields {
   type: typeof STRATEGY_EDITOR_SET_FIELDS
   payload: StrategyDraftFields
+}
+
+interface StrategyEditorSetMeasures {
+  type: typeof STRATEGY_EDITOR_SET_MEASURES
+  payload: StrategyMeasureDraft[]
 }
 
 interface StrategyEditorAddMeasure {
@@ -33,12 +39,18 @@ interface StrategyEditorRemoveMeasure {
 export type StrategyEditorActions =
   | StrategyEditorClear
   | StrategyEditorSetFields
+  | StrategyEditorSetMeasures
   | StrategyEditorAddMeasure
   | StrategyEditorRemoveMeasure
 
 export const setFields = (fields: StrategyDraftFields): StrategyEditorSetFields => ({
   type: STRATEGY_EDITOR_SET_FIELDS,
   payload: fields,
+})
+
+export const setMeasures = (measures: StrategyMeasureDraft[]): StrategyEditorSetMeasures => ({
+  type: STRATEGY_EDITOR_SET_MEASURES,
+  payload: measures,
 })
 
 export const addMeasure = (measure: StrategyMeasureDraft): StrategyEditorAddMeasure => ({

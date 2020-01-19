@@ -1,4 +1,5 @@
 export {
+  useStrategyData,
   StrategyGrid,
   StrategyDetail,
   BlockDetail,
@@ -18,6 +19,8 @@ export {
   EntityTree,
   NodeType,
 } from './components'
+
+export { getStrategy } from './store'
 
 import { RenderNodeContentFn as _RenderNodeContentFn } from './components'
 export type RenderNodeContentFn = _RenderNodeContentFn
