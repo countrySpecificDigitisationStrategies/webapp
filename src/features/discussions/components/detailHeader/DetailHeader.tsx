@@ -18,11 +18,10 @@ enum DiscussionDetailHeaderView {
 const useStyles = makeStyles(
   createStyles({
     root: {
-      minHeight: '193px',
+      minHeight: '183px',
       marginBottom: '24px',
       display: 'flex',
       flexDirection: 'column',
-      justifyContent: 'space-between',
     },
   })
 )

@@ -11,6 +11,7 @@ import {
 } from '@material-ui/core'
 import { ExpandMore } from '@material-ui/icons'
 import clsx from 'clsx'
+import ReactMarkdown from 'react-markdown'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -26,6 +27,18 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     content: {
       paddingBottom: '0 !important',
+      paddingTop: '0',
+    },
+    preview: {
+      position: 'relative',
+      '&:after': {
+        position: 'absolute',
+        bottom: 0,
+        height: '100%',
+        width: '100%',
+        content: '""',
+        background: 'linear-gradient(to bottom, rgba(255,255,255,0) 12px, rgba(255,255,255,1) 42px)',
+      },
     },
     actions: {
       paddingTop: 0,
@@ -54,10 +67,15 @@ export const HeaderContent = ({
   strategyMeasureDescription,
 }: HeaderContentProps): JSX.Element => {
   const classes = useStyles()
-  const [expanded, setExpanded] = React.useState(false)
+  const [expandDescription, setExpandDescription] = React.useState(false)
+  const [expandGoalDescription, setExpandGoalDescription] = React.useState(false)
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded)
+  const handleExpandDescriptionClick = () => {
+    setExpandDescription(!expandDescription)
+  }
+
+  const handleExpandGoalDescriptionClick = () => {
+    setExpandGoalDescription(!expandGoalDescription)
   }
 
   return (
@@ -67,47 +85,53 @@ export const HeaderContent = ({
           {title ? title : ''}
         </Typography>
       </CardContent>
-      <Collapse in={expanded} timeout="auto" collapsedHeight={'64px'}>
+      <Collapse in={expandDescription} timeout="auto" collapsedHeight={'54px'}>
         <CardContent className={classes.content}>
-          <Typography paragraph className={classes.paragraph}>
-            {description
-              ? description.length > 180 && !expanded
-                ? `${description.substring(0, 180)}...`
-                : description
-              : ''}
-          </Typography>
-          {goalTitle && goalDescription ? (
-            <>
-              <Typography variant="h5" component="h2">
-                {goalTitle}
-              </Typography>
-              <Typography paragraph className={classes.paragraph}>
-                {goalDescription.length > 180 && !expanded
-                  ? `${goalDescription.substring(0, 180)}...`
-                  : goalDescription}
-              </Typography>
-            </>
+          {description ? (
+            <ReactMarkdown source={description} className={clsx({ [classes.preview]: !expandDescription })} />
           ) : null}
           {strategyMeasureDescription ? (
-            <Typography paragraph className={classes.paragraph}>
-              {strategyMeasureDescription.length > 180 && !expanded
-                ? `${strategyMeasureDescription.substring(0, 180)}...`
-                : strategyMeasureDescription}
-            </Typography>
+            <ReactMarkdown
+              source={strategyMeasureDescription}
+              className={clsx({ [classes.preview]: !expandDescription })}
+            />
           ) : null}
         </CardContent>
       </Collapse>
       <CardActions disableSpacing className={classes.actions}>
         <IconButton
           className={clsx(classes.expand, {
-            [classes.expandOpen]: expanded,
+            [classes.expandOpen]: expandDescription,
           })}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
+          onClick={handleExpandDescriptionClick}
+          aria-expanded={expandDescription}
           aria-label="show more">
           <ExpandMore />
         </IconButton>
       </CardActions>
+      {goalTitle && goalDescription ? (
+        <>
+          <Collapse in={expandGoalDescription} timeout="auto" collapsedHeight={'86px'}>
+            <CardContent className={classes.content}>
+              <Typography variant="h5" component="h2">
+                {goalTitle}
+              </Typography>
+              <ReactMarkdown source={goalDescription} className={clsx({ [classes.preview]: !expandGoalDescription })} />
+            </CardContent>
+          </Collapse>
+          <CardActions disableSpacing className={classes.actions}>
+            <IconButton
+              className={clsx(classes.expand, {
+                [classes.expandOpen]: expandGoalDescription,
+              })}
+              onClick={handleExpandGoalDescriptionClick}
+              aria-expanded={expandGoalDescription}
+              aria-label="show more">
+              <ExpandMore />
+            </IconButton>
+          </CardActions>
+        </>
+      ) : null}
     </>
   )
 }
