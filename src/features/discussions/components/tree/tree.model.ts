@@ -1,6 +1,7 @@
 export const mapResponseToTree = (response: TreeResponse): TreeModel => {
   return {
-    buildingBlocks: response.building_blocks.map(
+    title: 'Strategy', // TODO replace 'Strategy' with response.title if backend returns it
+    buildingBlocks: response.buildingBlocks.map(
       (buildingBlock: TreeBuildingBlockResponse): TreeBuildingBlockModel => ({
         id: buildingBlock.id,
         title: buildingBlock.title,
