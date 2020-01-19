@@ -43,7 +43,7 @@ export const mapResponseToThread = (response: ThreadResponse): ThreadModel => {
   }
 }
 
-interface ThreadResponse {
+export interface ThreadResponse {
   id: number
   title: string
   description: string
@@ -52,7 +52,7 @@ interface ThreadResponse {
   comments: CommentResponse[]
 }
 
-interface ThreadModel {
+export interface ThreadModel {
   id: number
   title: string
   description: string
