@@ -21,7 +21,7 @@ export const ThreadList = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = (await get(Endpoint.threads)) as PreviewThreadResponse[]
+      const response = (await get(Endpoint.strategyMeasureThreads)) as PreviewThreadResponse[]
       setPreviewThreads(mapResponseToPreviewThreads(response))
     }
     fetchData()
