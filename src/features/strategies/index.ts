@@ -20,7 +20,7 @@ export {
   NodeType,
 } from './components'
 
-export { getStrategy } from './store'
+export { getStrategy, getStrategyByCountryId } from './store'
 
 import { RenderNodeContentFn as _RenderNodeContentFn } from './components'
 export type RenderNodeContentFn = _RenderNodeContentFn

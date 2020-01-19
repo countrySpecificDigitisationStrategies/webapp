@@ -10,6 +10,7 @@ export {
   getStrategies,
   getStrategy,
   areStrategiesLoaded,
+  getStrategyByCountryId,
   getBlocks,
   getBlock,
   areBlocksLoaded,

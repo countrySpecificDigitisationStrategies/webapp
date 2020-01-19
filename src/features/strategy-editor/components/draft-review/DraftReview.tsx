@@ -19,8 +19,11 @@ export const DraftReview = () => {
   const measuresDrafts = useSelector(getMeasureDrafts)
   const measures = useSelector(getMeasures)
 
+  //TODO: get current user's country
+  const countryId = 34 // Senegal
+
   const handleSubmit = () => {
-    dispatch(submitStrategy({ ...fields, strategyMeasures: measuresDrafts, country: 34 /* Senegal */ }))
+    dispatch(submitStrategy({ ...fields, strategyMeasures: measuresDrafts, country: countryId }))
   }
 
   return (
