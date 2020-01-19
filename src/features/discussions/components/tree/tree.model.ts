@@ -33,25 +33,32 @@ export const mapResponseToTree = (response: TreeResponse): TreeModel => {
   }
 }
 
+const calculateTreeThreadCount = (tree: TreeResponse): number => {
+  const sumUpBuildingBlockThreads = (sum: number, buildingBlock: TreeBuildingBlockResponse): number =>
+    sum + calculateBuildingBlockThreadCount(buildingBlock)
+  return tree.building_blocks.reduce(sumUpBuildingBlockThreads, 0) // TODO change 0 to response.thread_count if backend returns it
+}
+
 const calculateBuildingBlockThreadCount = (buildingBlock: TreeBuildingBlockResponse): number => {
-  const sumUpSituationCategoryThread = (sum: number, situationCategory: TreeSituationCategoryResponse): number =>
+  const sumUpSituationCategoryThreads = (sum: number, situationCategory: TreeSituationCategoryResponse): number =>
     sum + calculateSituationCategoryThreadCount(situationCategory)
-  return buildingBlock.situation_categories.reduce(sumUpSituationCategoryThread, 0)
+  return buildingBlock.situation_categories.reduce(sumUpSituationCategoryThreads, buildingBlock.thread_count)
 }
 
 const calculateSituationCategoryThreadCount = (situationCategory: TreeSituationCategoryResponse): number => {
   const sumUpSituationThreads = (sum: number, situation: TreeSituationResponse): number =>
     sum + calculateSituationThreadCount(situation)
-  return situationCategory.situations.reduce(sumUpSituationThreads, 0)
+  return situationCategory.situations.reduce(sumUpSituationThreads, situationCategory.thread_count)
 }
 
 const calculateSituationThreadCount = (situation: TreeSituationResponse): number => {
   const sumUpStrategyMeasureThreads = (sum: number, strategyMeasure: TreeStrategyMeasureResponse): number =>
     sum + strategyMeasure.thread_count
-  return situation.strategy_measures.reduce(sumUpStrategyMeasureThreads, 0)
+  return situation.strategy_measures.reduce(sumUpStrategyMeasureThreads, situation.thread_count)
 }
 
 export interface TreeResponse {
+  // TODO add strategy title and thread count if backend returns it
   building_blocks: TreeBuildingBlockResponse[]
 }
 
@@ -63,6 +70,7 @@ interface TreeBuildingBlockResponse {
   id: number
   title: string
   situation_categories: TreeSituationCategoryResponse[]
+  thread_count: number
 }
 
 export interface TreeBuildingBlockModel {
@@ -76,6 +84,7 @@ interface TreeSituationCategoryResponse {
   id: number
   title: string
   situations: TreeSituationResponse[]
+  thread_count: number
 }
 
 export interface TreeSituationCategoryModel {
@@ -89,6 +98,7 @@ interface TreeSituationResponse {
   id: number
   title: string
   strategy_measures: TreeStrategyMeasureResponse[]
+  thread_count: number
 }
 
 export interface TreeSituationModel {

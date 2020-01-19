@@ -20,7 +20,8 @@ import { StyledTreeItem } from './StyledTreeItem'
 const useStyles = makeStyles(
   createStyles({
     root: {
-      minWidth: '350px',
+      minWidth: '400px',
+      width: '400px',
     },
   })
 )
@@ -33,7 +34,7 @@ export const Tree = () => {
   const location = useLocation()
 
   const getExpandedNodes = () => {
-    const expandedNodes: string[] = []
+    const expandedNodes: string[] = ['root']
     let hash = location.hash.replace(/#|-*$/, '')
     let numberOfExpandedNodes = hash.split('-').length
     if (numberOfExpandedNodes > 0) {
@@ -56,7 +57,8 @@ export const Tree = () => {
   }, [location])
 
   const getHighlightedNode = () => {
-    return location.hash.replace(/#|-*$/, '')
+    const nodeId = location.hash.replace(/#|-*$/, '')
+    return nodeId !== '' ? nodeId : 'root'
   }
 
   const [highlightedNode, setHighlightedNode] = useState<string>(getHighlightedNode())
@@ -101,8 +103,6 @@ export const Tree = () => {
 
   if (!tree) return <div>No discussions found</div>
 
-  const buildingBlocks: TreeBuildingBlockModel[] = tree.buildingBlocks
-
   const renderTreeSituationCategories = (parentNodeId: string, situationCategories: TreeSituationCategoryModel[]) =>
     situationCategories.map((situationCategory: TreeSituationCategoryModel, index: number) => {
       const nodeId = `${parentNodeId}-${situationCategory.id}`
@@ -112,7 +112,7 @@ export const Tree = () => {
           key={index}
           nodeId={nodeId}
           labelText={situationCategory.title}
-          labelInfo={'' + situationCategory.threadCount}
+          labelInfo={situationCategory.threadCount}
           className={clsx({ 'tree-node--highlight': nodeId === highlightedNode })}>
           {renderTreeSituations(nodeId, situationCategory.situations)}
         </StyledTreeItem>
@@ -128,7 +128,7 @@ export const Tree = () => {
           key={index}
           nodeId={nodeId}
           labelText={situation.title}
-          labelInfo={'' + situation.threadCount}
+          labelInfo={situation.threadCount}
           className={clsx({ 'tree-node--highlight': nodeId === highlightedNode })}>
           {renderTreeStrategyMeasures(nodeId, situation.strategyMeasures)}
         </StyledTreeItem>
@@ -144,7 +144,7 @@ export const Tree = () => {
           key={index}
           nodeId={nodeId}
           labelText={strategyMeasure.title}
-          labelInfo={'' + strategyMeasure.threadCount}
+          labelInfo={strategyMeasure.threadCount}
           onClick={handleClickOnStrategyMeasure(nodeId)}
           className={clsx({ 'tree-node--highlight': nodeId === highlightedNode })}
         />
@@ -159,20 +159,27 @@ export const Tree = () => {
       defaultEndIcon={<div style={{ width: 24 }} />}
       expanded={expanded}
       onNodeToggle={handleChange}>
-      {buildingBlocks.map((buildingBlock: TreeBuildingBlockModel, index: number) => {
-        const nodeId = `${buildingBlock.id}`
+      <StyledTreeItem
+        nodeId={'root'}
+        labelText={tree?.title}
+        labelInfo={tree?.threadCount}
+        rootNode={true}
+        className={clsx({ 'tree-node--highlight': 'root' === highlightedNode }, 'root-node')}>
+        {tree.buildingBlocks.map((buildingBlock: TreeBuildingBlockModel, index: number) => {
+          const nodeId = `${buildingBlock.id}`
 
-        return (
-          <StyledTreeItem
-            key={index}
-            nodeId={nodeId}
-            labelText={buildingBlock.title}
-            labelInfo={'' + buildingBlock.threadCount}
-            className={clsx({ 'tree-node--highlight': nodeId === highlightedNode })}>
-            {renderTreeSituationCategories(nodeId, buildingBlock.situationCategories)}
-          </StyledTreeItem>
-        )
-      })}
+          return (
+            <StyledTreeItem
+              key={index}
+              nodeId={nodeId}
+              labelText={buildingBlock.title}
+              labelInfo={buildingBlock.threadCount}
+              className={clsx({ 'tree-node--highlight': nodeId === highlightedNode })}>
+              {renderTreeSituationCategories(nodeId, buildingBlock.situationCategories)}
+            </StyledTreeItem>
+          )
+        })}
+      </StyledTreeItem>
     </TreeView>
   )
 }

@@ -2,10 +2,13 @@ import { TreeItemProps } from '@material-ui/lab/TreeItem'
 import { createStyles, makeStyles, Theme, Typography } from '@material-ui/core'
 import { TreeItem } from '@material-ui/lab'
 import React from 'react'
+import ArrowRightIcon from '@material-ui/icons/ArrowRight'
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 
 type StyledTreeItemProps = TreeItemProps & {
-  labelInfo?: string
+  labelInfo?: number
   labelText: string
+  rootNode?: boolean
 }
 
 const useTreeItemStyles = makeStyles((theme: Theme) =>
@@ -17,6 +20,9 @@ const useTreeItemStyles = makeStyles((theme: Theme) =>
       },
       '&:focus > $content:hover': {
         backgroundColor: 'rgba(0,0,0,0.04)',
+      },
+      '&.root-node > $content > $iconContainer': {
+        width: 0,
       },
     },
     content: {
@@ -31,18 +37,18 @@ const useTreeItemStyles = makeStyles((theme: Theme) =>
     },
     group: {
       marginLeft: 0,
-      '& $content': {
-        paddingLeft: theme.spacing(2),
-      },
       '& $group': {
         '& $content': {
-          paddingLeft: theme.spacing(4),
+          paddingLeft: theme.spacing(2),
         },
       },
     },
     label: {
       fontWeight: 'inherit',
       color: 'inherit',
+      '& p:first-of-type': {
+        paddingRight: '5px',
+      },
     },
     labelRoot: {
       display: 'flex',
@@ -53,15 +59,18 @@ const useTreeItemStyles = makeStyles((theme: Theme) =>
       fontWeight: 'inherit',
       flexGrow: 1,
     },
+    iconContainer: {},
   })
 )
 
 export const StyledTreeItem = (props: StyledTreeItemProps) => {
   const classes = useTreeItemStyles()
-  const { labelText, labelInfo, ...other } = props
+  const { labelText, labelInfo, rootNode, ...other } = props
 
   return (
     <TreeItem
+      expandIcon={rootNode ? <></> : <ArrowRightIcon />}
+      collapseIcon={rootNode ? <></> : <ArrowDropDownIcon />}
       label={
         <div className={classes.labelRoot}>
           <Typography variant="body2" className={classes.labelText}>
@@ -77,6 +86,7 @@ export const StyledTreeItem = (props: StyledTreeItemProps) => {
         content: classes.content,
         group: classes.group,
         label: classes.label,
+        iconContainer: classes.iconContainer,
       }}
       {...other}
     />
