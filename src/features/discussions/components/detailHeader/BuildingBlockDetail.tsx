@@ -4,9 +4,9 @@ import {
   BuildingBlockModel,
   BuildingBlockResponse,
   mapResponseToBuildingBlock,
-} from '../../models/buildingBlock.discussion.model'
+} from './models/buildingBlock.discussion.model'
 import { HeaderContent } from './HeaderContent.dumb'
-import { DetailProps } from './detailProps.model'
+import { DetailProps } from './models/detailProps.model'
 
 export const BuildingBlockDetail = ({ id }: DetailProps): JSX.Element => {
   const [buildingBlock, setBuildingBlock] = useState<BuildingBlockModel>()

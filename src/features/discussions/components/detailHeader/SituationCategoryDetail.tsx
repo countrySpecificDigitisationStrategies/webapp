@@ -4,9 +4,9 @@ import {
   mapResponseToSituationCategory,
   SituationCategoryModel,
   SituationCategoryResponse,
-} from '../../models/situationCategory.discussion.model'
+} from './models/situationCategory.discussion.model'
 import { HeaderContent } from './HeaderContent.dumb'
-import { DetailProps } from './detailProps.model'
+import { DetailProps } from './models/detailProps.model'
 
 export const SituationCategoryDetail = ({ id }: DetailProps): JSX.Element => {
   const [situationCategory, setSituationCategory] = useState<SituationCategoryModel>()

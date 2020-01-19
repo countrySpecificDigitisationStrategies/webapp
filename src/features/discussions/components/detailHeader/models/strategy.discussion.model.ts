@@ -1,4 +1,4 @@
-import { CountryModel, CountryResponse, mapResponseToCountry } from './country.discussion.model'
+import { CountryModel, CountryResponse, mapResponseToCountry } from '../../../models/country.discussion.model'
 
 export const mapResponseToStrategies = (response: StrategyResponse[]): StrategyModel[] => {
   return response.map((strategy: StrategyResponse): StrategyModel => mapResponseToStrategy(strategy))

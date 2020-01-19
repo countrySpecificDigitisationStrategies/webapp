@@ -1,6 +1,6 @@
 import React from 'react'
 import { Card, CardActionArea, CardContent, CardMedia, makeStyles, Typography } from '@material-ui/core'
-import { StrategyModel } from '../models/strategy.discussion.model'
+import { StrategyModel } from './detailHeader/models/strategy.discussion.model'
 import { Link } from 'react-router-dom'
 
 const useStyles = makeStyles({

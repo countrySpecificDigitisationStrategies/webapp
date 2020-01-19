@@ -3,7 +3,11 @@ import React, { useEffect, useState } from 'react'
 import { Endpoint, get } from 'app/service'
 import { DiscussionCard } from 'features/discussions/components'
 import { Grid } from '@material-ui/core'
-import { mapResponseToStrategies, StrategyModel, StrategyResponse } from '../models/strategy.discussion.model'
+import {
+  mapResponseToStrategies,
+  StrategyModel,
+  StrategyResponse,
+} from './detailHeader/models/strategy.discussion.model'
 
 export const DiscussionForumsGrid = () => {
   const [strategies, setStrategies] = useState<StrategyModel[]>()

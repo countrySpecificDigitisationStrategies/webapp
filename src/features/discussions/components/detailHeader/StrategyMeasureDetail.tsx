@@ -4,9 +4,9 @@ import {
   mapResponseToStrategyMeasure,
   StrategyMeasureModel,
   StrategyMeasureResponse,
-} from '../../models/strategyMeasure.discussion.model'
+} from './models/strategyMeasure.discussion.model'
 import { HeaderContent } from './HeaderContent.dumb'
-import { DetailProps } from './detailProps.model'
+import { DetailProps } from './models/detailProps.model'
 
 export const StrategyMeasureDetail = ({ id }: DetailProps): JSX.Element => {
   const [strategyMeasure, setStrategyMeasure] = useState<StrategyMeasureModel>()

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Endpoint, get } from '../../../../app/service'
-import { mapResponseToSituation, SituationModel, SituationResponse } from '../../models/situation.discussion.model'
+import { mapResponseToSituation, SituationModel, SituationResponse } from './models/situation.discussion.model'
 import { HeaderContent } from './HeaderContent.dumb'
-import { DetailProps } from './detailProps.model'
+import { DetailProps } from './models/detailProps.model'
 
 export const SituationDetail = ({ id }: DetailProps): JSX.Element => {
   const [situation, setSituation] = useState<SituationModel>()

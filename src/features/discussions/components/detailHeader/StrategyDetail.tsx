@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Endpoint, get } from '../../../../app/service'
-import { mapResponseToStrategy, StrategyModel, StrategyResponse } from '../../models/strategy.discussion.model'
+import { mapResponseToStrategy, StrategyModel, StrategyResponse } from './models/strategy.discussion.model'
 import { HeaderContent } from './HeaderContent.dumb'
-import { DetailProps } from './detailProps.model'
+import { DetailProps } from './models/detailProps.model'
 
 export const StrategyDetail = ({ id }: DetailProps): JSX.Element => {
   const [strategy, setStrategy] = useState<StrategyModel>()
