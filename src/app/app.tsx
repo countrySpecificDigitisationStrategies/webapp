@@ -13,6 +13,11 @@ import { ToolBar, Navigation, Content } from './layout'
 const App = () => {
   const classes = appStyles()
 
+  // TODO: Fix this type error, probably related to HOCs
+  // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+  // @ts-ignore
+  const content = <Content />
+
   return (
     <StylesProvider injectFirst>
       <MuiThemeProvider theme={theme}>
@@ -24,7 +29,7 @@ const App = () => {
               <Navigation />
               <main className={classes.content}>
                 <div className={classes.toolbar} />
-                <Content />
+                {content}
               </main>
             </div>
           </BrowserRouter>

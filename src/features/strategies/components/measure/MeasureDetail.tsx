@@ -1,20 +1,48 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { getMeasure, Measure } from 'features/strategies/store'
-import { useMeasureData } from 'features/strategies/components/hooks'
-import StandardView from 'shared/components/standard-view/StandardView'
+import { Typography } from '@material-ui/core'
+
+import { getMeasure, getStrategy, getStrategyMeasureByRelated, Measure, Strategy } from 'features/strategies/store'
+import { useMeasureData, useStrategyData, useStrategyMeasureData } from 'features/strategies/components'
+import { StandardView } from 'shared/components'
 
 interface MeasureDetailProps {
-  id: Measure.id
+  measureId: Measure['id']
+  strategyId: Strategy['id']
 }
 
-const MeasureDetail = ({ id }: MeasureDetailProps) => {
+const MeasureDetail = ({ measureId, strategyId }: MeasureDetailProps) => {
   useMeasureData()
-  const measure = useSelector(getMeasure(id))
-  if (!measure) return <div>Could not find Measure with id {id}</div>
+  useStrategyData()
+  useStrategyMeasureData()
 
-  //TODO: presents mocked data
-  return <StandardView title={measure.title} description={measure.description} />
+  const measure = useSelector(getMeasure(measureId))
+  const strategy = useSelector(getStrategy(strategyId))
+  const strategyMeasure = useSelector(getStrategyMeasureByRelated(strategyId, measureId))
+
+  if (!(measure && strategy && strategyMeasure))
+    return (
+      <div>
+        Could not find Measure with id {measureId} on Strategy with id {strategyId}
+      </div>
+    )
+
+  const strategyMeasureFragment = () => (
+    <>
+      <Typography variant="h5">Notes on this Strategy</Typography>
+      <Typography variant="body1">{strategyMeasure.description}</Typography>
+    </>
+  )
+
+  return (
+    <>
+      <StandardView
+        title={measure.title}
+        description={measure.description}
+        renderAdditionalInfo={strategyMeasureFragment}
+      />
+    </>
+  )
 }
 
 export default MeasureDetail

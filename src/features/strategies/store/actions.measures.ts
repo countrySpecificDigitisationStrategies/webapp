@@ -1,4 +1,5 @@
 import { Measure } from './types'
+import { MeasureResponse } from './types.api'
 import { Endpoint, get } from 'app/service'
 import { createRequest } from 'features/requests/store'
 
@@ -13,22 +14,21 @@ interface MeasuresAdd {
 export type MeasureActions = MeasuresAdd
 
 export const loadMeasures = () =>
-  createRequest({
+  createRequest<MeasureResponse[]>({
     id: MEASURES_REQUEST_ID,
     request: () => get(Endpoint.measures),
-    onSuccess: addMeasures,
+    onSuccess: data => addMeasures(transformResponseData(data)),
   })
 
-const addMeasures = (measures: Measure[]): MeasuresSuccess => ({
+const addMeasures = (measures: Measure[]): MeasuresAdd => ({
   type: MEASURES_ADD,
-  // measures,
-  measures: mockMeasureData(measures),
+  measures,
 })
 
-//TODO: should be removed once api delivers real relation data
-const mockMeasureData = measures =>
-  measures.map(measure => ({
+const transformResponseData = (measures: MeasureResponse[]): Measure[] => {
+  return measures.map(({ created, updated, ...measure }) => ({
     ...measure,
-    title: measure.title.replace('BuildingBlock', 'Measure'),
-    description: measure.description.replace('BuildingBlock', 'Measure'),
+    created: new Date(created),
+    updated: new Date(updated),
   }))
+}

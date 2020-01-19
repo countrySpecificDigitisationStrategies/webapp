@@ -31,7 +31,7 @@ export const buildCommentPostRequest = (comment: NewCommentModel, threadId: numb
     description: comment.description,
     parent: comment.parent,
     // eslint-disable-next-line @typescript-eslint/camelcase
-    thread_id: threadId,
+    threadId: threadId,
   }
 }
 
@@ -43,7 +43,7 @@ interface NewCommentModel {
 interface CommentPostRequestModel {
   description: string
   parent: number | null
-  thread_id: number
+  threadId: number
 }
 
 export const buildCommentPatchRequest = (comment: CommentModel): CommentPatchRequestModel => {

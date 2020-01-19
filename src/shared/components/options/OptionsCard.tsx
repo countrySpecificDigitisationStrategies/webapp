@@ -30,7 +30,7 @@ export const OptionsCard = ({ overline, title, image, description, link }: Optio
   ) : null
 
   const descriptionFragment = description ? (
-    <Typography variant="body2" color="textSecondary" component="p">
+    <Typography variant="body2" color="textSecondary" component="p" className={`${className}__description`}>
       {description}
     </Typography>
   ) : null

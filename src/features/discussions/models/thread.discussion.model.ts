@@ -8,7 +8,7 @@ export const mapResponseToPreviewThreads = (response: PreviewThreadResponse[]): 
       title: thread.title,
       description: thread.description,
       user: mapResponseToUser(thread.user),
-      commentCount: thread.comment_count,
+      commentCount: thread.commentCount,
       created: new Date(thread.created),
     })
   )
@@ -19,7 +19,7 @@ export interface PreviewThreadResponse {
   title: string
   description: string
   user: UserResponse
-  comment_count: number
+  commentCount: number
   created: string
 }
 
@@ -65,8 +65,7 @@ export const buildThreadPostRequest = (thread: NewThreadModel, strategyMeasureId
   return {
     title: thread.title,
     description: thread.description,
-    // eslint-disable-next-line @typescript-eslint/camelcase
-    strategy_measure_id: strategyMeasureId,
+    strategyMeasureId: strategyMeasureId,
   }
 }
 
@@ -78,7 +77,7 @@ interface NewThreadModel {
 interface ThreadPostRequestModel {
   title: string
   description: string
-  strategy_measure_id: number
+  strategyMeasureId: number
 }
 
 export const buildThreadPatchRequest = (thread: ThreadModel): ThreadPatchRequestModel => {

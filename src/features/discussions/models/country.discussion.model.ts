@@ -3,7 +3,7 @@ export const mapResponseToCountry = (response: CountryResponse): CountryModel =>
     id: response.id,
     name: response.name,
     flag: response.flag,
-    flagRectangle: response.flag_rectangle,
+    flagRectangle: response.flagRectangle,
   }
 }
 
@@ -11,7 +11,7 @@ export interface CountryResponse {
   id: number
   name: string
   flag: string
-  flag_rectangle: string
+  flagRectangle: string
 }
 
 export interface CountryModel {

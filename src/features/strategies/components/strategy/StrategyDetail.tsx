@@ -2,12 +2,11 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { Button, Typography } from '@material-ui/core'
 import { getStrategy, Strategy } from 'features/strategies/store'
-import { useStrategyData } from 'features/strategies/components/hooks'
-import BlockGrid from 'features/strategies/components/block/BlockGrid'
-import StandardView from 'shared/components/standard-view/StandardView'
+import { BlockGrid, useStrategyData } from 'features/strategies/components'
+import { StandardView } from 'shared/components'
 
 interface StrategyDetailProps {
-  id: Strategy.id
+  id: Strategy['id']
 }
 
 const StrategyDetail = ({ id }: StrategyDetailProps) => {
@@ -29,7 +28,7 @@ const StrategyDetail = ({ id }: StrategyDetailProps) => {
   const renderBlockGrid = () => <BlockGrid ids={strategy.blocks} />
   return (
     <StandardView
-      title={strategy.title}
+      title={strategy.country.name}
       description={strategy.description}
       renderAdditionalInfo={() => analysisFragment}
       nextLevel={{

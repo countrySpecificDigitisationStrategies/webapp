@@ -1,7 +1,8 @@
-import { LOGIN_SUCCESS, LOGOUT_SUCCESS } from 'features/authentication/store'
+import { Middleware } from 'redux'
+import { LOGIN_SUCCESS, LOGOUT_SUCCESS } from './actions'
 import { removeAuthToken, setAuthToken } from 'app/service'
 
-export const authHandler = () => next => action => {
+export const authHandler: Middleware = () => next => action => {
   switch (action.type) {
     case LOGIN_SUCCESS:
       setAuthToken(action.token)

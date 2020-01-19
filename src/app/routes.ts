@@ -1,7 +1,9 @@
 import { RouteConfig } from 'react-router-config'
 import {
+  Analyses,
+  Analysis,
   Block,
-  Goal,
+  Category,
   Home,
   Login,
   Measure,
@@ -17,22 +19,33 @@ import {
 import {
   StrategyBreadcrumb,
   BlockBreadcrumb,
-  GoalBreadcrumb,
+  CategoryBreadcrumb,
   MeasureBreadcrumb,
   SituationBreadcrumb,
 } from 'features/strategies'
+import { AnalysisBreadcrumb } from 'features/analyses'
+
+export const APP_ROUTE_PARAMS: { [key: string]: string } = {
+  strategyId: 'strategyId',
+  blockId: 'blockId',
+  categoryId: 'categoryId',
+  situationId: 'situationId',
+  measureId: 'measureId',
+}
+const p = APP_ROUTE_PARAMS
 
 export const APP_ROUTES = {
   home: '/',
   login: '/login',
   register: '/register',
-  analysis: '/analysis',
+  analyses: '/analyses',
+  analysis: '/analyses/:analysesId',
   strategies: '/strategies',
-  strategy: '/strategies/:strategyId',
-  block: '/strategies/:strategyId/:blockId',
-  situation: '/strategies/:strategyId/:blockId/:situationId',
-  goal: '/strategies/:strategyId/:blockId/:situationId/:goalId',
-  measure: '/strategies/:strategyId/:blockId/:situationId/:goalId/:measureId',
+  strategy: `/strategies/:${p.strategyId}`,
+  block: `/strategies/:${p.strategyId}/:${p.blockId}`,
+  category: `/strategies/:${p.strategyId}/:${p.blockId}/:${p.categoryId}`,
+  situation: `/strategies/:${p.strategyId}/:${p.blockId}/:${p.categoryId}/:${p.situationId}`,
+  measure: `/strategies/:${p.strategyId}/:${p.blockId}/:${p.categoryId}/:${p.situationId}/:${p.measureId}`,
   education: '/education',
   infrastructure: '/infrastructure',
   management: '/management',
@@ -64,6 +77,11 @@ export const routes: RouteConfig[] = [
     exact: true,
   },
   {
+    path: APP_ROUTES.analyses,
+    component: Analyses,
+    exact: true,
+  },
+  {
     path: APP_ROUTES.strategy,
     component: Strategy,
     exact: true,
@@ -76,16 +94,16 @@ export const routes: RouteConfig[] = [
     breadcrumb: BlockBreadcrumb,
   },
   {
+    path: APP_ROUTES.category,
+    component: Category,
+    exact: true,
+    breadcrumb: CategoryBreadcrumb,
+  },
+  {
     path: APP_ROUTES.situation,
     component: Situation,
     exact: true,
     breadcrumb: SituationBreadcrumb,
-  },
-  {
-    path: APP_ROUTES.goal,
-    component: Goal,
-    exact: true,
-    breadcrumb: GoalBreadcrumb,
   },
   {
     path: APP_ROUTES.measure,
@@ -110,5 +128,11 @@ export const routes: RouteConfig[] = [
     component: Thread,
     exact: true,
     // breadcrumb: MeasureBreadcrumb, // TODO
+  },
+  {
+    path: APP_ROUTES.analysis,
+    component: Analysis,
+    exact: true,
+    breadcrumb: AnalysisBreadcrumb,
   },
 ]

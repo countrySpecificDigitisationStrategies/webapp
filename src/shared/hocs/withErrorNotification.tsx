@@ -1,11 +1,13 @@
 import React from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
-import { getError, hideError, UiError } from 'features/ui/store'
+import { getError, hideError } from 'features/ui/store'
 import { Notification, NotificationType } from 'shared/components'
 
-export const withErrorNotification = Component => props => {
-  const error: UiError = useSelector(getError)
+export const withErrorNotification = <P extends object>(Component: React.ComponentType<P>) => (
+  props: P
+): JSX.Element => {
+  const error = useSelector(getError)
   const dispatch = useDispatch()
 
   if (error) {
