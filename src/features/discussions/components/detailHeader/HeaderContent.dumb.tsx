@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
   CardActions,
   CardContent,
@@ -69,6 +69,11 @@ export const HeaderContent = ({
   const classes = useStyles()
   const [expandDescription, setExpandDescription] = React.useState(false)
   const [expandGoalDescription, setExpandGoalDescription] = React.useState(false)
+
+  useEffect(() => {
+    setExpandDescription(false)
+    setExpandGoalDescription(false)
+  }, [title])
 
   const handleExpandDescriptionClick = () => {
     setExpandDescription(!expandDescription)
