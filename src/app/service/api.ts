@@ -30,7 +30,7 @@ enum HttpMethod {
 
 export type ApiResponse = object | ApiError
 
-export const get = async (endpoint: Endpoint, post?: number | string, test?: string[]): Promise<ApiResponse> => {
+export const get = async (endpoint: Endpoint, post?: number | string): Promise<ApiResponse> => {
   return fetchFromApi(buildUrl(endpoint, post), HttpMethod.GET)
 }
 
