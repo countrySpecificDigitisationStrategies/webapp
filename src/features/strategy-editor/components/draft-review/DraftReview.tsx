@@ -1,18 +1,49 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Button, ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, Typography } from '@material-ui/core'
+import {
+  Button,
+  createStyles,
+  ExpansionPanel,
+  ExpansionPanelDetails,
+  ExpansionPanelSummary,
+  makeStyles,
+  Theme,
+  Tooltip,
+  Typography,
+} from '@material-ui/core'
 import {
   Visibility as VisibilityIcon,
   VisibilityOff as VisibilityOffIcon,
   ExpandMore as ExpandMoreIcon,
 } from '@material-ui/icons'
 
-import { getFields, getMeasureDrafts } from 'features/strategy-editor/store/selectors'
-import { useMeasureData } from 'features/strategies/components'
-import { getMeasures } from 'features/strategies/store'
-import { submitStrategy } from 'features/strategy-editor/store/actions'
+import { useMeasureData, getMeasures } from 'features/strategies'
+import { getFields, getMeasureDrafts, submitStrategy } from 'features/strategy-editor/store'
+import { Summary } from 'shared/components'
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      paddingLeft: theme.spacing(3),
+      paddingRight: theme.spacing(3),
+    },
+    headline: {
+      display: 'flex',
+      justifyContent: 'space-between',
+    },
+    description: {
+      marginTop: theme.spacing(2),
+      marginBottom: theme.spacing(2),
+    },
+    submitButton: {
+      marginTop: theme.spacing(3),
+    },
+  })
+)
 
 export const DraftReview = () => {
+  const classes = useStyles()
+
   useMeasureData()
   const dispatch = useDispatch()
   const fields = useSelector(getFields)
@@ -26,25 +57,25 @@ export const DraftReview = () => {
     dispatch(submitStrategy({ ...fields, strategyMeasures: measuresDrafts, country: countryId }))
   }
 
+  const visibilityIcon = (
+    <Tooltip title={fields.isPublished ? 'Public' : 'Private'}>
+      {fields.isPublished ? <VisibilityIcon /> : <VisibilityOffIcon />}
+    </Tooltip>
+  )
+
   return (
-    <>
-      <Typography variant="h4">{fields.title}</Typography>
-      {fields.isPublished ? (
-        <Typography>
-          <VisibilityIcon />
-          Public
-        </Typography>
-      ) : (
-        <Typography>
-          <VisibilityOffIcon />
-          Private
-        </Typography>
-      )}
-      <Typography>{fields.description}</Typography>
-      {Object.values(measuresDrafts).map(draft => (
-        <div key={draft.measure}>
-          {measures && measures[draft.measure] && (
-            <ExpansionPanel>
+    <div className={classes.root}>
+      <div className={classes.headline}>
+        <Typography variant="h4">{fields.title}</Typography>
+        {visibilityIcon}
+      </div>
+      <div className={classes.description}>
+        <Summary text={fields.description} />
+      </div>
+      <div>
+        {Object.values(measuresDrafts).map(draft =>
+          measures?.[draft.measure] ? (
+            <ExpansionPanel key={draft.measure}>
               <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                 <Typography>{measures[draft.measure].title}</Typography>
               </ExpansionPanelSummary>
@@ -52,12 +83,12 @@ export const DraftReview = () => {
                 <Typography>{draft.description}</Typography>
               </ExpansionPanelDetails>
             </ExpansionPanel>
-          )}
-        </div>
-      ))}
-      <Button onClick={handleSubmit} type="submit" variant="contained" color="primary">
+          ) : null
+        )}
+      </div>
+      <Button className={classes.submitButton} onClick={handleSubmit} type="submit" variant="contained" color="primary">
         Submit Strategy
       </Button>
-    </>
+    </div>
   )
 }
