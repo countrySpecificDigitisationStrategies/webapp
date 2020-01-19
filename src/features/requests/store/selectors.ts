@@ -1,11 +1,12 @@
+import { ApplicationState } from 'app/store/reducers'
 import { loadingState, requestId, RequestState } from 'features/requests/store/types'
 
-const getRequests = (state): RequestState => state.requests
+const getRequests = (state: ApplicationState): RequestState => state.requests
 
-const getRequest = (id: requestId): loadingState | undefined => state =>
-  Object.keys(getRequests(state)).find(e => e === id)
+const getRequest = (id: requestId) => (state: ApplicationState): loadingState | undefined => getRequests(state)[id]
 
-export const isAnyPending = (state): boolean =>
+export const isAnyPending = (state: ApplicationState): boolean =>
   Object.values(getRequests(state)).find(e => e === loadingState.pending) !== undefined
 
-export const doesRequestExist = (id: requestId) => (state): boolean => getRequest(id)(state) !== undefined
+export const doesRequestExist = (id: requestId) => (state: ApplicationState): boolean =>
+  getRequest(id)(state) !== undefined

@@ -5,11 +5,13 @@ export const mapResponseToStrategies = (response: StrategyResponse[]): StrategyM
 }
 
 export const mapResponseToStrategy = (response: StrategyResponse): StrategyModel => {
+  // console.log('response obj', response)
+  // console.log('response obj is published', response.is_published)
   return {
     id: response.id,
     title: response.title,
     description: response.description,
-    isPublished: response.is_published,
+    isPublished: response.isPublished,
     country: mapResponseToCountry(response.country),
   }
 }
@@ -19,7 +21,7 @@ export interface StrategyResponse {
   title: string
   description: string
   country: CountryResponse
-  is_published: boolean
+  isPublished: boolean
 }
 
 export interface StrategyModel {

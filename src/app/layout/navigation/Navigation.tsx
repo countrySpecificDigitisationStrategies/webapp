@@ -56,10 +56,10 @@ const homeNavItems: NavItem[] = [
 
 const analysisNavItems: NavItem[] = [
   {
-    key: 'analysis',
-    route: APP_ROUTES.analysis,
+    key: 'analyses',
+    route: APP_ROUTES.analyses,
     icon: <Assessment />,
-    text: 'Analysis',
+    text: 'Analyses',
   },
 ]
 const strategiesNavItems: NavItem[] = [
@@ -116,7 +116,7 @@ const Navigation = (): JSX.Element => {
     }
   }
 
-  const createNavList = (navItems: NavItem[]): JSX.Element => {
+  const createNavList = (navItems: NavItem[]): JSX.Element[] => {
     return navItems.map((item: NavItem) => (
       <ListItem button component={Link} to={item.route} key={item.key} onClick={handleNavigation}>
         <ListItemIcon>{item.icon}</ListItemIcon>

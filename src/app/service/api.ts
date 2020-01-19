@@ -1,3 +1,4 @@
+import camelize from 'camelize'
 import { getAuthToken } from 'app/service/authentication'
 import { ApiError } from 'app/service/error'
 
@@ -8,11 +9,12 @@ export enum Endpoint {
   register = 'auth/register',
   login = 'auth/login',
   logout = 'users/logout',
+  analyses = 'analyses',
   strategies = 'strategies',
   blocks = 'building-blocks',
   situationCategories = 'situation-categories',
   situations = 'situations',
-  measures = 'building-blocks', //TODO: should be changed to /measures when api delivers them
+  measures = 'measures', //TODO: should be changed to /measures when api delivers them
   strategyMeasures = 'strategy-measures',
   strategyThreads = 'strategy-threads',
   buildingBlock = 'building-block-threads',
@@ -30,7 +32,7 @@ enum HttpMethod {
 
 export type ApiResponse = object | ApiError
 
-export const get = async (endpoint: Endpoint, post?: number | string, test?: string[]): Promise<ApiResponse> => {
+export const get = async (endpoint: Endpoint, post?: number | string): Promise<ApiResponse> => {
   return fetchFromApi(buildUrl(endpoint, post), HttpMethod.GET)
 }
 
@@ -46,7 +48,7 @@ const buildUrl = (endpoint: Endpoint, post?: number | string) => {
   return url
 }
 
-const fetchFromApi = async (url, method: HttpMethod, data?: object): Promise<ApiResponse> => {
+const fetchFromApi = async (url: string, method: HttpMethod, data?: object): Promise<ApiResponse> => {
   const response = await fetch(url, getFetchOptions(method, data))
   let content
   try {
@@ -62,11 +64,11 @@ const fetchFromApi = async (url, method: HttpMethod, data?: object): Promise<Api
     throw new ApiError({ code, name, detail })
   }
 
-  return content
+  return camelize(content)
 }
 
-const getFetchOptions = (method: HttpMethod, data?: object): object => {
-  let fetchOptions = {
+const getFetchOptions = (method: HttpMethod, data?: object): RequestInit => {
+  let fetchOptions: RequestInit = {
     method,
     headers: {},
   }

@@ -1,4 +1,5 @@
 import { Situation } from './types'
+import { SituationResponse } from './types.api'
 import { Endpoint, get } from 'app/service'
 import { createRequest } from 'features/requests/store'
 
@@ -13,23 +14,22 @@ interface SituationsAdd {
 export type SituationActions = SituationsAdd
 
 export const loadSituations = () =>
-  createRequest({
+  createRequest<SituationResponse[]>({
     id: SITUATIONS_REQUEST_ID,
     request: () => get(Endpoint.situations),
-    onSuccess: addSituations,
+    onSuccess: data => addSituations(transformResponseData(data)),
   })
 
-const addSituations = (situations: Situation[]): SituationsSuccess => ({
+const addSituations = (situations: Situation[]): SituationsAdd => ({
   type: SITUATIONS_ADD,
-  // situations,
-  situations: mockSituationData(situations),
+  situations,
 })
 
-//TODO: should be removed once api delivers real relation data
-const mockSituationData = situations =>
-  situations.map(situation => ({
+const transformResponseData = (situations: SituationResponse[]): Situation[] => {
+  return situations.map(({ situationCategory, created, updated, ...situation }) => ({
     ...situation,
-    title: situation.title.replace('BuildingBlock', 'Situation'),
-    description: situation.description.replace('BuildingBlock', 'Situation'),
-    goals: [1, 2, 3, 4],
+    category: situationCategory,
+    created: new Date(created),
+    updated: new Date(updated),
   }))
+}

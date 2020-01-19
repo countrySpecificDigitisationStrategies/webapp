@@ -3,18 +3,26 @@ import { useEffect } from 'react'
 
 import {
   areBlocksLoaded,
-  areGoalsLoaded,
+  areCategoriesLoaded,
   areMeasuresLoaded,
   areSituationsLoaded,
   areStrategiesLoaded,
+  areStrategyMeasuresLoaded,
   loadBlocks,
-  loadGoals,
+  loadCategories,
   loadMeasures,
   loadSituations,
   loadStrategies,
+  loadStrategyMeasures,
+  StrategyEntityResponse,
 } from '../store'
+import { ApplicationState } from 'app/store/reducers'
+import { CreateRequestReturnType } from 'features/requests/store'
 
-const loadIfNotLoaded = (selector, requestActionCreator) => {
+const loadIfNotLoaded = <T extends StrategyEntityResponse[]>(
+  selector: (state: ApplicationState) => boolean,
+  requestActionCreator: () => CreateRequestReturnType<T>
+) => {
   const alreadyLoaded = useSelector(selector)
   const dispatch = useDispatch()
 
@@ -28,5 +36,6 @@ const loadIfNotLoaded = (selector, requestActionCreator) => {
 export const useStrategyData = () => loadIfNotLoaded(areStrategiesLoaded, loadStrategies)
 export const useBlockData = () => loadIfNotLoaded(areBlocksLoaded, loadBlocks)
 export const useSituationData = () => loadIfNotLoaded(areSituationsLoaded, loadSituations)
-export const useGoalData = () => loadIfNotLoaded(areGoalsLoaded, loadGoals)
+export const useCategoryData = () => loadIfNotLoaded(areCategoriesLoaded, loadCategories)
 export const useMeasureData = () => loadIfNotLoaded(areMeasuresLoaded, loadMeasures)
+export const useStrategyMeasureData = () => loadIfNotLoaded(areStrategyMeasuresLoaded, loadStrategyMeasures)

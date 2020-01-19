@@ -1,55 +1,104 @@
 export interface StrategiesState {
-  strategies: { [key: Strategy.id]: Strategy } | null
-  blocks: { [key: Block.id]: Block } | null
-  situations: { [key: Situations.id]: Situations } | null
-  goals: { [key: Goals.id]: Goals } | null
-  measures: { [key: Measures.id]: Measures } | null
+  strategies: { [id in Strategy['id']]: Strategy } | null
+  blocks: { [id in Block['id']]: Block } | null
+  categories: { [id in Category['id']]: Category } | null
+  situations: { [id in Situation['id']]: Situation } | null
+  measures: { [id in Measure['id']]: Measure } | null
+  strategyMeasures: { [id in StrategyMeasure['id']]: StrategyMeasure } | null
 }
 
 export interface Strategy {
   id: number
-  user: number
+  user: User
+  country: Country
   title: string
   description: string
-  measures: Array<number> //Todo: should be blocks
-  blocks: Array<number> //Todo: this is currently only mocked data
-  is_published: boolean
+  blocks: Block['id'][]
+  categories: Category['id'][]
+  situations: Situation['id'][]
+  measures: Measure['id'][]
+  strategyMeasures: StrategyMeasure['id'][]
+  isPublished: boolean
+  created: Date
+  updated: Date
+}
+
+//TODO: should be defined elsewhere
+export interface User {
+  id: number
+  email: string
+  country: Country | null
+  firstName: string
+  lastName: string
+  currentCountry: Country | null
+  isAdmin: boolean
+  isRepresentative: boolean
+  isModerator: boolean
+  created: Date
+  updated: Date
+}
+
+//TODO: should be defined elsewhere
+export interface Country {
+  id: number
+  name: string
+  flag: string
+  flagCircle: string
+  flagRectangle: string
+  isDevelopingCountry: boolean
+  strategy: number
   created: Date
   updated: Date
 }
 
 export interface Block {
   id: number
-  pillar: number
-  situations: Array<Situations> //Todo: this is currently only mocked data
+  categories: Category['id'][]
   title: string
   description: string
   created: Date
   updated: Date
 }
 
-export interface Situations {
+export interface Category {
   id: number
-  goals: Array<Goals> //Todo: this is currently only mocked data
+  block: Block['id']
+  title: string
+  description: string
+  goalTitle: string
+  goalDescription: string
+  situations: Situation['id'][]
+  created: Date
+  updated: Date
+}
+
+export interface Situation {
+  id: number
+  category: Category['id']
+  title: string
+  description: string
+  measures: Measure['id'][]
+  created: Date
+  updated: Date
+}
+
+export interface Measure {
+  id: number
+  situation: Situation['id']
   title: string
   description: string
   created: Date
   updated: Date
 }
 
-export interface Goals {
+/** Represents relation between Strategy and Measures */
+export interface StrategyMeasure {
   id: number
-  measures: Array<Measures> //Todo: this is currently only mocked data
-  title: string
+  strategy: Strategy['id']
+  measure: Measure['id']
   description: string
   created: Date
   updated: Date
 }
 
-export interface Measures {
-  id: number
-  title: string
-  description: string
-  created: Date
-  updated: Date
-}
+export type StrategyEntity = Strategy | Block | Category | Situation | Measure | StrategyMeasure

@@ -1,4 +1,5 @@
 import React from 'react'
+import Markdown from 'react-markdown'
 import { Avatar, Card, CardActionArea, CardContent, Typography } from '@material-ui/core'
 import { Link } from 'react-router-dom'
 import { PreviewThreadModel } from 'features/discussions/models/thread.discussion.model'
@@ -28,7 +29,7 @@ export const ThreadPreview = ({ thread, itemClassName = '' }: ThreadPreviewProps
 
   return (
     <Card className={`${itemClassName} ${className}`}>
-      <CardActionArea component={Link} to={`/discussions/1/threads/${id}`}>
+      <CardActionArea component={Link} to={`/discussions/${id}/threads/${id}`}>
         <div className={`${className}-mainContent`}>
           <CardContent>
             <Typography variant="h6" gutterBottom>
@@ -45,15 +46,15 @@ export const ThreadPreview = ({ thread, itemClassName = '' }: ThreadPreviewProps
             </Typography>
 
             <Typography variant="body2">
-              {description.length > 180 ? `${description.substring(0, 180)}...` : description}
+              <Markdown source={description} />
             </Typography>
           </CardContent>
         </div>
         <CardContent className={`${className}-sideContent`}>
           <Typography className={`${className}-author`} variant="caption">
-            {`asked at ${formattedDate} by ${user.firstName}`}
+            {`asked at ${formattedDate} by ${user.firstName || 'unknown'}`}
           </Typography>
-          <Avatar alt={`${user.firstName} ${user.lastName}`} src={user.countryFlag as string} />
+          <Avatar variant="square" alt={`${user.firstName} ${user.lastName}`} src={user.countryFlag as string} />
         </CardContent>
       </CardActionArea>
     </Card>
