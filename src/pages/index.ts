@@ -10,5 +10,6 @@ import Goal from './Goal'
 import Measure from './Measure'
 import Discussions from './Discussions'
 import Discussion from './Discussion'
+import Thread from './Thread'
 
-export { Home, Login, Register, Strategies, Strategy, Block, Situation, Goal, Measure, Discussions, Discussion }
+export { Home, Login, Register, Strategies, Strategy, Block, Situation, Goal, Measure, Discussions, Discussion, Thread }
