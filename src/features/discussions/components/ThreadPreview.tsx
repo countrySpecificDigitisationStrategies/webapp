@@ -30,8 +30,6 @@ export const ThreadPreview = ({ thread, itemClassName = '' }: ThreadPreviewProps
   return (
     <Card className={`${itemClassName} ${className}`}>
       <CardActionArea component={Link} to={`/discussions/${id}/threads/${id}`}>
-        {' '}
-        TODO uncomment after preview
         <div className={`${className}-mainContent`}>
           <CardContent>
             <Typography variant="h6" gutterBottom>
