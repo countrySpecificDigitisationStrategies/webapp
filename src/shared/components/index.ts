@@ -1,5 +1,6 @@
 export { Form } from './Form/Form'
 export { LoadingOverlay } from './LoadingOverlay/LoadingOverlay'
+export { Markdown } from './Markdown/Markdown'
 export { Notification, NotificationType } from './Notification/Notification'
 export { OptionsCard } from './options/OptionsCard'
 export { OptionsGrid } from './options/OptionsGrid'

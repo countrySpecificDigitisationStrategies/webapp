@@ -118,7 +118,7 @@ export const HeaderContent = ({
         <>
           <Collapse in={expandGoalDescription} timeout="auto" collapsedHeight={'86px'}>
             <CardContent className={classes.content}>
-              <Typography variant="h5" component="h2">
+              <Typography variant="h4" component="h1">
                 {goalTitle}
               </Typography>
               <ReactMarkdown source={goalDescription} className={clsx({ [classes.preview]: !expandGoalDescription })} />

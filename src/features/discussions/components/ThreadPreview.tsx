@@ -1,8 +1,8 @@
 import React from 'react'
-import Markdown from 'react-markdown'
 import { Avatar, Card, CardActionArea, CardContent, Typography } from '@material-ui/core'
 import { Link } from 'react-router-dom'
 import { PreviewThreadModel } from 'features/discussions/models/thread.discussion.model'
+import { Markdown } from '../../../shared/components'
 
 interface ThreadPreviewProps {
   thread: PreviewThreadModel
@@ -30,6 +30,8 @@ export const ThreadPreview = ({ thread, itemClassName = '' }: ThreadPreviewProps
   return (
     <Card className={`${itemClassName} ${className}`}>
       <CardActionArea component={Link} to={`/discussions/${id}/threads/${id}`}>
+        {' '}
+        TODO uncomment after preview
         <div className={`${className}-mainContent`}>
           <CardContent>
             <Typography variant="h6" gutterBottom>
@@ -45,9 +47,7 @@ export const ThreadPreview = ({ thread, itemClassName = '' }: ThreadPreviewProps
               {title}
             </Typography>
 
-            <Typography variant="body2">
-              <Markdown source={description} />
-            </Typography>
+            <Markdown markdown={description} onCard={true} previewLinks={true} />
           </CardContent>
         </div>
         <CardContent className={`${className}-sideContent`}>
