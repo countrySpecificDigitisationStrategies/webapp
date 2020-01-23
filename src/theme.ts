@@ -3,9 +3,9 @@ const defaultTheme = createMuiTheme()
 export default createMuiTheme({
   palette: {
     primary: {
-      light: '#99cff8',
-      main: '#679EC5',
-      dark: '#347094',
+      light: '#97cffc',
+      main: '#659EC9',
+      dark: '#317098',
       contrastText: '#ffffff',
     },
     secondary: {
