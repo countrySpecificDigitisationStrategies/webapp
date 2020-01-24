@@ -16,6 +16,7 @@ export enum Endpoint {
   situations = 'situations',
   measures = 'measures',
   strategyMeasures = 'strategy-measures',
+  account = 'users/me',
 }
 
 enum HttpMethod {
@@ -23,12 +24,17 @@ enum HttpMethod {
   POST = 'POST',
   PUT = 'PUT',
   DELETE = 'DELETE',
+  PATCH = 'PATCH',
 }
 
 type ApiResponse = object | ApiError
 
 export const get = async (endpoint: Endpoint, id?: number): Promise<ApiResponse> => {
   return fetchFromApi(buildUrl(endpoint, id), HttpMethod.GET)
+}
+
+export const patch = async (endpoint: Endpoint, id?: number): Promise<ApiResponse> => {
+  return fetchFromApi(buildUrl(endpoint, id), HttpMethod.PATCH)
 }
 
 export const post = async (endpoint: Endpoint, data: object): Promise<ApiResponse> => {
