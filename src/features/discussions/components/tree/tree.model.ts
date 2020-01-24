@@ -1,38 +1,54 @@
 export const mapResponseToTree = (response: TreeResponse): TreeModel => {
   return {
     title: 'Strategy', // TODO replace 'Strategy' with response.title if backend returns it
-    buildingBlocks: response.buildingBlocks.map(
-      (buildingBlock: TreeBuildingBlockResponse): TreeBuildingBlockModel => ({
-        id: buildingBlock.id,
-        title: buildingBlock.title,
-        situationCategories: buildingBlock.situationCategories.map(
-          (situationCategory: TreeSituationCategoryResponse): TreeSituationCategoryModel => ({
-            id: situationCategory.id,
-            title: situationCategory.title,
-            situations: situationCategory.situations.map(
-              (situation: TreeSituationResponse): TreeSituationModel => ({
-                id: situation.id,
-                title: situation.title,
-                strategyMeasures: situation.strategyMeasures.map(
-                  (strategyMeasure: TreeStrategyMeasureResponse): TreeStrategyMeasureModel => {
-                    return {
-                      id: strategyMeasure.id,
-                      title: strategyMeasure.measure.title,
-                      threadCount: strategyMeasure.threadCount,
-                    }
-                  }
-                ),
-                threadCount: calculateSituationThreadCount(situation),
+    buildingBlocks: response.buildingBlocks
+      .map(
+        (buildingBlock: TreeBuildingBlockResponse): TreeBuildingBlockModel => ({
+          id: buildingBlock.id,
+          title: buildingBlock.title,
+          situationCategories: buildingBlock.situationCategories
+            .map(
+              (situationCategory: TreeSituationCategoryResponse): TreeSituationCategoryModel => ({
+                id: situationCategory.id,
+                title: situationCategory.title,
+                situations: situationCategory.situations
+                  .map(
+                    (situation: TreeSituationResponse): TreeSituationModel => ({
+                      id: situation.id,
+                      title: situation.title,
+                      strategyMeasures: situation.strategyMeasures
+                        .map(
+                          (strategyMeasure: TreeStrategyMeasureResponse): TreeStrategyMeasureModel => {
+                            return {
+                              id: strategyMeasure.id,
+                              title: strategyMeasure.measure.title,
+                              threadCount: strategyMeasure.threadCount,
+                            }
+                          }
+                        )
+                        .sort(compareByTitle),
+                      threadCount: calculateSituationThreadCount(situation),
+                    })
+                  )
+                  .sort(compareByTitle),
+                threadCount: calculateSituationCategoryThreadCount(situationCategory),
               })
-            ),
-            threadCount: calculateSituationCategoryThreadCount(situationCategory),
-          })
-        ),
-        threadCount: calculateBuildingBlockThreadCount(buildingBlock),
-      })
-    ),
+            )
+            .sort(compareByTitle),
+          threadCount: calculateBuildingBlockThreadCount(buildingBlock),
+        })
+      )
+      .sort(compareByTitle),
     threadCount: calculateTreeThreadCount(response),
   }
+}
+
+const compareByTitle = <T extends { title: string }>(a: T, b: T): number => {
+  const numerationA = a.title.substring(0, a.title.indexOf('-') - 1)
+  const numerationB = b.title.substring(0, b.title.indexOf('-') - 1)
+  if (numerationA < numerationB) return -1
+  if (numerationA > numerationB) return 1
+  return 0
 }
 
 const calculateTreeThreadCount = (tree: TreeResponse): number => {
