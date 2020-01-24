@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { TextField } from '@material-ui/core'
+import { LoginForm } from '../../authentication/index'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { isSuccess, register } from '../store'
@@ -29,7 +30,12 @@ const RegistrationForm = (): JSX.Element => {
   }
 
   if (success) {
-    return <Notification type={NotificationType.success} message="Success!" />
+    return (
+      <div>
+        <Notification type={NotificationType.success} message="Success!" />
+        <LoginForm />
+      </div>
+    )
   }
 
   const handleSubmit = (values: RegistrationFormValues): void => {
