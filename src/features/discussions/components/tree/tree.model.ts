@@ -44,8 +44,8 @@ export const mapResponseToTree = (response: TreeResponse): TreeModel => {
 }
 
 const compareByTitle = <T extends { title: string }>(a: T, b: T): number => {
-  const numerationA = a.title.substring(0, a.title.indexOf('-') - 1)
-  const numerationB = b.title.substring(0, b.title.indexOf('-') - 1)
+  const numerationA = a.title.substring(0, a.title.indexOf(' '))
+  const numerationB = b.title.substring(0, b.title.indexOf(' '))
   if (numerationA < numerationB) return -1
   if (numerationA > numerationB) return 1
   return 0
