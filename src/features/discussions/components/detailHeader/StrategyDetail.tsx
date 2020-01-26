@@ -9,7 +9,7 @@ export const StrategyDetail = ({ id }: DetailProps): JSX.Element => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = (await get(Endpoint.strategies, `${id}`)) as StrategyResponse
+      const response = (await get(Endpoint.strategies, { post: `${id}` })) as StrategyResponse
       setStrategy(mapResponseToStrategy(response))
     }
     fetchData()

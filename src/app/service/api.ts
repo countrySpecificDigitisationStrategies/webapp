@@ -17,7 +17,7 @@ export enum Endpoint {
   measures = 'measures', //TODO: should be changed to /measures when api delivers them
   strategyMeasures = 'strategy-measures',
   strategyThreads = 'strategy-threads',
-  buildingBlock = 'building-block-threads',
+  buildingBlockThreads = 'building-block-threads',
   situationCategoryThreads = 'situation-category-threads',
   situationThreads = 'situation-threads',
   strategyMeasureThreads = 'strategy-measure-threads',
@@ -32,19 +32,26 @@ enum HttpMethod {
 
 export type ApiResponse = object | ApiError
 
-export const get = async (endpoint: Endpoint, post?: number | string): Promise<ApiResponse> => {
-  return fetchFromApi(buildUrl(endpoint, post), HttpMethod.GET)
+interface OptionsType {
+  post?: number | string
+  queryParams?: string
+}
+
+export const get = async (endpoint: Endpoint, options?: OptionsType): Promise<ApiResponse> => {
+  return fetchFromApi(buildUrl(endpoint, options), HttpMethod.GET)
 }
 
 export const post = async (endpoint: Endpoint, data: object): Promise<ApiResponse> => {
   return fetchFromApi(buildUrl(endpoint), HttpMethod.POST, data)
 }
 
-const buildUrl = (endpoint: Endpoint, post?: number | string) => {
-  const url = baseUrl + endpoint
-  if (post && post !== '') {
-    return url + '/' + post
-  }
+const buildUrl = (endpoint: Endpoint, options?: OptionsType) => {
+  const post = options?.post
+  const queryParams = options?.queryParams
+
+  let url = baseUrl + endpoint
+  if (!!post && post !== '') url += '/' + post
+  if (queryParams) url += queryParams
   return url
 }
 

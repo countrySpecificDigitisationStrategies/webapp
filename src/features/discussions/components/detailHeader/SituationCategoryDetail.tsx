@@ -13,7 +13,7 @@ export const SituationCategoryDetail = ({ id }: DetailProps): JSX.Element => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = (await get(Endpoint.situationCategories, `${id}`)) as SituationCategoryResponse
+      const response = (await get(Endpoint.situationCategories, { post: `${id}` })) as SituationCategoryResponse
       setSituationCategory(mapResponseToSituationCategory(response))
     }
     fetchData()

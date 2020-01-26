@@ -16,13 +16,9 @@ export const DiscussionForumsGrid = () => {
     const fetchData = async () => {
       const response = (await get(Endpoint.strategies)) as StrategyResponse[]
       setStrategies(mapResponseToStrategies(response).filter(strategy => strategy.isPublished))
-      console.log('response', response)
-      console.log('map', mapResponseToStrategies(response))
     }
     fetchData()
   }, [])
-
-  console.log(strategies)
 
   if (!strategies) return <div>No discussions found.</div>
   if (strategies.length === 0) return <div>No strategies published.</div>

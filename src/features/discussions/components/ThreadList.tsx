@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react'
+import { Link, useParams } from 'react-router-dom'
 import { ButtonGroup, Button } from '@material-ui/core'
+import { AddCommentSharp } from '@material-ui/icons'
+
 import { ThreadPreview } from 'features/discussions/components'
 import { get, Endpoint } from 'app/service'
 import {
@@ -7,38 +10,76 @@ import {
   mapResponseToPreviewThreads,
   PreviewThreadModel,
 } from 'features/discussions/models/thread.discussion.model'
+import { DiscussionDetailView } from './discussionDetail'
 
-export const ThreadList = () => {
+interface ThreadListProps {
+  displayedView: DiscussionDetailView
+  contentId: number
+}
+
+const filters = [
+  {
+    title: 'Newest',
+    sortFn: (a: PreviewThreadModel, b: PreviewThreadModel) => b.created.getTime() - a.created.getTime(),
+  },
+  {
+    title: 'Oldest',
+    sortFn: (a: PreviewThreadModel, b: PreviewThreadModel) => a.created.getTime() - b.created.getTime(),
+  },
+  {
+    title: 'Activity',
+    sortFn: (a: PreviewThreadModel, b: PreviewThreadModel) => b.commentCount - a.commentCount,
+  },
+  // {
+  //   title: 'Unanswered',
+  // },
+]
+
+export const ThreadList = ({ displayedView, contentId }: ThreadListProps) => {
   const className = 'ThreadList'
+  const { strategyId } = useParams()
   const [activeFilter, setActiveFilter] = useState(0)
-
-  const filters = [
-    {
-      title: 'Newest',
-      sortFn: (a: PreviewThreadModel, b: PreviewThreadModel) => b.created.getTime() - a.created.getTime(),
-    },
-    {
-      title: 'Oldest',
-      sortFn: (a: PreviewThreadModel, b: PreviewThreadModel) => a.created.getTime() - b.created.getTime(),
-    },
-    {
-      title: 'Activity',
-      sortFn: (a: PreviewThreadModel, b: PreviewThreadModel) => b.commentCount - a.commentCount,
-    },
-    {
-      title: 'Unanswered',
-    },
-  ]
-
   const [previewThreads, setPreviewThreads] = useState()
+
+  const getEndpoint = () => {
+    switch (displayedView) {
+      case DiscussionDetailView.Strategy:
+        return Endpoint.strategyThreads // TODO
+      case DiscussionDetailView.BuildingBlock:
+        return Endpoint.buildingBlockThreads
+      case DiscussionDetailView.SituationCategory:
+        return Endpoint.situationCategoryThreads
+      case DiscussionDetailView.Situation:
+        return Endpoint.situationThreads
+      default:
+        return Endpoint.strategyMeasureThreads
+    }
+  }
+
+  const getQueryParams = (): string => {
+    switch (displayedView) {
+      case DiscussionDetailView.Strategy:
+        return `?strategy=${strategyId}`
+      case DiscussionDetailView.BuildingBlock:
+        return `?strategy=${strategyId}&buiding_block=${contentId}`
+      case DiscussionDetailView.SituationCategory:
+        return `?strategy=${strategyId}&situation_category=${contentId}`
+      case DiscussionDetailView.Situation:
+        return `?strategy=${strategyId}&situation=${contentId}`
+      case DiscussionDetailView.StrategyMeasure:
+        return `?strategy_measure=${contentId}`
+      default:
+        return ''
+    }
+  }
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = (await get(Endpoint.strategyMeasureThreads)) as PreviewThreadResponse[]
+      const response = (await get(getEndpoint(), { queryParams: getQueryParams() })) as PreviewThreadResponse[]
       setPreviewThreads(mapResponseToPreviewThreads(response))
     }
     fetchData()
-  }, [])
+  }, [contentId])
 
   if (!previewThreads) return <div>No threads found</div>
 
@@ -50,17 +91,28 @@ export const ThreadList = () => {
 
   return (
     <div className={`${className}`}>
-      <ButtonGroup className={`${className}-filter`} color="primary" aria-label="outlined primary button group">
-        {filters.map((filter, index) => {
-          const variant = activeFilter === index ? 'contained' : 'outlined'
+      <div className={`${className}-actions`}>
+        <ButtonGroup className={`${className}-filter`} color="primary" aria-label="outlined primary button group">
+          {filters.map((filter, index) => {
+            const variant = activeFilter === index ? 'contained' : 'outlined'
 
-          return (
-            <Button key={index} variant={variant} onClick={() => setActiveFilter(index)}>
-              {filter.title}
-            </Button>
-          )
-        })}
-      </ButtonGroup>
+            return (
+              <Button key={index} variant={variant} onClick={() => setActiveFilter(index)}>
+                {filter.title}
+              </Button>
+            )
+          })}
+        </ButtonGroup>
+
+        <Button
+          variant="contained"
+          color="secondary"
+          startIcon={<AddCommentSharp />}
+          component={Link}
+          to={`/discussions/1/new-thread`}>
+          New Thread
+        </Button>
+      </div>
 
       {sortedThreads?.length !== 0 ? (
         sortedThreads.map((thread: PreviewThreadModel, index: number) => (
