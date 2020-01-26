@@ -9,6 +9,7 @@ import Block from './Block'
 import Situation from './Situation'
 import Category from './Category'
 import Measure from './Measure'
+import StrategyEditor from './StrategyEditor'
 import UserProfile from './UserProfile'
 
 export {
@@ -23,5 +24,6 @@ export {
   Situation,
   Category,
   Measure,
+  StrategyEditor,
   UserProfile,
 }

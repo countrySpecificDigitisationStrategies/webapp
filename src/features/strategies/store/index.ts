@@ -10,6 +10,7 @@ export {
   getStrategies,
   getStrategy,
   areStrategiesLoaded,
+  getStrategyByCountryId,
   getBlocks,
   getBlock,
   areBlocksLoaded,
@@ -25,5 +26,14 @@ export {
   getStrategyMeasureByRelated,
   areStrategyMeasuresLoaded,
 } from './selectors'
-export { StrategiesState, Strategy, Block, Situation, Category, Measure, StrategyEntity } from './types'
+export {
+  StrategiesState,
+  Strategy,
+  Block,
+  Situation,
+  Category,
+  Measure,
+  StrategyMeasure,
+  StrategyEntity,
+} from './types'
 export { StrategyEntityResponse } from './types.api'

@@ -16,6 +16,7 @@ const CategoryGrid = ({ ids }: CategoryGridProps): JSX.Element => {
   return (
     <OptionsGrid<Category>
       dataset={categories}
+      sortBy={'title'}
       filter={category => ids.includes(category.id)}
       render={(_id, category) => <CategoryCard category={category} />}
     />

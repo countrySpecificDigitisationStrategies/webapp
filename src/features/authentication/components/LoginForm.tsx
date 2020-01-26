@@ -3,9 +3,9 @@ import { TextField } from '@material-ui/core'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { login, isLoggedIn } from '../store'
-import { Form, InputValues, Notification, NotificationType } from 'shared/components'
+import { Form, Fields, Notification, NotificationType } from 'shared/components'
 
-interface LoginFormValues extends InputValues {
+interface LoginFormValues extends Fields {
   email: string
   password: string
 }
@@ -23,10 +23,12 @@ const LoginForm = (): JSX.Element => {
   }
 
   return (
-    <Form<LoginFormValues> onSubmit={handleSubmit} submitButtonText="Login">
-      <TextField label="E-Mail" type="email" name="email" />
-      <TextField label="Password" type="password" autoComplete="current-password" name="password" />
-    </Form>
+    <div className="login-form">
+      <Form<LoginFormValues> onSubmit={handleSubmit} submitButtonText="Login">
+        <TextField label="E-Mail" type="email" name="email" />
+        <TextField label="Password" type="password" autoComplete="current-password" name="password" />
+      </Form>
+    </div>
   )
 }
 
