@@ -12,7 +12,7 @@ const Breadcrumbs = ({ breadcrumbs }: InjectedProps) => (
     aria-label="breadcrumb"
     color={'secondary'}>
     {breadcrumbs.map(({ match, breadcrumb }) => (
-      <MuiLink className="breadcrumbs__item" key={match.url} component={NavLink} to={match.url}>
+      <MuiLink className="breadcrumbs__item" key={match.url} component={NavLink} to={match.url} color={'secondary'}>
         {breadcrumb}
       </MuiLink>
     ))}

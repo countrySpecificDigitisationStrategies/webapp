@@ -19,7 +19,7 @@ export const EditorButton = (): JSX.Element => {
 
   return (
     <Tooltip title={strategy ? 'Edit Strategy of your country' : 'Add Strategy for your country'}>
-      <Fab color="primary" component={Link} to={strategy ? editRoute : createRoute}>
+      <Fab color="secondary" component={Link} to={strategy ? editRoute : createRoute}>
         {strategy ? <Edit /> : <Add />}
       </Fab>
     </Tooltip>
