@@ -67,7 +67,7 @@ export const ThreadList = ({ displayedView, contentId }: ThreadListProps) => {
       case DiscussionDetailView.Situation:
         return `?strategy=${strategyId}&situation=${contentId}`
       case DiscussionDetailView.StrategyMeasure:
-        return `?strategy-measure=${contentId}`
+        return `?strategy_measure=${contentId}`
       default:
         return ''
     }
