@@ -7,9 +7,10 @@ import { StandardView } from 'shared/components'
 interface BlockDetailProps {
   blockId: Block['id']
   strategyId: Strategy['id']
+  renderNextLevel?: boolean
 }
 
-const BlockDetail = ({ blockId, strategyId }: BlockDetailProps) => {
+const BlockDetail = ({ blockId, strategyId, renderNextLevel = true }: BlockDetailProps) => {
   useBlockData()
   useStrategyData()
 
@@ -26,16 +27,18 @@ const BlockDetail = ({ blockId, strategyId }: BlockDetailProps) => {
   const categoryIds = block.categories.filter(category => strategy.categories.includes(category))
   const renderCategoryGrid = () => <CategoryGrid ids={categoryIds} />
 
-  return (
-    <StandardView
-      title={block.title}
-      description={block.description}
-      nextLevel={{
+  const viewProps = {
+    title: block.title,
+    description: block.description,
+    ...(renderNextLevel && {
+      nextLevel: {
         title: 'Categories',
         render: renderCategoryGrid,
-      }}
-    />
-  )
+      },
+    }),
+  }
+
+  return <StandardView {...viewProps} />
 }
 
 export default BlockDetail

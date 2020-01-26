@@ -1,4 +1,5 @@
 import camelize from 'camelize'
+import decamelize from 'snakecase-keys'
 import { getAuthToken } from 'app/service/authentication'
 import { ApiError } from 'app/service/error'
 
@@ -35,6 +36,7 @@ export type ApiResponse = object | ApiError
 interface OptionsType {
   post?: number | string
   queryParams?: string
+  id?: number
 }
 
 export const get = async (endpoint: Endpoint, options?: OptionsType): Promise<ApiResponse> => {
@@ -45,13 +47,22 @@ export const post = async (endpoint: Endpoint, data: object): Promise<ApiRespons
   return fetchFromApi(buildUrl(endpoint), HttpMethod.POST, data)
 }
 
+export const put = async (endpoint: Endpoint, id: number, data: object): Promise<ApiResponse> => {
+  return fetchFromApi(buildUrl(endpoint, { id }), HttpMethod.PUT, data)
+}
 const buildUrl = (endpoint: Endpoint, options?: OptionsType) => {
   const post = options?.post
   const queryParams = options?.queryParams
+  const id = options?.id
 
   let url = baseUrl + endpoint
-  if (!!post && post !== '') url += '/' + post
-  if (queryParams) url += queryParams
+  if (id) {
+    url += '/' + id
+  } else {
+    if (!!post && post !== '') url += '/' + post
+    if (queryParams) url += queryParams
+  }
+
   return url
 }
 
@@ -95,7 +106,7 @@ const getFetchOptions = (method: HttpMethod, data?: object): RequestInit => {
         ...fetchOptions.headers,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(decamelize(data)),
     }
   }
 

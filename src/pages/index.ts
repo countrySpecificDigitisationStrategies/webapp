@@ -11,6 +11,7 @@ import Category from './Category'
 import Measure from './Measure'
 import Discussions from './Discussions'
 import Discussion from './Discussion'
+import StrategyEditor from './StrategyEditor'
 import Thread from './Thread'
 import ThreadNew from './ThreadNew'
 
@@ -28,6 +29,7 @@ export {
   Measure,
   Discussions,
   Discussion,
+  StrategyEditor,
   Thread,
   ThreadNew,
 }

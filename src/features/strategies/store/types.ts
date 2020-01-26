@@ -9,7 +9,6 @@ export interface StrategiesState {
 
 export interface Strategy {
   id: number
-  user: User
   country: Country
   title: string
   description: string

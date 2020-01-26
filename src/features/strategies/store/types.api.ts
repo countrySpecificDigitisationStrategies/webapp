@@ -4,8 +4,7 @@
 
 export interface StrategyResponse {
   id: number
-  user: UserResponse
-  country: CountryResponse
+  board: BoardResponse
   title: string
   description: string
   isPublished: boolean
@@ -14,6 +13,15 @@ export interface StrategyResponse {
   situationCategories: CategoryResponse['id'][]
   situations: SituationResponse['id'][]
   measures: MeasureResponse['id'][]
+  created: string
+  updated: string
+}
+
+//TODO: should be defined elsewhere
+export interface BoardResponse {
+  id: number
+  country: CountryResponse
+  users: UserResponse[]
   created: string
   updated: string
 }
