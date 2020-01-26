@@ -20,9 +20,13 @@ export const StandardView = ({ title, description, renderAdditionalInfo, nextLev
   ) : null
 
   const descriptionFragment = description ? (
-    <Typography variant="body1" className={`${className}__description`}>
-      {description}
-    </Typography>
+    <div className={`${className}__description`}>
+      {description.split('\n').map((item, i) => (
+        <Typography variant="body1" key={i}>
+          {item}
+        </Typography>
+      ))}
+    </div>
   ) : null
 
   const additionalInfoFragment = renderAdditionalInfo ? (

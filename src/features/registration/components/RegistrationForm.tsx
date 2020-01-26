@@ -3,10 +3,10 @@ import { TextField } from '@material-ui/core'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { isSuccess, register } from '../store'
-import { Form, InputValues, Notification, NotificationType } from 'shared/components'
+import { Form, Fields, Notification, NotificationType } from 'shared/components'
 import { Checkbox, FormControlLabel } from '@material-ui/core'
 
-interface RegistrationFormValues extends InputValues {
+interface RegistrationFormValues extends Fields {
   name: string
   email: string
   password: string

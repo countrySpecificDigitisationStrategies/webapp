@@ -1,26 +1,44 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import React from 'react'
-import { Button } from '@material-ui/core'
+import { Button, ButtonProps } from '@material-ui/core'
+import { useDebounce } from 'shared/hooks'
 
-export interface FormProps<T extends InputValues = InputValues> {
-  children: JSX.Element[]
-  onSubmit: (values: T) => void
-  submitButtonText: string
+type InputValue = string | number | boolean
+
+interface InputElement extends JSX.Element {
+  name: string
 }
 
-type InputTypes = string | number | boolean
-
-export interface InputValues {
-  [inputName: string]: InputTypes
+export interface Fields {
+  [inputName: string]: InputValue
 }
 
-export const Form = <InputValueType extends InputValues = InputValues>({
+export interface FormProps<T extends Fields = Fields> {
+  children: (JSX.Element | InputElement)[] | (JSX.Element | InputElement)
+  onSubmit?: (values: T) => void
+  onChange?: (values: T) => void
+  onChangeDebounce?: number
+  submitButtonText?: string
+  submitButtonAttributes?: ButtonProps
+  initialValues?: { [inputName in keyof T]?: T[inputName] }
+}
+
+export const Form = <FormFields extends Fields = Fields>({
   children,
   onSubmit,
+  onChange,
+  onChangeDebounce = 300,
   submitButtonText = 'Submit',
-}: FormProps<InputValueType>) => {
-  const [values, setValues] = useState({} as InputValueType)
-  const setValue = (name: string, value: InputTypes) => setValues({ ...values, [name]: value })
+  submitButtonAttributes = {},
+  initialValues,
+}: FormProps<FormFields>) => {
+  const [values, setValues] = useState({ ...initialValues } as FormFields)
+  const setValue = (name: string, value: InputValue) => setValues({ ...values, [name]: value })
+
+  const debouncedValues = useDebounce<FormFields>(values, onChangeDebounce)
+  useEffect(() => {
+    onChange?.(debouncedValues)
+  }, [debouncedValues])
 
   return (
     <div className="form__container">
@@ -29,21 +47,26 @@ export const Form = <InputValueType extends InputValues = InputValues>({
           const name = child.props.name
           if (name) {
             return React.cloneElement(child, {
-              onChange: (e: React.ChangeEvent<HTMLSelectElement>) => {
-                setValue(name, e.target.value)
+              key: `${name}-${initialValues?.[name]}`, //trigger re-render when initialValue changes, needed for MUI
+              defaultValue: initialValues?.[name],
+              onChange: (e: React.ChangeEvent<HTMLSelectElement>, value?: InputValue) => {
+                setValue(name, value !== undefined ? value : e.target.value)
               },
             })
           }
           return child
         })}
-        <Button
-          type="submit"
-          onClick={e => {
-            e.preventDefault()
-            onSubmit(values)
-          }}>
-          {submitButtonText}
-        </Button>
+        {onSubmit && (
+          <Button
+            {...submitButtonAttributes}
+            type="submit"
+            onClick={e => {
+              e.preventDefault()
+              onSubmit(values)
+            }}>
+            {submitButtonText}
+          </Button>
+        )}
       </form>
     </div>
   )
