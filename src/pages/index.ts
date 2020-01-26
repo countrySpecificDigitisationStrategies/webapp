@@ -12,6 +12,7 @@ import Measure from './Measure'
 import Discussions from './Discussions'
 import Discussion from './Discussion'
 import Thread from './Thread'
+import ThreadNew from './ThreadNew'
 
 export {
   Home,
@@ -28,4 +29,5 @@ export {
   Discussions,
   Discussion,
   Thread,
+  ThreadNew,
 }

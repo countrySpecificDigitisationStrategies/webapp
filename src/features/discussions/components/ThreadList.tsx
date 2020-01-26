@@ -30,9 +30,6 @@ const filters = [
     title: 'Activity',
     sortFn: (a: PreviewThreadModel, b: PreviewThreadModel) => b.commentCount - a.commentCount,
   },
-  // {
-  //   title: 'Unanswered',
-  // },
 ]
 
 export const ThreadList = ({ displayedView, contentId }: ThreadListProps) => {

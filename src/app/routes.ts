@@ -14,6 +14,7 @@ import {
   Discussions,
   Discussion,
   Thread,
+  ThreadNew,
 } from 'pages'
 
 import {
@@ -52,7 +53,7 @@ export const APP_ROUTES = {
   management: '/management',
   discussions: '/discussions',
   discussion: '/discussions/:strategyId',
-  newThread: '/discussions/:strategyId/threads/new',
+  newThread: '/discussions/:strategyId/new-thread',
   thread: '/discussions/:strategyId/threads/:threadId',
   account: '/account',
 }
@@ -127,6 +128,12 @@ export const routes: RouteConfig[] = [
     path: APP_ROUTES.thread,
     component: Thread,
     exact: true,
+    // breadcrumb: MeasureBreadcrumb, // TODO
+  },
+  {
+    path: APP_ROUTES.newThread,
+    exact: true,
+    component: ThreadNew,
     // breadcrumb: MeasureBreadcrumb, // TODO
   },
   {
