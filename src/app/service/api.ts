@@ -1,4 +1,5 @@
 import camelize from 'camelize'
+import decamelize from 'snakecase-keys'
 import { getAuthToken } from 'app/service/authentication'
 import { ApiError } from 'app/service/error'
 
@@ -33,6 +34,10 @@ export const get = async (endpoint: Endpoint, id?: number): Promise<ApiResponse>
 
 export const post = async (endpoint: Endpoint, data: object): Promise<ApiResponse> => {
   return fetchFromApi(buildUrl(endpoint), HttpMethod.POST, data)
+}
+
+export const put = async (endpoint: Endpoint, id: number, data: object): Promise<ApiResponse> => {
+  return fetchFromApi(buildUrl(endpoint, id), HttpMethod.PUT, data)
 }
 
 const buildUrl = (endpoint: string, id?: number) => {
@@ -83,7 +88,7 @@ const getFetchOptions = (method: HttpMethod, data?: object): RequestInit => {
         ...fetchOptions.headers,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(decamelize(data)),
     }
   }
 

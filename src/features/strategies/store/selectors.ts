@@ -5,20 +5,22 @@ import {
   SITUATIONS_REQUEST_ID,
   STRATEGIES_REQUEST_ID,
   STRATEGY_MEASURES_REQUEST_ID,
-} from 'features/strategies/store/actions'
-import { doesRequestExist } from 'features/requests/store'
+} from './actions'
 
 import {
   Block,
   Category,
+  Country,
   Measure,
   Situation,
   StrategiesState,
   Strategy,
   StrategyEntity,
   StrategyMeasure,
-} from 'features/strategies/store/types'
+} from './types'
+
 import { ApplicationState } from 'app/store/reducers'
+import { doesRequestExist } from 'features/requests/store'
 
 const getStrategiesState = (state: ApplicationState): StrategiesState => state['strategies']
 
@@ -43,6 +45,8 @@ const isLoaded = (requestId: string) => (state: ApplicationState): boolean => do
 export const getStrategies = getAll<Strategy>('strategies')
 export const getStrategy = (id: Strategy['id']) => getOne<Strategy>(getStrategies, id)
 export const areStrategiesLoaded = isLoaded(STRATEGIES_REQUEST_ID)
+export const getStrategyByCountryId = (id: Country['id']) => (state: ApplicationState) =>
+  Object.values(getStrategies(state) || {}).find(strategy => strategy.country.id === id)
 
 export const getBlocks = getAll<Block>('blocks')
 export const getBlock = (id: Block['id']) => getOne<Block>(getBlocks, id)

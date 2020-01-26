@@ -9,5 +9,19 @@ import Block from './Block'
 import Situation from './Situation'
 import Category from './Category'
 import Measure from './Measure'
+import StrategyEditor from './StrategyEditor'
 
-export { Home, Login, Register, Analyses, Analysis, Strategies, Strategy, Block, Situation, Category, Measure }
+export {
+  Home,
+  Login,
+  Register,
+  Analyses,
+  Analysis,
+  Strategies,
+  Strategy,
+  Block,
+  Situation,
+  Category,
+  Measure,
+  StrategyEditor,
+}

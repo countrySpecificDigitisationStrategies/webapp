@@ -7,9 +7,10 @@ import { StandardView } from 'shared/components'
 interface SituationDetailProps {
   situationId: Situation['id']
   strategyId: Strategy['id']
+  renderNextLevel?: boolean
 }
 
-const SituationDetail = ({ situationId, strategyId }: SituationDetailProps) => {
+const SituationDetail = ({ situationId, strategyId, renderNextLevel = true }: SituationDetailProps) => {
   useSituationData()
   useStrategyData()
 
@@ -26,16 +27,18 @@ const SituationDetail = ({ situationId, strategyId }: SituationDetailProps) => {
   const measureIds = situation.measures.filter(measure => strategy.measures.includes(measure))
   const renderMeasureGrid = () => <MeasureGrid ids={measureIds} />
 
-  return (
-    <StandardView
-      title={situation.title}
-      description={situation.description}
-      nextLevel={{
+  const viewProps = {
+    title: situation.title,
+    description: situation.description,
+    ...(renderNextLevel && {
+      nextLevel: {
         title: 'Measures',
         render: renderMeasureGrid,
-      }}
-    />
-  )
+      },
+    }),
+  }
+
+  return <StandardView {...viewProps} />
 }
 
 export default SituationDetail
