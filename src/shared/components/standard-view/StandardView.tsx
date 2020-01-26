@@ -1,5 +1,6 @@
 import React from 'react'
 import { Typography } from '@material-ui/core'
+import { Markdown } from 'shared/components'
 
 interface DetailViewProps {
   title?: string
@@ -21,11 +22,7 @@ export const StandardView = ({ title, description, renderAdditionalInfo, nextLev
 
   const descriptionFragment = description ? (
     <div className={`${className}__description`}>
-      {description.split('\n').map((item, i) => (
-        <Typography variant="body1" key={i}>
-          {item}
-        </Typography>
-      ))}
+      <Markdown markdown={description} />
     </div>
   ) : null
 

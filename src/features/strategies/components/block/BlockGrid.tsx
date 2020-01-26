@@ -16,6 +16,7 @@ const BlockGrid = ({ ids }: BlockGridProps): JSX.Element => {
   return (
     <OptionsGrid<Block>
       dataset={blocks}
+      sortBy={'title'}
       filter={block => ids.includes(block.id)}
       render={(_id, block) => <BlockCard block={block} />}
     />
