@@ -21,7 +21,7 @@ const UserProfileComponent = (): JSX.Element => {
         <TextField
           id="filled-read-only-input-firstname"
           label="First Name"
-          defaultValue={profileData.firstname}
+          defaultValue={profileData.firstname != null ? profileData.firstname : ''}
           InputProps={{
             readOnly: true,
           }}
@@ -30,7 +30,7 @@ const UserProfileComponent = (): JSX.Element => {
         <TextField
           id="filled-read-only-input-lastname"
           label="Last name"
-          defaultValue={profileData.lastname}
+          defaultValue={profileData.lastname != null ? profileData.lastname : ''}
           InputProps={{
             readOnly: true,
           }}
@@ -39,7 +39,7 @@ const UserProfileComponent = (): JSX.Element => {
         <TextField
           id="filled-read-only-input-email"
           label="E-mail"
-          defaultValue={profileData.email}
+          defaultValue={profileData.email != null ? profileData.email : ''}
           InputProps={{
             readOnly: true,
           }}
@@ -48,14 +48,14 @@ const UserProfileComponent = (): JSX.Element => {
         <TextField
           id="filled-read-only-input-country"
           label="Country"
-          defaultValue={profileData.country.name}
+          defaultValue={profileData.country != null ? profileData.country.name : ''}
           InputProps={{
             readOnly: true,
           }}
           variant="filled"
         />
         <TextField
-          id="filled-read-only-input-country"
+          id="filled-read-only-input-membership"
           label="Member since"
           defaultValue={profileData.created}
           InputProps={{
