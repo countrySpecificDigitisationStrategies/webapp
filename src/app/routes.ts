@@ -24,6 +24,7 @@ import {
   SituationBreadcrumb,
 } from 'features/strategies'
 import { AnalysisBreadcrumb } from 'features/analyses'
+import { DiscussionBreadcrumb } from '../features/discussions/components/DiscussionBreadcrumb'
 
 export const APP_ROUTE_PARAMS: { [key: string]: string } = {
   strategyId: 'strategyId',
@@ -115,13 +116,12 @@ export const routes: RouteConfig[] = [
     path: APP_ROUTES.discussions,
     component: Discussions,
     exact: true,
-    // breadcrumb: MeasureBreadcrumb, // TODO
   },
   {
     path: APP_ROUTES.discussion,
     component: Discussion,
     exact: true,
-    // breadcrumb: MeasureBreadcrumb, // TODO
+    breadcrumb: DiscussionBreadcrumb,
   },
   {
     path: APP_ROUTES.thread,
