@@ -13,7 +13,9 @@ export const StrategyMeasureDetail = ({ id }: DetailProps): JSX.Element => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = (await get(Endpoint.strategyMeasures, `${id}?type=discussion`)) as StrategyMeasureResponse
+      const response = (await get(Endpoint.strategyMeasures, {
+        post: `${id}?type=discussion`,
+      })) as StrategyMeasureResponse
       setStrategyMeasure(mapResponseToStrategyMeasure(response))
     }
     fetchData()

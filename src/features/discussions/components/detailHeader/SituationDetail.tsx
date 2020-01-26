@@ -9,7 +9,7 @@ export const SituationDetail = ({ id }: DetailProps): JSX.Element => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = (await get(Endpoint.situations, `${id}`)) as SituationResponse
+      const response = (await get(Endpoint.situations, { post: `${id}` })) as SituationResponse
       setSituation(mapResponseToSituation(response))
     }
     fetchData()

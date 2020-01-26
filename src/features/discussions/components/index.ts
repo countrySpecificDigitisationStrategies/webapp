@@ -1,5 +1,5 @@
 import { DiscussionCard } from './DiscussionCard'
-import { DiscussionDetail } from './DiscussionDetail'
+import { DiscussionDetail } from './discussionDetail'
 import { DiscussionForumsGrid } from './DiscussionForumsGrid'
 import { Tree } from './tree/Tree'
 import { ThreadList } from './ThreadList'

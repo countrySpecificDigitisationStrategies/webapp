@@ -1,19 +1,12 @@
-import React, { useEffect, useState } from 'react'
-import { useLocation, useParams } from 'react-router'
+import React from 'react'
+import { useParams } from 'react-router'
 import { Card, createStyles, makeStyles } from '@material-ui/core'
 import { StrategyDetail } from './StrategyDetail'
 import { BuildingBlockDetail } from './BuildingBlockDetail'
 import { SituationCategoryDetail } from './SituationCategoryDetail'
 import { SituationDetail } from './SituationDetail'
 import { StrategyMeasureDetail } from './StrategyMeasureDetail'
-
-enum DiscussionDetailHeaderView {
-  Strategy,
-  BuildingBlock,
-  SituationCategory,
-  Situation,
-  StrategyMeasure,
-}
+import { DiscussionDetailView } from 'features/discussions/components/discussionDetail'
 
 const useStyles = makeStyles(
   createStyles({
@@ -26,49 +19,26 @@ const useStyles = makeStyles(
   })
 )
 
-export const DetailHeader = (): JSX.Element => {
+interface DetailHeaderProps {
+  displayedView: DiscussionDetailView
+  contentId: number
+}
+
+export const DetailHeader = ({ displayedView, contentId }: DetailHeaderProps): JSX.Element => {
   const classes = useStyles()
-  const location = useLocation()
   const { strategyId } = useParams()
+
   if (!strategyId) return <div>Something went wrong!</div>
-
-  const getViewToDisplay = (): DiscussionDetailHeaderView => {
-    if (location.hash.replace(/#|-*$/, '') === '') return DiscussionDetailHeaderView.Strategy
-    switch (location.hash.split('-').length) {
-      case DiscussionDetailHeaderView.BuildingBlock:
-        return DiscussionDetailHeaderView.BuildingBlock
-      case DiscussionDetailHeaderView.SituationCategory:
-        return DiscussionDetailHeaderView.SituationCategory
-      case DiscussionDetailHeaderView.Situation:
-        return DiscussionDetailHeaderView.Situation
-      default:
-        return DiscussionDetailHeaderView.StrategyMeasure
-    }
-  }
-
-  const getLastHashId = (): number => {
-    const hashIds = location.hash.replace(/#|-*$/, '').split('-')
-    if (hashIds[0] === '') return +strategyId
-    return +hashIds[hashIds.length - 1]
-  }
-
-  const [displayedView, setDisplayedView] = useState<DiscussionDetailHeaderView>(getViewToDisplay())
-  const [contentId, setContentId] = useState<number>(getLastHashId())
-
-  useEffect(() => {
-    setDisplayedView(getViewToDisplay())
-    setContentId(getLastHashId())
-  }, [location])
 
   const createHeaderContent = () => {
     switch (displayedView) {
-      case DiscussionDetailHeaderView.Strategy:
+      case DiscussionDetailView.Strategy:
         return <StrategyDetail id={contentId} />
-      case DiscussionDetailHeaderView.BuildingBlock:
+      case DiscussionDetailView.BuildingBlock:
         return <BuildingBlockDetail id={contentId} />
-      case DiscussionDetailHeaderView.SituationCategory:
+      case DiscussionDetailView.SituationCategory:
         return <SituationCategoryDetail id={contentId} />
-      case DiscussionDetailHeaderView.Situation:
+      case DiscussionDetailView.Situation:
         return <SituationDetail id={contentId} />
       default:
         return <StrategyMeasureDetail id={contentId} />

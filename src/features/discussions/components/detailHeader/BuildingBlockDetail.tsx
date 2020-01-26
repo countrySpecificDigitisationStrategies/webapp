@@ -13,7 +13,7 @@ export const BuildingBlockDetail = ({ id }: DetailProps): JSX.Element => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = (await get(Endpoint.blocks, `${id}`)) as BuildingBlockResponse
+      const response = (await get(Endpoint.blocks, { post: `${id}` })) as BuildingBlockResponse
       setBuildingBlock(mapResponseToBuildingBlock(response))
     }
     fetchData()

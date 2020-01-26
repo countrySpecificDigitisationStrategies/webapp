@@ -95,7 +95,7 @@ export const Tree = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = (await get(Endpoint.strategies, `${strategyId}/discussion_tree`)) as TreeResponse
+      const response = (await get(Endpoint.strategies, { post: `${strategyId}/discussion_tree` })) as TreeResponse
       setTree(mapResponseToTree(response))
     }
     fetchData()
