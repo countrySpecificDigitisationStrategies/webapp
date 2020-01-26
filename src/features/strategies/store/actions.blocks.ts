@@ -1,6 +1,7 @@
 import { Block } from './types'
-import { Endpoints, get } from 'app/service'
+import { Endpoint, get } from 'app/service'
 import { createRequest } from 'features/requests/store'
+import { BlockResponse } from 'features/strategies/store/types.api'
 
 export const BLOCKS_REQUEST_ID = 'blocks'
 export const BLOCKS_ADD = 'blocks/add'
@@ -13,21 +14,22 @@ interface BlocksAdd {
 export type BlockActions = BlocksAdd
 
 export const loadBlocks = () =>
-  createRequest({
+  createRequest<BlockResponse[]>({
     id: BLOCKS_REQUEST_ID,
-    request: () => get(Endpoints.blocks),
-    onSuccess: addBlocks,
+    request: () => get(Endpoint.blocks),
+    onSuccess: data => addBlocks(transformResponseData(data)),
   })
 
-const addBlocks = (blocks: Block[]): BlocksSuccess => ({
+const addBlocks = (blocks: Block[]): BlocksAdd => ({
   type: BLOCKS_ADD,
-  // blocks,
-  blocks: mockBlockData(blocks),
+  blocks,
 })
 
-//TODO: should be removed once api delivers real relation data
-const mockBlockData = blocks =>
-  blocks.map(block => ({
+const transformResponseData = (blocks: BlockResponse[]): Block[] => {
+  return blocks.map(({ situationCategories, created, updated, ...block }) => ({
     ...block,
-    situations: [1, 2, 3, 4],
+    categories: situationCategories,
+    created: new Date(created),
+    updated: new Date(updated),
   }))
+}

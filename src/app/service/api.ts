@@ -1,18 +1,22 @@
+import camelize from 'camelize'
+import decamelize from 'snakecase-keys'
 import { getAuthToken } from 'app/service/authentication'
 import { ApiError } from 'app/service/error'
 
 // eslint-disable-next-line no-undef
 const baseUrl = process.env.API_URL
 
-export enum Endpoints {
+export enum Endpoint {
   register = 'auth/register',
   login = 'auth/login',
   logout = 'users/logout',
+  analyses = 'analyses',
   strategies = 'strategies',
   blocks = 'building-blocks',
-  situations = 'building-blocks', //TODO: should be changed to /situations when api delivers them
-  goals = 'building-blocks', //TODO: should be changed to /goals when api delivers them
-  measures = 'building-blocks', //TODO: should be changed to /measures when api delivers them
+  categories = 'situation-categories',
+  situations = 'situations',
+  measures = 'measures',
+  strategyMeasures = 'strategy-measures',
 }
 
 enum HttpMethod {
@@ -32,6 +36,10 @@ export const post = async (endpoint: Endpoint, data: object): Promise<ApiRespons
   return fetchFromApi(buildUrl(endpoint), HttpMethod.POST, data)
 }
 
+export const put = async (endpoint: Endpoint, id: number, data: object): Promise<ApiResponse> => {
+  return fetchFromApi(buildUrl(endpoint, id), HttpMethod.PUT, data)
+}
+
 const buildUrl = (endpoint: string, id?: number) => {
   const url = baseUrl + endpoint
   if (id) {
@@ -40,7 +48,7 @@ const buildUrl = (endpoint: string, id?: number) => {
   return url
 }
 
-const fetchFromApi = async (url, method: HttpMethod, data?: object): Promise<ApiResponse> => {
+const fetchFromApi = async (url: string, method: HttpMethod, data?: object): Promise<ApiResponse> => {
   const response = await fetch(url, getFetchOptions(method, data))
   let content
   try {
@@ -56,11 +64,11 @@ const fetchFromApi = async (url, method: HttpMethod, data?: object): Promise<Api
     throw new ApiError({ code, name, detail })
   }
 
-  return content
+  return camelize(content)
 }
 
-const getFetchOptions = (method: HttpMethod, data?: object): object => {
-  let fetchOptions = {
+const getFetchOptions = (method: HttpMethod, data?: object): RequestInit => {
+  let fetchOptions: RequestInit = {
     method,
     headers: {},
   }
@@ -80,7 +88,7 @@ const getFetchOptions = (method: HttpMethod, data?: object): object => {
         ...fetchOptions.headers,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(decamelize(data)),
     }
   }
 

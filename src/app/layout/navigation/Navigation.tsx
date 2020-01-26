@@ -34,7 +34,7 @@ import {
 import { logout } from 'features/authentication'
 import ziikLogo from 'assets/ziik.jpg'
 import { useLoginStatus } from 'shared/hooks'
-import APP_ROUTES from 'app/routes'
+import { APP_ROUTES } from 'app/routes'
 import { closeNavBar, isNavBarOpen } from 'features/ui/store'
 import { navigationStyles } from './navigation.classes'
 
@@ -56,10 +56,10 @@ const homeNavItems: NavItem[] = [
 
 const analysisNavItems: NavItem[] = [
   {
-    key: 'analysis',
-    route: APP_ROUTES.analysis,
+    key: 'analyses',
+    route: APP_ROUTES.analyses,
     icon: <Assessment />,
-    text: 'Analysis',
+    text: 'Analyses',
   },
 ]
 const strategiesNavItems: NavItem[] = [
@@ -116,7 +116,7 @@ const Navigation = (): JSX.Element => {
     }
   }
 
-  const createNavList = (navItems: NavItem[]): JSX.Element => {
+  const createNavList = (navItems: NavItem[]): JSX.Element[] => {
     return navItems.map((item: NavItem) => (
       <ListItem button component={Link} to={item.route} key={item.key} onClick={handleNavigation}>
         <ListItemIcon>{item.icon}</ListItemIcon>

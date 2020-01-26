@@ -1,3 +1,5 @@
+import { ApplicationState } from 'app/store/reducers'
 import { AuthState } from './types'
 
-export const isLoggedIn = (state: AuthState) => !!state.authentication.isLoggedIn
+const getAuthState = (state: ApplicationState): AuthState => state.authentication
+export const isLoggedIn = (state: ApplicationState) => getAuthState(state).isLoggedIn

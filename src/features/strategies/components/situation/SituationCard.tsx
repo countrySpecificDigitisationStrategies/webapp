@@ -1,6 +1,6 @@
 import React from 'react'
 import { Situation } from 'features/strategies/store'
-import { OptionsCard } from 'shared/components/options/OptionsCard'
+import { OptionsCard } from 'shared/components'
 import { useHistory } from 'react-router'
 
 export interface SituationCardProps {
@@ -15,7 +15,7 @@ export const SituationCard = ({ situation }: SituationCardProps) => {
       overline="Situation"
       description={situation.description}
       link={{
-        to: `${history.location.pathname}/situation/${situation.id}`,
+        to: `${history.location.pathname}/${situation.id}`,
         title: 'View Situation',
       }}
     />

@@ -1,5 +1,5 @@
 import { UserCredentials } from './types'
-import { Endpoints, post, AuthToken } from 'app/service'
+import { Endpoint, post, AuthToken } from 'app/service'
 import { createRequest } from 'features/requests/store'
 
 /** Login */
@@ -8,19 +8,24 @@ export const LOGIN_SUCCESS = 'auth/login/success'
 
 interface LoginSuccess {
   type: typeof LOGIN_SUCCESS
+  token: AuthToken
 }
 
-export type LoginActionTypes = LoginRequest | LoginSuccess
+interface LoginSuccessPayload {
+  token: AuthToken
+}
+
+export type LoginActionTypes = LoginSuccess
 
 /** Login Actions */
 export const login = (credentials: UserCredentials) =>
-  createRequest({
+  createRequest<LoginSuccessPayload>({
     id: LOGIN_REQUEST_ID,
-    request: () => post(Endpoints.login, credentials),
+    request: () => post(Endpoint.login, credentials),
     onSuccess: loginSuccess,
   })
 
-const loginSuccess = ({ token }: { token: AuthToken }): LoginSuccess => ({
+const loginSuccess = ({ token }: LoginSuccessPayload): LoginSuccess => ({
   type: LOGIN_SUCCESS,
   token,
 })

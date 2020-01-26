@@ -1,6 +1,6 @@
 import React from 'react'
 import { Measure } from 'features/strategies/store'
-import { OptionsCard } from 'shared/components/options/OptionsCard'
+import { OptionsCard } from 'shared/components'
 import { useHistory } from 'react-router'
 
 export interface MeasureCardProps {
@@ -15,7 +15,7 @@ export const MeasureCard = ({ measure }: MeasureCardProps) => {
       overline="Measure"
       description={measure.description}
       link={{
-        to: `${history.location.pathname}/measure/${measure.id}`,
+        to: `${history.location.pathname}/${measure.id}`,
         title: 'View Measure',
       }}
     />

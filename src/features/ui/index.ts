@@ -1,1 +1,1 @@
-export * from './store'
+export { openNavBar, closeNavBar, isNavBarOpen, showError, hideError, getError } from './store'

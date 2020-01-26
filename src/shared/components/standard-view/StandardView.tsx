@@ -1,17 +1,18 @@
 import React from 'react'
 import { Typography } from '@material-ui/core'
+import { Markdown } from 'shared/components'
 
 interface DetailViewProps {
   title?: string
   description?: string
-  renderAdditionalInfo?: () => JSXElement
+  renderAdditionalInfo?: () => JSX.Element
   nextLevel?: {
     title: string
-    render: () => JSXElement
+    render: () => JSX.Element
   }
 }
 
-const StandardView = ({ title, description, renderAdditionalInfo, nextLevel }: DetailViewProps) => {
+export const StandardView = ({ title, description, renderAdditionalInfo, nextLevel }: DetailViewProps) => {
   const className = 'detail-view'
   const titleFragment = title ? (
     <Typography variant="h3" className={`${className}__heading`}>
@@ -20,9 +21,9 @@ const StandardView = ({ title, description, renderAdditionalInfo, nextLevel }: D
   ) : null
 
   const descriptionFragment = description ? (
-    <Typography variant="body1" className={`${className}__description`}>
-      {description}
-    </Typography>
+    <div className={`${className}__description`}>
+      <Markdown markdown={description} />
+    </div>
   ) : null
 
   const additionalInfoFragment = renderAdditionalInfo ? (
@@ -47,4 +48,3 @@ const StandardView = ({ title, description, renderAdditionalInfo, nextLevel }: D
     </div>
   )
 }
-export default StandardView
