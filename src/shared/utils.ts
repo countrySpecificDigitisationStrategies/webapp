@@ -15,3 +15,15 @@ export const addToState = <T extends object>(state: T, key: keyof T, payload: ob
     ...payload,
   },
 })
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const sortByProperty = <T extends object>(items: T[], getPropertyFn: (item: T) => any): void => {
+  items.sort((itemA, itemB) => {
+    const a = getPropertyFn(itemA) || Infinity // undefined will come last
+    const b = getPropertyFn(itemB) || Infinity
+
+    if (a < b) return -1
+    if (a > b) return 1
+    else return 0
+  })
+}
