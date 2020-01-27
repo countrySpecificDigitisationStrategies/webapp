@@ -1,6 +1,7 @@
 export const mapResponseToTree = (response: TreeResponse): TreeModel => {
   return {
-    title: 'Strategy', // TODO replace 'Strategy' with response.title if backend returns it
+    id: response.id,
+    title: response.title,
     buildingBlocks: response.buildingBlocks
       .map(
         (buildingBlock: TreeBuildingBlockResponse): TreeBuildingBlockModel => ({
@@ -54,7 +55,7 @@ const compareByTitle = <T extends { title: string }>(a: T, b: T): number => {
 const calculateTreeThreadCount = (tree: TreeResponse): number => {
   const sumUpBuildingBlockThreads = (sum: number, buildingBlock: TreeBuildingBlockResponse): number =>
     sum + calculateBuildingBlockThreadCount(buildingBlock)
-  return tree.buildingBlocks.reduce(sumUpBuildingBlockThreads, 0) // TODO change 0 to response.threadCount if backend returns it
+  return tree.buildingBlocks.reduce(sumUpBuildingBlockThreads, tree.threadCount)
 }
 
 const calculateBuildingBlockThreadCount = (buildingBlock: TreeBuildingBlockResponse): number => {
@@ -76,11 +77,14 @@ const calculateSituationThreadCount = (situation: TreeSituationResponse): number
 }
 
 export interface TreeResponse {
-  // TODO add strategy title and thread count if backend returns it
+  id: number
+  title: string
   buildingBlocks: TreeBuildingBlockResponse[]
+  threadCount: number
 }
 
 export interface TreeModel {
+  id: number
   title: string
   buildingBlocks: TreeBuildingBlockModel[]
   threadCount: number
