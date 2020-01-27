@@ -11,6 +11,7 @@ import {
   Situation,
   Strategies,
   Strategy,
+  StrategyEditor,
 } from 'pages'
 import {
   StrategyBreadcrumb,
@@ -22,6 +23,7 @@ import {
 import { AnalysisBreadcrumb } from 'features/analyses'
 
 export const APP_ROUTE_PARAMS: { [key: string]: string } = {
+  analysisId: 'analysisId',
   strategyId: 'strategyId',
   blockId: 'blockId',
   categoryId: 'categoryId',
@@ -35,7 +37,7 @@ export const APP_ROUTES = {
   login: '/login',
   register: '/register',
   analyses: '/analyses',
-  analysis: '/analyses/:analysesId',
+  analysis: `/analyses/:${p.analysisId}`,
   strategies: '/strategies',
   strategy: `/strategies/:${p.strategyId}`,
   block: `/strategies/:${p.strategyId}/:${p.blockId}`,
@@ -47,6 +49,10 @@ export const APP_ROUTES = {
   management: '/management',
   discussion: '/discussion',
   account: '/account',
+  editor: {
+    create: '/strategies/add',
+    update: `/strategies/edit/:${p.strategyId}`,
+  },
 }
 
 export const routes: RouteConfig[] = [
@@ -63,6 +69,10 @@ export const routes: RouteConfig[] = [
   {
     path: APP_ROUTES.register,
     component: Register,
+  },
+  {
+    path: Object.values(APP_ROUTES.editor),
+    component: StrategyEditor,
   },
   {
     path: APP_ROUTES.strategies,

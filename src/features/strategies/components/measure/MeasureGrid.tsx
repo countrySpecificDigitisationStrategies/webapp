@@ -16,6 +16,7 @@ const MeasureGrid = ({ ids }: MeasureGridProps): JSX.Element => {
   return (
     <OptionsGrid<Measure>
       dataset={measures}
+      sortBy={'title'}
       filter={measure => ids.includes(measure.id)}
       render={(_id, measure) => <MeasureCard measure={measure} />}
     />

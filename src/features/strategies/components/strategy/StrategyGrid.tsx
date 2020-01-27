@@ -8,8 +8,15 @@ import { StrategyCard } from 'features/strategies/components/strategy/StrategyCa
 const StrategyGrid = (): JSX.Element => {
   useStrategyData()
   const strategies = useSelector(getStrategies)
+
   if (!strategies) return <div>No Strategies could be found.</div>
-  return <OptionsGrid<Strategy> dataset={strategies} render={(_id, strategy) => <StrategyCard strategy={strategy} />} />
+  return (
+    <OptionsGrid<Strategy>
+      dataset={strategies}
+      filter={strategy => strategy.isPublished}
+      render={(_id, strategy) => <StrategyCard strategy={strategy} />}
+    />
+  )
 }
 
 export default StrategyGrid
