@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Button, ButtonGroup } from '@material-ui/core'
-import { AddCommentSharp } from '@material-ui/icons'
+import { Comment } from '@material-ui/icons'
 
 import { ThreadPreview } from 'features/discussions/components'
 import { Endpoint, get } from 'app/service'
@@ -104,10 +104,10 @@ export const ThreadList = ({ displayedView, strategyId, contentId }: ThreadListP
         <Button
           variant="contained"
           color="secondary"
-          startIcon={<AddCommentSharp />}
+          startIcon={<Comment />}
           component={Link}
-          to={`/discussions/1/new-thread`}>
-          New Thread
+          to={`/discussions/${strategyId}/new-thread`}>
+          new discussion
         </Button>
       </div>
 
