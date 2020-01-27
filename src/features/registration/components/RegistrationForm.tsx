@@ -12,6 +12,7 @@ interface RegistrationFormValues extends Fields {
   name: string
   email: string
   password: string
+  country: string
 }
 
 interface CountryType {
@@ -309,7 +310,7 @@ const RegistrationForm = (): JSX.Element => {
       console.log(values)
       dispatch(register(values))
     }
-    if (values.password.length >= 8 && retypePasswordValue != values.password) {
+    if (values.password.length >= 8) {
       setRetypePassword(true)
       setRetypePasswordHelperText('Passwords muss match!')
     } else {
