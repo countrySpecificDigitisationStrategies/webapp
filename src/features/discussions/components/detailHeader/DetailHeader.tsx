@@ -21,7 +21,7 @@ const useStyles = makeStyles(
 
 interface DetailHeaderProps {
   displayedView: DiscussionDetailView
-  contentId: number
+  contentId?: number
 }
 
 export const DetailHeader = ({ displayedView, contentId }: DetailHeaderProps): JSX.Element => {
@@ -31,9 +31,9 @@ export const DetailHeader = ({ displayedView, contentId }: DetailHeaderProps): J
   if (!strategyId) return <div>Something went wrong!</div>
 
   const createHeaderContent = () => {
+    if (!contentId) return <StrategyDetail id={+strategyId} />
+
     switch (displayedView) {
-      case DiscussionDetailView.Strategy:
-        return <StrategyDetail id={contentId} />
       case DiscussionDetailView.BuildingBlock:
         return <BuildingBlockDetail id={contentId} />
       case DiscussionDetailView.SituationCategory:

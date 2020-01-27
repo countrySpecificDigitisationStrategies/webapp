@@ -1,20 +1,21 @@
-import React, { useState, useEffect } from 'react'
-import { Link, useParams } from 'react-router-dom'
-import { ButtonGroup, Button } from '@material-ui/core'
+import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
+import { Button, ButtonGroup } from '@material-ui/core'
 import { AddCommentSharp } from '@material-ui/icons'
 
 import { ThreadPreview } from 'features/discussions/components'
-import { get, Endpoint } from 'app/service'
+import { Endpoint, get } from 'app/service'
 import {
-  PreviewThreadResponse,
   mapResponseToPreviewThreads,
   PreviewThreadModel,
+  PreviewThreadResponse,
 } from 'features/discussions/models/thread.discussion.model'
 import { DiscussionDetailView } from './discussionDetail'
 
 interface ThreadListProps {
   displayedView: DiscussionDetailView
-  contentId: number
+  strategyId: number
+  contentId?: number
 }
 
 const filters = [
@@ -32,16 +33,15 @@ const filters = [
   },
 ]
 
-export const ThreadList = ({ displayedView, contentId }: ThreadListProps) => {
+export const ThreadList = ({ displayedView, strategyId, contentId }: ThreadListProps) => {
   const className = 'ThreadList'
-  const { strategyId } = useParams()
   const [activeFilter, setActiveFilter] = useState(0)
   const [previewThreads, setPreviewThreads] = useState()
 
   const getEndpoint = () => {
     switch (displayedView) {
       case DiscussionDetailView.Strategy:
-        return Endpoint.strategyThreads // TODO
+        return Endpoint.strategyThreads
       case DiscussionDetailView.BuildingBlock:
         return Endpoint.buildingBlockThreads
       case DiscussionDetailView.SituationCategory:

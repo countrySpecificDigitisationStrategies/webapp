@@ -25,14 +25,14 @@ export const DiscussionDetail = () => {
     }
   }
 
-  const getLastHashId = (): number => {
+  const getLastHashId = (): number | undefined => {
     const hashIds = location.hash.replace(/#|-*$/, '').split('-')
-    if (hashIds[0] === '') return +strategyId
+    if (hashIds[0] === '') return undefined
     return +hashIds[hashIds.length - 1]
   }
 
   const [displayedView, setDisplayedView] = useState<DiscussionDetailView>(getViewToDisplay())
-  const [contentId, setContentId] = useState<number>(getLastHashId())
+  const [contentId, setContentId] = useState<number | undefined>(getLastHashId())
 
   useEffect(() => {
     setDisplayedView(getViewToDisplay())
@@ -41,9 +41,17 @@ export const DiscussionDetail = () => {
 
   return (
     <div className="DiscussionDetail">
-      <DetailHeader displayedView={displayedView} contentId={contentId} />
-
-      <ThreadList displayedView={displayedView} contentId={contentId} />
+      {contentId ? (
+        <>
+          <DetailHeader displayedView={displayedView} contentId={contentId} />
+          <ThreadList displayedView={displayedView} strategyId={+strategyId} contentId={contentId} />
+        </>
+      ) : (
+        <>
+          <DetailHeader displayedView={displayedView} />
+          <ThreadList displayedView={displayedView} strategyId={+strategyId} />
+        </>
+      )}
     </div>
   )
 }
