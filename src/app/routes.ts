@@ -16,6 +16,7 @@ import {
   Discussion,
   Thread,
   ThreadNew,
+  UserProfile,
 } from 'pages'
 
 import {
@@ -151,5 +152,10 @@ export const routes: RouteConfig[] = [
     component: Analysis,
     exact: true,
     breadcrumb: AnalysisBreadcrumb,
+  },
+  {
+    path: APP_ROUTES.account,
+    component: UserProfile,
+    exact: true,
   },
 ]

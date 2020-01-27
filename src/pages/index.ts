@@ -14,6 +14,7 @@ import Discussion from './Discussion'
 import StrategyEditor from './StrategyEditor'
 import Thread from './Thread'
 import ThreadNew from './ThreadNew'
+import UserProfile from './UserProfile'
 
 export {
   Home,
@@ -30,6 +31,7 @@ export {
   Discussions,
   Discussion,
   StrategyEditor,
+  UserProfile,
   Thread,
   ThreadNew,
 }

@@ -15,13 +15,14 @@ export enum Endpoint {
   blocks = 'building-blocks',
   situationCategories = 'situation-categories',
   situations = 'situations',
-  measures = 'measures', //TODO: should be changed to /measures when api delivers them
+  measures = 'measures',
   strategyMeasures = 'strategy-measures',
   strategyThreads = 'strategy-threads',
   buildingBlockThreads = 'building-block-threads',
   situationCategoryThreads = 'situation-category-threads',
   situationThreads = 'situation-threads',
   strategyMeasureThreads = 'strategy-measure-threads',
+  account = 'users/me',
 }
 
 enum HttpMethod {
@@ -29,6 +30,7 @@ enum HttpMethod {
   POST = 'POST',
   PUT = 'PUT',
   DELETE = 'DELETE',
+  PATCH = 'PATCH',
 }
 
 export type ApiResponse = object | ApiError
@@ -41,6 +43,10 @@ interface OptionsType {
 
 export const get = async (endpoint: Endpoint, options?: OptionsType): Promise<ApiResponse> => {
   return fetchFromApi(buildUrl(endpoint, options), HttpMethod.GET)
+}
+
+export const patch = async (endpoint: Endpoint, id?: number): Promise<ApiResponse> => {
+  return fetchFromApi(buildUrl(endpoint, id), HttpMethod.PATCH)
 }
 
 export const post = async (endpoint: Endpoint, data: object): Promise<ApiResponse> => {
