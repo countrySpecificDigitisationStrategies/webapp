@@ -16,6 +16,7 @@ const SituationGrid = ({ ids }: SituationGridProps): JSX.Element => {
   return (
     <OptionsGrid<Situation>
       dataset={situations}
+      sortBy={'title'}
       filter={situation => ids.includes(situation.id)}
       render={(_id, situation) => <SituationCard situation={situation} />}
     />
