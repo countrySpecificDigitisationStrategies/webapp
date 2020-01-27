@@ -14,7 +14,7 @@ const Discussions = () => {
         forums for the individual countries.
       </Typography>
 
-      <Typography variant="h4">Discusion forums</Typography>
+      <Typography variant="h4">Discussion forums</Typography>
 
       <DiscussionForumsGrid />
     </div>

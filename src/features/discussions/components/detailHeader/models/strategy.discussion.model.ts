@@ -1,18 +1,17 @@
-import { CountryModel, CountryResponse, mapResponseToCountry } from '../../../models/country.discussion.model'
+import { CountryModel, mapResponseToCountry } from '../../../models/country.discussion.model'
+import { BoardResponse } from '../../../models/board.discussion.model'
 
 export const mapResponseToStrategies = (response: StrategyResponse[]): StrategyModel[] => {
   return response.map((strategy: StrategyResponse): StrategyModel => mapResponseToStrategy(strategy))
 }
 
 export const mapResponseToStrategy = (response: StrategyResponse): StrategyModel => {
-  // console.log('response obj', response)
-  // console.log('response obj is published', response.is_published)
   return {
     id: response.id,
     title: response.title,
     description: response.description,
     isPublished: response.isPublished,
-    country: mapResponseToCountry(response.country),
+    country: mapResponseToCountry(mapResponseToCountry(response.board.country)),
   }
 }
 
@@ -20,7 +19,7 @@ export interface StrategyResponse {
   id: number
   title: string
   description: string
-  country: CountryResponse
+  board: BoardResponse
   isPublished: boolean
 }
 
