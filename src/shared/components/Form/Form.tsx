@@ -35,6 +35,14 @@ export const Form = <FormFields extends Fields = Fields>({
   const [values, setValues] = useState({ ...initialValues } as FormFields)
   const setValue = (name: string, value: InputValue) => setValues({ ...values, [name]: value })
 
+  const [dirty, setDirty] = useState(false)
+  useEffect(() => {
+    // while fields are not yet dirty, update values when initialValues change
+    if (!dirty) {
+      setValues({ ...initialValues } as FormFields)
+    }
+  }, [initialValues])
+
   const debouncedValues = useDebounce<FormFields>(values, onChangeDebounce)
   useEffect(() => {
     onChange?.(debouncedValues)
@@ -47,9 +55,9 @@ export const Form = <FormFields extends Fields = Fields>({
           const name = child.props.name
           if (name) {
             return React.cloneElement(child, {
-              key: `${name}-${initialValues?.[name]}`, //trigger re-render when initialValue changes, needed for MUI
-              defaultValue: initialValues?.[name],
+              value: values[name],
               onChange: (e: React.ChangeEvent<HTMLSelectElement>, value?: InputValue) => {
+                setDirty(true)
                 setValue(name, value !== undefined ? value : e.target.value)
               },
             })
