@@ -17,17 +17,13 @@ import {
 } from '@material-ui/core'
 import {
   AccountCircle,
-  AccountTree,
   Assessment,
   Chat,
   ChevronLeft,
   ExitToApp,
-  Flag,
   Home,
   Lock,
   LockOpen,
-  School,
-  SupervisorAccount,
   Timeline,
 } from '@material-ui/icons'
 
@@ -68,24 +64,6 @@ const strategiesNavItems: NavItem[] = [
     route: APP_ROUTES.strategies,
     icon: <Timeline />,
     text: 'Strategies',
-  },
-  {
-    key: 'education',
-    route: APP_ROUTES.education,
-    icon: <School />,
-    text: 'Education',
-  },
-  {
-    key: 'infrastructure',
-    route: APP_ROUTES.infrastructure,
-    icon: <AccountTree />,
-    text: 'Infrastructure',
-  },
-  {
-    key: 'management',
-    route: APP_ROUTES.management,
-    icon: <SupervisorAccount />,
-    text: 'Management',
   },
 ]
 const discussionNavItems: NavItem[] = [
@@ -141,15 +119,6 @@ const Navigation = (): JSX.Element => {
       </div>
       <Divider />
       <List>{createNavList(homeNavItems)}</List>
-      <Divider />
-      <List>
-        <ListItem button>
-          <ListItemIcon>
-            <Flag />
-          </ListItemIcon>
-          <ListItemText primary="Country" />
-        </ListItem>
-      </List>
       <Divider />
       <List>{createNavList(analysisNavItems)}</List>
       <Divider />

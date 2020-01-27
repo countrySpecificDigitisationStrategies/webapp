@@ -64,7 +64,7 @@ const ToolBar = (): JSX.Element => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            Digitisation Strategies
+            Digitization Strategies
           </Typography>
         </div>
         <div className="toolbar-tools">
