@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Button, ButtonGroup } from '@material-ui/core'
+import { Button, ButtonGroup, Typography } from '@material-ui/core'
 import { Comment } from '@material-ui/icons'
 
 import { ThreadPreview } from 'features/discussions/components'
@@ -11,6 +11,7 @@ import {
   PreviewThreadResponse,
 } from 'features/discussions/models/thread.discussion.model'
 import { DiscussionDetailView } from './discussionDetail'
+import { useLoginStatus } from '../../../shared/hooks'
 
 interface ThreadListProps {
   displayedView: DiscussionDetailView
@@ -37,6 +38,7 @@ export const ThreadList = ({ displayedView, strategyId, contentId }: ThreadListP
   const className = 'ThreadList'
   const [activeFilter, setActiveFilter] = useState(0)
   const [previewThreads, setPreviewThreads] = useState()
+  const isLoggedIn = useLoginStatus()
 
   const getEndpoint = () => {
     switch (displayedView) {
@@ -76,7 +78,7 @@ export const ThreadList = ({ displayedView, strategyId, contentId }: ThreadListP
       setPreviewThreads(mapResponseToPreviewThreads(response))
     }
     fetchData()
-  }, [contentId])
+  }, [strategyId, contentId])
 
   if (!previewThreads) return <div>No threads found</div>
 
@@ -89,35 +91,57 @@ export const ThreadList = ({ displayedView, strategyId, contentId }: ThreadListP
   return (
     <div className={`${className}`}>
       <div className={`${className}-actions`}>
-        <ButtonGroup className={`${className}-filter`} color="primary" aria-label="outlined primary button group">
-          {filters.map((filter, index) => {
-            const variant = activeFilter === index ? 'contained' : 'outlined'
+        {previewThreads.length !== 0 ? (
+          <ButtonGroup className={`${className}-filter`} color="primary" aria-label="outlined primary button group">
+            {filters.map((filter, index) => {
+              const variant = activeFilter === index ? 'contained' : 'outlined'
 
-            return (
-              <Button key={index} variant={variant} onClick={() => setActiveFilter(index)}>
-                {filter.title}
-              </Button>
-            )
-          })}
-        </ButtonGroup>
+              return (
+                <Button key={index} variant={variant} onClick={() => setActiveFilter(index)}>
+                  {filter.title}
+                </Button>
+              )
+            })}
+          </ButtonGroup>
+        ) : (
+          <Typography color={'primary'} variant={'caption'}>
+            {`There are no discussions yet. Start one!`}
+          </Typography>
+        )}
 
-        <Button
-          variant="contained"
-          color="secondary"
-          startIcon={<Comment />}
-          component={Link}
-          to={`/discussions/${strategyId}/new-thread`}>
-          new discussion
-        </Button>
+        {isLoggedIn ? (
+          <Button
+            variant="contained"
+            color="secondary"
+            startIcon={<Comment />}
+            component={Link}
+            to={`/discussions/${strategyId}/new-thread`}>
+            new discussion
+          </Button>
+        ) : (
+          <div className={`${className}-actions__login-register`}>
+            <Typography color={'primary'} variant={'caption'}>
+              Login to start a discussion.
+            </Typography>
+            <Button variant="text" color="primary" component={Link} to={`/login`}>
+              login
+            </Button>
+            <Button variant="contained" color="secondary" component={Link} to={`/register`}>
+              register
+            </Button>
+          </div>
+        )}
       </div>
 
-      {sortedThreads?.length !== 0 ? (
-        sortedThreads.map((thread: PreviewThreadModel, index: number) => (
-          <ThreadPreview key={index} itemClassName={`${className}-item`} thread={thread} />
-        ))
-      ) : (
-        <div>No threads found matching your filter</div>
-      )}
+      {previewThreads.length !== 0 ? (
+        sortedThreads?.length !== 0 ? (
+          sortedThreads.map((thread: PreviewThreadModel, index: number) => (
+            <ThreadPreview key={index} itemClassName={`${className}-item`} thread={thread} />
+          ))
+        ) : (
+          <div>No threads found matching your filter</div>
+        )
+      ) : null}
     </div>
   )
 }
