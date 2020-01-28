@@ -16,10 +16,18 @@ import { Language } from '@material-ui/icons'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     card: {
-      maxWidth: 345,
+      maxWidth: 300,
+      '& .title': {
+        marginBottom: 0,
+      },
+      '& .country, .title': {
+        whiteSpace: 'nowrap',
+        textOverflow: 'ellipsis',
+        overflow: 'hidden',
+      },
     },
     media: {
-      height: 140,
+      height: 200,
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
@@ -47,10 +55,10 @@ export const DiscussionCard = ({ strategy }: DiscussionCardProps) => {
           {!(country.flag || country.flagRectangle) ? <Language fontSize={'inherit'} color={'secondary'} /> : null}
         </CardMedia>
         <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
+          <Typography gutterBottom variant="h5" component="h2" className={'country'}>
             {country.name}
           </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
+          <Typography variant="body2" color="textSecondary" component="p" className={'title'}>
             {title}
           </Typography>
         </CardContent>
