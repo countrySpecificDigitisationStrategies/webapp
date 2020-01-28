@@ -11,7 +11,7 @@ import {
 } from '@material-ui/core'
 import { ExpandMore } from '@material-ui/icons'
 import clsx from 'clsx'
-import ReactMarkdown from 'react-markdown'
+import { Markdown } from '../../../../shared/components'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -93,11 +93,16 @@ export const HeaderContent = ({
       <Collapse in={expandDescription} timeout="auto" collapsedHeight={'54px'}>
         <CardContent className={classes.content}>
           {description ? (
-            <ReactMarkdown source={description} className={clsx({ [classes.preview]: !expandDescription })} />
+            <Markdown
+              markdown={description}
+              onCard={true}
+              className={clsx({ [classes.preview]: !expandDescription })}
+            />
           ) : null}
           {strategyMeasureDescription ? (
-            <ReactMarkdown
-              source={strategyMeasureDescription}
+            <Markdown
+              markdown={strategyMeasureDescription}
+              onCard={true}
               className={clsx({ [classes.preview]: !expandDescription })}
             />
           ) : null}
@@ -121,7 +126,11 @@ export const HeaderContent = ({
               <Typography variant="h4" component="h1">
                 {goalTitle}
               </Typography>
-              <ReactMarkdown source={goalDescription} className={clsx({ [classes.preview]: !expandGoalDescription })} />
+              <Markdown
+                markdown={goalDescription}
+                onCard={true}
+                className={clsx({ [classes.preview]: !expandGoalDescription })}
+              />
             </CardContent>
           </Collapse>
           <CardActions disableSpacing className={classes.actions}>

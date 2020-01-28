@@ -8,5 +8,5 @@ export const DiscussionBreadcrumb = ({ match }: RouteComponentProps<{ strategyId
   const { strategyId } = match.params
   useStrategyData()
   const strategy = useSelector(getStrategy(+strategyId))
-  return <>{strategy ? strategy.title : strategyId}</>
+  return <>{strategy ? strategy.country.name : strategyId}</>
 }
