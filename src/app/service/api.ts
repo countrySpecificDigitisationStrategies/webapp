@@ -23,6 +23,7 @@ export enum Endpoint {
   situationThreads = 'situation-threads',
   strategyMeasureThreads = 'strategy-measure-threads',
   account = 'users/me',
+  countries = 'countries',
 }
 
 enum HttpMethod {

@@ -1,4 +1,3 @@
-import { UserData } from './types'
 import { Endpoint, post } from 'app/service'
 import { createRequest } from 'features/requests/store'
 
@@ -9,13 +8,21 @@ interface RegistrationSuccess {
   type: typeof REGISTRATION_SUCCESS
 }
 
+export interface RegistrationRequest {
+  firstname: string
+  lastname: string
+  email: string
+  password: string
+  country: number
+}
+
 export type RegistrationAction = RegistrationSuccess
 
 /** Registration Actions */
-export const register = (user: UserData) =>
+export const register = (request: RegistrationRequest) =>
   createRequest({
     id: REGISTRATION_REQUEST_ID,
-    request: () => post(Endpoint.register, user),
+    request: () => post(Endpoint.register, request),
     onSuccess: registrationSuccess,
   })
 
