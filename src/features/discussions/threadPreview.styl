@@ -1,0 +1,36 @@
+.thread-preview
+  width 100%
+  margin-bottom 10px
+
+  &__main-content
+    display flex
+    flex-direction row
+
+    & .main-content__state-info
+      flex-grow 0
+      padding-bottom 0
+
+    & .main-content__thread-details
+      flex-grow 1
+      padding-bottom 0
+
+      & .thread-details__description
+        position relative
+        &--gradient:after
+          position absolute
+          bottom 0
+          height 100%
+          width 100%
+          content ""
+          background linear-gradient(to bottom, rgba(255,255,255,0) 28px, rgba(255,255,255,1) 64px)
+
+  &__author-info
+    flex-grow 1
+    padding-top 0
+    display flex
+    justify-content flex-end
+    align-items center
+    & > *:not(:first-child)
+      margin-left 2.5px
+    & > *:not(:last-child)
+      margin-right 2.5px

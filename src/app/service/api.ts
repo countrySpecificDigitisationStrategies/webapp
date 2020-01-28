@@ -13,10 +13,18 @@ export enum Endpoint {
   analyses = 'analyses',
   strategies = 'strategies',
   blocks = 'building-blocks',
-  categories = 'situation-categories',
+  situationCategories = 'situation-categories',
   situations = 'situations',
   measures = 'measures',
   strategyMeasures = 'strategy-measures',
+  strategyThreads = 'strategy-threads',
+  buildingBlockThreads = 'building-block-threads',
+  situationCategoryThreads = 'situation-category-threads',
+  situationThreads = 'situation-threads',
+  strategyMeasureThreads = 'strategy-measure-threads',
+  account = 'users/me',
+  countries = 'countries',
+  boards = 'boards',
 }
 
 enum HttpMethod {
@@ -24,12 +32,23 @@ enum HttpMethod {
   POST = 'POST',
   PUT = 'PUT',
   DELETE = 'DELETE',
+  PATCH = 'PATCH',
 }
 
-type ApiResponse = object | ApiError
+export type ApiResponse = object | ApiError
 
-export const get = async (endpoint: Endpoint, id?: number): Promise<ApiResponse> => {
-  return fetchFromApi(buildUrl(endpoint, id), HttpMethod.GET)
+interface OptionsType {
+  post?: number | string
+  queryParams?: string
+  id?: number
+}
+
+export const get = async (endpoint: Endpoint, options?: OptionsType): Promise<ApiResponse> => {
+  return fetchFromApi(buildUrl(endpoint, options), HttpMethod.GET)
+}
+
+export const patch = async (endpoint: Endpoint, id?: number): Promise<ApiResponse> => {
+  return fetchFromApi(buildUrl(endpoint, id), HttpMethod.PATCH)
 }
 
 export const post = async (endpoint: Endpoint, data: object): Promise<ApiResponse> => {
@@ -37,14 +56,21 @@ export const post = async (endpoint: Endpoint, data: object): Promise<ApiRespons
 }
 
 export const put = async (endpoint: Endpoint, id: number, data: object): Promise<ApiResponse> => {
-  return fetchFromApi(buildUrl(endpoint, id), HttpMethod.PUT, data)
+  return fetchFromApi(buildUrl(endpoint, { id }), HttpMethod.PUT, data)
 }
+const buildUrl = (endpoint: Endpoint, options?: OptionsType) => {
+  const post = options?.post
+  const queryParams = options?.queryParams
+  const id = options?.id
 
-const buildUrl = (endpoint: string, id?: number) => {
-  const url = baseUrl + endpoint
+  let url = baseUrl + endpoint
   if (id) {
-    return url + '/' + id
+    url += '/' + id
+  } else {
+    if (!!post && post !== '') url += '/' + post
+    if (queryParams) url += queryParams
   }
+
   return url
 }
 

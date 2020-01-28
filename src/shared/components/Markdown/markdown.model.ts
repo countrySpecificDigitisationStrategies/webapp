@@ -18,6 +18,7 @@ export interface MarkdownProps {
   markdown: string
   onCard?: boolean
   previewLinks?: boolean
+  className?: string
 }
 
 export interface TableProps {

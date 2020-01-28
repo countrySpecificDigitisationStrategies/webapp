@@ -18,8 +18,11 @@ export const loadStrategies = () =>
   createRequest<StrategyResponse[]>({
     id: STRATEGIES_REQUEST_ID,
     request: () => get(Endpoint.strategies),
-    onSuccess: data => addStrategies(transformResponseData(data)),
+    onSuccess: addStrategiesFromResponse,
   })
+
+export const addStrategiesFromResponse = (strategies: StrategyResponse[]) =>
+  addStrategies(transformResponseData(strategies))
 
 const addStrategies = (strategies: Strategy[]): StrategiesAdd => ({
   type: STRATEGIES_ADD,

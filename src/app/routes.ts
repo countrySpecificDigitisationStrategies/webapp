@@ -12,7 +12,14 @@ import {
   Strategies,
   Strategy,
   StrategyEditor,
+  Discussions,
+  Discussion,
+  Thread,
+  ThreadNew,
+  UserProfile,
+  AccountInfo,
 } from 'pages'
+
 import {
   StrategyBreadcrumb,
   BlockBreadcrumb,
@@ -21,6 +28,7 @@ import {
   SituationBreadcrumb,
 } from 'features/strategies'
 import { AnalysisBreadcrumb } from 'features/analyses'
+import { DiscussionBreadcrumb } from '../features/discussions/components/DiscussionBreadcrumb'
 
 export const APP_ROUTE_PARAMS: { [key: string]: string } = {
   analysisId: 'analysisId',
@@ -29,6 +37,7 @@ export const APP_ROUTE_PARAMS: { [key: string]: string } = {
   categoryId: 'categoryId',
   situationId: 'situationId',
   measureId: 'measureId',
+  boardId: 'boardId',
 }
 const p = APP_ROUTE_PARAMS
 
@@ -47,11 +56,14 @@ export const APP_ROUTES = {
   education: '/education',
   infrastructure: '/infrastructure',
   management: '/management',
-  discussion: '/discussion',
+  discussions: '/discussions',
+  discussion: '/discussions/:strategyId',
+  newThread: '/discussions/:strategyId/new-thread',
+  thread: '/discussions/:strategyId/threads/:threadId',
   account: '/account',
   editor: {
-    create: '/strategies/add',
-    update: `/strategies/edit/:${p.strategyId}`,
+    create: `/strategies/add/:${p.boardId}`,
+    update: `/strategies/edit/:${p.boardId}`,
   },
 }
 
@@ -69,6 +81,10 @@ export const routes: RouteConfig[] = [
   {
     path: APP_ROUTES.register,
     component: Register,
+  },
+  {
+    path: APP_ROUTES.account,
+    component: AccountInfo,
   },
   {
     path: Object.values(APP_ROUTES.editor),
@@ -115,9 +131,37 @@ export const routes: RouteConfig[] = [
     breadcrumb: MeasureBreadcrumb,
   },
   {
+    path: APP_ROUTES.discussions,
+    component: Discussions,
+    exact: true,
+  },
+  {
+    path: APP_ROUTES.discussion,
+    component: Discussion,
+    exact: true,
+    breadcrumb: DiscussionBreadcrumb,
+  },
+  {
+    path: APP_ROUTES.thread,
+    component: Thread,
+    exact: true,
+    // breadcrumb: MeasureBreadcrumb, // TODO
+  },
+  {
+    path: APP_ROUTES.newThread,
+    exact: true,
+    component: ThreadNew,
+    // breadcrumb: MeasureBreadcrumb, // TODO
+  },
+  {
     path: APP_ROUTES.analysis,
     component: Analysis,
     exact: true,
     breadcrumb: AnalysisBreadcrumb,
+  },
+  {
+    path: APP_ROUTES.account,
+    component: UserProfile,
+    exact: true,
   },
 ]

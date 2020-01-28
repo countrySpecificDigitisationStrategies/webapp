@@ -4,6 +4,8 @@ import { showError } from 'features/ui/store'
 
 import { StrategyDraft, StrategyDraftFields, StrategyMeasureDraft } from './types'
 import { StrategyEditRequest } from './types.api'
+import { addStrategiesFromResponse } from 'features/strategies/store/actions.strategies'
+import { StrategyResponse } from 'features/strategies/store/types.api'
 
 export const STRATEGY_EDITOR_REQUEST_ID = 'strategy-editor'
 export const STRATEGY_EDITOR_CLEAR = 'strategy-editor/clear'
@@ -65,10 +67,10 @@ export const removeMeasure = (id: StrategyMeasureDraft['measure']): StrategyEdit
 
 export const submitStrategy = ({ id, ...strategy }: StrategyDraft) => {
   const data = transformRequestData(strategy)
-  return createRequest({
+  return createRequest<StrategyResponse>({
     id: STRATEGY_EDITOR_REQUEST_ID,
     request: () => (id ? put(Endpoint.strategies, id, data) : post(Endpoint.strategies, data)),
-    onSuccess: () => showError({ title: 'SUCCESS', message: 'Successfully submitted Strategy' }),
+    onSuccess: data => addStrategiesFromResponse([data]),
   })
 }
 

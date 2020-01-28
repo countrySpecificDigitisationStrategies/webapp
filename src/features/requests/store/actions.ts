@@ -23,22 +23,22 @@ export interface RequestStart<S = SuccessResponse, E = ErrorResponse> {
   type: string
   id: requestId
   request: () => Promise<object>
-  onSuccess: SuccessActionCreator<S>
-  onError?: ErrorActionCreator<E>
+  onSuccess: SuccessActionCreator<S> | SuccessActionCreator<S>[]
+  onError?: ErrorActionCreator<E> | ErrorActionCreator<E>[]
 }
 
 export interface RequestSuccess<T = SuccessResponse> {
   type: string
   id: requestId
   payload: T
-  action: SuccessActionCreator<T>
+  actions: SuccessActionCreator<T>[]
 }
 
 export interface RequestError<T = ErrorResponse> {
   type: string
   id: requestId
   payload: T
-  action?: ErrorActionCreator<T>
+  actions?: ErrorActionCreator<T>[]
 }
 
 export type RequestAction = RequestStart | RequestSuccess | RequestError
@@ -65,29 +65,29 @@ export const createRequest = <S = SuccessResponse, E = ErrorResponse>({
 export const requestSuccess = ({
   id,
   response,
-  action,
+  actions,
 }: {
   id: RequestSuccess['id']
   response: RequestSuccess['payload']
-  action: RequestSuccess['action']
+  actions: RequestSuccess['actions']
 }): RequestSuccess => ({
   type: `${id}/${REQUEST_SUCCESS}`,
   payload: response,
   id,
-  action,
+  actions,
 })
 
 export const requestError = ({
   id,
   response,
-  action,
+  actions,
 }: {
   id: RequestError['id']
   response: RequestError['payload']
-  action?: RequestError['action']
+  actions?: RequestError['actions']
 }): RequestError => ({
   type: `${id}/${REQUEST_ERROR}`,
   payload: response,
   id,
-  action,
+  actions,
 })
