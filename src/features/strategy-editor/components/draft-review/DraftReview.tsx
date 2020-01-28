@@ -20,6 +20,11 @@ import {
 import { useMeasureData, getMeasures } from 'features/strategies'
 import { getFields, getMeasureDrafts, submitStrategy } from 'features/strategy-editor/store'
 import { Summary } from 'shared/components'
+import { Board } from 'features/users/store'
+
+interface DraftReviewProps {
+  boardId: Board['id']
+}
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -41,7 +46,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-export const DraftReview = () => {
+export const DraftReview = ({ boardId }: DraftReviewProps) => {
   const classes = useStyles()
 
   useMeasureData()
@@ -50,11 +55,8 @@ export const DraftReview = () => {
   const measuresDrafts = useSelector(getMeasureDrafts)
   const measures = useSelector(getMeasures)
 
-  //TODO: get current user's country
-  const countryId = 34 // Senegal
-
   const handleSubmit = () => {
-    dispatch(submitStrategy({ ...fields, strategyMeasures: measuresDrafts, country: countryId }))
+    dispatch(submitStrategy({ ...fields, strategyMeasures: measuresDrafts, board: boardId }))
   }
 
   const visibilityIcon = (
