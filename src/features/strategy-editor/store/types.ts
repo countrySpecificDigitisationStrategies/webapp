@@ -1,5 +1,5 @@
 import { Strategy, StrategyMeasure } from 'features/strategies'
-import { Country } from 'features/strategies/store/types'
+import { Board } from 'features/users/store'
 
 export type StrategyEditorState = {
   fields: { [name in keyof StrategyDraftFields]: StrategyDraftFields[name] }
@@ -8,7 +8,7 @@ export type StrategyEditorState = {
 
 export interface StrategyDraft {
   id?: Strategy['id']
-  country: Country['id']
+  board: Board['id']
   title: Strategy['title']
   description: Strategy['description']
   isPublished: Strategy['isPublished']
@@ -21,4 +21,4 @@ export interface StrategyMeasureDraft {
   description: StrategyMeasure['description']
 }
 
-export type StrategyDraftFields = Omit<StrategyDraft, 'strategyMeasures' | 'country'>
+export type StrategyDraftFields = Omit<StrategyDraft, 'strategyMeasures' | 'board'>

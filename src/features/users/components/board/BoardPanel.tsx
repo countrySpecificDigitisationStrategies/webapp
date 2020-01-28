@@ -81,9 +81,9 @@ export const BoardPanel = ({ boardId }: BoardInfoProps) => {
   const country = useSelector(getCountry(countryId))
   const strategy = useSelector(getStrategyByCountryId(countryId))
 
-  return (
+  return board && country ? (
     <Card className={classes.root}>
-      {country && <CardMedia className={classes.flag} image={country.flag || country.flagRectangle} />}
+      <CardMedia className={classes.flag} image={country.flag || country.flagRectangle} />
       <div className={classes.content}>
         <div className={classes.info}>
           <CardHeader title={country?.name} />
@@ -104,18 +104,21 @@ export const BoardPanel = ({ boardId }: BoardInfoProps) => {
               </Button>
               <Button
                 component={Link}
-                to={APP_ROUTES.editor.update.replace(`:${APP_ROUTE_PARAMS.strategyId}`, String(strategy.id))}
+                to={APP_ROUTES.editor.update.replace(`:${APP_ROUTE_PARAMS.boardId}`, String(board.id))}
                 variant="outlined">
                 Edit Strategy
               </Button>
             </>
           ) : (
-            <Button component={Link} to={APP_ROUTES.editor.create} variant="outlined">
+            <Button
+              component={Link}
+              to={APP_ROUTES.editor.create.replace(`:${APP_ROUTE_PARAMS.boardId}`, String(board.id))}
+              variant="outlined">
               Add Strategy
             </Button>
           )}
         </div>
       </div>
     </Card>
-  )
+  ) : null
 }
