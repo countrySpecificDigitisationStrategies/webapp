@@ -9,7 +9,7 @@ import { getStrategyByCountryId, useStrategyData } from 'features/strategies'
 
 export const EditorButton = (): JSX.Element => {
   //TODO: get current user's country
-  const countryId = 34 // Senegal
+  const countryId = 6 // Iraq
 
   useStrategyData()
   const strategy = useSelector(getStrategyByCountryId(countryId))

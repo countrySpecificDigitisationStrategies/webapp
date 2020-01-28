@@ -31,28 +31,30 @@ export const requestHandler: Middleware = ({ dispatch }) => next => action => {
 
 const handleRequestStart = (action: RequestStart, dispatch: Dispatch) => {
   const { request, id, onSuccess, onError } = action
+  const successActions = Array.isArray(onSuccess) ? onSuccess : [onSuccess]
+  const errorActions = onError ? (Array.isArray(onError) ? onError : [onError]) : undefined
+
   request()
-    .then((response: object) => dispatch(requestSuccess({ id, response, action: onSuccess })))
-    .catch((response: ApiError) => dispatch(requestError({ id, response, action: onError })))
+    .then((response: object) => dispatch(requestSuccess({ id, response, actions: successActions })))
+    .catch((response: ApiError) => dispatch(requestError({ id, response, actions: errorActions })))
 }
 
 const handleRequestSuccess = (currentAction: RequestSuccess, dispatch: Dispatch) => {
-  const { payload, action } = currentAction
-  if (action) {
-    dispatch(action(payload))
+  const { payload, actions } = currentAction
+  if (actions) {
+    actions.forEach(action => dispatch(action(payload)))
   }
 }
 
 const handleRequestError = (currentAction: RequestError, dispatch: Dispatch) => {
-  const { payload, action } = currentAction
+  const { payload, actions } = currentAction
   dispatch(
     showError({
       title: payload.name,
       message: payload.detail,
     })
   )
-
-  if (action) {
-    dispatch(action(payload))
+  if (actions) {
+    actions.forEach(action => dispatch(action(payload)))
   }
 }

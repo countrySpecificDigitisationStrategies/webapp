@@ -12,6 +12,7 @@ import {
   Strategies,
   Strategy,
   StrategyEditor,
+  AccountInfo,
 } from 'pages'
 import {
   StrategyBreadcrumb,
@@ -29,6 +30,7 @@ export const APP_ROUTE_PARAMS: { [key: string]: string } = {
   categoryId: 'categoryId',
   situationId: 'situationId',
   measureId: 'measureId',
+  boardId: 'boardId',
 }
 const p = APP_ROUTE_PARAMS
 
@@ -50,8 +52,8 @@ export const APP_ROUTES = {
   discussion: '/discussion',
   account: '/account',
   editor: {
-    create: '/strategies/add',
-    update: `/strategies/edit/:${p.strategyId}`,
+    create: `/strategies/add/:${p.boardId}`,
+    update: `/strategies/edit/:${p.boardId}`,
   },
 }
 
@@ -69,6 +71,10 @@ export const routes: RouteConfig[] = [
   {
     path: APP_ROUTES.register,
     component: Register,
+  },
+  {
+    path: APP_ROUTES.account,
+    component: AccountInfo,
   },
   {
     path: Object.values(APP_ROUTES.editor),

@@ -10,6 +10,7 @@ import Situation from './Situation'
 import Category from './Category'
 import Measure from './Measure'
 import StrategyEditor from './StrategyEditor'
+import AccountInfo from './AccountInfo'
 
 export {
   Home,
@@ -24,4 +25,5 @@ export {
   Category,
   Measure,
   StrategyEditor,
+  AccountInfo,
 }

@@ -17,6 +17,9 @@ export enum Endpoint {
   situations = 'situations',
   measures = 'measures',
   strategyMeasures = 'strategy-measures',
+  countries = 'countries',
+  boards = 'boards',
+  account = 'users/me',
 }
 
 enum HttpMethod {

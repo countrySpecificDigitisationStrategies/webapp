@@ -1,5 +1,5 @@
 export { createRequest } from './actions'
-export { isAnyPending, doesRequestExist } from './selectors'
+export { isAnyPending, doesRequestExist, isRequestPending } from './selectors'
 export { loadingState } from './types'
 export { requestHandler } from './middleware'
 
