@@ -12,6 +12,7 @@ import {
   Strategies,
   Strategy,
   StrategyEditor,
+  AccountInfo,
 } from 'pages'
 import {
   StrategyBreadcrumb,
@@ -69,6 +70,10 @@ export const routes: RouteConfig[] = [
   {
     path: APP_ROUTES.register,
     component: Register,
+  },
+  {
+    path: APP_ROUTES.account,
+    component: AccountInfo,
   },
   {
     path: Object.values(APP_ROUTES.editor),

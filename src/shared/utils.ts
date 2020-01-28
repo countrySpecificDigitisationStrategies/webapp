@@ -27,3 +27,5 @@ export const sortByProperty = <T extends object>(items: T[], getPropertyFn: (ite
     else return 0
   })
 }
+
+export const flatten = <T = unknown>(array: T[][]): T[] => ([] as T[]).concat(...array)
