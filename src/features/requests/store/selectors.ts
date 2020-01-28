@@ -10,3 +10,6 @@ export const isAnyPending = (state: ApplicationState): boolean =>
 
 export const doesRequestExist = (id: requestId) => (state: ApplicationState): boolean =>
   getRequest(id)(state) !== undefined
+
+export const isRequestPending = (id: requestId) => (state: ApplicationState): boolean =>
+  getRequest(id)(state) === loadingState.pending

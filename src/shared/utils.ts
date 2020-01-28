@@ -17,8 +17,8 @@ export const addToState = <T extends object>(state: T, key: keyof T, payload: ob
 })
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const sortByProperty = <T extends object>(items: T[], getPropertyFn: (item: T) => any): void => {
-  items.sort((itemA, itemB) => {
+export const sortByProperty = <T extends object>(items: T[], getPropertyFn: (item: T) => any): T[] => {
+  return items.sort((itemA, itemB) => {
     const a = getPropertyFn(itemA) || Infinity // undefined will come last
     const b = getPropertyFn(itemB) || Infinity
 
