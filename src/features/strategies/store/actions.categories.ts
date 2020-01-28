@@ -16,7 +16,7 @@ export type CategoryActions = CategoriesAdd
 export const loadCategories = () =>
   createRequest<CategoryResponse[]>({
     id: CATEGORIES_REQUEST_ID,
-    request: () => get(Endpoint.categories),
+    request: () => get(Endpoint.situationCategories),
     onSuccess: data => addCategories(transformResponseData(data)),
   })
 

@@ -1,112 +1,159 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { TextField } from '@material-ui/core'
-import { LoginForm } from '../../authentication/index'
-
+import { Endpoint, get } from 'app/service'
 import { useDispatch, useSelector } from 'react-redux'
 import { isSuccess, register } from '../store'
-import { Form, Fields, Notification, NotificationType } from 'shared/components'
-import { Checkbox, FormControlLabel } from '@material-ui/core'
+import { Country } from '../store/types'
+import { Checkbox, Fields, Form } from 'shared/components'
+import Autocomplete from '@material-ui/lab/Autocomplete'
+import { Redirect } from 'react-router'
+import { APP_ROUTES } from '../../../app/routes'
+import { RegistrationRequest } from '../store/actions'
 
 interface RegistrationFormValues extends Fields {
-  name: string
+  firstname: string
+  lastname: string
   email: string
   password: string
+  confirmationPassword: string
+  country: number
+  termsAndPolicies: boolean
+}
+
+const mapFormValuesToRegistrationRequest = (formValues: RegistrationFormValues): RegistrationRequest => {
+  return {
+    firstname: formValues.firstname,
+    lastname: formValues.lastname,
+    email: formValues.email,
+    password: formValues.password,
+    country: formValues.country,
+  }
 }
 
 const RegistrationForm = (): JSX.Element => {
   const dispatch = useDispatch()
   const success = useSelector(isSuccess)
-  const [retypePassword, setRetypePassword] = useState(false)
-  const [passwordField, setPasswordField] = useState(false)
-  const [emailField, setEmailField] = useState(false)
-  const [passwordHelperText, setPasswordHelperText] = useState('Password should have at least 8 characters')
-  const [retypePasswordHelperText, setRetypePasswordHelperText] = useState('Repeat password')
-  const [emailHelperText, setEmailHelperText] = useState('')
+  const [countries, setCountries] = useState()
+  const [selectedCountry, setSelectedCountry] = useState()
+  const [termsAndPoliciesError, setTermsAndPoliciesError] = useState(false)
+  const [passwordMatch, setPasswordMatch] = useState(true)
+  const [passwordLength, setPasswordLength] = useState(true)
+  const [validEmail, setValidEmail] = useState(true)
 
-  const [termsAndPolicies, setTermsAndPolicies] = useState({ checkedA: true })
-
-  const handleChange = name => event => {
-    setTermsAndPolicies({ ...termsAndPolicies, [name]: event.target.checked })
-  }
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = (await get(Endpoint.countries)) as Country[]
+      setCountries(response)
+    }
+    fetchData()
+  }, [])
 
   if (success) {
-    return (
-      <div>
-        <Notification type={NotificationType.success} message="Success!" />
-        <LoginForm />
-      </div>
-    )
+    return <Redirect to={APP_ROUTES.login} />
+  }
+
+  if (!countries) return <></>
+
+  const handleChange = (values: RegistrationFormValues): void => {
+    if (values.termsAndPolicies) {
+      setTermsAndPoliciesError(false)
+    }
+    if (values.password === values.confirmationPassword) {
+      setPasswordMatch(true)
+    }
+    if (values.password && values.password.length >= 8) {
+      setPasswordLength(true)
+    }
+    if (values.email && values.email.match(/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z]+$/)) {
+      setValidEmail(true)
+    }
   }
 
   const handleSubmit = (values: RegistrationFormValues): void => {
-    if (retypePassword && values.password.length >= 8) {
-      dispatch(register(values))
+    let invalidForm = false
+    if (!values.termsAndPolicies) {
+      setTermsAndPoliciesError(true)
+      invalidForm = true
     }
-    if (values.password.length >= 8 && !retypePassword) {
-      setRetypePassword(true)
-      setRetypePasswordHelperText('Passwords muss match!')
-    } else {
-      setRetypePassword(false)
-      setRetypePasswordHelperText('')
+    if (values.password !== values.confirmationPassword) {
+      setPasswordMatch(false)
+      invalidForm = true
     }
-    if (values.password.length < 8) {
-      setPasswordField(true)
-      setPasswordHelperText('Your password has less than 8 characters')
-    } else {
-      setPasswordField(false)
-      setPasswordHelperText('')
+    if (!values.password || values.password.length < 8) {
+      setPasswordLength(false)
+      invalidForm = true
     }
-    if (!values.email.includes('@')) {
-      setEmailField(true)
-      setEmailHelperText('Please use a valid email address')
-    } else {
-      setEmailField(false)
-      setEmailHelperText('')
+    if (!values.email || values.email.match(/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z]+$/) === null) {
+      setValidEmail(false)
+      invalidForm = true
+    }
+    if (!invalidForm) {
+      values['country'] = selectedCountry
+      dispatch(register(mapFormValuesToRegistrationRequest(values)))
     }
   }
 
   return (
-    <Form<RegistrationFormValues> onSubmit={handleSubmit} submitButtonText="Sign up">
-      <TextField label="First name" name="firstName" />
-      <TextField label="Last name" name="lastName" />
-      <TextField label="E-Mail" type="email" name="email" helperText={emailHelperText} error={emailField} />
-      {/* INSERT COUNTRY SELECTION HERE
-      <TextField select label="Please select a country of origin"  name="country" />*/}
+    <Form<RegistrationFormValues> onSubmit={handleSubmit} onChange={handleChange} submitButtonText="Sign up">
+      <TextField label="First name" name="firstname" />
+      <TextField label="Last name" name="lastname" />
+      <TextField
+        label="E-Mail"
+        type="email"
+        name="email"
+        error={!validEmail}
+        helperText={validEmail ? '' : 'Please use a valid email address'}
+      />
+      <Autocomplete
+        id="country-select"
+        onChange={(_event, value) => setSelectedCountry(value.id)}
+        options={countries}
+        autoHighlight
+        getOptionLabel={option => option.name}
+        renderInput={params => (
+          <TextField
+            {...params}
+            label="Choose a country"
+            name="country"
+            variant="outlined"
+            fullWidth
+            inputProps={{
+              ...params.inputProps,
+            }}
+          />
+        )}
+      />
       <TextField
         label="Password"
         type="password"
         autoComplete="new-password"
         name="password"
-        error={passwordField}
-        helperText={passwordHelperText}
-      />
-      <TextField
-        label="Retype Password"
-        type="password"
-        name="passwordRepeat"
-        helperText={retypePasswordHelperText}
-        error={retypePassword}
-      />
-      <FormControlLabel
-        control={
-          <Checkbox
-            value="checkedA"
-            checked={termsAndPolicies.checkedA}
-            onChange={handleChange('checkedA')}
-            name="termsAndPolicies"
-          />
-        }
-        label="I agree to terms of service and privacy policy."
+        error={!passwordLength}
+        helperText={passwordLength ? '' : 'Password should have at least 8 characters'}
       />
 
       <TextField
-        helperText={'Please agree to terms of service and privacy policy'}
-        error={!termsAndPolicies.checkedA}
-        style={{ marginTop: '-33px' }}
-        InputProps={{
-          disableUnderline: true,
-        }}
+        label="Retype Password"
+        type="password"
+        name="confirmationPassword"
+        error={!passwordMatch}
+        helperText={passwordMatch ? '' : 'Passwords must match!'}
       />
+
+      <Checkbox label="I agree to terms of service and privacy policy." name="termsAndPolicies" />
+
+      {termsAndPoliciesError ? (
+        <TextField
+          helperText={'Please agree to terms of service and privacy policy'}
+          error={termsAndPoliciesError}
+          style={{ marginTop: '-33px' }}
+          InputProps={{
+            disableUnderline: true,
+          }}
+        />
+      ) : (
+        <></>
+      )}
     </Form>
   )
 }

@@ -69,7 +69,7 @@ const strategiesNavItems: NavItem[] = [
 const discussionNavItems: NavItem[] = [
   {
     key: 'discussions',
-    route: APP_ROUTES.discussion,
+    route: APP_ROUTES.discussions,
     icon: <Chat />,
     text: 'Discussions',
   },

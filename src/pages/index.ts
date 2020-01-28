@@ -9,7 +9,12 @@ import Block from './Block'
 import Situation from './Situation'
 import Category from './Category'
 import Measure from './Measure'
+import Discussions from './Discussions'
+import Discussion from './Discussion'
 import StrategyEditor from './StrategyEditor'
+import Thread from './Thread'
+import ThreadNew from './ThreadNew'
+import UserProfile from './UserProfile'
 import AccountInfo from './AccountInfo'
 
 export {
@@ -24,6 +29,11 @@ export {
   Situation,
   Category,
   Measure,
+  Discussions,
+  Discussion,
   StrategyEditor,
+  UserProfile,
+  Thread,
+  ThreadNew,
   AccountInfo,
 }

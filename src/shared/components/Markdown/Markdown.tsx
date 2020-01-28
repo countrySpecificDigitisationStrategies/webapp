@@ -81,7 +81,7 @@ const useBlockquoteStyles = makeStyles((theme: Theme) =>
   })
 )
 
-export const Markdown = ({ markdown, onCard = false, previewLinks = false }: MarkdownProps): JSX.Element => {
+export const Markdown = ({ markdown, onCard = false, previewLinks = false, className }: MarkdownProps): JSX.Element => {
   const theme = useTheme()
   const blockquoteClasses = useBlockquoteStyles(theme)
 
@@ -117,6 +117,7 @@ export const Markdown = ({ markdown, onCard = false, previewLinks = false }: Mar
   return (
     <ReactMarkdown
       source={markdown}
+      className={className}
       disallowedTypes={disallowedTypes}
       unwrapDisallowed={previewLinks}
       escapeHtml={false}
