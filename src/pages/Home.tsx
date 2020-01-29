@@ -14,13 +14,7 @@ export default function Home(): JSX.Element {
           style={{ opacity: '0.7' }}
         />
 
-        <p
-          style={{
-            position: 'absolute',
-            bottom: '1rem',
-            left: '3rem',
-            right: '3rem',
-          }}>
+        <p style={{ position: 'absolute', bottom: '1rem', left: '3rem', right: '3rem' }}>
           Many developing countries struggle with setting the correct priorities when it comes to developing strategies
           for the deployment of IT. However, as digital systems now permeate all walks of life, expanding and improving
           them are crucial for catching up to developed nations.
