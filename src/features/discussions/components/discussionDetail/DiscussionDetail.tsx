@@ -3,7 +3,7 @@ import { useLocation, useParams } from 'react-router'
 
 import { ThreadList } from 'features/discussions/components/ThreadList'
 import { DetailHeader } from '../detailHeader/DetailHeader'
-import { DiscussionDetailView } from 'features/discussions/components/discussionDetail'
+import { View } from 'features/discussions/components/discussionDetail'
 
 export const DiscussionDetail = () => {
   const location = useLocation()
@@ -11,17 +11,17 @@ export const DiscussionDetail = () => {
 
   if (!strategyId) return <div>Something went wrong!</div>
 
-  const getViewToDisplay = (): DiscussionDetailView => {
-    if (location.hash.replace(/#|-*$/, '') === '') return DiscussionDetailView.Strategy
+  const getViewToDisplay = (): View => {
+    if (location.hash.replace(/#|-*$/, '') === '') return View.Strategy
     switch (location.hash.split('-').length) {
-      case DiscussionDetailView.BuildingBlock:
-        return DiscussionDetailView.BuildingBlock
-      case DiscussionDetailView.SituationCategory:
-        return DiscussionDetailView.SituationCategory
-      case DiscussionDetailView.Situation:
-        return DiscussionDetailView.Situation
+      case 1:
+        return View.BuildingBlock
+      case 2:
+        return View.SituationCategory
+      case 3:
+        return View.Situation
       default:
-        return DiscussionDetailView.StrategyMeasure
+        return View.StrategyMeasure
     }
   }
 
@@ -31,7 +31,7 @@ export const DiscussionDetail = () => {
     return +hashIds[hashIds.length - 1]
   }
 
-  const [displayedView, setDisplayedView] = useState<DiscussionDetailView>(getViewToDisplay())
+  const [displayedView, setDisplayedView] = useState<View>(getViewToDisplay())
   const [contentId, setContentId] = useState<number | undefined>(getLastHashId())
 
   useEffect(() => {

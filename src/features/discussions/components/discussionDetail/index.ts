@@ -1,2 +1,2 @@
 export { DiscussionDetail } from './DiscussionDetail'
-export { DiscussionDetailView } from './enums'
+export { View } from './enums'

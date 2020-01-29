@@ -59,7 +59,11 @@ export const APP_ROUTES = {
   discussions: '/discussions',
   discussion: '/discussions/:strategyId',
   newThread: '/discussions/:strategyId/new-thread',
-  thread: '/discussions/:strategyId/threads/:threadId',
+  strategyThread: '/discussions/:strategyId/strategy-threads/:threadId',
+  buildingBlockThread: '/discussions/:strategyId/building-block-threads/:threadId',
+  situationCategoryThread: '/discussions/:strategyId/situation-category-threads/:threadId',
+  situationThread: '/discussions/:strategyId/situation-threads/:threadId',
+  strategyMeasureThread: '/discussions/:strategyId/strategy-measure-threads/:threadId',
   account: '/account',
   editor: {
     create: `/strategies/add/:${p.boardId}`,
@@ -142,7 +146,31 @@ export const routes: RouteConfig[] = [
     breadcrumb: DiscussionBreadcrumb,
   },
   {
-    path: APP_ROUTES.thread,
+    path: APP_ROUTES.strategyThread,
+    component: Thread,
+    exact: true,
+    // breadcrumb: MeasureBreadcrumb, // TODO
+  },
+  {
+    path: APP_ROUTES.buildingBlockThread,
+    component: Thread,
+    exact: true,
+    // breadcrumb: MeasureBreadcrumb, // TODO
+  },
+  {
+    path: APP_ROUTES.situationCategoryThread,
+    component: Thread,
+    exact: true,
+    // breadcrumb: MeasureBreadcrumb, // TODO
+  },
+  {
+    path: APP_ROUTES.situationThread,
+    component: Thread,
+    exact: true,
+    // breadcrumb: MeasureBreadcrumb, // TODO
+  },
+  {
+    path: APP_ROUTES.strategyMeasureThread,
     component: Thread,
     exact: true,
     // breadcrumb: MeasureBreadcrumb, // TODO

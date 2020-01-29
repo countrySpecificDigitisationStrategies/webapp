@@ -10,11 +10,11 @@ import {
   PreviewThreadModel,
   PreviewThreadResponse,
 } from 'features/discussions/models/thread.discussion.model'
-import { DiscussionDetailView } from './discussionDetail'
+import { View } from './discussionDetail'
 import { useLoginStatus } from '../../../shared/hooks'
 
 interface ThreadListProps {
-  displayedView: DiscussionDetailView
+  displayedView: View
   strategyId: number
   contentId?: number
 }
@@ -42,13 +42,13 @@ export const ThreadList = ({ displayedView, strategyId, contentId }: ThreadListP
 
   const getEndpoint = () => {
     switch (displayedView) {
-      case DiscussionDetailView.Strategy:
+      case View.Strategy:
         return Endpoint.strategyThreads
-      case DiscussionDetailView.BuildingBlock:
+      case View.BuildingBlock:
         return Endpoint.buildingBlockThreads
-      case DiscussionDetailView.SituationCategory:
+      case View.SituationCategory:
         return Endpoint.situationCategoryThreads
-      case DiscussionDetailView.Situation:
+      case View.Situation:
         return Endpoint.situationThreads
       default:
         return Endpoint.strategyMeasureThreads
@@ -57,15 +57,15 @@ export const ThreadList = ({ displayedView, strategyId, contentId }: ThreadListP
 
   const getQueryParams = (): string => {
     switch (displayedView) {
-      case DiscussionDetailView.Strategy:
+      case View.Strategy:
         return `?strategy=${strategyId}`
-      case DiscussionDetailView.BuildingBlock:
+      case View.BuildingBlock:
         return `?strategy=${strategyId}&buiding_block=${contentId}`
-      case DiscussionDetailView.SituationCategory:
+      case View.SituationCategory:
         return `?strategy=${strategyId}&situation_category=${contentId}`
-      case DiscussionDetailView.Situation:
+      case View.Situation:
         return `?strategy=${strategyId}&situation=${contentId}`
-      case DiscussionDetailView.StrategyMeasure:
+      case View.StrategyMeasure:
         return `?strategy_measure=${contentId}`
       default:
         return ''
@@ -136,7 +136,7 @@ export const ThreadList = ({ displayedView, strategyId, contentId }: ThreadListP
       {previewThreads.length !== 0 ? (
         sortedThreads?.length !== 0 ? (
           sortedThreads.map((thread: PreviewThreadModel, index: number) => (
-            <ThreadPreview key={index} itemClassName={`${className}-item`} thread={thread} />
+            <ThreadPreview key={index} view={displayedView} itemClassName={`${className}-item`} thread={thread} />
           ))
         ) : (
           <div>No threads found matching your filter</div>

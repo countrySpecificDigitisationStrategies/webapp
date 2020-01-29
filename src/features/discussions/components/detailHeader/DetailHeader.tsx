@@ -6,7 +6,7 @@ import { BuildingBlockDetail } from './BuildingBlockDetail'
 import { SituationCategoryDetail } from './SituationCategoryDetail'
 import { SituationDetail } from './SituationDetail'
 import { StrategyMeasureDetail } from './StrategyMeasureDetail'
-import { DiscussionDetailView } from 'features/discussions/components/discussionDetail'
+import { View } from 'features/discussions/components/discussionDetail'
 
 const useStyles = makeStyles(
   createStyles({
@@ -20,7 +20,7 @@ const useStyles = makeStyles(
 )
 
 interface DetailHeaderProps {
-  displayedView: DiscussionDetailView
+  displayedView: View
   contentId?: number
 }
 
@@ -34,11 +34,11 @@ export const DetailHeader = ({ displayedView, contentId }: DetailHeaderProps): J
     if (!contentId) return <StrategyDetail id={+strategyId} />
 
     switch (displayedView) {
-      case DiscussionDetailView.BuildingBlock:
+      case View.BuildingBlock:
         return <BuildingBlockDetail id={contentId} />
-      case DiscussionDetailView.SituationCategory:
+      case View.SituationCategory:
         return <SituationCategoryDetail id={contentId} />
-      case DiscussionDetailView.Situation:
+      case View.Situation:
         return <SituationDetail id={contentId} />
       default:
         return <StrategyMeasureDetail id={contentId} />
