@@ -1,8 +1,7 @@
-import { DiscussionCard } from './DiscussionCard'
-import { DiscussionDetail } from './discussionDetail'
-import { DiscussionForumsGrid } from './DiscussionForumsGrid'
-import { Tree } from './tree/Tree'
-import { ThreadList } from './ThreadList'
-import { ThreadPreview } from './ThreadPreview'
-
-export { DiscussionCard, DiscussionDetail, DiscussionForumsGrid, Tree, ThreadList, ThreadPreview }
+export { DiscussionCard } from './DiscussionCard'
+export { DiscussionDetail } from './discussionDetail'
+export { DiscussionForumsGrid } from './DiscussionForumsGrid'
+export { Tree } from './tree/Tree'
+export { ThreadList } from './ThreadList'
+export { ThreadPreview } from './ThreadPreview'
+export { ThreadNewForm } from './ThreadNewForm'
