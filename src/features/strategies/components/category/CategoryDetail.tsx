@@ -27,18 +27,21 @@ const CategoryDetail = ({ categoryId, strategyId, renderNextLevel = true }: Cate
   const situationIds = category.situations.filter(situation => strategy.situations.includes(situation))
   const renderSituationGrid = () => <SituationGrid ids={situationIds} />
 
-  const viewProps = {
-    title: category.title,
-    description: category.description,
-    ...(renderNextLevel && {
-      nextLevel: {
-        title: 'Situations',
-        render: renderSituationGrid,
-      },
-    }),
-  }
-
-  return <StandardView {...viewProps} />
+  return (
+    <>
+      <StandardView title={category.title} description={category.description} />
+      <StandardView
+        title={category.goalTitle}
+        description={category.goalDescription}
+        {...(renderNextLevel && {
+          nextLevel: {
+            title: 'Situations',
+            render: renderSituationGrid,
+          },
+        })}
+      />
+    </>
+  )
 }
 
 export default CategoryDetail
