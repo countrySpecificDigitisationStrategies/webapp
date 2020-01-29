@@ -80,6 +80,34 @@ export default function Home(): JSX.Element {
               </CardActions>
             </Card>
           </Grid>
+
+          <Grid item xs={12} sm={4} style={{ textAlign: 'center' }}>
+            <Card>
+              <CardActionArea>
+                <CardMedia image="/static/images/cards/contemplative-reptile.jpg" title="Contemplative Reptile" />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="h2">
+                    <i className="material-icons" style={{ float: 'left' }}>
+                      timeline
+                    </i>
+                    Strategies
+                  </Typography>
+                  <Typography variant="body2" color="textSecondary" component="p">
+                    The strategy section allows confirmed country officials to create a strategy plan for their country
+                    and regular users to view the created strategy plans.
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+              <CardActions>
+                <Button size="small" color="primary">
+                  Share
+                </Button>
+                <Button size="small" color="primary">
+                  Learn More
+                </Button>
+              </CardActions>
+            </Card>
+          </Grid>
         </Grid>
       </div>
     </>
