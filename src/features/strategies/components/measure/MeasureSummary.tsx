@@ -17,7 +17,7 @@ export const MeasureSummary = ({ id }: MeasureSummaryProps) => {
 
   return (
     <>
-      <Typography>{measure.title}</Typography>
+      <Typography variant="h5">{measure.title}</Typography>
       <Summary text={measure.description} />
     </>
   )

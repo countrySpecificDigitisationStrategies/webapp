@@ -17,7 +17,7 @@ export const SituationSummary = ({ id }: SituationSummaryProps) => {
 
   return (
     <>
-      <Typography>{situation.title}</Typography>
+      <Typography variant="h5">{situation.title}</Typography>
       <Summary text={situation.description} />
     </>
   )
