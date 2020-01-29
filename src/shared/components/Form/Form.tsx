@@ -3,7 +3,7 @@ import React from 'react'
 import { Button, ButtonProps } from '@material-ui/core'
 import { useDebounce } from 'shared/hooks'
 
-type InputValue = string | number | boolean
+export type InputValue = string | number | boolean
 
 interface InputElement extends JSX.Element {
   name: string
