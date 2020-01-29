@@ -10,9 +10,9 @@ const Breadcrumbs = ({ breadcrumbs }: InjectedProps) => (
     separator={<NavigateNext className="breadcrumbs__separator" />}
     className="breadcrumbs"
     aria-label="breadcrumb"
-    color={'secondary'}>
+    color={'primary'}>
     {breadcrumbs.map(({ match, breadcrumb }) => (
-      <MuiLink className="breadcrumbs__item" key={match.url} component={NavLink} to={match.url} color={'secondary'}>
+      <MuiLink className="breadcrumbs__item" key={match.url} component={NavLink} to={match.url} color={'primary'}>
         {breadcrumb}
       </MuiLink>
     ))}

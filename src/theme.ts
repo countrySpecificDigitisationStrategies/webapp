@@ -3,15 +3,15 @@ const defaultTheme = createMuiTheme()
 export default createMuiTheme({
   palette: {
     primary: {
-      light: '#97cffc',
-      main: '#659EC9',
-      dark: '#317098',
+      light: '#5d6672',
+      main: '#333c47',
+      dark: '#0d1620',
       contrastText: '#ffffff',
     },
     secondary: {
-      light: '#fff463',
-      main: '#f9c22d',
-      dark: '#c29200',
+      light: '#68dd8e',
+      main: '#2faa60',
+      dark: '#007a35',
       contrastText: '#ffffff',
     },
   },
