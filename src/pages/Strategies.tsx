@@ -15,7 +15,6 @@ const Strategies = () => {
         'Below you will find the strategies of individual countries, as well as a catalogue of all existing measures. '
       }
       nextLevel={{
-        title: 'Countries',
         render: renderStrategyGrid,
       }}
     />
