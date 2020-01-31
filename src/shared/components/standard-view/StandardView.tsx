@@ -7,7 +7,7 @@ interface DetailViewProps {
   description?: string
   renderAdditionalInfo?: () => JSX.Element
   nextLevel?: {
-    title: string
+    title?: string
     render: () => JSX.Element
   }
 }
@@ -32,9 +32,11 @@ export const StandardView = ({ title, description, renderAdditionalInfo, nextLev
 
   const nextLevelFragment = nextLevel ? (
     <div className={`${className}__next-level`}>
-      <Typography variant="h5" className="strategy-detail__subheading">
-        {nextLevel.title}
-      </Typography>
+      {nextLevel.title && (
+        <Typography variant="h5" className="strategy-detail__subheading">
+          {nextLevel.title}
+        </Typography>
+      )}
       {nextLevel.render()}
     </div>
   ) : null

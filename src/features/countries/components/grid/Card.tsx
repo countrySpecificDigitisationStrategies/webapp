@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link, LinkProps } from 'react-router-dom'
 import {
   Card,
   CardActionArea,
@@ -9,9 +10,8 @@ import {
   Theme,
   Typography,
 } from '@material-ui/core'
-import { StrategyModel } from './detailHeader/models/strategy.discussion.model'
-import { Link } from 'react-router-dom'
 import { Language } from '@material-ui/icons'
+import { Country } from 'features/countries/store'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -37,30 +37,31 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-export interface DiscussionCardProps {
-  strategy: StrategyModel
+export interface CountryCardProps {
+  country: Country
+  title?: string
+  linkTo: LinkProps['to']
 }
 
-export const DiscussionCard = ({ strategy }: DiscussionCardProps) => {
-  const { id, title, country } = strategy
+export const CountryCard = ({ country, title, linkTo }: CountryCardProps) => {
   const classes = useStyles()
+  const { name, flag, flagRectangle } = country
 
   return (
     <Card className={classes.card}>
-      <CardActionArea component={Link} to={`/discussions/${id}`}>
-        <CardMedia
-          className={classes.media}
-          image={country.flag || country.flagRectangle || undefined}
-          title={`Flag of ${country.name}`}>
-          {!(country.flag || country.flagRectangle) ? <Language fontSize={'inherit'} color={'secondary'} /> : null}
+      <CardActionArea component={Link} to={linkTo}>
+        <CardMedia className={classes.media} image={flag || flagRectangle || undefined} title={`Flag of ${name}`}>
+          {!(flag || flagRectangle) ? <Language fontSize={'inherit'} color={'secondary'} /> : null}
         </CardMedia>
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2" className={'country'}>
-            {country.name}
+            {name}
           </Typography>
-          <Typography variant="body2" color="textSecondary" component="p" className={'title'}>
-            {title}
-          </Typography>
+          {title && (
+            <Typography variant="body2" color="textSecondary" component="p" className={'title'}>
+              {title}
+            </Typography>
+          )}
         </CardContent>
       </CardActionArea>
     </Card>
