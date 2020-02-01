@@ -3,14 +3,18 @@ import { useSelector } from 'react-redux'
 import { useStrategyData } from 'features/strategies/components/hooks'
 import { getStrategies } from 'features/strategies/store'
 import { CountryGrid } from 'features/countries/components'
-import { APP_ROUTE_PARAMS, APP_ROUTES } from 'app/routes'
 import { Country } from 'features/countries/store'
 
 interface StrategyGridProps {
-  linkTo?: typeof APP_ROUTES.strategy | typeof APP_ROUTES.discussion
+  linkTo?: string
 }
 
-const StrategyGrid = ({ linkTo = APP_ROUTES.strategy }: StrategyGridProps): JSX.Element => {
+//TODO: somehow using APP_ROUTES and APP_ROUTE_PARAMS here, breaks breadcrumb for all strategy pages.
+// Might be an issue with circular dependencies?
+const defaultRoute = '/strategies/:strategyId' //APP_ROUTES.strategy
+const routeParam = ':strategyId' //APP_ROUTE_PARAMS.strategyId
+
+const StrategyGrid = ({ linkTo = defaultRoute }: StrategyGridProps): JSX.Element => {
   useStrategyData()
   const strategies = Object.values(useSelector(getStrategies) || {})
   const countryIds = strategies.filter(strategy => strategy.isPublished).map(strategy => strategy.country.id)
@@ -20,7 +24,7 @@ const StrategyGrid = ({ linkTo = APP_ROUTES.strategy }: StrategyGridProps): JSX.
 
   const getStrategyRoute = (countryId: Country['id']) => {
     const strategyId = getStrategyByCountryId(countryId)?.id
-    if (strategyId) return linkTo.replace(`:${APP_ROUTE_PARAMS.strategyId}`, String(strategyId))
+    if (strategyId) return linkTo.replace(routeParam, String(strategyId))
     else return ''
   }
 
