@@ -19,9 +19,10 @@ export {
   EntityTree,
   NodeType,
   useMeasureData,
+  useStrategyMeasureData,
 } from './components'
 
-export { getStrategy, getStrategyByCountryId, getMeasures } from './store'
+export { getStrategy, getStrategyByCountryId, getMeasures, getStrategyMeasures } from './store'
 
 import { RenderNodeContentFn as _RenderNodeContentFn } from './components'
 export type RenderNodeContentFn = _RenderNodeContentFn
