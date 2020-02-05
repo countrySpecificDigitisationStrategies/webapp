@@ -6,12 +6,12 @@ export default function Home(): JSX.Element {
     <>
       <h1>Digitization strategies for developing countries</h1>
 
-      <div style={{ position: 'relative', color: 'white' }}>
+      <div style={{ position: 'relative', color: 'white', height: '400px' }}>
         <img
           src="https://mediafiles.mein-haustier.de/wp-content/uploads/2018/02/shutterstock_222861379-1000x608.jpg"
           alt="Picture of people"
           width="99%"
-          style={{ opacity: '0.7' }}
+          style={{ opacity: '0.7', width: '100%', height: '100%', objectFit: 'cover' }}
         />
 
         <p style={{ position: 'absolute', bottom: '1rem', left: '3rem', right: '3rem' }}>
