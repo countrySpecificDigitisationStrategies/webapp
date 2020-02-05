@@ -1,8 +1,8 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { Button, Typography } from '@material-ui/core'
 import { getStrategy, Strategy } from 'features/strategies/store'
 import { BlockGrid, EntityDetailView, EntityType, useStrategyData } from 'features/strategies/components'
+import { AnalysisButton } from 'features/analyses/components/AnalysisButton'
 
 interface StrategyDetailProps {
   id: Strategy['id']
@@ -21,17 +21,7 @@ const StrategyDetail = ({ id }: StrategyDetailProps) => {
       title={strategy.title}
       subtitle={strategy.country.name}
       description={strategy.description}
-      renderInfo={() => (
-        //TODO: Move to Analyses Feature
-        <>
-          <Typography variant="h5" className="strategy-detail__subheading">
-            Analysis
-          </Typography>
-          <Button color="primary" variant="contained">
-            Show complete analysis
-          </Button>
-        </>
-      )}
+      renderInfo={() => <AnalysisButton countryId={strategy.country.id} />}
       nextLevel={{
         title: 'Building Blocks',
         render: renderBlockGrid,
