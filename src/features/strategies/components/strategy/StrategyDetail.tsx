@@ -1,8 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { getStrategy, Strategy } from 'features/strategies/store'
-import { BlockGrid, useStrategyData } from 'features/strategies/components'
-import { StandardView } from 'shared/components'
+import { BlockGrid, EntityDetailView, EntityType, useStrategyData } from 'features/strategies/components'
 import { AnalysisButton } from 'features/analyses/components/AnalysisButton'
 
 interface StrategyDetailProps {
@@ -16,10 +15,13 @@ const StrategyDetail = ({ id }: StrategyDetailProps) => {
 
   const renderBlockGrid = () => <BlockGrid ids={strategy.blocks} />
   return (
-    <StandardView
-      title={strategy.country.name}
+    <EntityDetailView
+      entityType={EntityType.Strategy}
+      entityId={id}
+      title={strategy.title}
+      subtitle={strategy.country.name}
       description={strategy.description}
-      renderAdditionalInfo={() => <AnalysisButton countryId={strategy.country.id} />}
+      renderInfo={() => <AnalysisButton countryId={strategy.country.id} />}
       nextLevel={{
         title: 'Building Blocks',
         render: renderBlockGrid,

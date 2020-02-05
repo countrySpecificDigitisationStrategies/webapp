@@ -32,7 +32,6 @@ enum HttpMethod {
   POST = 'POST',
   PUT = 'PUT',
   DELETE = 'DELETE',
-  PATCH = 'PATCH',
 }
 
 export type ApiResponse = object | ApiError
@@ -45,10 +44,6 @@ interface OptionsType {
 
 export const get = async (endpoint: Endpoint, options?: OptionsType): Promise<ApiResponse> => {
   return fetchFromApi(buildUrl(endpoint, options), HttpMethod.GET)
-}
-
-export const patch = async (endpoint: Endpoint, id?: number): Promise<ApiResponse> => {
-  return fetchFromApi(buildUrl(endpoint, id), HttpMethod.PATCH)
 }
 
 export const post = async (endpoint: Endpoint, data: object): Promise<ApiResponse> => {

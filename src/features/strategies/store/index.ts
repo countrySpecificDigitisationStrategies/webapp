@@ -23,6 +23,7 @@ export {
   getMeasures,
   getMeasure,
   areMeasuresLoaded,
+  getStrategyMeasures,
   getStrategyMeasureByRelated,
   areStrategyMeasuresLoaded,
 } from './selectors'
