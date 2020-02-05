@@ -10,7 +10,6 @@ export default function Home(): JSX.Element {
         <img
           src="https://mediafiles.mein-haustier.de/wp-content/uploads/2018/02/shutterstock_222861379-1000x608.jpg"
           alt="Picture of people"
-          width="99%"
           style={{ opacity: '0.7', width: '100%', height: '100%', objectFit: 'cover' }}
         />
 
