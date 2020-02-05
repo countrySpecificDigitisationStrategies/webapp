@@ -16,7 +16,6 @@ import {
   Discussion,
   Thread,
   ThreadNew,
-  UserProfile,
   AccountInfo,
 } from 'pages'
 
@@ -28,7 +27,7 @@ import {
   SituationBreadcrumb,
 } from 'features/strategies'
 import { AnalysisBreadcrumb } from 'features/analyses'
-import { DiscussionBreadcrumb } from '../features/discussions/components/DiscussionBreadcrumb'
+import { DiscussionBreadcrumb } from 'features/discussions/components/DiscussionBreadcrumb'
 
 export const APP_ROUTE_PARAMS: { [key: string]: string } = {
   analysisId: 'analysisId',
@@ -43,28 +42,35 @@ const p = APP_ROUTE_PARAMS
 
 export const APP_ROUTES = {
   home: '/',
+
+  /** Account */
   login: '/login',
   register: '/register',
+  account: '/account',
+
+  /** Analyses */
   analyses: '/analyses',
   analysis: `/analyses/:${p.analysisId}`,
+
+  /** Strategies */
   strategies: '/strategies',
   strategy: `/strategies/:${p.strategyId}`,
   block: `/strategies/:${p.strategyId}/:${p.blockId}`,
   category: `/strategies/:${p.strategyId}/:${p.blockId}/:${p.categoryId}`,
   situation: `/strategies/:${p.strategyId}/:${p.blockId}/:${p.categoryId}/:${p.situationId}`,
   measure: `/strategies/:${p.strategyId}/:${p.blockId}/:${p.categoryId}/:${p.situationId}/:${p.measureId}`,
-  education: '/education',
-  infrastructure: '/infrastructure',
-  management: '/management',
-  discussions: '/discussions',
-  discussion: '/discussions/:strategyId',
-  newThread: '/discussions/:strategyId/new-thread',
-  thread: '/discussions/:strategyId/threads/:threadId',
-  account: '/account',
+
+  /** Strategy Editor */
   editor: {
     create: `/strategies/add/:${p.boardId}`,
     update: `/strategies/edit/:${p.boardId}`,
   },
+
+  /** Discussions */
+  discussions: '/discussions',
+  discussion: '/discussions/:strategyId',
+  newThread: '/discussions/:strategyId/new-thread',
+  thread: '/discussions/:strategyId/threads/:threadId',
 }
 
 export const routes: RouteConfig[] = [
@@ -74,6 +80,8 @@ export const routes: RouteConfig[] = [
     exact: true,
     breadcrumb: null,
   },
+
+  /** Account */
   {
     path: APP_ROUTES.login,
     component: Login,
@@ -86,18 +94,23 @@ export const routes: RouteConfig[] = [
     path: APP_ROUTES.account,
     component: AccountInfo,
   },
-  {
-    path: Object.values(APP_ROUTES.editor),
-    component: StrategyEditor,
-  },
-  {
-    path: APP_ROUTES.strategies,
-    component: Strategies,
-    exact: true,
-  },
+
+  /** Analyses */
   {
     path: APP_ROUTES.analyses,
     component: Analyses,
+    exact: true,
+  },
+  {
+    path: APP_ROUTES.analysis,
+    component: Analysis,
+    breadcrumb: AnalysisBreadcrumb,
+  },
+
+  /** Strategies */
+  {
+    path: APP_ROUTES.strategies,
+    component: Strategies,
     exact: true,
   },
   {
@@ -130,6 +143,14 @@ export const routes: RouteConfig[] = [
     exact: true,
     breadcrumb: MeasureBreadcrumb,
   },
+
+  /** Strategy Editor */
+  {
+    path: Object.values(APP_ROUTES.editor),
+    component: StrategyEditor,
+  },
+
+  /** Discussions */
   {
     path: APP_ROUTES.discussions,
     component: Discussions,
@@ -152,16 +173,5 @@ export const routes: RouteConfig[] = [
     exact: true,
     component: ThreadNew,
     // breadcrumb: MeasureBreadcrumb, // TODO
-  },
-  {
-    path: APP_ROUTES.analysis,
-    component: Analysis,
-    exact: true,
-    breadcrumb: AnalysisBreadcrumb,
-  },
-  {
-    path: APP_ROUTES.account,
-    component: UserProfile,
-    exact: true,
   },
 ]
