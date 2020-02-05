@@ -4,6 +4,7 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import rootReducer from 'app/store/reducers'
 import middleware from 'app/store/middleware'
 
-const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(...middleware)))
+const composeEnhancers = composeWithDevTools({ trace: true, traceLimit: 5 })
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(...middleware)))
 
 export { store }

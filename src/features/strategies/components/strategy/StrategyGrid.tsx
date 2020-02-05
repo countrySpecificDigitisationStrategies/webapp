@@ -1,20 +1,41 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { useStrategyData } from 'features/strategies/components/hooks'
-import { getStrategies, Strategy } from 'features/strategies/store'
-import { OptionsGrid } from 'shared/components'
-import { StrategyCard } from 'features/strategies/components/strategy/StrategyCard'
+import { getStrategies } from 'features/strategies/store'
+import { CountryGrid } from 'features/countries/components'
+import { Country } from 'features/countries/store'
 
-const StrategyGrid = (): JSX.Element => {
+interface StrategyGridProps {
+  linkTo?: string
+}
+
+//TODO: somehow using APP_ROUTES and APP_ROUTE_PARAMS here, breaks breadcrumb for all strategy pages.
+// Might be an issue with circular dependencies?
+const defaultRoute = '/strategies/:strategyId' //APP_ROUTES.strategy
+const routeParam = ':strategyId' //APP_ROUTE_PARAMS.strategyId
+
+const StrategyGrid = ({ linkTo = defaultRoute }: StrategyGridProps): JSX.Element => {
   useStrategyData()
-  const strategies = useSelector(getStrategies)
+  const strategies = Object.values(useSelector(getStrategies) || {})
+  const countryIds = strategies.filter(strategy => strategy.isPublished).map(strategy => strategy.country.id)
 
-  if (!strategies) return <div>No Strategies could be found.</div>
+  const getStrategyByCountryId = (countryId: Country['id']) =>
+    strategies.find(strategy => strategy.country.id === countryId)
+
+  const getStrategyRoute = (countryId: Country['id']) => {
+    const strategyId = getStrategyByCountryId(countryId)?.id
+    if (strategyId) return linkTo.replace(routeParam, String(strategyId))
+    else return ''
+  }
+
+  const getStrategyTitle = (countryId: Country['id']) => getStrategyByCountryId(countryId)?.title
+
   return (
-    <OptionsGrid<Strategy>
-      dataset={strategies}
-      filter={strategy => strategy.isPublished}
-      render={(_id, strategy) => <StrategyCard strategy={strategy} />}
+    <CountryGrid
+      ids={countryIds}
+      cardLink={getStrategyRoute}
+      cardTitle={getStrategyTitle}
+      emptyMessage="Sorry, there are no Strategies yet."
     />
   )
 }

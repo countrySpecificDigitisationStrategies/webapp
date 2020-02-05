@@ -2,8 +2,14 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { Typography } from '@material-ui/core'
 
-import { getStrategy, getStrategyMeasureByRelated, Measure, Strategy } from 'features/strategies/store'
-import { MeasureDetail, useStrategyData, useStrategyMeasureData } from 'features/strategies/components'
+import { getMeasure, getStrategy, getStrategyMeasureByRelated, Measure, Strategy } from 'features/strategies/store'
+import {
+  EntityDetailView,
+  EntityType,
+  useMeasureData,
+  useStrategyData,
+  useStrategyMeasureData,
+} from 'features/strategies/components'
 
 interface StrategyMeasureDetailProps {
   measureId: Measure['id']
@@ -12,12 +18,14 @@ interface StrategyMeasureDetailProps {
 
 const StrategyMeasureDetail = ({ measureId, strategyId }: StrategyMeasureDetailProps) => {
   useStrategyData()
+  useMeasureData()
   useStrategyMeasureData()
 
   const strategy = useSelector(getStrategy(strategyId))
+  const measure = useSelector(getMeasure(measureId))
   const strategyMeasure = useSelector(getStrategyMeasureByRelated(strategyId, measureId))
 
-  if (!(strategy && strategyMeasure))
+  if (!(strategy && strategyMeasure && measure))
     return (
       <div>
         Could not find Measure with id {measureId} on Strategy with id {strategyId}
@@ -31,7 +39,16 @@ const StrategyMeasureDetail = ({ measureId, strategyId }: StrategyMeasureDetailP
     </>
   )
 
-  return <MeasureDetail id={measureId} renderAdditionalInfo={strategyMeasureFragment} />
+  return (
+    <EntityDetailView
+      entityType={EntityType.Measure}
+      entityId={strategyMeasure.id}
+      strategyId={strategyId}
+      title={measure.title}
+      description={measure.description}
+      renderInfo={strategyMeasureFragment}
+    />
+  )
 }
 
 export default StrategyMeasureDetail

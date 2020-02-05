@@ -1,20 +1,28 @@
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { setFields, StrategyDraft } from '../store'
-import { useStrategyData, getStrategy, StrategyMeasure } from 'features/strategies'
-import { setMeasures } from 'features/strategy-editor/store/actions'
-import { getStrategyMeasures } from 'features/strategies/store/selectors'
-import { useEffect } from 'react'
-import { useStrategyMeasureData } from 'features/strategies/components'
+import {
+  useStrategyData,
+  useStrategyMeasureData,
+  getStrategy,
+  StrategyMeasure,
+  getStrategyMeasures,
+} from 'features/strategies'
+
+import { setFields, setMeasures, StrategyDraft, isSubmittingStrategy } from '../store'
 
 export const useSetInitialStrategyEditorValues = (strategyId: StrategyDraft['id']) => {
+  const dispatch = useDispatch()
+
   useStrategyData()
   useStrategyMeasureData()
   const strategy = useSelector(getStrategy(strategyId || NaN))
   const allStrategyMeasures = useSelector(getStrategyMeasures)
-  const dispatch = useDispatch()
+  const isSubmitting = useSelector(isSubmittingStrategy)
 
   useEffect(() => {
+    if (isSubmitting) return // do not update while submitting
+
     if (strategyId && strategy) {
       const { id, title, description, strategyMeasures, isPublished } = strategy
       const measuresOnThisStrategy = strategyMeasures

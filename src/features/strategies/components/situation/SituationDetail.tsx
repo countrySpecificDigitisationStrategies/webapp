@@ -1,16 +1,20 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { getSituation, getStrategy, Situation, Strategy } from 'features/strategies/store'
-import { MeasureGrid, useSituationData, useStrategyData } from 'features/strategies/components'
-import { StandardView } from 'shared/components'
+import {
+  EntityDetailView,
+  EntityType,
+  MeasureGrid,
+  useSituationData,
+  useStrategyData,
+} from 'features/strategies/components'
 
 interface SituationDetailProps {
   situationId: Situation['id']
   strategyId: Strategy['id']
-  renderNextLevel?: boolean
 }
 
-const SituationDetail = ({ situationId, strategyId, renderNextLevel = true }: SituationDetailProps) => {
+const SituationDetail = ({ situationId, strategyId }: SituationDetailProps) => {
   useSituationData()
   useStrategyData()
 
@@ -27,18 +31,19 @@ const SituationDetail = ({ situationId, strategyId, renderNextLevel = true }: Si
   const measureIds = situation.measures.filter(measure => strategy.measures.includes(measure))
   const renderMeasureGrid = () => <MeasureGrid ids={measureIds} />
 
-  const viewProps = {
-    title: situation.title,
-    description: situation.description,
-    ...(renderNextLevel && {
-      nextLevel: {
+  return (
+    <EntityDetailView
+      entityType={EntityType.Block}
+      entityId={situationId}
+      strategyId={strategyId}
+      title={situation.title}
+      description={situation.description}
+      nextLevel={{
         title: 'Measures',
         render: renderMeasureGrid,
-      },
-    }),
-  }
-
-  return <StandardView {...viewProps} />
+      }}
+    />
+  )
 }
 
 export default SituationDetail

@@ -1,11 +1,11 @@
 import { Endpoint, post, put } from 'app/service'
 import { createRequest } from 'features/requests/store'
-import { showError } from 'features/ui/store'
 
 import { StrategyDraft, StrategyDraftFields, StrategyMeasureDraft } from './types'
 import { StrategyEditRequest } from './types.api'
 import { addStrategiesFromResponse } from 'features/strategies/store/actions.strategies'
 import { StrategyResponse } from 'features/strategies/store/types.api'
+import { loadStrategyMeasures } from 'features/strategies/store'
 
 export const STRATEGY_EDITOR_REQUEST_ID = 'strategy-editor'
 export const STRATEGY_EDITOR_CLEAR = 'strategy-editor/clear'
@@ -70,7 +70,7 @@ export const submitStrategy = ({ id, ...strategy }: StrategyDraft) => {
   return createRequest<StrategyResponse>({
     id: STRATEGY_EDITOR_REQUEST_ID,
     request: () => (id ? put(Endpoint.strategies, id, data) : post(Endpoint.strategies, data)),
-    onSuccess: data => addStrategiesFromResponse([data]),
+    onSuccess: [strategy => addStrategiesFromResponse([strategy]), loadStrategyMeasures],
   })
 }
 

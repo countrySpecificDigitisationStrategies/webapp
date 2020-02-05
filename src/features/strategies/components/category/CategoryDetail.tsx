@@ -1,16 +1,21 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { getCategory, Category, Strategy, getStrategy } from 'features/strategies/store'
-import { useCategoryData, SituationGrid, useStrategyData } from 'features/strategies/components'
+import {
+  useCategoryData,
+  SituationGrid,
+  useStrategyData,
+  EntityDetailView,
+  EntityType,
+} from 'features/strategies/components'
 import { StandardView } from 'shared/components'
 
 interface CategoryDetailProps {
   categoryId: Category['id']
   strategyId: Strategy['id']
-  renderNextLevel?: boolean
 }
 
-const CategoryDetail = ({ categoryId, strategyId, renderNextLevel = true }: CategoryDetailProps) => {
+const CategoryDetail = ({ categoryId, strategyId }: CategoryDetailProps) => {
   useCategoryData()
   useStrategyData()
 
@@ -30,15 +35,16 @@ const CategoryDetail = ({ categoryId, strategyId, renderNextLevel = true }: Cate
   return (
     <>
       <StandardView title={category.title} description={category.description} />
-      <StandardView
+      <EntityDetailView
+        entityType={EntityType.Category}
+        entityId={categoryId}
+        strategyId={strategyId}
         title={category.goalTitle}
         description={category.goalDescription}
-        {...(renderNextLevel && {
-          nextLevel: {
-            title: 'Situations',
-            render: renderSituationGrid,
-          },
-        })}
+        nextLevel={{
+          title: 'Situations',
+          render: renderSituationGrid,
+        }}
       />
     </>
   )

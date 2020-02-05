@@ -30,7 +30,7 @@ export const Form = <FormFields extends Fields = Fields>({
   onChangeDebounce = 300,
   submitButtonText = 'Submit',
   submitButtonAttributes = {},
-  initialValues,
+  initialValues = {},
 }: FormProps<FormFields>) => {
   const [values, setValues] = useState({ ...initialValues } as FormFields)
   const setValue = (name: string, value: InputValue) => setValues({ ...values, [name]: value })
@@ -39,7 +39,11 @@ export const Form = <FormFields extends Fields = Fields>({
   useEffect(() => {
     // while fields are not yet dirty, update values when initialValues change
     if (!dirty) {
-      setValues({ ...initialValues } as FormFields)
+      const valuesNeedUpdate = Object.entries(initialValues).reduce(
+        (acc, [field, value]) => (acc = acc || values[field] !== value),
+        false
+      )
+      if (valuesNeedUpdate) setValues({ ...initialValues } as FormFields)
     }
   }, [initialValues])
 
