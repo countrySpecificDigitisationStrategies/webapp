@@ -28,93 +28,128 @@ export default function Home(): JSX.Element {
         </p>
       </div>
 
-      <div>
-        <Grid container spacing={3}>
-          <Grid item xs={12} sm={4} style={{ textAlign: 'center' }}>
-            <Card>
-              <CardActionArea>
-                <CardMedia image="/static/images/cards/contemplative-reptile.jpg" title="Contemplative Reptile" />
-                <CardContent>
-                  <Typography gutterBottom variant="h5" component="h2">
-                    <i className="material-icons" style={{ float: 'left' }}>
-                      assessment
-                    </i>
-                    Analysis
-                  </Typography>
-                  <Typography variant="body2" color="textSecondary" component="p">
-                    The analyses section provides facts about individual countries, which help the user to find a
-                    country comparable to their own.
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-              <CardActions>
-                <Button size="small" color="primary">
-                  Share
-                </Button>
-                <Button size="small" color="primary">
-                  Learn More
-                </Button>
-              </CardActions>
-            </Card>
+      <div style={{ marginBottom: '4rem' }}>
+        <Grid container spacing={3} justify={'center'}>
+          <Grid
+            item
+            xs={12}
+            md={3}
+            component={Card}
+            style={{
+              margin: '1rem',
+              textAlign: 'center',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+            }}>
+            <CardActionArea>
+              <CardMedia image="/static/images/cards/contemplative-reptile.jpg" title="Contemplative Reptile" />
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="h2">
+                  <i className="material-icons" style={{ float: 'left' }}>
+                    assessment
+                  </i>
+                  Analysis
+                </Typography>
+                <Typography variant="body2" color="textSecondary" component="p">
+                  The analyses section provides facts about individual countries, which help the user to find a country
+                  comparable to their own.
+                </Typography>
+              </CardContent>
+            </CardActionArea>
+            <CardActions>
+              <Button size="small" color="primary">
+                Share
+              </Button>
+              <Button size="small" color="primary">
+                Learn More
+              </Button>
+            </CardActions>
           </Grid>
 
-          <Grid item xs={12} sm={4} style={{ textAlign: 'center' }}>
-            <Card>
-              <CardActionArea>
-                <CardMedia image="/static/images/cards/contemplative-reptile.jpg" title="Contemplative Reptile" />
-                <CardContent>
-                  <Typography gutterBottom variant="h5" component="h2">
-                    <i className="material-icons" style={{ float: 'left' }}>
-                      timeline
-                    </i>
-                    Strategies
-                  </Typography>
-                  <Typography variant="body2" color="textSecondary" component="p">
-                    The strategy section allows confirmed country officials to create a strategy plan for their country
-                    and regular users to view the created strategy plans.
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-              <CardActions>
-                <Button size="small" color="primary">
-                  Share
-                </Button>
-                <Button size="small" color="primary">
-                  Learn More
-                </Button>
-              </CardActions>
-            </Card>
+          <Grid
+            item
+            xs={12}
+            md={3}
+            component={Card}
+            style={{
+              margin: '1rem',
+              textAlign: 'center',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+            }}>
+            <CardActionArea>
+              <CardMedia image="/static/images/cards/contemplative-reptile.jpg" title="Contemplative Reptile" />
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="h2">
+                  <i className="material-icons" style={{ float: 'left' }}>
+                    timeline
+                  </i>
+                  Strategies
+                </Typography>
+                <Typography variant="body2" color="textSecondary" component="p">
+                  The strategy section allows confirmed country officials to create a strategy plan for their country
+                  and regular users to view the created strategy plans.
+                </Typography>
+              </CardContent>
+            </CardActionArea>
+            <CardActions>
+              <Button size="small" color="primary">
+                Share
+              </Button>
+              <Button size="small" color="primary">
+                Learn More
+              </Button>
+            </CardActions>
           </Grid>
 
-          <Grid item xs={12} sm={4} style={{ textAlign: 'center' }}>
-            <Card>
-              <CardActionArea>
-                <CardMedia image="/static/images/cards/contemplative-reptile.jpg" title="Contemplative Reptile" />
-                <CardContent>
-                  <Typography gutterBottom variant="h5" component="h2">
-                    <i className="material-icons" style={{ float: 'left' }}>
-                      message
-                    </i>
-                    Discussion
-                  </Typography>
-                  <Typography variant="body2" color="textSecondary" component="p">
-                    The discussion section allows everybody to discuss individual measures and strategies and how they
-                    might be modified to better fit any given country.
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-              <CardActions>
-                <Button size="small" color="primary">
-                  Share
-                </Button>
-                <Button size="small" color="primary">
-                  Learn More
-                </Button>
-              </CardActions>
-            </Card>
+          <Grid
+            item
+            xs={12}
+            md={3}
+            component={Card}
+            style={{
+              margin: '1rem',
+              textAlign: 'center',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+            }}>
+            <CardActionArea>
+              <CardMedia image="/static/images/cards/contemplative-reptile.jpg" title="Contemplative Reptile" />
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="h2">
+                  <i className="material-icons" style={{ float: 'left' }}>
+                    message
+                  </i>
+                  Discussion
+                </Typography>
+                <Typography variant="body2" color="textSecondary" component="p">
+                  The discussion section allows everybody to discuss individual measures and strategies and how they
+                  might be modified to better fit any given country.
+                </Typography>
+              </CardContent>
+            </CardActionArea>
+            <CardActions>
+              <Button size="small" color="primary">
+                Share
+              </Button>
+              <Button size="small" color="primary">
+                Learn More
+              </Button>
+            </CardActions>
           </Grid>
         </Grid>
       </div>
+
+      <footer>
+        <hr />
+        <h5 style={{ textAlign: 'center' }}>
+          The whole process of the platform is governed by the IT-Boards of the individual countries. The IT-Boards
+          consist of several members appointed by law.
+        </h5>
+      </footer>
     </>
   )
 }
