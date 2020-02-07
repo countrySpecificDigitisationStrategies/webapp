@@ -1,9 +1,11 @@
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router'
 import { TextField } from '@material-ui/core'
 
-import { useDispatch, useSelector } from 'react-redux'
+import { Form, Fields } from 'shared/components'
+
 import { login, isLoggedIn } from '../store'
-import { Form, Fields, Notification, NotificationType } from 'shared/components'
 
 interface LoginFormValues extends Fields {
   email: string
@@ -13,9 +15,10 @@ interface LoginFormValues extends Fields {
 const LoginForm = (): JSX.Element => {
   const dispatch = useDispatch()
   const success = useSelector(isLoggedIn)
+  const history = useHistory()
 
   if (success) {
-    return <Notification type={NotificationType.success} message="Success!" />
+    history.goBack()
   }
 
   const handleSubmit = (values: LoginFormValues): void => {

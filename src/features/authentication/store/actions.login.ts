@@ -1,6 +1,7 @@
 import { UserCredentials } from './types'
 import { Endpoint, post, AuthToken } from 'app/service'
 import { createRequest } from 'features/requests/store'
+import { showSuccess } from 'features/ui/store'
 
 /** Login */
 export const LOGIN_REQUEST_ID = 'login'
@@ -22,10 +23,12 @@ export const login = (credentials: UserCredentials) =>
   createRequest<LoginSuccessPayload>({
     id: LOGIN_REQUEST_ID,
     request: () => post(Endpoint.login, credentials),
-    onSuccess: loginSuccess,
+    onSuccess: [loginSuccess, showLoginSuccess],
   })
 
 const loginSuccess = ({ token }: LoginSuccessPayload): LoginSuccess => ({
   type: LOGIN_SUCCESS,
   token,
 })
+
+const showLoginSuccess = () => showSuccess({ message: 'Successfully logged in' })
