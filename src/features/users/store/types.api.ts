@@ -37,3 +37,11 @@ export interface UserResponse {
   groups: [] //?
   userPermissions: [] //?
 }
+
+export interface RegistrationRequest {
+  firstname: string
+  lastname: string
+  email: string
+  password: string
+  country: number
+}

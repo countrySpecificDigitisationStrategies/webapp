@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from 'react'
-import { TextField } from '@material-ui/core'
-import { Endpoint, get } from 'app/service'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { isSuccess, register } from '../store'
-import { Country } from '../store/types'
-import { Checkbox, Fields, Form } from 'shared/components'
-import Autocomplete from '@material-ui/lab/Autocomplete'
 import { Redirect } from 'react-router'
-import { APP_ROUTES } from '../../../app/routes'
-import { RegistrationRequest } from '../store/actions'
+import { TextField } from '@material-ui/core'
+
+import { APP_ROUTES } from 'app/routes'
+import { Checkbox, Fields, Form } from 'shared/components'
+import { CountryCombobox } from 'features/countries'
+
+import { register, RegistrationRequest, registrationSucceeded } from 'features/users/store'
 
 interface RegistrationFormValues extends Fields {
   firstname: string
@@ -20,39 +19,23 @@ interface RegistrationFormValues extends Fields {
   termsAndPolicies: boolean
 }
 
-const mapFormValuesToRegistrationRequest = (formValues: RegistrationFormValues): RegistrationRequest => {
-  return {
-    firstname: formValues.firstname,
-    lastname: formValues.lastname,
-    email: formValues.email,
-    password: formValues.password,
-    country: formValues.country,
-  }
-}
+const mapFormValuesToRegistrationRequest = ({
+  confirmationPassword,
+  termsAndPolicies,
+  ...registrationRequestValues
+}: RegistrationFormValues): RegistrationRequest => registrationRequestValues
 
-const RegistrationForm = (): JSX.Element => {
+export const RegistrationForm = (): JSX.Element => {
   const dispatch = useDispatch()
-  const success = useSelector(isSuccess)
-  const [countries, setCountries] = useState()
-  const [selectedCountry, setSelectedCountry] = useState()
+  const success = useSelector(registrationSucceeded)
   const [termsAndPoliciesError, setTermsAndPoliciesError] = useState(false)
   const [passwordMatch, setPasswordMatch] = useState(true)
   const [passwordLength, setPasswordLength] = useState(true)
   const [validEmail, setValidEmail] = useState(true)
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = (await get(Endpoint.countries)) as Country[]
-      setCountries(response)
-    }
-    fetchData()
-  }, [])
-
   if (success) {
     return <Redirect to={APP_ROUTES.login} />
   }
-
-  if (!countries) return <></>
 
   const handleChange = (values: RegistrationFormValues): void => {
     if (values.termsAndPolicies) {
@@ -88,7 +71,6 @@ const RegistrationForm = (): JSX.Element => {
       invalidForm = true
     }
     if (!invalidForm) {
-      values['country'] = selectedCountry
       dispatch(register(mapFormValuesToRegistrationRequest(values)))
     }
   }
@@ -104,25 +86,7 @@ const RegistrationForm = (): JSX.Element => {
         error={!validEmail}
         helperText={validEmail ? '' : 'Please use a valid email address'}
       />
-      <Autocomplete
-        id="country-select"
-        onChange={(_event, value) => setSelectedCountry(value.id)}
-        options={countries}
-        autoHighlight
-        getOptionLabel={option => option.name}
-        renderInput={params => (
-          <TextField
-            {...params}
-            label="Choose a country"
-            name="country"
-            variant="outlined"
-            fullWidth
-            inputProps={{
-              ...params.inputProps,
-            }}
-          />
-        )}
-      />
+      <CountryCombobox />
       <TextField
         label="Password"
         type="password"
@@ -157,5 +121,3 @@ const RegistrationForm = (): JSX.Element => {
     </Form>
   )
 }
-
-export default RegistrationForm

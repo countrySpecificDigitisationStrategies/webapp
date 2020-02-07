@@ -1,2 +1,2 @@
-export { AccountInfo } from './components'
+export { AccountInfo, RegistrationForm } from './components'
 export { usersReducer, UsersState } from './store'

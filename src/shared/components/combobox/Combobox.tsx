@@ -30,12 +30,10 @@ export const Combobox = <T extends {}>({
       getOptionLabel={option => option[labelProperty]}
       value={selectedItem}
       onChange={(_event, value) => setSelected(value?.[idProperty])}
-      style={{ width: 300 }}
       renderInput={params => (
         <TextField
           {...params}
           label={label}
-          variant="outlined"
           fullWidth
           InputProps={{
             ...params.InputProps,
