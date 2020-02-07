@@ -1,3 +1,4 @@
+export { loadIfNotLoaded } from './components'
 export { createRequest, isAnyPending, doesRequestExist, loadingState, requestHandler } from './store'
 
 import { CreateRequestReturnType as _CreateRequestReturnType, ErrorResponse, SuccessResponse } from './store'

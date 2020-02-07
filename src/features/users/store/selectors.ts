@@ -1,7 +1,7 @@
 import { ApplicationState } from 'app/store/reducers'
 import { UsersState, User, Board } from 'features/users/store/types'
-import { doesRequestExist, isRequestDone } from 'features/requests/store'
-import { ACCOUNT_REQUEST_ID, BOARDS_REQUEST_ID, REGISTRATION_REQUEST_ID } from 'features/users/store/actions'
+import { isRequestDone } from 'features/requests/store'
+import { REGISTRATION_REQUEST_ID } from 'features/users/store/actions'
 
 const getSlice = (state: ApplicationState): UsersState => state.users
 export const getAccount = (state: ApplicationState): UsersState['account'] => getSlice(state).account
@@ -18,6 +18,4 @@ export const getUsersByIds = (ids: User['id'][]) => (state: ApplicationState): U
   ...ids.map(id => getUsers(state)[id]).filter(user => user !== undefined),
 ]
 
-export const isAccountLoaded = doesRequestExist(ACCOUNT_REQUEST_ID)
-export const areBoardsLoaded = doesRequestExist(BOARDS_REQUEST_ID)
 export const registrationSucceeded = isRequestDone(REGISTRATION_REQUEST_ID)
