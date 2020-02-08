@@ -23,6 +23,7 @@ export enum Endpoint {
   situationThreads = 'situation-threads',
   strategyMeasureThreads = 'strategy-measure-threads',
   account = 'users/me',
+  users = 'users',
   countries = 'countries',
   boards = 'boards',
 }
@@ -31,6 +32,7 @@ enum HttpMethod {
   GET = 'GET',
   POST = 'POST',
   PUT = 'PUT',
+  PATCH = 'PATCH',
   DELETE = 'DELETE',
 }
 
@@ -53,6 +55,11 @@ export const post = async (endpoint: Endpoint, data: object): Promise<ApiRespons
 export const put = async (endpoint: Endpoint, id: number, data: object): Promise<ApiResponse> => {
   return fetchFromApi(buildUrl(endpoint, { id }), HttpMethod.PUT, data)
 }
+
+export const patch = async (endpoint: Endpoint, id: number, data: object): Promise<ApiResponse> => {
+  return fetchFromApi(buildUrl(endpoint, { id }), HttpMethod.PATCH, data)
+}
+
 const buildUrl = (endpoint: Endpoint, options?: OptionsType) => {
   const post = options?.post
   const queryParams = options?.queryParams

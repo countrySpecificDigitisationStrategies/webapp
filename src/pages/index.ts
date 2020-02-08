@@ -15,6 +15,7 @@ import StrategyEditor from './StrategyEditor'
 import Thread from './Thread'
 import ThreadNew from './ThreadNew'
 import AccountInfo from './AccountInfo'
+import AccountEdit from './AccountEdit'
 
 export {
   Home,
@@ -34,4 +35,5 @@ export {
   Thread,
   ThreadNew,
   AccountInfo,
+  AccountEdit,
 }

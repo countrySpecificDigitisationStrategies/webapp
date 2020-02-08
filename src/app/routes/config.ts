@@ -19,6 +19,7 @@ import {
   Thread,
   ThreadNew,
   AccountInfo,
+  AccountEdit,
 } from 'pages'
 
 import {
@@ -52,6 +53,11 @@ export const routes: RouteConfig[] = [
   {
     path: APP_ROUTES.account,
     component: withAuthGuard(AccountInfo),
+    exact: true,
+  },
+  {
+    path: APP_ROUTES.accountEdit,
+    component: withAuthGuard(AccountEdit),
   },
 
   /** Analyses */

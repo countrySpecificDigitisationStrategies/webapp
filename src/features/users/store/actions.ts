@@ -1,4 +1,4 @@
-export { ACCOUNT_REQUEST_ID, ACCOUNT_SET, loadAccount } from './actions.account'
+export { ACCOUNT_LOAD_REQUEST_ID, ACCOUNT_SET, loadAccount, patchAccount } from './actions.account'
 export { BOARDS_REQUEST_ID, BOARDS_ADD, loadBoards } from './actions.boards'
 export { USERS_ADD } from './actions.users'
 export { REGISTRATION_REQUEST_ID, register } from './actions.registration'

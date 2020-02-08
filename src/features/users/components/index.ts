@@ -1,4 +1,4 @@
 export { AccountInfo } from './account-info/AccountInfo'
 export { BoardList } from './board/BoardList'
-export { RegistrationForm } from './registration-form/RegistrationForm'
+export { AccountEditForm, RegistrationForm } from './account-form'
 export { useAccountData } from './hooks'

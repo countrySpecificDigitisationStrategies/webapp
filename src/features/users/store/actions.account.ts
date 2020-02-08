@@ -1,12 +1,13 @@
-import { Endpoint, get } from 'app/service'
+import { Endpoint, get, patch } from 'app/service'
 import { createRequest } from 'features/requests/store'
 
 import { Account } from './types'
-import { AccountResponse } from './types.api'
+import { AccountPatchRequest, AccountResponse } from './types.api'
 import { addBoardsFromResponse } from './actions.boards'
 import { addCountriesFromResponse } from 'features/countries'
 
-export const ACCOUNT_REQUEST_ID = 'account'
+export const ACCOUNT_LOAD_REQUEST_ID = 'account/load'
+export const ACCOUNT_UPDATE_REQUEST_ID = 'account/update'
 export const ACCOUNT_SET = 'account/set'
 
 interface SetAccount {
@@ -35,18 +36,28 @@ const transformAccountResponseData = ({
   lastName: lastname,
   firstName: firstname,
   boards: boards.map(board => board.id),
-  country: country.id,
+  country: country?.id,
   created: new Date(created),
   updated: new Date(updated),
 })
 
+const setAccountActions = [
+  setAccountFromResponse,
+  ({ boards }: AccountResponse) => addBoardsFromResponse(boards),
+  ({ country }: AccountResponse) => addCountriesFromResponse(country ? [country] : []),
+]
+
 export const loadAccount = () =>
   createRequest<AccountResponse>({
-    id: ACCOUNT_REQUEST_ID,
+    id: ACCOUNT_LOAD_REQUEST_ID,
     request: () => get(Endpoint.account),
-    onSuccess: [
-      setAccountFromResponse,
-      ({ boards }) => addBoardsFromResponse(boards),
-      ({ country }) => addCountriesFromResponse([country]),
-    ],
+    onSuccess: setAccountActions,
+  })
+
+export const patchAccount = (id: Account['id'], payload: AccountPatchRequest) =>
+  createRequest<AccountResponse>({
+    id: ACCOUNT_UPDATE_REQUEST_ID,
+    request: () => patch(Endpoint.users, id, payload),
+    onSuccess: setAccountActions,
+    clearAfter: true,
   })

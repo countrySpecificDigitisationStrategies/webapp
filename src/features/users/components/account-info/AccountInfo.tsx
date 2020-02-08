@@ -64,7 +64,7 @@ export const AccountInfo = () => {
             Member since {created.toLocaleDateString('en', { year: 'numeric', month: 'long', day: '2-digit' })}
           </Typography>
         )}
-        <Button variant={'contained'} component={Link} to={APP_ROUTES.account} className={classes.editButton}>
+        <Button variant={'contained'} component={Link} to={APP_ROUTES.accountEdit} className={classes.editButton}>
           Edit Information
         </Button>
       </div>

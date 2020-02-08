@@ -47,3 +47,11 @@ export interface RegistrationRequest {
   password: string
   country: number
 }
+
+export interface AccountPatchRequest {
+  firstname?: string
+  lastname?: string
+  email?: string
+  password?: string
+  country?: number
+}
