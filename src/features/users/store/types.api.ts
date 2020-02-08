@@ -3,11 +3,12 @@ import { CountryResponse } from 'features/countries'
 export interface AccountResponse {
   id: number
   email: string
-  country: CountryResponse['id']
+  country: CountryResponse
   firstname: string
   lastname: string
-  currentCountry: CountryResponse['id']
+  currentCountry: CountryResponse
   boards: BoardResponse[]
+  isModerator: boolean
   created: string
   updated: string
 }
@@ -32,8 +33,9 @@ export interface UserResponse {
   isActive: boolean
   isStaff: boolean
   isSuperuser: boolean
-  country: CountryResponse['id']
-  currentCountry: CountryResponse['id']
+  isModerator: boolean
+  country: CountryResponse
+  currentCountry: CountryResponse
   groups: [] //?
   userPermissions: [] //?
 }

@@ -26,5 +26,5 @@ export interface User {
   firstName: string
   lastName: string
   country: Country['id']
-  currentCountry: Country['id']
+  isModerator: boolean
 }

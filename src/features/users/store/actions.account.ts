@@ -4,6 +4,7 @@ import { createRequest } from 'features/requests/store'
 import { Account } from './types'
 import { AccountResponse } from './types.api'
 import { addBoardsFromResponse } from './actions.boards'
+import { addCountriesFromResponse } from 'features/countries'
 
 export const ACCOUNT_REQUEST_ID = 'account'
 export const ACCOUNT_SET = 'account/set'
@@ -25,6 +26,7 @@ const transformAccountResponseData = ({
   firstname,
   lastname,
   boards,
+  country,
   created,
   updated,
   ...account
@@ -33,6 +35,7 @@ const transformAccountResponseData = ({
   lastName: lastname,
   firstName: firstname,
   boards: boards.map(board => board.id),
+  country: country.id,
   created: new Date(created),
   updated: new Date(updated),
 })
@@ -41,5 +44,9 @@ export const loadAccount = () =>
   createRequest<AccountResponse>({
     id: ACCOUNT_REQUEST_ID,
     request: () => get(Endpoint.account),
-    onSuccess: [setAccountFromResponse, ({ boards }) => addBoardsFromResponse(boards)],
+    onSuccess: [
+      setAccountFromResponse,
+      ({ boards }) => addBoardsFromResponse(boards),
+      ({ country }) => addCountriesFromResponse([country]),
+    ],
   })

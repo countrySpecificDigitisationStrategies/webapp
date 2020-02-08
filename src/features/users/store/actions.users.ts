@@ -17,11 +17,11 @@ export const addUsers = (users: User[]): AddUsers => ({
 
 export const addUsersFromResponse = (users: UserResponse[]) => addUsers(transformResponseData(users))
 const transformResponseData = (users: UserResponse[]): User[] =>
-  users.map(({ id, updated, created, email, firstname, lastname, country, currentCountry }) => ({
+  users.map(({ id, updated, created, email, firstname, lastname, country, isModerator }) => ({
     id,
     email,
-    country,
-    currentCountry,
+    isModerator,
+    country: country?.id,
     firstName: firstname,
     lastName: lastname,
     updated: new Date(updated),

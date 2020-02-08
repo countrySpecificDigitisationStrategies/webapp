@@ -23,8 +23,10 @@ export const loadCountries = () =>
   createRequest<CountryResponse[]>({
     id: COUNTRIES_REQUEST_ID,
     request: () => get(Endpoint.countries),
-    onSuccess: data => addCountries(transformResponseData(data)),
+    onSuccess: addCountriesFromResponse,
   })
+
+export const addCountriesFromResponse = (data: CountryResponse[]) => addCountries(transformResponseData(data))
 
 const transformResponseData = (countries: CountryResponse[]): Country[] =>
   countries.map(country => ({
