@@ -94,7 +94,7 @@ export const AccountForm = ({
       <TextField label="First name" name="firstName" />
       <TextField label="Last name" name="lastName" />
 
-      <CountryCombobox />
+      <CountryCombobox name="country" />
 
       <br />
       <br />

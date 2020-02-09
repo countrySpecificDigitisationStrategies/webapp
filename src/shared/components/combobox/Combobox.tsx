@@ -1,14 +1,17 @@
-import React, { useState } from 'react'
-import { TextField, CircularProgress } from '@material-ui/core'
-import { Autocomplete } from '@material-ui/lab'
+import React, { ChangeEvent, useState } from 'react'
+import { TextField, CircularProgress, TextFieldProps } from '@material-ui/core'
+import { Autocomplete, AutocompleteProps } from '@material-ui/lab'
 
-interface ComboboxProps<T extends {}> {
+export interface ComboboxProps<T extends {}>
+  extends Omit<AutocompleteProps, 'options' | 'getOptionLabel' | 'value' | 'onChange' | 'renderInput'> {
   loading: boolean
   options: T[]
   labelProperty: keyof T
   idProperty: keyof T
-  initialValue?: T[ComboboxProps<T>['idProperty']]
+  value?: T[ComboboxProps<T>['idProperty']]
   label: string
+  name?: TextFieldProps['name']
+  onChange?: (e: ChangeEvent<{}>, value: ComboboxProps<T>['value']) => void
 }
 
 export const Combobox = <T extends {}>({
@@ -16,24 +19,35 @@ export const Combobox = <T extends {}>({
   options,
   labelProperty,
   idProperty,
-  initialValue,
+  value,
   label,
+  name,
+  onChange,
+  ...autocompleteProps
 }: ComboboxProps<T>) => {
-  const [selected, setSelected] = useState(initialValue)
+  const [selected, setSelected] = useState(value)
 
   const emptyValue = { [idProperty]: null, [labelProperty]: '' }
   const selectedItem = (selected && options.find(option => option[idProperty] === selected)) || emptyValue
 
+  const handleChange = (event: ChangeEvent<{}>, value: T) => {
+    const selectedId = value?.[idProperty]
+    setSelected(selectedId)
+    onChange?.(event, selectedId)
+  }
+
   return (
     <Autocomplete
+      {...autocompleteProps}
       options={Object.values(options)}
       getOptionLabel={option => option[labelProperty]}
       value={selectedItem}
-      onChange={(_event, value) => setSelected(value?.[idProperty])}
+      onChange={handleChange}
       renderInput={params => (
         <TextField
           {...params}
           label={label}
+          name={name}
           fullWidth
           InputProps={{
             ...params.InputProps,
