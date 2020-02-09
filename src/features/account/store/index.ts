@@ -1,5 +1,5 @@
 export { login, logout, register, loadAccount, patchAccount } from './actions'
 export { authHandler } from './middleware'
 export { accountReducer } from './reducer'
-export { isLoggedIn, getAuthToken, getAccount, registrationSucceeded } from './selectors'
+export { isLoggedIn, getAuthToken, getAccount, registrationSucceeded, accountUpdateSucceeded } from './selectors'
 export { AccountState, UserCredentials } from './types'

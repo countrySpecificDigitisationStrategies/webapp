@@ -5,17 +5,17 @@ import { Redirect } from 'react-router'
 import { APP_ROUTES } from 'app/routes'
 
 import { useAccountData } from 'features/account/components'
-import { getAccount, patchAccount } from 'features/account/store'
+import { accountUpdateSucceeded, getAccount, patchAccount } from 'features/account/store'
 
 import { AccountForm, AccountFormValues } from './AccountForm'
 
 export const AccountEditForm = () => {
   useAccountData()
   const account = useSelector(getAccount)
-  const success = useSelector(() => false)
+  const success = useSelector(accountUpdateSucceeded)
   const dispatch = useDispatch()
 
-  if (success) return <Redirect to={APP_ROUTES.login} />
+  if (success) return <Redirect to={APP_ROUTES.account} />
   if (!account) return null
 
   const { id, firstName, lastName, email, country } = account
