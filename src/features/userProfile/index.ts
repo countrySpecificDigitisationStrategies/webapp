@@ -1,1 +1,0 @@
-export { UserProfileComponent } from './components'

@@ -6,6 +6,7 @@ import {
   REQUEST_SUCCESS,
   requestError,
   requestSuccess,
+  clearRequest,
   RequestStart,
   RequestSuccess,
   RequestError,
@@ -30,13 +31,18 @@ export const requestHandler: Middleware = ({ dispatch }) => next => action => {
 }
 
 const handleRequestStart = (action: RequestStart, dispatch: Dispatch) => {
-  const { request, id, onSuccess, onError } = action
+  const { request, id, onSuccess, onError, clearAfter } = action
   const successActions = Array.isArray(onSuccess) ? onSuccess : [onSuccess]
   const errorActions = onError ? (Array.isArray(onError) ? onError : [onError]) : undefined
 
   request()
     .then((response: object) => dispatch(requestSuccess({ id, response, actions: successActions })))
     .catch((response: ApiError) => dispatch(requestError({ id, response, actions: errorActions })))
+    .finally(() => {
+      if (clearAfter) {
+        dispatch(clearRequest({ id }))
+      }
+    })
 }
 
 const handleRequestSuccess = (currentAction: RequestSuccess, dispatch: Dispatch) => {

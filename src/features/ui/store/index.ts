@@ -1,3 +1,3 @@
-export { closeNavBar, openNavBar, showError, hideError } from './actions'
-export { isNavBarOpen, getError, hasError } from './selectors'
-export { UiState, UiError } from './types'
+export { closeNavBar, openNavBar, showError, showSuccess, hideNotification } from './actions'
+export { isNavBarOpen, getNotification, hasNotification } from './selectors'
+export { UiState, Notification } from './types'

@@ -1,9 +1,9 @@
-import { CLOSE_NAV_BAR, HIDE_ERROR, OPEN_NAV_BAR, SHOW_ERROR, UiActionTypes } from './actions'
+import { CLOSE_NAV_BAR, HIDE_NOTIFICATION, OPEN_NAV_BAR, SHOW_NOTIFICATION, UiActionTypes } from './actions'
 import { UiState } from './types'
 
 const initialState: UiState = {
   isNavBarOpen: false,
-  error: null,
+  notification: null,
 }
 
 export const ui = (state: UiState = initialState, action: UiActionTypes): UiState => {
@@ -12,10 +12,10 @@ export const ui = (state: UiState = initialState, action: UiActionTypes): UiStat
       return { ...state, isNavBarOpen: true }
     case CLOSE_NAV_BAR:
       return { ...state, isNavBarOpen: false }
-    case SHOW_ERROR:
-      return { ...state, error: action.payload }
-    case HIDE_ERROR:
-      return { ...state, error: null }
+    case SHOW_NOTIFICATION:
+      return { ...state, notification: action.payload }
+    case HIDE_NOTIFICATION:
+      return { ...state, notification: null }
     default:
       return state
   }

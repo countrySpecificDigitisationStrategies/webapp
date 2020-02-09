@@ -9,6 +9,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core'
 
 interface BoardListProps {
   ids: Board['id'][]
+  editable: Board['id'][]
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -20,7 +21,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-export const BoardList = ({ ids }: BoardListProps) => {
+export const BoardList = ({ ids, editable }: BoardListProps) => {
   const classes = useStyles()
   useBoardData()
   const boards = useSelector(getBoardsByIds(ids))
@@ -29,7 +30,7 @@ export const BoardList = ({ ids }: BoardListProps) => {
     <>
       {boards.map(board => (
         <div className={classes.board} key={board.id}>
-          <BoardPanel boardId={board.id} />
+          <BoardPanel boardId={board.id} editable={editable.includes(board.id)} />
         </div>
       ))}
     </>
