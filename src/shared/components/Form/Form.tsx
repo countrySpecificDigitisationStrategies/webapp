@@ -63,7 +63,7 @@ export const Form = <FormFields extends Fields = Fields>({
           const name = child?.props?.name
           if (name) {
             return React.cloneElement(child as InputElement, {
-              value: values[name],
+              value: values[name] || '',
               onChange: (e: ChangeEvent<HTMLSelectElement>, value?: InputValue) => {
                 setDirty(true)
                 setValue(name, value !== undefined ? value : e.target?.value)

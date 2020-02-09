@@ -10,14 +10,14 @@ import {
 
 interface CheckboxProps extends Omit<MuiCheckboxProps, 'defaultValue'> {
   label?: FormControlLabelProps['label']
-  value?: MuiCheckboxProps['checked']
+  value?: MuiCheckboxProps['checked'] | string
   error?: boolean
   helperText?: string
 }
 
 export const Checkbox = ({ label, value = false, error = false, helperText, ...props }: CheckboxProps) => (
   <FormControl>
-    <FormControlLabel control={<MuiCheckbox color="primary" checked={value} {...props} />} label={label} />
+    <FormControlLabel control={<MuiCheckbox color="primary" checked={!!value} {...props} />} label={label} />
     {helperText && <FormHelperText error={error}>{helperText}</FormHelperText>}
   </FormControl>
 )
