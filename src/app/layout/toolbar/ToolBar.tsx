@@ -17,7 +17,7 @@ import {
 import { AccountCircle, Lock } from '@material-ui/icons'
 import MenuIcon from '@material-ui/icons/Menu'
 
-import { logout } from 'features/authentication'
+import { logout } from 'features/account'
 import { useLoginStatus } from 'shared/hooks'
 import { APP_ROUTES } from 'app/routes'
 import { isNavBarOpen, openNavBar } from 'features/ui/store'

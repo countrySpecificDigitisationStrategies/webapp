@@ -1,13 +1,8 @@
 import { Country } from 'features/countries'
 
 export type UsersState = {
-  account: Account | {}
   boards: { [id in Board['id']]: Board }
   users: { [id in User['id']]: User }
-}
-
-export interface Account extends User {
-  boards: Board['id'][]
 }
 
 export interface Board {
@@ -26,5 +21,6 @@ export interface User {
   firstName: string
   lastName: string
   country: Country['id']
-  currentCountry: Country['id']
+  isModerator: boolean
+  boards?: Board['id'][]
 }

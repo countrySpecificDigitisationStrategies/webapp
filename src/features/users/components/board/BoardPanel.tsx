@@ -23,6 +23,7 @@ import { APP_ROUTE_PARAMS, APP_ROUTES } from 'app/routes'
 
 interface BoardInfoProps {
   boardId: Board['id']
+  editable: boolean
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -63,7 +64,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-export const BoardPanel = ({ boardId }: BoardInfoProps) => {
+export const BoardPanel = ({ boardId, editable }: BoardInfoProps) => {
   const classes = useStyles()
 
   useBoardData()
@@ -102,20 +103,26 @@ export const BoardPanel = ({ boardId }: BoardInfoProps) => {
                 variant="outlined">
                 View Strategy
               </Button>
-              <Button
-                component={Link}
-                to={APP_ROUTES.editor.update.replace(`:${APP_ROUTE_PARAMS.boardId}`, String(board.id))}
-                variant="outlined">
-                Edit Strategy
-              </Button>
+              {editable && (
+                <Button
+                  component={Link}
+                  to={APP_ROUTES.editor.update.replace(`:${APP_ROUTE_PARAMS.boardId}`, String(board.id))}
+                  variant="outlined">
+                  Edit Strategy
+                </Button>
+              )}
             </>
           ) : (
-            <Button
-              component={Link}
-              to={APP_ROUTES.editor.create.replace(`:${APP_ROUTE_PARAMS.boardId}`, String(board.id))}
-              variant="outlined">
-              Add Strategy
-            </Button>
+            <>
+              {editable && (
+                <Button
+                  component={Link}
+                  to={APP_ROUTES.editor.create.replace(`:${APP_ROUTE_PARAMS.boardId}`, String(board.id))}
+                  variant="outlined">
+                  Add Strategy
+                </Button>
+              )}
+            </>
           )}
         </div>
       </div>

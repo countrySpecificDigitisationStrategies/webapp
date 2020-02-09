@@ -1,7 +1,8 @@
 import camelize from 'camelize'
 import decamelize from 'snakecase-keys'
-import { getAuthToken } from 'app/service/authentication'
 import { ApiError } from 'app/service/error'
+import { store } from 'app/store'
+import { getAuthToken } from 'features/account'
 
 // eslint-disable-next-line no-undef
 const baseUrl = process.env.API_URL
@@ -23,6 +24,7 @@ export enum Endpoint {
   situationThreads = 'situation-threads',
   strategyMeasureThreads = 'strategy-measure-threads',
   account = 'users/me',
+  users = 'users',
   countries = 'countries',
   boards = 'boards',
 }
@@ -31,6 +33,7 @@ enum HttpMethod {
   GET = 'GET',
   POST = 'POST',
   PUT = 'PUT',
+  PATCH = 'PATCH',
   DELETE = 'DELETE',
 }
 
@@ -53,6 +56,11 @@ export const post = async (endpoint: Endpoint, data: object): Promise<ApiRespons
 export const put = async (endpoint: Endpoint, id: number, data: object): Promise<ApiResponse> => {
   return fetchFromApi(buildUrl(endpoint, { id }), HttpMethod.PUT, data)
 }
+
+export const patch = async (endpoint: Endpoint, id: number, data: object): Promise<ApiResponse> => {
+  return fetchFromApi(buildUrl(endpoint, { id }), HttpMethod.PATCH, data)
+}
+
 const buildUrl = (endpoint: Endpoint, options?: OptionsType) => {
   const post = options?.post
   const queryParams = options?.queryParams
@@ -94,7 +102,7 @@ const getFetchOptions = (method: HttpMethod, data?: object): RequestInit => {
     headers: {},
   }
 
-  const authToken = getAuthToken()
+  const authToken = getAuthToken(store.getState())
   if (authToken) {
     fetchOptions.headers = {
       ...fetchOptions.headers,

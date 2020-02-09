@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { isLoggedIn } from 'features/authentication/store'
+import { isLoggedIn } from 'features/account/store'
 
 export const useLoginStatus = () => useSelector(isLoggedIn)
 

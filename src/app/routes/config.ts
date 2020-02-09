@@ -19,6 +19,7 @@ import {
   Thread,
   ThreadNew,
   AccountInfo,
+  AccountEdit,
 } from 'pages'
 
 import {
@@ -30,6 +31,7 @@ import {
 } from 'features/strategies'
 import { AnalysisBreadcrumb } from 'features/analyses'
 import { DiscussionBreadcrumb } from 'features/discussions/components/DiscussionBreadcrumb'
+import { withAuthGuard } from 'features/account/hocs'
 
 export const routes: RouteConfig[] = [
   {
@@ -42,15 +44,20 @@ export const routes: RouteConfig[] = [
   /** Account */
   {
     path: APP_ROUTES.login,
-    component: Login,
+    component: withAuthGuard(Login, { publicOnly: true }),
   },
   {
     path: APP_ROUTES.register,
-    component: Register,
+    component: withAuthGuard(Register, { publicOnly: true }),
   },
   {
     path: APP_ROUTES.account,
-    component: AccountInfo,
+    component: withAuthGuard(AccountInfo),
+    exact: true,
+  },
+  {
+    path: APP_ROUTES.accountEdit,
+    component: withAuthGuard(AccountEdit),
   },
 
   /** Analyses */
@@ -105,7 +112,7 @@ export const routes: RouteConfig[] = [
   /** Strategy Editor */
   {
     path: Object.values(APP_ROUTES.editor),
-    component: StrategyEditor,
+    component: withAuthGuard(StrategyEditor),
   },
 
   /** Discussions */
@@ -129,7 +136,7 @@ export const routes: RouteConfig[] = [
   {
     path: APP_ROUTES.newThread,
     exact: true,
-    component: ThreadNew,
+    component: withAuthGuard(ThreadNew),
     // breadcrumb: MeasureBreadcrumb, // TODO
   },
 ]
