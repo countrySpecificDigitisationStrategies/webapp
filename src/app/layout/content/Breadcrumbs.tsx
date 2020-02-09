@@ -1,11 +1,12 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import withBreadcrumbs, { InjectedProps } from 'react-router-breadcrumbs-hoc'
+import withBreadcrumbs, { BreadcrumbsRoute, InjectedProps } from 'react-router-breadcrumbs-hoc'
 import { Link as MuiLink, Breadcrumbs as MuiBreadcrumbs } from '@material-ui/core'
 import { NavigateNext } from '@material-ui/icons'
-import { routes } from 'app/routes'
 
-const Breadcrumbs = ({ breadcrumbs }: InjectedProps) => (
+import { routes } from 'app/routes/config'
+
+const Breadcrumbs = ({ breadcrumbs }: InjectedProps<unknown>) => (
   <MuiBreadcrumbs
     separator={<NavigateNext className="breadcrumbs__separator" />}
     className="breadcrumbs"
@@ -19,8 +20,4 @@ const Breadcrumbs = ({ breadcrumbs }: InjectedProps) => (
   </MuiBreadcrumbs>
 )
 
-// Typings of HOC sem to be wrong
-// --> BreadcrumbsRoute should extend RouteConfig and make breadcrumbs optional
-// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-// @ts-ignore
-export default withBreadcrumbs(routes)(Breadcrumbs)
+export default withBreadcrumbs(routes as BreadcrumbsRoute[])(Breadcrumbs)

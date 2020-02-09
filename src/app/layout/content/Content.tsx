@@ -1,7 +1,7 @@
 import React from 'react'
 import { renderRoutes } from 'react-router-config'
 
-import { routes } from 'app/routes'
+import { routes } from 'app/routes/config'
 import Breadcrumbs from 'app/layout/content/Breadcrumbs'
 import { withErrorNotification, withLoadingOverlay } from 'shared/hocs'
 
