@@ -13,3 +13,6 @@ export const doesRequestExist = (id: requestId) => (state: ApplicationState): bo
 
 export const isRequestPending = (id: requestId) => (state: ApplicationState): boolean =>
   getRequest(id)(state) === loadingState.pending
+
+export const isRequestDone = (id: requestId) => (state: ApplicationState): boolean =>
+  getRequest(id)(state) === loadingState.done

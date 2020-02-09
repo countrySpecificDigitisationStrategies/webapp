@@ -3,7 +3,7 @@ import { renderRoutes } from 'react-router-config'
 
 import { routes } from 'app/routes'
 import Breadcrumbs from 'app/layout/content/Breadcrumbs'
-import { withErrorNotification, withLoadingOverlay } from 'shared/hocs'
+import { withNotification, withLoadingOverlay } from 'shared/hocs'
 
 const Content = (): JSX.Element => (
   <>
@@ -12,4 +12,4 @@ const Content = (): JSX.Element => (
   </>
 )
 
-export default withLoadingOverlay(withErrorNotification(Content))
+export default withLoadingOverlay(withNotification(Content))

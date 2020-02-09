@@ -1,5 +1,5 @@
 import React from 'react'
-import { RegistrationForm } from 'features/registration'
+import { RegistrationForm } from 'features/account'
 
 const Register = () => <RegistrationForm />
 
