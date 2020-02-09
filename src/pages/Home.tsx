@@ -1,5 +1,8 @@
 import React from 'react'
-import { Grid, Card, CardActionArea, CardMedia, CardContent, Typography, CardActions, Button } from '@material-ui/core'
+import { Link } from 'react-router-dom'
+import { Grid, Card, CardActionArea, CardContent, Typography } from '@material-ui/core'
+import { Assessment, Timeline, Message } from '@material-ui/icons'
+import { APP_ROUTES } from 'app/routes'
 
 export default function Home(): JSX.Element {
   return (
@@ -41,13 +44,10 @@ export default function Home(): JSX.Element {
               flexDirection: 'column',
               justifyContent: 'space-between',
             }}>
-            <CardActionArea>
-              <CardMedia image="/static/images/cards/contemplative-reptile.jpg" title="Contemplative Reptile" />
+            <CardActionArea component={Link} to={APP_ROUTES.analyses}>
               <CardContent>
                 <Typography gutterBottom variant="h5" component="h2">
-                  <i className="material-icons" style={{ float: 'left' }}>
-                    assessment
-                  </i>
+                  <Assessment style={{ float: 'left' }} />
                   Analysis
                 </Typography>
                 <Typography variant="body2" color="textSecondary" component="p">
@@ -56,14 +56,6 @@ export default function Home(): JSX.Element {
                 </Typography>
               </CardContent>
             </CardActionArea>
-            <CardActions>
-              <Button size="small" color="primary">
-                Share
-              </Button>
-              <Button size="small" color="primary">
-                Learn More
-              </Button>
-            </CardActions>
           </Grid>
 
           <Grid
@@ -78,13 +70,10 @@ export default function Home(): JSX.Element {
               flexDirection: 'column',
               justifyContent: 'space-between',
             }}>
-            <CardActionArea>
-              <CardMedia image="/static/images/cards/contemplative-reptile.jpg" title="Contemplative Reptile" />
+            <CardActionArea component={Link} to={APP_ROUTES.strategies}>
               <CardContent>
                 <Typography gutterBottom variant="h5" component="h2">
-                  <i className="material-icons" style={{ float: 'left' }}>
-                    timeline
-                  </i>
+                  <Timeline style={{ float: 'left' }} />
                   Strategies
                 </Typography>
                 <Typography variant="body2" color="textSecondary" component="p">
@@ -93,14 +82,6 @@ export default function Home(): JSX.Element {
                 </Typography>
               </CardContent>
             </CardActionArea>
-            <CardActions>
-              <Button size="small" color="primary">
-                Share
-              </Button>
-              <Button size="small" color="primary">
-                Learn More
-              </Button>
-            </CardActions>
           </Grid>
 
           <Grid
@@ -115,13 +96,10 @@ export default function Home(): JSX.Element {
               flexDirection: 'column',
               justifyContent: 'space-between',
             }}>
-            <CardActionArea>
-              <CardMedia image="/static/images/cards/contemplative-reptile.jpg" title="Contemplative Reptile" />
+            <CardActionArea component={Link} to={APP_ROUTES.discussions}>
               <CardContent>
                 <Typography gutterBottom variant="h5" component="h2">
-                  <i className="material-icons" style={{ float: 'left' }}>
-                    message
-                  </i>
+                  <Message style={{ float: 'left' }} />
                   Discussion
                 </Typography>
                 <Typography variant="body2" color="textSecondary" component="p">
@@ -130,14 +108,6 @@ export default function Home(): JSX.Element {
                 </Typography>
               </CardContent>
             </CardActionArea>
-            <CardActions>
-              <Button size="small" color="primary">
-                Share
-              </Button>
-              <Button size="small" color="primary">
-                Learn More
-              </Button>
-            </CardActions>
           </Grid>
         </Grid>
       </div>
