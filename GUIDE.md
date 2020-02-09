@@ -134,7 +134,7 @@ app # core directory, that includes everything directly needed for our app
     index.ts # exports all layout components
     content / navigation / toolbar / ...
       Content.tsx / Navigation.tsx / ToolBar.tsx / ...
-   routes.ts # defines all routes that exist in the app
+   routes # defines all routes that exist in the app
   service # everything related to the communication with the api
     api.ts # defines all endpoints and includes a facade for all outgoing request operations (post, get,...)
     authentication.ts # handles everything related to the AuthToken

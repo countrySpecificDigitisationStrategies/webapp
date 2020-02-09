@@ -1,5 +1,5 @@
-export { loadCountries } from './actions'
+export { loadCountries, addCountriesFromResponse } from './actions'
 export { countriesReducer } from './reducer'
-export { areCountriesLoaded } from './selectors'
+export { getCountry } from './selectors'
 export { CountriesState, Country } from './types'
 export { CountryResponse } from './types.api'

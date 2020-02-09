@@ -1,9 +1,12 @@
+import { NotificationType } from 'shared/components'
+
 export interface UiState {
   isNavBarOpen: boolean
-  error: null | UiError
+  notification: null | Notification
 }
 
-export interface UiError {
-  title: string
+export interface Notification {
+  type: NotificationType
+  title?: string
   message: string
 }
