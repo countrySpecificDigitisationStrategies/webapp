@@ -5,6 +5,7 @@ import { Account } from './types'
 import { AccountPatchRequest, AccountResponse } from './types.api'
 import { addBoardsFromResponse } from 'features/users'
 import { addCountriesFromResponse } from 'features/countries'
+import { clearRequest } from 'features/requests/store/actions'
 
 export const ACCOUNT_LOAD_REQUEST_ID = 'account/load'
 export const ACCOUNT_UPDATE_REQUEST_ID = 'account/update'
@@ -61,3 +62,5 @@ export const patchAccount = (id: Account['id'], payload: AccountPatchRequest) =>
     onSuccess: setAccountActions,
     clearAfter: true,
   })
+
+export const clearLoadAccountRequest = () => clearRequest({ id: ACCOUNT_LOAD_REQUEST_ID })
