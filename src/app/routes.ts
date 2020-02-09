@@ -107,6 +107,12 @@ export const routes: RouteConfig[] = [
     breadcrumb: AnalysisBreadcrumb,
   },
 
+  /** Strategy Editor */
+  {
+    path: Object.values(APP_ROUTES.editor),
+    component: StrategyEditor,
+  },
+
   /** Strategies */
   {
     path: APP_ROUTES.strategies,
@@ -142,12 +148,6 @@ export const routes: RouteConfig[] = [
     component: Measure,
     exact: true,
     breadcrumb: MeasureBreadcrumb,
-  },
-
-  /** Strategy Editor */
-  {
-    path: Object.values(APP_ROUTES.editor),
-    component: StrategyEditor,
   },
 
   /** Discussions */
