@@ -8,7 +8,7 @@ import { withErrorNotification, withLoadingOverlay } from 'shared/hocs'
 const Content = (): JSX.Element => (
   <>
     <Breadcrumbs />
-    {renderRoutes(routes)}
+    <div className="wrapper">{renderRoutes(routes)}</div>
   </>
 )
 
