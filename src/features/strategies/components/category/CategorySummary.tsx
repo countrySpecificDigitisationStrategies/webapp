@@ -17,8 +17,10 @@ export const CategorySummary = ({ id }: CategorySummaryProps) => {
 
   return (
     <>
-      <Typography>{category.title}</Typography>
+      <Typography variant="h5">{category.title}</Typography>
       <Summary text={category.description} />
+      <Typography variant="h5">{category.goalTitle}</Typography>
+      <Summary text={category.goalDescription} />
     </>
   )
 }

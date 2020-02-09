@@ -1,4 +1,4 @@
-import { getRequestType, REQUEST_ERROR, REQUEST_START, REQUEST_SUCCESS, RequestAction } from './actions'
+import { getRequestType, REQUEST_CLEAR, REQUEST_ERROR, REQUEST_START, REQUEST_SUCCESS, RequestAction } from './actions'
 import { loadingState, RequestState } from './types'
 
 const initialState: RequestState = {}
@@ -21,6 +21,10 @@ export const requests = (state: RequestState = initialState, action: RequestActi
         ...state,
         [action.id]: loadingState.failed,
       }
+    case REQUEST_CLEAR: {
+      const { [action.id]: clearId, ...remainingState } = state
+      return remainingState
+    }
     default:
       return state
   }

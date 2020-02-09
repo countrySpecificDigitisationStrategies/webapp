@@ -1,6 +1,5 @@
 import { combineReducers, Reducer } from 'redux'
-import { registration } from 'features/registration/store/reducer'
-import { authentication } from 'features/authentication/store/reducer'
+import { accountReducer as account } from 'features/account'
 import { ui } from 'features/ui/store/reducer'
 import { analyses } from 'features/analyses/store/reducer'
 import { strategies } from 'features/strategies/store/reducer'
@@ -9,8 +8,7 @@ import { editorReducer as editor } from 'features/strategy-editor'
 import { countriesReducer as countries } from 'features/countries'
 import { usersReducer as users } from 'features/users'
 
-import { AuthState } from 'features/authentication/store'
-import { RegistrationState } from 'features/registration/store'
+import { AccountState } from 'features/account'
 import { UiState } from 'features/ui/store'
 import { StrategiesState } from 'features/strategies/store'
 import { RequestState } from 'features/requests/store'
@@ -20,8 +18,7 @@ import { CountriesState } from 'features/countries'
 import { UsersState } from 'features/users/store'
 
 export interface ApplicationState {
-  authentication: AuthState
-  registration: RegistrationState
+  account: AccountState
   ui: UiState
   analyses: AnalysesState
   strategies: StrategiesState
@@ -32,8 +29,7 @@ export interface ApplicationState {
 }
 
 const rootReducer: Reducer<ApplicationState> = combineReducers<ApplicationState>({
-  authentication,
-  registration,
+  account,
   ui,
   analyses,
   strategies,
