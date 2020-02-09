@@ -1,15 +1,14 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { useSelector } from 'react-redux'
 import { Button, createStyles, makeStyles, Theme, Typography } from '@material-ui/core'
+import { AvatarGroup } from '@material-ui/lab'
 
 import { APP_ROUTES } from 'app/routes'
 import { CountryIcon } from 'features/countries'
 
-import { Account, getAccount } from 'features/users/store'
-import { BoardList, useAccountData } from 'features/users/components'
-import { AvatarGroup } from '@material-ui/lab'
-import { ModeratorIcon } from 'features/users/components/account-info/ModeratorIcon'
+import { User } from 'features/users/store'
+import { BoardList } from 'features/users/components'
+import { ModeratorIcon } from './ModeratorIcon'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -39,12 +38,14 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-export const AccountInfo = () => {
-  const classes = useStyles()
+interface UserProfileProps {
+  user: User
+  isMe: boolean
+}
 
-  useAccountData()
-  const account = useSelector(getAccount)
-  const { firstName, lastName, email, country = NaN, boards, isModerator, created } = account as Account
+export const UserProfile = ({ user, isMe = false }: UserProfileProps) => {
+  const classes = useStyles()
+  const { firstName, lastName, email, country = NaN, boards, isModerator, created } = user
 
   return (
     <div className={classes.root}>
@@ -64,16 +65,18 @@ export const AccountInfo = () => {
             Member since {created.toLocaleDateString('en', { year: 'numeric', month: 'long', day: '2-digit' })}
           </Typography>
         )}
-        <Button variant={'contained'} component={Link} to={APP_ROUTES.accountEdit} className={classes.editButton}>
-          Edit Information
-        </Button>
+        {isMe && (
+          <Button variant={'contained'} component={Link} to={APP_ROUTES.accountEdit} className={classes.editButton}>
+            Edit Information
+          </Button>
+        )}
       </div>
-      {boards?.length > 0 ? (
+      {boards && boards.length > 0 ? (
         <div className={classes.boards}>
           <Typography variant="h4" className={classes.boardHeader}>
             Boards
           </Typography>
-          <BoardList ids={boards} />
+          <BoardList ids={boards} editable={isMe ? boards : []} />
         </div>
       ) : null}
     </div>

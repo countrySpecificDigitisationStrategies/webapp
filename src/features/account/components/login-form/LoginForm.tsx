@@ -5,7 +5,7 @@ import { TextField } from '@material-ui/core'
 
 import { Form, Fields } from 'shared/components'
 
-import { login, isLoggedIn } from '../store'
+import { login, isLoggedIn } from 'features/account/store'
 
 interface LoginFormValues extends Fields {
   email: string

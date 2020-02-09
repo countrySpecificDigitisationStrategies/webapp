@@ -1,7 +1,8 @@
 import camelize from 'camelize'
 import decamelize from 'snakecase-keys'
-import { getAuthToken } from 'app/service/authentication'
 import { ApiError } from 'app/service/error'
+import { store } from 'app/store'
+import { getAuthToken } from 'features/account'
 
 // eslint-disable-next-line no-undef
 const baseUrl = process.env.API_URL
@@ -101,7 +102,7 @@ const getFetchOptions = (method: HttpMethod, data?: object): RequestInit => {
     headers: {},
   }
 
-  const authToken = getAuthToken()
+  const authToken = getAuthToken(store.getState())
   if (authToken) {
     fetchOptions.headers = {
       ...fetchOptions.headers,

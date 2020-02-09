@@ -4,8 +4,8 @@ import { Redirect } from 'react-router'
 
 import { APP_ROUTES } from 'app/routes'
 
-import { useAccountData } from 'features/users/components'
-import { Account, getAccount, patchAccount } from 'features/users/store'
+import { useAccountData } from 'features/account/components'
+import { getAccount, patchAccount } from 'features/account/store'
 
 import { AccountForm, AccountFormValues } from './AccountForm'
 
@@ -16,9 +16,9 @@ export const AccountEditForm = () => {
   const dispatch = useDispatch()
 
   if (success) return <Redirect to={APP_ROUTES.login} />
-  if (Object.keys(account).length < 1) return null
+  if (!account) return null
 
-  const { id, firstName, lastName, email, country } = account as Account
+  const { id, firstName, lastName, email, country } = account
 
   const handleSubmit = ({ email, country, password, ...values }: AccountFormValues): void => {
     dispatch(

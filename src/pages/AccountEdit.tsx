@@ -1,5 +1,5 @@
 import React from 'react'
-import { AccountEditForm } from 'features/users'
+import { AccountEditForm } from 'features/account'
 
 const AccountEdit = () => <AccountEditForm />
 

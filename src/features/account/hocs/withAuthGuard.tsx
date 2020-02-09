@@ -1,9 +1,10 @@
 import React from 'react'
 
 import { useSelector } from 'react-redux'
-import { isLoggedIn } from 'features/authentication/store'
-import { APP_ROUTES } from 'app/routes'
 import { Redirect } from 'react-router'
+
+import { APP_ROUTES } from 'app/routes'
+import { isLoggedIn } from 'features/account/store'
 
 interface AuthGuardProps {
   publicOnly?: boolean

@@ -4,7 +4,7 @@ import { Redirect } from 'react-router'
 
 import { APP_ROUTES } from 'app/routes'
 
-import { register, registrationSucceeded } from 'features/users/store'
+import { register, registrationSucceeded } from 'features/account/store'
 import { AccountForm, AccountFormValues } from './AccountForm'
 
 export const RegistrationForm = (): JSX.Element => {

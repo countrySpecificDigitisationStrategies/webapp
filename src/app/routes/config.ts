@@ -31,7 +31,7 @@ import {
 } from 'features/strategies'
 import { AnalysisBreadcrumb } from 'features/analyses'
 import { DiscussionBreadcrumb } from 'features/discussions/components/DiscussionBreadcrumb'
-import { withAuthGuard } from 'features/authentication/hocs'
+import { withAuthGuard } from 'features/account/hocs'
 
 export const routes: RouteConfig[] = [
   {

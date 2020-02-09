@@ -3,7 +3,7 @@ import { createRequest } from 'features/requests/store'
 
 import { Account } from './types'
 import { AccountPatchRequest, AccountResponse } from './types.api'
-import { addBoardsFromResponse } from './actions.boards'
+import { addBoardsFromResponse } from 'features/users'
 import { addCountriesFromResponse } from 'features/countries'
 
 export const ACCOUNT_LOAD_REQUEST_ID = 'account/load'
