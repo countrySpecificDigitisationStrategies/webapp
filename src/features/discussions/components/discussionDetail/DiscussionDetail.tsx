@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { useLocation, useParams } from 'react-router'
 
-import { ThreadList } from 'features/discussions/components/ThreadList'
+import { ThreadList } from 'features/discussions/components/threads'
 import { DetailHeader } from '../detailHeader/DetailHeader'
 import { DiscussionDetailView } from 'features/discussions/components/discussionDetail'
+import { setDiscussionDetailView } from '../../store/actions'
 
 export const DiscussionDetail = () => {
   const location = useLocation()
   const { strategyId } = useParams()
+  const dispatch = useDispatch()
 
   if (!strategyId) return <div>Something went wrong!</div>
 
@@ -38,6 +41,11 @@ export const DiscussionDetail = () => {
     setDisplayedView(getViewToDisplay())
     setContentId(getLastHashId())
   }, [location])
+
+  useEffect(() => {
+    const displayedViewId = contentId ? contentId : parseInt(strategyId)
+    dispatch(setDiscussionDetailView(displayedView, displayedViewId))
+  }, [displayedView])
 
   return (
     <div className="DiscussionDetail">

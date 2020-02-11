@@ -23,7 +23,7 @@ export interface RequestStart<S = SuccessResponse, E = ErrorResponse> {
   type: string
   id: requestId
   request: () => Promise<object>
-  onSuccess: SuccessActionCreator<S> | SuccessActionCreator<S>[]
+  onSuccess?: SuccessActionCreator<S> | SuccessActionCreator<S>[]
   onError?: ErrorActionCreator<E> | ErrorActionCreator<E>[]
 }
 
@@ -31,7 +31,7 @@ export interface RequestSuccess<T = SuccessResponse> {
   type: string
   id: requestId
   payload: T
-  actions: SuccessActionCreator<T>[]
+  actions?: SuccessActionCreator<T>[]
 }
 
 export interface RequestError<T = ErrorResponse> {
@@ -52,7 +52,7 @@ export const createRequest = <S = SuccessResponse, E = ErrorResponse>({
 }: {
   id: RequestStart['id']
   request: RequestStart['request']
-  onSuccess: RequestStart<S, E>['onSuccess']
+  onSuccess?: RequestStart<S, E>['onSuccess']
   onError?: RequestStart<S, E>['onError']
 }): CreateRequestReturnType<S, E> => ({
   type: `${id}/${REQUEST_START}`,

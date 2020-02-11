@@ -12,7 +12,7 @@ import {
 } from '@material-ui/core'
 import { Link } from 'react-router-dom'
 import { PreviewThreadModel } from 'features/discussions/models/thread.discussion.model'
-import { Markdown } from '../../../shared/components'
+import { Markdown } from '../../../../shared/components'
 
 interface ThreadPreviewProps {
   thread: PreviewThreadModel
