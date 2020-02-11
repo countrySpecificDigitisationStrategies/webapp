@@ -1,5 +1,5 @@
 import React from 'react'
-import { AccountInfo as AccountInfoPanel } from 'features/users'
+import { AccountInfo as AccountInfoPanel } from 'features/account'
 
 const AccountInfo = () => {
   return <AccountInfoPanel />

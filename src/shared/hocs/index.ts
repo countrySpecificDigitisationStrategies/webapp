@@ -1,2 +1,2 @@
 export { withLoadingOverlay } from './withLoadingOverlay'
-export { withErrorNotification } from './withErrorNotification'
+export { withNotification } from './withNotification'

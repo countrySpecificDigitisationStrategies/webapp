@@ -1,1 +1,1 @@
-export { openNavBar, closeNavBar, isNavBarOpen, showError, hideError, getError } from './store'
+export { openNavBar, closeNavBar, isNavBarOpen, showSuccess, showError, hideNotification } from './store'
