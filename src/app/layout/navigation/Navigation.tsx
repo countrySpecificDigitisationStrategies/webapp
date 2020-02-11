@@ -27,7 +27,7 @@ import {
   Timeline,
 } from '@material-ui/icons'
 
-import { logout } from 'features/authentication'
+import { logout } from 'features/account'
 import ziikLogo from 'assets/ziik.jpg'
 import { useLoginStatus } from 'shared/hooks'
 import { APP_ROUTES } from 'app/routes'

@@ -9,22 +9,17 @@ export {
 export {
   getStrategies,
   getStrategy,
-  areStrategiesLoaded,
   getStrategyByCountryId,
   getBlocks,
   getBlock,
-  areBlocksLoaded,
   getSituations,
   getSituation,
-  areSituationsLoaded,
   getCategories,
   getCategory,
-  areCategoriesLoaded,
   getMeasures,
   getMeasure,
-  areMeasuresLoaded,
+  getStrategyMeasures,
   getStrategyMeasureByRelated,
-  areStrategyMeasuresLoaded,
 } from './selectors'
 export {
   StrategiesState,
