@@ -49,7 +49,7 @@ export const Topic = ({ thread }: TopicProps): JSX.Element => {
           <CardActions />
           <Divider />
           <CardActions classes={cardActionsClasses}>
-            <ThreadActions />
+            <ThreadActions areTopicActions={true} />
           </CardActions>
         </>
       ) : (

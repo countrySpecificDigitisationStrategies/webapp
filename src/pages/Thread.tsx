@@ -7,6 +7,7 @@ import {
   ThreadResponse,
 } from '../features/discussions/models/thread.discussion.model'
 import { Topic } from '../features/discussions/components/thread/Topic'
+import { Comment } from '../features/discussions/components/thread/Comment'
 
 const getEndpoint: (path: string) => Endpoint = path => {
   switch (path.split('/')[3]) {
@@ -43,7 +44,14 @@ const Thread = () => {
     }
   }, [endpoint, threadId])
 
-  return <Topic thread={thread} />
+  return (
+    <>
+      <Topic thread={thread} />
+      {thread?.comments.map(comment => (
+        <Comment comment={comment} />
+      ))}
+    </>
+  )
 }
 
 export default Thread
