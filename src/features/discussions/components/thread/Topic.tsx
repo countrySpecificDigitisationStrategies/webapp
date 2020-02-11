@@ -2,7 +2,7 @@ import React from 'react'
 import { Card, CardActions, CardContent, CardHeader, createStyles, Divider, makeStyles, Theme } from '@material-ui/core'
 import { Markdown } from '../../../../shared/components'
 import { ThreadModel } from '../../models/thread.discussion.model'
-import { ThreadMetadata } from './ThreadMetadata'
+import { TopicAnswerMetadata } from './TopicAnswerMetadata'
 import { ThreadActions } from './ThreadActions'
 
 interface TopicProps {
@@ -38,9 +38,7 @@ export const Topic = ({ thread }: TopicProps): JSX.Element => {
           <CardHeader
             title={thread.title}
             titleTypographyProps={{ variant: 'h3' }}
-            subheader={
-              <ThreadMetadata author={thread.user} threadCreated={thread.created} threadUpdated={thread.updated} />
-            }
+            subheader={<TopicAnswerMetadata author={thread.user} created={thread.created} updated={thread.updated} />}
           />
           <Divider />
           <CardContent classes={cardContentClasses}>

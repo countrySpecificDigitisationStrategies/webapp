@@ -3,11 +3,13 @@ import { Avatar, createStyles, makeStyles, Theme, Typography } from '@material-u
 import { DateFormatter } from '../dateFormatter'
 import { UserModel } from '../../models/user.discussion.model'
 
-interface ThreadMetadataProps {
+interface TopicAnswerMetadataProps {
   author: UserModel
-  threadCreated: Date
-  threadUpdated: Date
+  created: Date
+  updated?: Date
   preview?: boolean
+  answer?: boolean
+  reply?: boolean
 }
 
 const useThreadMetadataStyles = makeStyles((theme: Theme) =>
@@ -29,18 +31,22 @@ const useThreadMetadataStyles = makeStyles((theme: Theme) =>
   })
 )
 
-export const ThreadMetadata = ({
+export const TopicAnswerMetadata = ({
   author,
-  threadCreated,
-  threadUpdated,
+  created,
+  updated,
   preview = false,
-}: ThreadMetadataProps): JSX.Element => {
+  answer = false,
+  reply = false,
+}: TopicAnswerMetadataProps): JSX.Element => {
   const classes = useThreadMetadataStyles()
 
   return (
     <div className={classes.author}>
-      <Typography variant="caption">{`asked at ${DateFormatter.convertToString(threadCreated)} ${
-        !preview && threadCreated !== threadUpdated ? `(edited at ${DateFormatter.convertToString(threadUpdated)})` : ''
+      <Typography variant="caption" color="textSecondary">{`${
+        answer ? 'answered' : reply ? 'replied' : 'asked'
+      } at ${DateFormatter.convertToString(created)} ${
+        !preview && updated && created !== updated ? `(edited at ${DateFormatter.convertToString(updated)})` : ''
       } by ${author.firstName || 'unknown'}`}</Typography>
       {author.countryFlag ? (
         <Avatar variant={'square'} src={author.countryFlag} className={classes.smallAvatar} />

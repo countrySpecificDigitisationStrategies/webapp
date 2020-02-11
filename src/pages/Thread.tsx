@@ -7,7 +7,22 @@ import {
   ThreadResponse,
 } from '../features/discussions/models/thread.discussion.model'
 import { Topic } from '../features/discussions/components/thread/Topic'
-import { Comment } from '../features/discussions/components/thread/Comment'
+import { Answer } from '../features/discussions/components/thread/Answer'
+import { CommentModel } from '../features/discussions/models/comment.discussion.model'
+import { createStyles, makeStyles, Theme } from '@material-ui/core'
+
+const useThreadStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    container: {
+      '& > *:not(:last-child)': {
+        marginBottom: theme.spacing(2),
+      },
+    },
+    answerContainer: {
+      paddingLeft: theme.spacing(12),
+    },
+  })
+)
 
 const getEndpoint: (path: string) => Endpoint = path => {
   switch (path.split('/')[3]) {
@@ -24,11 +39,44 @@ const getEndpoint: (path: string) => Endpoint = path => {
   }
 }
 
+const buildAnswers = (comments?: CommentModel[]): Answer[] => {
+  if (!comments) return []
+  const answers: Answer[] = comments
+    .filter(comment => comment.parent === null)
+    .map(comment => ({
+      rootComment: comment,
+      replies: [],
+    }))
+  comments
+    .filter(comment => comment.parent !== null)
+    .map(comment => {
+      const index = answers.findIndex(answer => answer.rootComment.id === comment.parent)
+      answers[index].replies.push(comment)
+    })
+  answers.sort((a, b) => {
+    if (a.rootComment.created < b.rootComment.created) return -1
+    if (a.rootComment.created > b.rootComment.created) return 1
+    return 0
+  })
+  answers.forEach(answer =>
+    answer.replies.sort((a, b) => {
+      if (a.created < b.created) return -1
+      if (a.created > b.created) return 1
+      return 0
+    })
+  )
+
+  return answers
+}
+
 const Thread = () => {
+  const classes = useThreadStyles()
+
   const location = useLocation()
   const { threadId } = useParams()
   const [endpoint, setEndpoint] = useState<Endpoint>()
   const [thread, setThread] = useState<ThreadModel>()
+  const [answers, setAnswers] = useState<Answer[]>([])
 
   useEffect(() => {
     setEndpoint(getEndpoint(location.pathname))
@@ -44,13 +92,19 @@ const Thread = () => {
     }
   }, [endpoint, threadId])
 
+  useEffect(() => {
+    setAnswers(buildAnswers(thread?.comments))
+  }, [thread])
+
   return (
-    <>
+    <div className={classes.container}>
       <Topic thread={thread} />
-      {thread?.comments.map(comment => (
-        <Comment comment={comment} />
+      {answers.map(answer => (
+        <div className={classes.answerContainer} key={`answer-${answer.rootComment.id}`}>
+          <Answer answer={answer} />
+        </div>
       ))}
-    </>
+    </div>
   )
 }
 
