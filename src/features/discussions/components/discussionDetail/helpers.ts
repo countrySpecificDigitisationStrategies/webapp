@@ -1,16 +1,16 @@
 import { Endpoint } from 'app/service'
 
-import { DiscussionDetailView } from '.'
+import { View } from '.'
 
-export const getEndpointForDiscussionDetailView = (view: DiscussionDetailView | null) => {
+export const getEndpointForView = (view: View | null) => {
   switch (view) {
-    case DiscussionDetailView.Strategy:
+    case View.Strategy:
       return Endpoint.strategyThreads
-    case DiscussionDetailView.BuildingBlock:
+    case View.BuildingBlock:
       return Endpoint.buildingBlockThreads
-    case DiscussionDetailView.SituationCategory:
+    case View.SituationCategory:
       return Endpoint.situationCategoryThreads
-    case DiscussionDetailView.Situation:
+    case View.Situation:
       return Endpoint.situationThreads
     default:
       return Endpoint.strategyMeasureThreads

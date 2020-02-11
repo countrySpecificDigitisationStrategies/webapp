@@ -10,12 +10,14 @@ import {
   Theme,
   Typography,
 } from '@material-ui/core'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { PreviewThreadModel } from 'features/discussions/models/thread.discussion.model'
 import { Markdown } from '../../../../shared/components'
+import { View } from '../discussionDetail'
 
 interface ThreadPreviewProps {
   thread: PreviewThreadModel
+  view: View
   itemClassName?: string
 }
 
@@ -28,11 +30,14 @@ const useAvatarStyles = makeStyles((theme: Theme) =>
   })
 )
 
-export const ThreadPreview = ({ thread, itemClassName = '' }: ThreadPreviewProps) => {
+export const ThreadPreview = ({ thread, view, itemClassName = '' }: ThreadPreviewProps) => {
   const avatarClasses = useAvatarStyles()
   const className = 'thread-preview'
+  const { strategyId } = useParams()
 
   const { id, title, description, user, commentCount, created } = thread
+
+  const threadLink = `/discussions/${strategyId}/${view}-threads/${id}`
 
   const formattedDate =
     (created.getDate() < 10 ? '0' + created.getDate() : created.getDate()) +
@@ -47,7 +52,7 @@ export const ThreadPreview = ({ thread, itemClassName = '' }: ThreadPreviewProps
 
   return (
     <Card className={`${itemClassName} ${className}`}>
-      <CardActionArea component={Link} to={`/discussions/${id}/threads/${id}`}>
+      <CardActionArea component={Link} to={threadLink}>
         <div className={`${className}__main-content`}>
           <CardContent className={'main-content__state-info'}>
             <Typography variant="h6" gutterBottom>

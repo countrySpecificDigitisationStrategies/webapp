@@ -5,17 +5,17 @@ import { Comment } from '@material-ui/icons'
 
 import { ThreadPreview } from 'features/discussions/components/threads'
 import { get } from 'app/service'
-import { getEndpointForDiscussionDetailView } from 'features/discussions/components/discussionDetail'
+import { getEndpointForView } from 'features/discussions/components/discussionDetail'
 import {
   mapResponseToPreviewThreads,
   PreviewThreadModel,
   PreviewThreadResponse,
 } from 'features/discussions/models/thread.discussion.model'
-import { DiscussionDetailView } from '../discussionDetail'
-import { useLoginStatus } from '../../../../shared/hooks'
+import { useLoginStatus } from 'shared/hooks'
+import { View } from '../discussionDetail'
 
 interface ThreadListProps {
-  displayedView: DiscussionDetailView
+  displayedView: View
   strategyId: number
   contentId?: number
 }
@@ -43,15 +43,15 @@ export const ThreadList = ({ displayedView, strategyId, contentId }: ThreadListP
 
   const getQueryParams = (): string => {
     switch (displayedView) {
-      case DiscussionDetailView.Strategy:
+      case View.Strategy:
         return `?strategy=${strategyId}`
-      case DiscussionDetailView.BuildingBlock:
+      case View.BuildingBlock:
         return `?strategy=${strategyId}&buiding_block=${contentId}`
-      case DiscussionDetailView.SituationCategory:
+      case View.SituationCategory:
         return `?strategy=${strategyId}&situation_category=${contentId}`
-      case DiscussionDetailView.Situation:
+      case View.Situation:
         return `?strategy=${strategyId}&situation=${contentId}`
-      case DiscussionDetailView.StrategyMeasure:
+      case View.StrategyMeasure:
         return `?strategy_measure=${contentId}`
       default:
         return ''
@@ -59,7 +59,7 @@ export const ThreadList = ({ displayedView, strategyId, contentId }: ThreadListP
   }
 
   useEffect(() => {
-    const endpoint = getEndpointForDiscussionDetailView(displayedView)
+    const endpoint = getEndpointForView(displayedView)
     const options = {
       queryParams: getQueryParams(),
     }
@@ -126,7 +126,7 @@ export const ThreadList = ({ displayedView, strategyId, contentId }: ThreadListP
       {previewThreads.length !== 0 ? (
         sortedThreads?.length !== 0 ? (
           sortedThreads.map((thread: PreviewThreadModel, index: number) => (
-            <ThreadPreview key={index} itemClassName={`${className}-item`} thread={thread} />
+            <ThreadPreview key={index} view={displayedView} itemClassName={`${className}-item`} thread={thread} />
           ))
         ) : (
           <div>No threads found matching your filter</div>

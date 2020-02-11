@@ -1,4 +1,11 @@
-import { CountryModel, CountryResponse } from './country.discussion.model'
+import { CountryModel, CountryResponse, mapResponseToCountry } from './country.discussion.model'
+
+export const mapResponseToBoard = (response: BoardResponse): BoardModel => {
+  return {
+    id: response.id,
+    country: mapResponseToCountry(response.country),
+  }
+}
 
 export interface BoardResponse {
   id: number
