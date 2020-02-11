@@ -9,6 +9,7 @@ export const mapResponseToUser = (response: UserResponse): UserModel => {
     isAdmin: response.isAdmin,
     isRepresentative: response.isRepresentative,
     isModerator: response.isModerator,
+    boards: response.boards,
   }
 }
 
@@ -20,6 +21,7 @@ export interface UserResponse {
   isRepresentative: boolean
   isModerator: boolean
   country: CountryResponse
+  boards: number[]
 }
 
 export interface UserModel {
@@ -30,4 +32,5 @@ export interface UserModel {
   isAdmin: boolean
   isRepresentative: boolean
   isModerator: boolean
+  boards: number[]
 }

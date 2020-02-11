@@ -2,32 +2,48 @@ import React, { useEffect, useState } from 'react'
 import { useLocation, useParams } from 'react-router'
 import { Endpoint, get } from '../app/service'
 import {
-  BuildingBlockResponse,
-  mapResponseToBuildingBlock,
-} from '../features/discussions/components/detailHeader/models/buildingBlock.discussion.model'
+  mapResponseToThread,
+  ThreadModel,
+  ThreadResponse,
+} from '../features/discussions/models/thread.discussion.model'
+import { Topic } from '../features/discussions/components/thread/Topic'
+
+const getEndpoint: (path: string) => Endpoint = path => {
+  switch (path.split('/')[3]) {
+    case Endpoint.strategyThreads:
+      return Endpoint.strategyThreads
+    case Endpoint.buildingBlockThreads:
+      return Endpoint.buildingBlockThreads
+    case Endpoint.situationCategoryThreads:
+      return Endpoint.situationCategoryThreads
+    case Endpoint.situationThreads:
+      return Endpoint.situationThreads
+    default:
+      return Endpoint.strategyMeasureThreads
+  }
+}
 
 const Thread = () => {
   const location = useLocation()
   const { threadId } = useParams()
-  const [contentUrl, setContentUrl] = useState()
-  const [thread, setThread] = useState()
+  const [endpoint, setEndpoint] = useState<Endpoint>()
+  const [thread, setThread] = useState<ThreadModel>()
 
   useEffect(() => {
-    setContentUrl(`/${location.pathname.split('/')[3]}/${threadId}`)
+    setEndpoint(getEndpoint(location.pathname))
   }, [location])
 
   useEffect(() => {
-    //TODO
-    if (contentUrl) {
-      // const fetchData = async () => {
-      //   const response = (await get(Endpoint.blocks, { id: `${id}` })) as BuildingBlockResponse
-      //   setBuildingBlock(mapResponseToBuildingBlock(response))
-      // }
-      // fetchData()
+    if (endpoint && threadId) {
+      const fetchData = async () => {
+        const response = (await get(endpoint, { id: +threadId })) as ThreadResponse
+        setThread(mapResponseToThread(response))
+      }
+      fetchData()
     }
-  }, [contentUrl])
+  }, [endpoint, threadId])
 
-  return <div>Thread</div>
+  return <Topic thread={thread} />
 }
 
 export default Thread
