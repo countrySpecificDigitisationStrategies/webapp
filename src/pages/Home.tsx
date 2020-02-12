@@ -11,20 +11,19 @@ export default function Home(): JSX.Element {
 
       <div style={{ position: 'relative', color: 'white', height: '400px' }}>
         <img
-          src="https://mediafiles.mein-haustier.de/wp-content/uploads/2018/02/shutterstock_222861379-1000x608.jpg"
+          src="https://images.pexels.com/photos/3183197/pexels-photo-3183197.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
           alt="Picture of people"
-          style={{ opacity: '0.7', width: '100%', height: '100%', objectFit: 'cover' }}
+          style={{ opacity: '0.8', width: '100%', height: '100%', objectFit: 'cover' }}
         />
+      </div>
 
-        <p style={{ position: 'absolute', bottom: '1rem', left: '3rem', right: '3rem' }}>
-          Many developing countries struggle with setting the correct priorities when it comes to developing strategies
+      <div style={{ margin: '0 3rem' }}>
+        <p>
+          Many developing countries struggle with set ting the correct priorities when it comes to developing strategies
           for the deployment of IT. However, as digital systems now permeate all walks of life, expanding and improving
           them are crucial for catching up to developed nations.
         </p>
-      </div>
-
-      <div>
-        <p style={{ position: 'relative', marginLeft: '3rem', marginRight: '3rem' }}>
+        <p>
           This platform is aimed at officials and citizens of developing countries that wish to help create a concrete
           strategy plan to improve the situation of their digital infrastructure. It has 3 major sections:
         </p>
