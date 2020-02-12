@@ -5,7 +5,7 @@ import { TextField, Typography } from '@material-ui/core'
 
 import { Form, MarkdownEditor, Fields } from 'shared/components'
 import { getActiveDiscussionView, getActiveDiscussionViewId } from 'features/discussions/store/selectors'
-import { getEndpointForView } from 'features/discussions/components/discussionDetail'
+import { getThreadEndpointForView } from 'features/discussions/components/discussionDetail'
 import { submitNewThread } from 'features/discussions/store/actions'
 
 export interface ThreadNewFormValues extends Fields {
@@ -20,7 +20,7 @@ export const ThreadNewForm = () => {
   const activeView = useSelector(getActiveDiscussionView)
   const activeViewId = useSelector(getActiveDiscussionViewId)
 
-  const endpoint = getEndpointForView(activeView)
+  const endpoint = getThreadEndpointForView(activeView)
 
   const onSubmit = (values: ThreadNewFormValues): void => {
     const strategy = strategyId

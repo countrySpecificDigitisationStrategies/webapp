@@ -4,6 +4,8 @@ import { Button, createStyles, makeStyles, Theme, Typography } from '@material-u
 import { Comment } from '@material-ui/icons'
 import { Link } from 'react-router-dom'
 
+import { AnswerForm } from 'features/discussions/components/thread'
+
 interface ThreadActionsProps {
   areTopicActions?: boolean
 }
@@ -59,5 +61,5 @@ export const ThreadActions = ({ areTopicActions = false }: ThreadActionsProps): 
     )
   }
 
-  return <div>Hallo</div>
+  return <AnswerForm />
 }

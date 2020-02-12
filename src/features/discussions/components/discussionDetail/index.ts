@@ -1,3 +1,3 @@
 export { DiscussionDetail } from './DiscussionDetail'
-export { getEndpointForView } from './helpers'
+export { getThreadEndpointForView, getCommentEndpointForView } from './helpers'
 export { View } from './enums'

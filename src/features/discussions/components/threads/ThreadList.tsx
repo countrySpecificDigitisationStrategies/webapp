@@ -5,7 +5,7 @@ import { Comment } from '@material-ui/icons'
 
 import { ThreadPreview } from 'features/discussions/components/threads'
 import { get } from 'app/service'
-import { getEndpointForView } from 'features/discussions/components/discussionDetail'
+import { getThreadEndpointForView } from 'features/discussions/components/discussionDetail'
 import {
   mapResponseToPreviewThreads,
   PreviewThreadModel,
@@ -59,7 +59,7 @@ export const ThreadList = ({ displayedView, strategyId, contentId }: ThreadListP
   }
 
   useEffect(() => {
-    const endpoint = getEndpointForView(displayedView)
+    const endpoint = getThreadEndpointForView(displayedView)
     const options = {
       queryParams: getQueryParams(),
     }
