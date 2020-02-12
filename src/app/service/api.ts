@@ -23,7 +23,7 @@ export enum Endpoint {
   situationCategoryThreads = 'situation-category-threads',
   situationThreads = 'situation-threads',
   strategyMeasureThreads = 'strategy-measure-threads',
-  strategyComments = 'strategy-threads-comments',
+  strategyComments = 'strategy-comments',
   buildingBlockComments = 'building-block-comments',
   situationCategoryComments = 'situation-category-comments',
   situationComments = 'situation-comments',
