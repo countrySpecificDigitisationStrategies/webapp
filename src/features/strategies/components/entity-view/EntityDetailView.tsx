@@ -2,8 +2,8 @@ import React from 'react'
 import { StandardView, StandardViewProps } from 'shared/components'
 import { createStyles, makeStyles, Theme, Typography } from '@material-ui/core'
 import { EntityType } from 'features/strategies/components/types'
-import { ThreadList } from 'features/discussions/components'
-import { DiscussionDetailView } from 'features/discussions/components/discussionDetail'
+import { ThreadList } from 'features/discussions/components/threads'
+import { View } from 'features/discussions/components/discussionDetail'
 import { Strategy, StrategyEntity } from 'features/strategies/store'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -28,18 +28,18 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const mapToDiscussionEntityType = (entityType: EntityType): DiscussionDetailView => {
+const mapToDiscussionEntityType = (entityType: EntityType): View => {
   switch (entityType) {
     case EntityType.Strategy:
-      return DiscussionDetailView.Strategy
+      return View.Strategy
     case EntityType.Block:
-      return DiscussionDetailView.BuildingBlock
+      return View.BuildingBlock
     case EntityType.Category:
-      return DiscussionDetailView.SituationCategory
+      return View.SituationCategory
     case EntityType.Situation:
-      return DiscussionDetailView.Situation
+      return View.Situation
     case EntityType.Measure:
-      return DiscussionDetailView.StrategyMeasure
+      return View.StrategyMeasure
   }
 }
 

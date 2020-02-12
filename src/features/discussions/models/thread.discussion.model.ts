@@ -39,6 +39,7 @@ export const mapResponseToThread = (response: ThreadResponse): ThreadModel => {
     description: response.description,
     user: mapResponseToUser(response.user),
     created: new Date(response.created),
+    updated: new Date(response.updated),
     comments: response.comments.map((comment: CommentResponse): CommentModel => mapResponseToComment(comment)),
   }
 }
@@ -49,6 +50,7 @@ export interface ThreadResponse {
   description: string
   user: UserResponse
   created: string
+  updated: string
   comments: CommentResponse[]
 }
 
@@ -58,6 +60,7 @@ export interface ThreadModel {
   description: string
   user: UserModel
   created: Date
+  updated: Date
   comments: CommentModel[]
 }
 

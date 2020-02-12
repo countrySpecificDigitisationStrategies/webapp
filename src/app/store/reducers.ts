@@ -7,6 +7,7 @@ import { requests } from 'features/requests/store/reducer'
 import { editorReducer as editor } from 'features/strategy-editor'
 import { countriesReducer as countries } from 'features/countries'
 import { usersReducer as users } from 'features/users'
+import { discussionsReducer as discussions } from 'features/discussions/store'
 
 import { AccountState } from 'features/account'
 import { UiState } from 'features/ui/store'
@@ -16,6 +17,7 @@ import { AnalysesState } from 'features/analyses'
 import { StrategyEditorState } from 'features/strategy-editor'
 import { CountriesState } from 'features/countries'
 import { UsersState } from 'features/users/store'
+import { DiscussionsState } from 'features/discussions/store'
 
 export interface ApplicationState {
   account: AccountState
@@ -26,6 +28,7 @@ export interface ApplicationState {
   editor: StrategyEditorState
   countries: CountriesState
   users: UsersState
+  discussions: DiscussionsState
 }
 
 const rootReducer: Reducer<ApplicationState> = combineReducers<ApplicationState>({
@@ -37,6 +40,7 @@ const rootReducer: Reducer<ApplicationState> = combineReducers<ApplicationState>
   editor,
   countries,
   users,
+  discussions,
 })
 
 export default rootReducer

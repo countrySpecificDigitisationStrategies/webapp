@@ -40,5 +40,9 @@ export const APP_ROUTES = {
   discussions: '/discussions',
   discussion: '/discussions/:strategyId',
   newThread: '/discussions/:strategyId/new-thread',
-  thread: '/discussions/:strategyId/threads/:threadId',
+  strategyThread: '/discussions/:strategyId/strategy-threads/:threadId',
+  buildingBlockThread: '/discussions/:strategyId/building-block-threads/:threadId',
+  situationCategoryThread: '/discussions/:strategyId/situation-category-threads/:threadId',
+  situationThread: '/discussions/:strategyId/situation-threads/:threadId',
+  strategyMeasureThread: '/discussions/:strategyId/strategy-measure-threads/:threadId',
 }

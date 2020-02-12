@@ -128,7 +128,31 @@ export const routes: RouteConfig[] = [
     breadcrumb: DiscussionBreadcrumb,
   },
   {
-    path: APP_ROUTES.thread,
+    path: APP_ROUTES.strategyThread,
+    component: Thread,
+    exact: true,
+    // breadcrumb: MeasureBreadcrumb, // TODO
+  },
+  {
+    path: APP_ROUTES.buildingBlockThread,
+    component: Thread,
+    exact: true,
+    // breadcrumb: MeasureBreadcrumb, // TODO
+  },
+  {
+    path: APP_ROUTES.situationCategoryThread,
+    component: Thread,
+    exact: true,
+    // breadcrumb: MeasureBreadcrumb, // TODO
+  },
+  {
+    path: APP_ROUTES.situationThread,
+    component: Thread,
+    exact: true,
+    // breadcrumb: MeasureBreadcrumb, // TODO
+  },
+  {
+    path: APP_ROUTES.strategyMeasureThread,
     component: Thread,
     exact: true,
     // breadcrumb: MeasureBreadcrumb, // TODO

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Card, Typography } from '@material-ui/core'
 
-import { ThreadNewForm } from 'features/discussions/components'
+import { ThreadNewForm } from 'features/discussions/components/threads'
 
 const ThreadNew = () => {
   const className = 'ThreadNew'
