@@ -3,20 +3,11 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-import {
-  AppBar,
-  Button,
-  Hidden,
-  IconButton,
-  ListItemIcon,
-  Menu,
-  MenuItem,
-  Toolbar,
-  Typography,
-} from '@material-ui/core'
+import { AppBar, Button, Hidden, IconButton, ListItemIcon, Menu, MenuItem, Toolbar } from '@material-ui/core'
 import { AccountCircle, Lock } from '@material-ui/icons'
 import MenuIcon from '@material-ui/icons/Menu'
 
+import disco from 'assets/disco.svg'
 import { logout } from 'features/account'
 import { useLoginStatus } from 'shared/hooks'
 import { APP_ROUTES } from 'app/routes'
@@ -63,9 +54,7 @@ const ToolBar = (): JSX.Element => {
             })}>
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap>
-            Digitization Strategies
-          </Typography>
+          <img src={disco} alt="digitization strategies for developing countries" height="40px" />
         </div>
         <div className="toolbar-tools">
           {isLoggedIn ? (

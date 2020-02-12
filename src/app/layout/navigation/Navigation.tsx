@@ -28,7 +28,6 @@ import {
 } from '@material-ui/icons'
 
 import { logout } from 'features/account'
-import ziikLogo from 'assets/ziik.jpg'
 import { useLoginStatus } from 'shared/hooks'
 import { APP_ROUTES } from 'app/routes'
 import { closeNavBar, isNavBarOpen } from 'features/ui/store'
@@ -106,13 +105,6 @@ const Navigation = (): JSX.Element => {
   const drawer = (
     <div>
       <div className={clsx(classes.toolbar, 'navigation__header')}>
-        <img
-          src={ziikLogo}
-          alt="ZiiK logo"
-          height="40px"
-          onClick={() => window.open('https://www.ziik.tu-berlin.de/menue/ziik/parameter/en/', '_blank')}
-          className="navigation__header__logo"
-        />
         <IconButton onClick={handleDrawerClose}>
           <ChevronLeft />
         </IconButton>
