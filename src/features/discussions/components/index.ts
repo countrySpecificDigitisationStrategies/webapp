@@ -1,6 +1,3 @@
-export { DiscussionDetail, DiscussionDetailView } from './discussionDetail'
+export { DiscussionDetail, View } from './discussionDetail'
 export { DiscussionForumsGrid } from './DiscussionForumsGrid'
 export { Tree } from './tree/Tree'
-export { ThreadList } from './ThreadList'
-export { ThreadPreview } from './ThreadPreview'
-export { ThreadNewForm } from './ThreadNewForm'
