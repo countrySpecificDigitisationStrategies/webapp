@@ -30,6 +30,11 @@ export const APP_ROUTES = {
   situation: `/strategies/:${p.strategyId}/:${p.blockId}/:${p.categoryId}/:${p.situationId}`,
   measure: `/strategies/:${p.strategyId}/:${p.blockId}/:${p.categoryId}/:${p.situationId}/:${p.measureId}`,
 
+  /** Footer Pages */
+  impressum: '/impressum',
+  termsOfUse: '/termsofuse',
+  theTeam: '/theteam',
+
   /** Strategy Editor */
   editor: {
     create: `/strategies/add/:${p.boardId}`,
