@@ -1,46 +1,120 @@
-import React from 'react'
-import { TreeView, TreeItem } from '@material-ui/lab'
-import { ExpandMore as ExpandMoreIcon, ChevronRight as ChevronRightIcon } from '@material-ui/icons'
+import React, { ChangeEvent, HTMLAttributes, useEffect, useState } from 'react'
+import { TreeView } from '@material-ui/lab'
+import { StyledTreeNode } from './StyledTreeNode'
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
+import ArrowRightIcon from '@material-ui/icons/ArrowRight'
+import { useHistory, useLocation } from 'react-router'
+import clsx from 'clsx'
+import { TreeBranch, TreeData } from './tree.model'
 
-export type TreeItemType = string | number
-
-interface TreeProps<T extends TreeItemType = TreeItemType> {
-  data: TreeItemProps<T>[]
-  onNodeClick: (id: TreeItemProps<T>['id'], type?: TreeItemProps<T>['type']) => void
-  className?: React.HTMLAttributes<HTMLDivElement>['className']
+interface TreeProps {
+  data: TreeData
+  className?: HTMLAttributes<HTMLDivElement>['className']
 }
 
-export interface TreeItemProps<T extends TreeItemType = TreeItemType> {
-  type?: T
-  id: string | number
-  title: string
-  children?: TreeItemProps<T>[]
+interface TreeNodeProps {
+  branch: TreeBranch
+  parentNodeId?: string
 }
 
-export const Tree = <T extends TreeItemType = TreeItemType>({ data = [], onNodeClick, className }: TreeProps<T>) => {
-  const [expanded, setExpanded] = React.useState<string[]>([])
+export const Tree = ({ data, className }: TreeProps) => {
+  const history = useHistory()
+  const location = useLocation()
 
-  const handleChange = (_event: React.ChangeEvent<{}>, nodes: string[]) => {
-    setExpanded(nodes)
+  const getExpandedNodes = () => {
+    const expandedNodes: string[] = ['root']
+    let hash = location.hash.replace(/#|-*$/, '')
+    let numberOfExpandedNodes = hash.split('-').length
+    if (numberOfExpandedNodes > 0) {
+      if (numberOfExpandedNodes === 4) {
+        hash = hash.substring(0, hash.lastIndexOf('-'))
+        numberOfExpandedNodes--
+      }
+      for (let i = 0; i < numberOfExpandedNodes; i++) {
+        expandedNodes.push(hash)
+        hash = hash.substring(0, hash.lastIndexOf('-'))
+      }
+    }
+    return expandedNodes
   }
 
-  const renderTreeItem = ({ type, id, title, children }: TreeItemProps<T>) => {
-    const nodeId = type ? `${type}-${id}` : String(id)
+  const [expanded, setExpanded] = React.useState<string[]>(getExpandedNodes())
+
+  useEffect(() => {
+    setExpanded(getExpandedNodes())
+  }, [location])
+
+  const getHighlightedNode = () => {
+    const nodeId = location.hash.replace(/#|-*$/, '')
+    return nodeId !== '' ? nodeId : 'root'
+  }
+
+  const [highlightedNode, setHighlightedNode] = useState<string>(getHighlightedNode())
+
+  useEffect(() => {
+    setHighlightedNode(getHighlightedNode())
+  }, [location])
+
+  const handleChange = (_event: ChangeEvent<{}>, nodes: string[]) => {
+    if (nodes.length === expanded.length) return
+    let hash: string
+    if (nodes.length > expanded.length) {
+      setExpanded(nodes)
+      hash = nodes[0]
+    } else {
+      let i = 0
+      let contracted = expanded[i]
+      while (nodes.includes(contracted)) {
+        i++
+        contracted = expanded[i]
+      }
+      setExpanded(nodes.filter(node => !node.includes(contracted)))
+      hash = contracted.substring(0, contracted.lastIndexOf('-'))
+    }
+    history.push(`#${hash}`)
+  }
+
+  const handleClickOnLeaf = (nodeId: string) => {
+    history.push(`#${nodeId}`)
+  }
+
+  const renderTreeNode = ({ branch, parentNodeId }: TreeNodeProps) => {
+    const nodeId = parentNodeId ? `${parentNodeId}-${branch.id}` : `${branch.id}`
+
     return (
-      <TreeItem key={nodeId} nodeId={nodeId} label={title} onClick={() => onNodeClick?.(id, type)}>
-        {children && children.map(child => renderTreeItem(child))}
-      </TreeItem>
+      <StyledTreeNode
+        key={nodeId}
+        nodeId={nodeId}
+        labelText={branch.text}
+        labelInfo={branch.info}
+        onClick={() => {
+          if (!branch.children || branch.children.length === 0) {
+            handleClickOnLeaf(nodeId)
+          }
+        }}
+        className={clsx({ 'tree-node--highlight': nodeId === highlightedNode })}>
+        {branch.children &&
+          branch.children.map(childBranch => renderTreeNode({ branch: childBranch, parentNodeId: nodeId }))}
+      </StyledTreeNode>
     )
   }
 
   return (
     <TreeView
       className={className}
-      defaultCollapseIcon={<ExpandMoreIcon />}
-      defaultExpandIcon={<ChevronRightIcon />}
+      defaultCollapseIcon={<ArrowDropDownIcon />}
+      defaultExpandIcon={<ArrowRightIcon />}
+      defaultEndIcon={<div style={{ width: 24 }} />}
       expanded={expanded}
       onNodeToggle={handleChange}>
-      {data.map(item => renderTreeItem(item))}
+      <StyledTreeNode
+        nodeId={'root'}
+        labelText={data.rootData.text}
+        labelInfo={data.rootData.info}
+        rootNode={true}
+        className={clsx({ 'tree-node--highlight': 'root' === highlightedNode }, 'root-node')}>
+        {data.branches.map(branch => renderTreeNode({ branch }))}
+      </StyledTreeNode>
     </TreeView>
   )
 }

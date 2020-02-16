@@ -5,13 +5,13 @@ import React from 'react'
 import ArrowRightIcon from '@material-ui/icons/ArrowRight'
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 
-type StyledTreeItemProps = TreeItemProps & {
+type StyledTreeNodeProps = TreeItemProps & {
   labelInfo?: number
   labelText: string
   rootNode?: boolean
 }
 
-const useTreeItemStyles = makeStyles((theme: Theme) =>
+const useTreeNodeStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       color: theme.palette.text.secondary,
@@ -68,8 +68,8 @@ const useTreeItemStyles = makeStyles((theme: Theme) =>
   })
 )
 
-export const StyledTreeItem = (props: StyledTreeItemProps) => {
-  const classes = useTreeItemStyles()
+export const StyledTreeNode = (props: StyledTreeNodeProps) => {
+  const classes = useTreeNodeStyles()
   const { labelText, labelInfo, rootNode, ...other } = props
 
   return (
@@ -81,9 +81,11 @@ export const StyledTreeItem = (props: StyledTreeItemProps) => {
           <Typography variant="body2" className={classes.labelText}>
             {labelText}
           </Typography>
-          <Typography variant="body2" color="inherit">
-            {labelInfo}
-          </Typography>
+          {labelInfo !== undefined ? (
+            <Typography variant="body2" color="inherit">
+              {labelInfo}
+            </Typography>
+          ) : null}
         </div>
       }
       classes={{
