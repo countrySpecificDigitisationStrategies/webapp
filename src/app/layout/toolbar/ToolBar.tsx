@@ -54,7 +54,7 @@ const ToolBar = (): JSX.Element => {
             })}>
             <MenuIcon />
           </IconButton>
-          <img src={disco} alt="digitization strategies for developing countries" height="40px" />
+          <img src={disco} alt="digitization strategies for developing countries" height="32px" />
         </div>
         <div className="toolbar-tools">
           {isLoggedIn ? (
