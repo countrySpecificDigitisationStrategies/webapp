@@ -4,6 +4,7 @@ import { TreeItem } from '@material-ui/lab'
 import React from 'react'
 import ArrowRightIcon from '@material-ui/icons/ArrowRight'
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
+import clsx from 'clsx'
 
 type StyledTreeNodeProps = TreeItemProps & {
   labelInfo?: number
@@ -55,6 +56,11 @@ const useTreeNodeStyles = makeStyles((theme: Theme) =>
         paddingRight: '5px',
       },
     },
+    rootNodeLabel: {
+      display: 'flex',
+      alignItems: 'center',
+      padding: theme.spacing(0.5, 0, 0.5, 1),
+    },
     labelRoot: {
       display: 'flex',
       alignItems: 'center',
@@ -77,7 +83,7 @@ export const StyledTreeNode = (props: StyledTreeNodeProps) => {
       expandIcon={rootNode ? <></> : <ArrowRightIcon />}
       collapseIcon={rootNode ? <></> : <ArrowDropDownIcon />}
       label={
-        <div className={classes.labelRoot}>
+        <div className={clsx({ [classes.labelRoot]: !rootNode }, { [classes.rootNodeLabel]: rootNode })}>
           <Typography variant="body2" className={classes.labelText}>
             {labelText}
           </Typography>
