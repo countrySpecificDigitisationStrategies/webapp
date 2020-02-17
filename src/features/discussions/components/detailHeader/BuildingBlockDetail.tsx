@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Endpoint, get } from '../../../../app/service'
+import { Endpoint, get } from 'app/service'
 import {
   BuildingBlockModel,
   BuildingBlockResponse,

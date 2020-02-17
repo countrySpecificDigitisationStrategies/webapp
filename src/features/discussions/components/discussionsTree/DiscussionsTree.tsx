@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
-import { TreeData } from '../../../../shared/components/tree/tree.model'
-import { Endpoint, get } from '../../../../app/service'
-import { Tree } from '../../../../shared/components'
+import { TreeData } from 'shared/components/tree/tree.model'
+import { Endpoint, get } from 'app/service'
+import { Tree } from 'shared/components'
 import { mapDiscussionTreeResponseToTreeData, TreeResponse } from './discussionsTree.model'
 
 export const DiscussionsTree = (): JSX.Element => {

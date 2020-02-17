@@ -1,5 +1,5 @@
-import { TreeBranch, TreeData, TreeRootData } from '../../../../shared/components/tree/tree.model'
-import { compareByNumerationInTitle } from '../../../../shared/components/tree/treeNodeSort.utils'
+import { TreeBranch, TreeData, TreeRootData } from 'shared/components/tree/tree.model'
+import { compareByNumerationInTitle } from 'shared/components/tree/tree.utils'
 
 export const mapDiscussionTreeResponseToTreeData = (response: TreeResponse): TreeData => {
   const rootData: TreeRootData = {

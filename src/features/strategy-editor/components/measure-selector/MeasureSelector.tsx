@@ -2,7 +2,7 @@ import React from 'react'
 import { EntityTree, RenderNodeContentFn } from 'features/strategies'
 import { Paper } from '@material-ui/core'
 import { MeasureForm } from '..'
-import { View } from '../../../discussions/components/discussionDetail'
+import { View } from 'shared/enums'
 
 export const MeasureSelector = () => {
   const renderMeasureEditView: RenderNodeContentFn = selectedView =>

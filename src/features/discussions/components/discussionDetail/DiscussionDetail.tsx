@@ -5,7 +5,7 @@ import { useLocation, useParams } from 'react-router'
 import { ThreadList } from 'features/discussions/components/threads'
 import { DetailHeader } from '../detailHeader/DetailHeader'
 import { setDiscussionDetailView } from '../../store/actions'
-import { View } from 'features/discussions/components/discussionDetail'
+import { View } from 'shared/enums'
 
 export const DiscussionDetail = () => {
   const location = useLocation()

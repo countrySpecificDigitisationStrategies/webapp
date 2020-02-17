@@ -1,9 +1,9 @@
 import { createRequest } from 'features/requests/store'
-import { View } from 'features/discussions/components/discussionDetail'
 import { post, Endpoint } from 'app/service/api'
 import { ThreadNewFormValues } from 'features/discussions/components/threads/ThreadNewForm'
 import { ThreadResponse } from '../models/thread.discussion.model'
 import { AnswerFormValues } from 'features/discussions/components/thread/AnswerForm'
+import { View } from 'shared/enums'
 
 export const DISCUSSION_DETAIL_VIEW_SET = 'discussion-detail-view/set'
 export const THREAD_NEW_REQUEST_ID = 'thread-new'

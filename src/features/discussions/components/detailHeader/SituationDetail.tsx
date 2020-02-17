@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Endpoint, get } from '../../../../app/service'
+import { Endpoint, get } from 'app/service'
 import { mapResponseToSituation, SituationModel, SituationResponse } from './models/situation.discussion.model'
 import { HeaderContent } from './HeaderContent.dumb'
 import { DetailProps } from './models/detailProps.model'

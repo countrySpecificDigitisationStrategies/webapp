@@ -7,10 +7,10 @@ import { Tree } from 'shared/components'
 import { useBlockData, useCategoryData, useMeasureData, useSituationData } from 'features/strategies/components/hooks'
 import { BlockSummary, CategorySummary, MeasureSummary, SituationSummary } from 'features/strategies/components'
 import { getBlocks, getCategories, getMeasures, getSituations } from 'features/strategies/store'
-import { View } from '../../../discussions/components/discussionDetail'
 import { useLocation } from 'react-router'
-import { TreeBranch, TreeData, TreeRootData } from '../../../../shared/components/tree/tree.model'
-import { compareByNumerationInTitle } from '../../../../shared/components/tree/treeNodeSort.utils'
+import { TreeBranch, TreeData, TreeRootData } from 'shared/components/tree/tree.model'
+import { View } from 'shared/enums'
+import { compareByNumerationInTitle } from 'shared/components/tree/tree.utils'
 
 export type RenderViewContentFn = (node: SelectedView | null) => JSX.Element | null
 

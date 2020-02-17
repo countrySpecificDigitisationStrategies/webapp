@@ -6,7 +6,7 @@ import { BuildingBlockDetail } from './BuildingBlockDetail'
 import { SituationCategoryDetail } from './SituationCategoryDetail'
 import { SituationDetail } from './SituationDetail'
 import { StrategyMeasureDetail } from './StrategyMeasureDetail'
-import { View } from 'features/discussions/components/discussionDetail'
+import { View } from 'shared/enums'
 
 const useStyles = makeStyles(
   createStyles({

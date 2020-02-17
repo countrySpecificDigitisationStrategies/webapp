@@ -2,7 +2,7 @@ import React from 'react'
 import { CommentModel } from '../../models/comment.discussion.model'
 import { Card, CardActions, CardContent, createStyles, Divider, makeStyles, Theme } from '@material-ui/core'
 import { ThreadActions } from './ThreadActions'
-import { Markdown } from '../../../../shared/components'
+import { Markdown } from 'shared/components'
 import { TopicAnswerMetadata } from './TopicAnswerMetadata'
 
 export interface Answer {
