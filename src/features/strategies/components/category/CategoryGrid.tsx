@@ -1,9 +1,10 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
+import { useHistory } from 'react-router'
+
+import { EntityGrid } from 'features/strategies/components/entity-grid/Grid'
 import { useCategoryData } from 'features/strategies/components/hooks'
 import { getCategories, Category } from 'features/strategies/store'
-import { OptionsGrid } from 'shared/components'
-import { CategoryCard } from './CategoryCard'
 
 export interface CategoryGridProps {
   ids: Category['id'][]
@@ -11,14 +12,20 @@ export interface CategoryGridProps {
 
 const CategoryGrid = ({ ids }: CategoryGridProps): JSX.Element => {
   useCategoryData()
-  const categories = useSelector(getCategories)
-  if (!categories) return <div>No Categories could be found.</div>
+  const categories = useSelector(getCategories) || {}
+  const history = useHistory()
   return (
-    <OptionsGrid<Category>
-      dataset={categories}
-      sortBy={'title'}
+    <EntityGrid
+      dataset={Object.values(categories)}
+      emptyMessage="No Categories could be found."
+      sortBy="title"
       filter={category => ids.includes(category.id)}
-      render={(_id, category) => <CategoryCard category={category} />}
+      card={({ title, description, id }) => ({
+        title,
+        description,
+        overline: 'Category',
+        link: `${history.location.pathname}/${id}`,
+      })}
     />
   )
 }

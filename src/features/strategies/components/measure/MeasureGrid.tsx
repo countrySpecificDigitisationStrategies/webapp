@@ -1,9 +1,10 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
+import { useHistory } from 'react-router'
+
+import { EntityGrid } from 'features/strategies/components/entity-grid/Grid'
 import { useMeasureData } from 'features/strategies/components/hooks'
-import { getMeasures, StrategiesState, Measure } from 'features/strategies/store'
-import { OptionsGrid } from 'shared/components'
-import { MeasureCard } from './MeasureCard'
+import { getMeasures, Measure } from 'features/strategies/store'
 
 export interface MeasureGridProps {
   ids: Measure['id'][]
@@ -11,14 +12,20 @@ export interface MeasureGridProps {
 
 const MeasureGrid = ({ ids }: MeasureGridProps): JSX.Element => {
   useMeasureData()
-  const measures: StrategiesState['measures'] = useSelector(getMeasures)
-  if (!measures) return <div>No Measures could be found.</div>
+  const measures = useSelector(getMeasures) || {}
+  const history = useHistory()
   return (
-    <OptionsGrid<Measure>
-      dataset={measures}
-      sortBy={'title'}
+    <EntityGrid
+      dataset={Object.values(measures)}
+      emptyMessage="No Measures could be found."
+      sortBy="title"
       filter={measure => ids.includes(measure.id)}
-      render={(_id, measure) => <MeasureCard measure={measure} />}
+      card={({ title, description, id }) => ({
+        title,
+        description,
+        overline: 'Measure',
+        link: `${history.location.pathname}/${id}`,
+      })}
     />
   )
 }
