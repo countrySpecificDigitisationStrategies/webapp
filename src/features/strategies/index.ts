@@ -17,7 +17,6 @@ export {
   SituationSummary,
   MeasureSummary,
   EntityTree,
-  NodeType,
   useMeasureData,
   useStrategyMeasureData,
 } from './components'

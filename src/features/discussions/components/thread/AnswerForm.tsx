@@ -6,7 +6,6 @@ import { Typography } from '@material-ui/core'
 import { Form, MarkdownEditor, Fields } from 'shared/components'
 import { submitNewComment } from 'features/discussions/store/actions'
 import { getActiveDiscussionView } from 'features/discussions/store/selectors'
-import { Endpoint } from 'app/service/api'
 import { getCommentEndpointForView } from 'features/discussions/components/discussionDetail'
 
 export interface AnswerFormValues extends Fields {

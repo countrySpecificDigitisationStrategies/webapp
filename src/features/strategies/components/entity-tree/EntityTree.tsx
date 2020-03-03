@@ -1,34 +1,33 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 
 import './entity-tree.styl'
 
-import { Tree, TreeItemProps } from 'shared/components'
+import { Tree } from 'shared/components'
 import { useBlockData, useCategoryData, useMeasureData, useSituationData } from 'features/strategies/components/hooks'
 import { BlockSummary, CategorySummary, MeasureSummary, SituationSummary } from 'features/strategies/components'
 import { getBlocks, getCategories, getMeasures, getSituations } from 'features/strategies/store'
+import { useLocation } from 'react-router'
+import { TreeBranch, TreeData, TreeRootData } from 'shared/components/tree/tree.model'
+import { View } from 'shared/enums'
+import { compareByNumerationInTitle } from 'shared/components/tree/tree.utils'
 
-export type RenderNodeContentFn = (node: SelectedNode | null) => JSX.Element | null
+export type RenderViewContentFn = (node: SelectedView | null) => JSX.Element | null
 
 interface EntityTreeProps {
-  render: RenderNodeContentFn
+  render: RenderViewContentFn
 }
 
-export enum NodeType {
-  Block = 'block',
-  Category = 'category',
-  Situation = 'situation',
-  Measure = 'measure',
-}
-
-export interface SelectedNode {
-  type?: NodeType
-  id: string | number
+interface SelectedView {
+  view: View
+  contentId?: number
 }
 
 const cssClass = 'entity-tree'
 
 export const EntityTree = ({ render }: EntityTreeProps) => {
+  const location = useLocation()
+
   useBlockData()
   useCategoryData()
   useSituationData()
@@ -39,60 +38,98 @@ export const EntityTree = ({ render }: EntityTreeProps) => {
   const situations = useSelector(getSituations) || {}
   const measures = useSelector(getMeasures) || {}
 
-  const [selectedNode, setSelectedNode] = useState<SelectedNode | null>(null)
+  const initialSelectedView: SelectedView = {
+    view: View.Strategy,
+  }
+  const [selectedView, setSelectedView] = useState<SelectedView>(initialSelectedView)
 
-  const data = Object.values(blocks).map(block => ({
-    type: NodeType.Block,
-    id: block.id,
-    title: block.title,
-    children: Object.values(categories)
-      .filter(category => category.block === block.id)
-      .map(category => ({
-        type: NodeType.Category,
-        id: category.id,
-        title: category.title,
-        children: Object.values(situations)
-          .filter(situation => situation.category === category.id)
-          .map(situation => ({
-            type: NodeType.Situation,
-            id: situation.id,
-            title: situation.title,
-            children: Object.values(measures)
-              .filter(measure => measure.situation === situation.id)
-              .map(measure => ({
-                type: NodeType.Measure,
-                id: measure.id,
-                title: measure.title,
-              })),
-          })),
-      })),
-  }))
+  const rootData: TreeRootData = {
+    text: 'Strategy',
+  }
 
-  const renderEmbeddedDetailView = (node: SelectedNode | null) => {
-    switch (node?.type) {
-      case NodeType.Block:
-        return <BlockSummary id={+node.id} />
-      case NodeType.Category:
-        return <CategorySummary id={+node.id} />
-      case NodeType.Situation:
-        return <SituationSummary id={+node.id} />
-      case NodeType.Measure:
-        return <MeasureSummary id={+node.id} />
+  const branches: TreeBranch[] = Object.values(blocks)
+    .map(block => ({
+      id: block.id,
+      text: block.title,
+      children: Object.values(categories)
+        .filter(category => category.block === block.id)
+        .map(category => ({
+          id: category.id,
+          text: category.title,
+          children: Object.values(situations)
+            .filter(situation => situation.category === category.id)
+            .map(situation => ({
+              id: situation.id,
+              text: situation.title,
+              children: Object.values(measures)
+                .filter(measure => measure.situation === situation.id)
+                .map(measure => ({
+                  id: measure.id,
+                  text: measure.title,
+                }))
+                .sort(compareByNumerationInTitle),
+            }))
+            .sort(compareByNumerationInTitle),
+        }))
+        .sort(compareByNumerationInTitle),
+    }))
+    .sort(compareByNumerationInTitle)
+
+  const treeData: TreeData = { rootData, branches }
+
+  const getViewToDisplay = (): View => {
+    if (location.hash.replace(/#|-*$/, '') === '') return View.Strategy
+    switch (location.hash.split('-').length) {
+      case 1:
+        return View.BuildingBlock
+      case 2:
+        return View.SituationCategory
+      case 3:
+        return View.Situation
+      default:
+        return View.StrategyMeasure
+    }
+  }
+
+  const getLastHashId = (): number | undefined => {
+    const hashIds = location.hash.replace(/#|-*$/, '').split('-')
+    if (hashIds[0] === '') return undefined
+    return +hashIds[hashIds.length - 1]
+  }
+
+  useEffect(() => {
+    const newView: SelectedView = {
+      view: getViewToDisplay(),
+      contentId: getLastHashId(),
+    }
+    setSelectedView(newView)
+  }, [location])
+
+  const renderEmbeddedDetailView = () => {
+    const contentId = selectedView.contentId
+    if (!contentId) {
+      return <></>
+    }
+    switch (selectedView.view) {
+      case View.BuildingBlock:
+        return <BlockSummary id={contentId} />
+      case View.SituationCategory:
+        return <CategorySummary id={contentId} />
+      case View.Situation:
+        return <SituationSummary id={contentId} />
+      case View.StrategyMeasure:
+        return <MeasureSummary id={contentId} />
       default:
         return <></>
     }
   }
 
-  const handleNodeClick = (id: TreeItemProps<NodeType>['id'], type: TreeItemProps<NodeType>['type']) => {
-    setSelectedNode({ type, id })
-  }
-
   return (
     <div className={cssClass}>
-      <Tree<NodeType> className={`${cssClass}__tree-panel`} data={data} onNodeClick={handleNodeClick} />
+      <Tree className={`${cssClass}__tree-panel`} data={treeData} />
       <div className={`${cssClass}__node-info`}>
-        <div className={`${cssClass}__detail-view`}>{renderEmbeddedDetailView(selectedNode)}</div>
-        <div className={`${cssClass}__additional-info`}>{render?.(selectedNode)}</div>
+        <div className={`${cssClass}__detail-view`}>{renderEmbeddedDetailView()}</div>
+        <div className={`${cssClass}__additional-info`}>{render?.(selectedView)}</div>
       </div>
     </div>
   )

@@ -12,8 +12,8 @@ import {
 } from '@material-ui/core'
 import { Link, useParams } from 'react-router-dom'
 import { PreviewThreadModel } from 'features/discussions/models/thread.discussion.model'
-import { Markdown } from '../../../../shared/components'
-import { View } from '../discussionDetail'
+import { Markdown } from 'shared/components'
+import { View } from 'shared/enums'
 
 interface ThreadPreviewProps {
   thread: PreviewThreadModel

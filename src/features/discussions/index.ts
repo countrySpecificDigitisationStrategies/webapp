@@ -1,1 +1,1 @@
-export { ThreadList, DiscussionDetailView } from './components'
+export { ThreadList } from './components'

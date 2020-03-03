@@ -11,7 +11,7 @@ import {
 } from '@material-ui/core'
 import { ExpandMore } from '@material-ui/icons'
 import clsx from 'clsx'
-import { Markdown } from '../../../../shared/components'
+import { Markdown } from 'shared/components'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

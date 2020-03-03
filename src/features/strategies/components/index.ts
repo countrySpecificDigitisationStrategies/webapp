@@ -24,10 +24,10 @@ export { MeasureBreadcrumb } from './measure/MeasureBreadcrumb'
 export { MeasureSummary } from './measure/MeasureSummary'
 
 export { EntityType } from './types'
-export { EntityTree, NodeType } from './entity-tree/EntityTree'
+export { EntityTree } from './entity-tree/EntityTree'
 export { EntityDetailView } from './entity-view/EntityDetailView'
 
-import { RenderNodeContentFn as _RenderNodeContentFn } from './entity-tree/EntityTree'
+import { RenderViewContentFn as _RenderNodeContentFn } from './entity-tree/EntityTree'
 export type RenderNodeContentFn = _RenderNodeContentFn
 
 export {
