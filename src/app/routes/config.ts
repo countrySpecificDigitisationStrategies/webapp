@@ -20,6 +20,9 @@ import {
   ThreadNew,
   AccountInfo,
   AccountEdit,
+  Impressum,
+  TheTeam,
+  TermsOfUse,
 } from 'pages'
 
 import {
@@ -162,5 +165,20 @@ export const routes: RouteConfig[] = [
     exact: true,
     component: withAuthGuard(ThreadNew),
     // breadcrumb: MeasureBreadcrumb, // TODO
+  },
+  {
+    path: APP_ROUTES.impressum,
+    exact: true,
+    component: Impressum,
+  },
+  {
+    path: APP_ROUTES.termsOfUse,
+    exact: true,
+    component: TermsOfUse,
+  },
+  {
+    path: APP_ROUTES.theTeam,
+    exact: true,
+    component: TheTeam,
   },
 ]

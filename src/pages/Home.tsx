@@ -1,13 +1,19 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Grid, Card, CardActionArea, CardContent, Typography } from '@material-ui/core'
+import { Grid, Card, CardActionArea, CardContent, Typography, List, ListItem, ListItemText } from '@material-ui/core'
 import { Assessment, Timeline, Message } from '@material-ui/icons'
 import { APP_ROUTES } from 'app/routes'
 
 export default function Home(): JSX.Element {
   return (
     <>
-      <h1>Digitization strategies for developing countries</h1>
+      <Typography
+        variant="inherit"
+        color="textPrimary"
+        component="h1"
+        style={{ textAlign: 'center', marginBottom: '5px' }}>
+        Digital Strategies Companion
+      </Typography>
 
       <div style={{ position: 'relative', color: 'white', height: '400px' }}>
         <img
@@ -17,16 +23,15 @@ export default function Home(): JSX.Element {
         />
       </div>
 
-      <div style={{ margin: '0 3rem' }}>
-        <p>
+      <div style={{ margin: '20px auto', maxWidth: '80%' }}>
+        <Typography variant="inherit" color="textPrimary" component="p">
           Many developing countries struggle with set ting the correct priorities when it comes to developing strategies
           for the deployment of IT. However, as digital systems now permeate all walks of life, expanding and improving
           them are crucial for catching up to developed nations.
-        </p>
-        <p>
+          <br />
           This platform is aimed at officials and citizens of developing countries that wish to help create a concrete
           strategy plan to improve the situation of their digital infrastructure. It has 3 major sections:
-        </p>
+        </Typography>
       </div>
 
       <div style={{ marginBottom: '4rem' }}>
@@ -113,10 +118,23 @@ export default function Home(): JSX.Element {
 
       <footer>
         <hr />
-        <h5 style={{ textAlign: 'center' }}>
+        <div className="footer-wrapper">
+          Welcome to Digital Strategies Companion <strong>DiSCo</strong>.
+          <br />
           The whole process of the platform is governed by the IT-Boards of the individual countries. The IT-Boards
           consist of several members appointed by law.
-        </h5>
+          <List className="list-horizontal-display">
+            <ListItem component={Link} to={APP_ROUTES.impressum}>
+              <ListItemText primary="Impressum" />
+            </ListItem>
+            <ListItem component={Link} to={APP_ROUTES.termsOfUse}>
+              <ListItemText primary="Terms of use" />
+            </ListItem>
+            <ListItem component={Link} to={APP_ROUTES.theTeam}>
+              <ListItemText primary="The Team" />
+            </ListItem>
+          </List>
+        </div>
       </footer>
     </>
   )

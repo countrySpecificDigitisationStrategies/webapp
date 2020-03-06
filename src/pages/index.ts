@@ -16,6 +16,9 @@ import Thread from './Thread'
 import ThreadNew from './ThreadNew'
 import AccountInfo from './AccountInfo'
 import AccountEdit from './AccountEdit'
+import Impressum from './Impessum'
+import TermsOfUse from './TermsOfUse'
+import TheTeam from './TheTeam'
 
 export {
   Home,
@@ -36,4 +39,7 @@ export {
   ThreadNew,
   AccountInfo,
   AccountEdit,
+  Impressum,
+  TermsOfUse,
+  TheTeam,
 }
