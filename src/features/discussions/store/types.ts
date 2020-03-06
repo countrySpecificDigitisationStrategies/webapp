@@ -1,7 +1,7 @@
-import { DiscussionDetailView } from 'features/discussions/components/discussionDetail'
+import { View } from 'shared/enums'
 
 export interface DiscussionsState {
-  activeDiscussionView: DiscussionDetailView | null
+  activeDiscussionView: View | null
   activeDiscussionViewId: number | null
 }
 

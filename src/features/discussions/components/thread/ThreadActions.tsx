@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useLoginStatus } from '../../../../shared/hooks'
+import { useLoginStatus } from 'shared/hooks'
 import { Button, createStyles, makeStyles, Theme, Typography } from '@material-ui/core'
 import { Comment } from '@material-ui/icons'
 import { Link } from 'react-router-dom'

@@ -1,3 +1,4 @@
-export { DiscussionDetail, View } from './discussionDetail'
+export { DiscussionDetail } from './discussionDetail'
 export { DiscussionForumsGrid } from './DiscussionForumsGrid'
-export { Tree } from './tree/Tree'
+export { DiscussionsTree } from './discussionsTree'
+export { ThreadList } from './threads'

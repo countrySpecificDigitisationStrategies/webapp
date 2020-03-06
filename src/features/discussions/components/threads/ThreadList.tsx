@@ -12,7 +12,7 @@ import {
   PreviewThreadResponse,
 } from 'features/discussions/models/thread.discussion.model'
 import { useLoginStatus } from 'shared/hooks'
-import { View } from '../discussionDetail'
+import { View } from 'shared/enums'
 
 interface ThreadListProps {
   displayedView: View

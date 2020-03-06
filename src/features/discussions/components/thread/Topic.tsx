@@ -1,6 +1,6 @@
 import React from 'react'
 import { Card, CardActions, CardContent, CardHeader, createStyles, Divider, makeStyles, Theme } from '@material-ui/core'
-import { Markdown } from '../../../../shared/components'
+import { Markdown } from 'shared/components'
 import { ThreadModel } from '../../models/thread.discussion.model'
 import { TopicAnswerMetadata } from './TopicAnswerMetadata'
 import { ThreadActions } from './ThreadActions'

@@ -1,11 +1,14 @@
 import React from 'react'
-import { EntityTree, NodeType, RenderNodeContentFn } from 'features/strategies'
+import { EntityTree, RenderNodeContentFn } from 'features/strategies'
 import { Paper } from '@material-ui/core'
 import { MeasureForm } from '..'
+import { View } from 'shared/enums'
 
 export const MeasureSelector = () => {
-  const renderMeasureEditView: RenderNodeContentFn = node =>
-    node && node.type === NodeType.Measure ? <MeasureForm id={+node.id} /> : null
+  const renderMeasureEditView: RenderNodeContentFn = selectedView =>
+    selectedView && selectedView.contentId && selectedView.view === View.StrategyMeasure ? (
+      <MeasureForm id={+selectedView?.contentId} />
+    ) : null
 
   return (
     <Paper elevation={0}>

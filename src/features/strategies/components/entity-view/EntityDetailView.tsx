@@ -3,8 +3,8 @@ import { StandardView, StandardViewProps } from 'shared/components'
 import { createStyles, makeStyles, Theme, Typography } from '@material-ui/core'
 import { EntityType } from 'features/strategies/components/types'
 import { ThreadList } from 'features/discussions/components/threads'
-import { View } from 'features/discussions/components/discussionDetail'
 import { Strategy, StrategyEntity } from 'features/strategies/store'
+import { View } from 'shared/enums'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

@@ -1,6 +1,5 @@
 import { Endpoint } from 'app/service'
-
-import { View } from '.'
+import { View } from 'shared/enums'
 
 export const getThreadEndpointForView = (view: View | null) => {
   switch (view) {
