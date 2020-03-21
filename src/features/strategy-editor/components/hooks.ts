@@ -35,5 +35,5 @@ export const useSetInitialStrategyEditorValues = (strategyId: StrategyDraft['id'
       dispatch(setFields({ title: '', description: '', isPublished: false }))
       dispatch(setMeasures([]))
     }
-  }, [strategy])
+  }, [strategy, allStrategyMeasures])
 }
