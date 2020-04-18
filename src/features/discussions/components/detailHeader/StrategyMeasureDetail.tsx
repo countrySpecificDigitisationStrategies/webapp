@@ -1,25 +1,14 @@
-import React, { useEffect, useState } from 'react'
-import { Endpoint, get } from 'app/service'
-import {
-  mapResponseToStrategyMeasure,
-  StrategyMeasureModel,
-  StrategyMeasureResponse,
-} from './models/strategyMeasure.discussion.model'
+import React from 'react'
 import { HeaderContent } from './HeaderContent.dumb'
 import { DetailProps } from './models/detailProps.model'
+import { useDiscussionDetailData } from '../../store/hooks'
+import { View } from '../../../../shared/enums'
+import { useSelector } from 'react-redux'
+import { getDiscussionStrategyMeasureData } from '../../store/selectors'
 
 export const StrategyMeasureDetail = ({ id }: DetailProps): JSX.Element => {
-  const [strategyMeasure, setStrategyMeasure] = useState<StrategyMeasureModel>()
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = (await get(Endpoint.strategyMeasures, {
-        post: `${id}?type=discussion`,
-      })) as StrategyMeasureResponse
-      setStrategyMeasure(mapResponseToStrategyMeasure(response))
-    }
-    fetchData()
-  }, [id])
+  useDiscussionDetailData(View.StrategyMeasure, id)
+  const strategyMeasure = useSelector(getDiscussionStrategyMeasureData(id))
 
   return (
     <HeaderContent

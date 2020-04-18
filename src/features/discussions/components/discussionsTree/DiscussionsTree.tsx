@@ -1,27 +1,49 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useParams } from 'react-router'
-import { TreeData } from 'shared/components/tree/tree.model'
-import { Endpoint, get } from 'app/service'
 import { Tree } from 'shared/components'
-import { mapDiscussionTreeResponseToTreeData, TreeResponse } from './discussionsTree.model'
+import { useDiscussionTreeData } from '../../store/hooks'
+import { useDispatch, useSelector } from 'react-redux'
+import { getDiscussionTreeData } from '../../store/selectors'
+import { Subject } from 'rxjs'
+import { loadDiscussionTreeData } from '../../store/actions'
+
+const _reloadDiscussionTreeData = new Subject<void>()
+export const reloadDiscussionTreeData$ = _reloadDiscussionTreeData.asObservable()
+export const discussionTreeService = {
+  reload: () => {
+    _reloadDiscussionTreeData.next()
+  },
+}
 
 export const DiscussionsTree = (): JSX.Element => {
   const { strategyId } = useParams()
 
-  const initialTree: TreeData = {
-    rootData: { text: 'Strategy' },
-    branches: [],
+  if (!strategyId) return <div>Something went wrong!</div>
+
+  useDiscussionTreeData(strategyId)
+
+  const dispatch = useDispatch()
+  useEffect(() => {
+    const subscription = reloadDiscussionTreeData$.subscribe(_ => {
+      dispatch(loadDiscussionTreeData(strategyId))
+    })
+    return () => {
+      subscription.unsubscribe()
+    }
+  }, [reloadDiscussionTreeData$])
+
+  let treeData = useSelector(getDiscussionTreeData(strategyId))
+
+  if (!treeData) {
+    treeData = {
+      rootData: { text: 'Strategy' },
+      branches: [],
+    }
   }
 
-  const [treeData, setTreeData] = useState<TreeData>(initialTree)
+  const handleNodeClick = () => {
+    discussionTreeService.reload()
+  }
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = (await get(Endpoint.strategies, { post: `${strategyId}/discussion_tree` })) as TreeResponse
-      setTreeData(mapDiscussionTreeResponseToTreeData(response))
-    }
-    fetchData()
-  }, [])
-
-  return <Tree data={treeData} className="DiscussionTree" />
+  return <Tree data={treeData} className="DiscussionTree" onNodeClick={handleNodeClick} />
 }

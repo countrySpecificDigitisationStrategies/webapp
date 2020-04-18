@@ -52,12 +52,17 @@ export const DiscussionDetail = () => {
       {contentId ? (
         <>
           <DetailHeader displayedView={displayedView} contentId={contentId} />
-          <ThreadList displayedView={displayedView} strategyId={+strategyId} contentId={contentId} />
+          <ThreadList
+            displayedView={displayedView}
+            strategyId={+strategyId}
+            contentId={contentId}
+            reloadDiscussionTreeData={true}
+          />
         </>
       ) : (
         <>
           <DetailHeader displayedView={displayedView} />
-          <ThreadList displayedView={displayedView} strategyId={+strategyId} />
+          <ThreadList displayedView={displayedView} strategyId={+strategyId} reloadDiscussionTreeData={true} />
         </>
       )}
     </div>

@@ -5,11 +5,12 @@ const initialState: RequestState = {}
 
 export const requests = (state: RequestState = initialState, action: RequestAction): RequestState => {
   const requestType = getRequestType(action.type)
+  const currentRequestState = state[action.id]
   switch (requestType) {
     case REQUEST_START:
       return {
         ...state,
-        [action.id]: loadingState.pending,
+        [action.id]: currentRequestState ? currentRequestState : loadingState.pending,
       }
     case REQUEST_SUCCESS:
       return {

@@ -10,6 +10,7 @@ import { TreeBranch, TreeData } from './tree.model'
 interface TreeProps {
   data: TreeData
   className?: HTMLAttributes<HTMLDivElement>['className']
+  onNodeClick?: () => void
 }
 
 interface TreeNodeProps {
@@ -17,7 +18,7 @@ interface TreeNodeProps {
   parentNodeId?: string
 }
 
-export const Tree = ({ data, className }: TreeProps) => {
+export const Tree = ({ data, className, onNodeClick }: TreeProps) => {
   const history = useHistory()
   const location = useLocation()
 
@@ -56,6 +57,7 @@ export const Tree = ({ data, className }: TreeProps) => {
   }, [location])
 
   const handleChange = (_event: ChangeEvent<{}>, nodes: string[]) => {
+    if (onNodeClick) onNodeClick()
     if (nodes.length === expanded.length) return
     let hash: string
     if (nodes.length > expanded.length) {

@@ -1,19 +1,14 @@
-import React, { useEffect, useState } from 'react'
-import { Endpoint, get } from 'app/service'
-import { mapResponseToSituation, SituationModel, SituationResponse } from './models/situation.discussion.model'
+import React from 'react'
 import { HeaderContent } from './HeaderContent.dumb'
 import { DetailProps } from './models/detailProps.model'
+import { useDiscussionDetailData } from '../../store/hooks'
+import { View } from '../../../../shared/enums'
+import { getDiscussionSituationData } from '../../store/selectors'
+import { useSelector } from 'react-redux'
 
 export const SituationDetail = ({ id }: DetailProps): JSX.Element => {
-  const [situation, setSituation] = useState<SituationModel>()
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = (await get(Endpoint.situations, { post: `${id}` })) as SituationResponse
-      setSituation(mapResponseToSituation(response))
-    }
-    fetchData()
-  }, [id])
+  useDiscussionDetailData(View.Situation, id)
+  const situation = useSelector(getDiscussionSituationData(id))
 
   return <HeaderContent title={situation?.title} description={situation?.description} />
 }

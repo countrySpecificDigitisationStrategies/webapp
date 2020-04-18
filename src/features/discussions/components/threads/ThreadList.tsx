@@ -1,23 +1,22 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Button, ButtonGroup, Typography } from '@material-ui/core'
 import { Comment } from '@material-ui/icons'
 
 import { ThreadPreview } from 'features/discussions/components/threads'
-import { get } from 'app/service'
-import { getThreadEndpointForView } from 'features/discussions/components/discussionDetail'
-import {
-  mapResponseToPreviewThreads,
-  PreviewThreadModel,
-  PreviewThreadResponse,
-} from 'features/discussions/models/thread.discussion.model'
+import { PreviewThreadModel } from 'features/discussions/models/thread.discussion.model'
 import { useLoginStatus } from 'shared/hooks'
 import { View } from 'shared/enums'
+import { discussionTreeService } from '../discussionsTree/DiscussionsTree'
+import { useDiscussionPreviewThreads } from '../../store/hooks'
+import { useSelector } from 'react-redux'
+import { getDiscussionPreviewThreadsData } from '../../store/selectors'
 
 interface ThreadListProps {
   displayedView: View
   strategyId: number
   contentId?: number
+  reloadDiscussionTreeData?: boolean
 }
 
 const filters = [
@@ -35,40 +34,14 @@ const filters = [
   },
 ]
 
-export const ThreadList = ({ displayedView, strategyId, contentId }: ThreadListProps) => {
+export const ThreadList = ({ displayedView, strategyId, contentId, reloadDiscussionTreeData }: ThreadListProps) => {
   const className = 'ThreadList'
   const [activeFilter, setActiveFilter] = useState(0)
-  const [previewThreads, setPreviewThreads] = useState()
   const isLoggedIn = useLoginStatus()
 
-  const getQueryParams = (): string => {
-    switch (displayedView) {
-      case View.Strategy:
-        return `?strategy=${strategyId}`
-      case View.BuildingBlock:
-        return `?strategy=${strategyId}&buiding_block=${contentId}`
-      case View.SituationCategory:
-        return `?strategy=${strategyId}&situation_category=${contentId}`
-      case View.Situation:
-        return `?strategy=${strategyId}&situation=${contentId}`
-      case View.StrategyMeasure:
-        return `?strategy_measure=${contentId}`
-      default:
-        return ''
-    }
-  }
+  useDiscussionPreviewThreads(displayedView, strategyId, contentId)
 
-  useEffect(() => {
-    const endpoint = getThreadEndpointForView(displayedView)
-    const options = {
-      queryParams: getQueryParams(),
-    }
-    const fetchData = async () => {
-      const response = (await get(endpoint, options)) as PreviewThreadResponse[]
-      setPreviewThreads(mapResponseToPreviewThreads(response))
-    }
-    fetchData()
-  }, [strategyId, contentId])
+  const previewThreads = useSelector(getDiscussionPreviewThreadsData(displayedView, strategyId, contentId))
 
   if (!previewThreads) return <div>No threads found</div>
 
@@ -87,7 +60,15 @@ export const ThreadList = ({ displayedView, strategyId, contentId }: ThreadListP
               const variant = activeFilter === index ? 'contained' : 'outlined'
 
               return (
-                <Button key={index} variant={variant} onClick={() => setActiveFilter(index)}>
+                <Button
+                  key={index}
+                  variant={variant}
+                  onClick={() => {
+                    setActiveFilter(index)
+                    if (reloadDiscussionTreeData) {
+                      discussionTreeService.reload()
+                    }
+                  }}>
                   {filter.title}
                 </Button>
               )
