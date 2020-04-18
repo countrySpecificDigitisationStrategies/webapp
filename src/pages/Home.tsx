@@ -30,7 +30,7 @@ export default function Home(): JSX.Element {
           them are crucial for catching up to developed nations.
           <br />
           This platform is aimed at officials and citizens of developing countries that wish to help create a concrete
-          strategy plan to improve the situation of their digital infrastructure. It has 3 major sections:
+          strategy plan to improve the situation of their IT-infrastructure. It has 3 major sections:
         </Typography>
       </div>
 
