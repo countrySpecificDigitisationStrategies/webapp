@@ -166,3 +166,6 @@ shared # everything shared across the app, not specific to one feature or the se
   hooks # provides hooks, that can be used by shared- or feature-components
     index.ts # currently only includes one useLoginStatus()-Hook (--> might be better suited in feature directory?)
 ```
+### Markdown Editor
+The markdown editor was build with draftjs. [Draftjs](https://draftjs.org/)
+A good example implementation can be found here. [Draftjs-example](https://codepen.io/Kiwka/pen/YNYvyG)

@@ -1,9 +1,28 @@
-import React, { useState } from 'react'
-import { convertFromRaw, convertToRaw, Editor, EditorState, RichUtils } from 'draft-js'
+import React, { useEffect, useRef, useState } from 'react'
+import {
+  convertFromRaw,
+  convertToRaw,
+  Editor,
+  EditorState,
+  RichUtils,
+  ContentState,
+  ContentBlock,
+  CompositeDecorator,
+} from 'draft-js'
 import { draftToMarkdown, markdownToDraft } from 'markdown-draft-js'
-import { IconButton } from '@material-ui/core'
+import { Button, IconButton, Input } from '@material-ui/core'
 import 'draft-js/dist/Draft.css'
-import { FormatBold, FormatItalic, FormatQuote, FormatListNumbered, FormatListBulleted } from '@material-ui/icons'
+import {
+  FormatBold,
+  FormatItalic,
+  FormatQuote,
+  FormatListNumbered,
+  FormatListBulleted,
+  Link as LinkIcon,
+  LinkOff,
+} from '@material-ui/icons'
+
+import { Link } from 'shared/components/MarkdownEditor/components'
 
 interface MarkdownEditorProps {
   name: string
@@ -18,7 +37,23 @@ export const MarkdownEditor = ({ onChange = defaultOnChange, defaultValue = '' }
   const rawData = markdownToDraft(markdownString)
   const contentState = convertFromRaw(rawData)
 
-  const [editorState, setEditorState] = useState(EditorState.createWithContent(contentState))
+  const findLinkEntities = (contentBlock: ContentBlock, callback: any, contentState: ContentState) => {
+    contentBlock.findEntityRanges((character: any) => {
+      const entityKey = character.getEntity()
+      return entityKey !== null && contentState.getEntity(entityKey).getType() === 'LINK'
+    }, callback)
+  }
+  const decorator = new CompositeDecorator([
+    {
+      strategy: findLinkEntities,
+      component: Link,
+    },
+  ])
+
+  const [editorState, setEditorState] = useState(EditorState.createWithContent(contentState, decorator))
+  const [showURLInput, setShowURLInput] = useState(false)
+  const [urlValue, setUrlValue] = useState('')
+  const urlRef = useRef<HTMLInputElement>(null)
 
   const handleKeyCommand = (command: string, editorState: EditorState) => {
     const newState = RichUtils.handleKeyCommand(editorState, command)
@@ -36,6 +71,60 @@ export const MarkdownEditor = ({ onChange = defaultOnChange, defaultValue = '' }
     onChange(null, draftToMarkdown(rawObject))
   }
 
+  // Custom Entities
+  useEffect(() => {
+    if (urlRef && urlRef.current) urlRef.current.focus()
+  }, [showURLInput, urlValue])
+
+  const promptForLink = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault()
+    const selection = editorState.getSelection()
+    if (!selection.isCollapsed()) {
+      const contentState = editorState.getCurrentContent()
+      const startKey = editorState.getSelection().getStartKey()
+      const startOffset = editorState.getSelection().getStartOffset()
+      const blockWithLinkAtBeginning = contentState.getBlockForKey(startKey)
+      const linkKey = blockWithLinkAtBeginning.getEntityAt(startOffset)
+
+      let url = ''
+      if (linkKey) {
+        const linkInstance = contentState.getEntity(linkKey)
+        url = linkInstance.getData().url
+      }
+
+      setShowURLInput(true)
+      setUrlValue(url)
+    }
+  }
+  const onURLChange = (e: React.ChangeEvent<HTMLInputElement>) => setUrlValue(e.target.value)
+
+  const confirmLink = (e: React.MouseEvent<HTMLButtonElement, MouseEvent> | React.KeyboardEvent<HTMLInputElement>) => {
+    e.preventDefault()
+    const contentState = editorState.getCurrentContent()
+    const contentStateWithEntity = contentState.createEntity('LINK', 'MUTABLE', { url: urlValue })
+    const entityKey = contentStateWithEntity.getLastCreatedEntityKey()
+    const newEditorState = EditorState.set(editorState, { currentContent: contentStateWithEntity })
+    const newEditorStateWithLink = RichUtils.toggleLink(newEditorState, newEditorState.getSelection(), entityKey)
+
+    setEditorState(newEditorStateWithLink)
+    setShowURLInput(false)
+    setUrlValue('')
+  }
+  const onLinkInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.which === 13) {
+      confirmLink(e)
+    }
+  }
+  const removeLink = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault()
+    const selection = editorState.getSelection()
+    if (!selection.isCollapsed()) {
+      setEditorState(RichUtils.toggleLink(editorState, selection, null))
+    }
+    setShowURLInput(false)
+  }
+
+  // Block Styles
   const getBlockStyle = (block: any): string => {
     // TODO fix draft block type
     switch (block.getType()) {
@@ -94,6 +183,7 @@ export const MarkdownEditor = ({ onChange = defaultOnChange, defaultValue = '' }
     )
   }
 
+  // Inline Styles
   const INLINE_STYLES = [
     { label: 'Bold', style: 'BOLD', iconComponent: <FormatBold /> },
     { label: 'Italic', style: 'ITALIC', iconComponent: <FormatItalic /> },
@@ -137,7 +227,28 @@ export const MarkdownEditor = ({ onChange = defaultOnChange, defaultValue = '' }
       <div className="MarkdownEditor-controls">
         <InlineStyleControls onToggle={toggleInlineStyle} />
         <BlockStyleControls onToggle={toggleBlockStyle} />
+        <IconButton color="default" onMouseDown={promptForLink}>
+          <LinkIcon />
+        </IconButton>
+        <IconButton color="default" onMouseDown={removeLink}>
+          <LinkOff />
+        </IconButton>
       </div>
+
+      {showURLInput && (
+        <div className="MarkdownEditor-linkInput">
+          <Input
+            placeholder="URL"
+            onChange={onURLChange}
+            ref={urlRef}
+            value={urlValue}
+            onKeyDown={onLinkInputKeyDown}
+          />
+          <Button color="primary" onMouseDown={confirmLink}>
+            Confirm Link
+          </Button>
+        </div>
+      )}
 
       <Editor
         blockStyleFn={getBlockStyle}
