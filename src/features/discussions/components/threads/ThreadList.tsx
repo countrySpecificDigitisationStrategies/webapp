@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Button, ButtonGroup, Typography } from '@material-ui/core'
 import { Comment } from '@material-ui/icons'
@@ -9,8 +9,18 @@ import { useLoginStatus } from 'shared/hooks'
 import { View } from 'shared/enums'
 import { discussionTreeService } from '../discussionsTree/DiscussionsTree'
 import { useDiscussionPreviewThreads } from '../../store/hooks'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { getDiscussionPreviewThreadsData } from '../../store/selectors'
+import { Subject } from 'rxjs'
+import { loadDiscussionPreviewThreadsData } from '../../store/actions'
+
+const _reloadDiscussionPreviewThreadsData = new Subject<void>()
+export const reloadDiscussionPreviewThreadsData$ = _reloadDiscussionPreviewThreadsData.asObservable()
+export const discussionPreviewThreadsService = {
+  reload: () => {
+    _reloadDiscussionPreviewThreadsData.next()
+  },
+}
 
 interface ThreadListProps {
   displayedView: View
@@ -43,6 +53,16 @@ export const ThreadList = ({ displayedView, strategyId, contentId, reloadDiscuss
 
   const previewThreads = useSelector(getDiscussionPreviewThreadsData(displayedView, strategyId, contentId))
 
+  const dispatch = useDispatch()
+  useEffect(() => {
+    const subscription = reloadDiscussionPreviewThreadsData$.subscribe(_ => {
+      dispatch(loadDiscussionPreviewThreadsData(displayedView, strategyId, contentId))
+    })
+    return () => {
+      subscription.unsubscribe()
+    }
+  }, [reloadDiscussionPreviewThreadsData$])
+
   if (!previewThreads) return <div>No threads found</div>
 
   let sortedThreads = previewThreads
@@ -65,6 +85,8 @@ export const ThreadList = ({ displayedView, strategyId, contentId, reloadDiscuss
                   variant={variant}
                   onClick={() => {
                     setActiveFilter(index)
+                    console.log('click')
+                    discussionPreviewThreadsService.reload()
                     if (reloadDiscussionTreeData) {
                       discussionTreeService.reload()
                     }
